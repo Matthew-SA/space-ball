@@ -6,8 +6,8 @@ class Game {
     constructor() {
         this.balls = [];
         this.ships = [];
-
-        this.addBalls();
+        // this.addShip()
+        // this.addBalls();
     }
 
     add(object) {
@@ -21,8 +21,8 @@ class Game {
     }
 
     addBalls() {
-        for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
-            this.add(new Asteroid({ game: this }));
+        for (let i = 0; i < Game.NUM_BALLS; i++) {
+            this.add(new Ball({ game: this }));
         }
     }
 
@@ -38,7 +38,7 @@ class Game {
     }
 
     allObjects() {
-        return [].concat(this.ships, this.asteroids, this.bullets);
+        return [].concat(this.ships, this.balls);
     }
 
     checkCollisions() {
@@ -85,10 +85,8 @@ class Game {
     }
 
     remove(object) {
-        if (object instanceof Bullet) {
-            this.bullets.splice(this.bullets.indexOf(object), 1);
-        } else if (object instanceof Asteroid) {
-            this.asteroids.splice(this.asteroids.indexOf(object), 1);
+        if (object instanceof Ball) {
+            this.balls.splice(this.balls.indexOf(object), 1);
         } else if (object instanceof Ship) {
             this.ships.splice(this.ships.indexOf(object), 1);
         } else {
@@ -112,6 +110,6 @@ Game.BG_COLOR = "#000000";
 Game.DIM_X = 1000;
 Game.DIM_Y = 600;
 Game.FPS = 32;
-Game.NUM_ASTEROIDS = 10;
+Game.NUM_BALLS = 10;
 
 module.exports = Game;

@@ -1,3 +1,5 @@
+import key from "keymaster";
+
 class GameView {
     constructor(game, ctx) {
         this.ctx = ctx;
@@ -40,4 +42,4 @@ GameView.MOVES = {
     d: [1, 0],
 };
 
-module.exports = GameView;
+export default GameView;

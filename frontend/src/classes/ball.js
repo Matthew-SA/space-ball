@@ -12,9 +12,9 @@ class Ball extends MovingObject {
     constructor(options = {}) {
         options.color = DEFAULTS.COLOR;
         options.pos = options.pos || options.game.randomPosition();
-        this.radius = DEFAULTS.RADIUS;
         options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
         super(options);
+        this.radius = DEFAULTS.RADIUS;
     }
 
     collideWith(otherObject) {

@@ -13,13 +13,13 @@ class MovingObject {
         // default do nothing
     }
 
-    draw(ctx) {
-        ctx.fillStyle = this.color;
+    // draw(ctx) {
+    //     ctx.fillStyle = this.color;
 
-        ctx.beginPath();
-        ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
-        ctx.fill();
-    }
+    //     ctx.beginPath();
+    //     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
+    //     ctx.fill();
+    // }
 
     isCollidedWith(otherObject) {
         const centerDist = Util.dist(this.pos, otherObject.pos);
@@ -51,5 +51,7 @@ class MovingObject {
         this.game.remove(this);
     }
 }
+
+const NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 
 module.exports = MovingObject;

@@ -7,8 +7,7 @@ import configureStore from "./store/store";
 import jwt_decode from "jwt-decode";
 import { setAuthToken } from "./util/session_api_util";
 import { logout } from "./actions/session_actions";
-const Game = require("./classes/game");
-const GameView = require("./classes/game_view");
+
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -38,13 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // Render our root component and pass in the store as a prop
   const root = document.getElementById("root");
-  const canvasEl = document.getElementsByTagName("canvas")[0];
-  canvasEl.width = Game.DIM_X;
-  canvasEl.height = Game.DIM_Y;
-
-  const ctx = canvasEl.getContext("2d");
-  const game = new Game();
-  new GameView(game, ctx).start();
 
   ReactDOM.render(<Root store={store} />, root);
   window.axios = axios;
