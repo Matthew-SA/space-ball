@@ -31,6 +31,7 @@ class MovingObject {
         // if the computer is busy the time delta will be larger
         // in this case the MovingObject should move farther in this frame
         // velocity of object is how far it should move in 1/60th of a second
+        // debugger
         const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
             offsetX = this.vel[0] * velocityScale,
             offsetY = this.vel[1] * velocityScale;
