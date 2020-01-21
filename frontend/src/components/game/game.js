@@ -6,7 +6,9 @@ class Game extends React.Component {
     return (
       <div className="game">
         <NavBarContainer />
-        <div>GAME HERE</div>
+        <div>
+          <canvas></canvas>
+        </div>
       </div>
     );
   }
