@@ -12,7 +12,7 @@ class Ball extends MovingObject {
     constructor(options = {}) {
         options.color = DEFAULTS.COLOR;
         options.pos = options.pos || options.game.randomPosition();
-        options.radius = DEFAULTS.RADIUS;
+        this.radius = DEFAULTS.RADIUS;
         options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
         super(options);
     }
@@ -27,6 +27,14 @@ class Ball extends MovingObject {
         }
 
         return false;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+
+        ctx.beginPath();
+        ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
+        ctx.fill();
     }
 }
 
