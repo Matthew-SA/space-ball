@@ -17,6 +17,7 @@ class GameComponent extends React.Component {
   render() {
     return (
       <div className="game">
+        
         <NavBarContainer />
         <div>
           <canvas></canvas>

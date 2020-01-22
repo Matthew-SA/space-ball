@@ -28,8 +28,8 @@ class Game {
 
     addShip() {
         const ship = new Ship({
-            pos: this.randomPosition(),
-            game: this
+          pos: [Game.DIM_X/2, Game.DIM_Y/2],
+          game: this
         });
 
         this.add(ship);

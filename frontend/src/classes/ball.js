@@ -33,7 +33,7 @@ class Ball extends MovingObject {
         options.pos = options.pos || options.game.randomPosition();
         options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
         super(options);
-        this.radius = DEFAULTS.RADIUS;
+        this.radius = options.radius || DEFAULTS.RADIUS;
     }
 
     collideWith(otherObject) {

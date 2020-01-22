@@ -21,11 +21,16 @@ class Ship extends MovingObject {
         super(options);
         this.direction = 0;
         this.MAX_VELOCITY = 5;
+        this.radius = 20;
     }
 
     power(impulse) {
-        this.vel[0] += impulse[0];
-        this.vel[1] += impulse[1];
+        let xVel = impulse * Math.cos(this.direction) + this.vel[0]
+        let yVel = impulse * Math.sin(this.direction) + this.vel[0]
+        this.vel = [
+            xVel > this.MAX_VELOCITY ? this.MAX_VELOCITY : xVel,
+            yVel > this.MAX_VELOCITY ? this.MAX_VELOCITY : yVel
+        ];
     }
 
     turn(angle) {
@@ -38,16 +43,35 @@ class Ship extends MovingObject {
     }
 
     draw(ctx) {
-        let x = this.pos[0] + 50;
-        let y = this.pos[1] + 50;
+        let img1 = new Image();
+        img1.src = "https://i.imgur.com/gYhN1B5.png";
+        let pattern = ctx.createPattern(img1, "no-repeat");
+
+
+        ctx.fillStyle = this.color;
 
         ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + 75, y + -180);
-        ctx.lineTo(x + 150, y);
-        ctx.scale(1, 1);
-        ctx.rotate(Math.PI / 1);
+        ctx.arc(
+          this.pos[0],
+          this.pos[1],
+          this.radius,
+          2 * Math.PI + this.direction,
+          0.5 * Math.PI + this.direction,
+          true
+        );
+        ctx.fill();
+
+        ctx.fillStyle = pattern;
+
+        ctx.beginPath();
+        ctx.arc(
+          this.pos[0],
+          this.pos[1],
+          this.radius,
+          2 * Math.PI + this.direction,
+          0 + this.direction,
+          true
+        );
         ctx.fill();
     }
 }
