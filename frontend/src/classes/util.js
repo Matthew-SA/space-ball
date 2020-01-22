@@ -32,6 +32,16 @@ const Util = {
         } else {
             return coord;
         }
+    },
+
+    bounce(coord, max) {
+        if (coord < 0 || coord > max) {
+            return -coord;
+        // } else if (coord > max) {
+        //     return coord % max;
+        } else {
+            return coord;
+        }
     }
 };
 

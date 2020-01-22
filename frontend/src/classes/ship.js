@@ -12,17 +12,24 @@ function randomColor() {
   return color;
 }
 
+
 class Ship extends MovingObject {
     constructor(options) {
         // options.radius = Ship.RADIUS;
         options.vel = options.vel || [0, 0];
         options.color = options.color || randomColor();
         super(options);
+        this.direction = 0;
+        this.MAX_VELOCITY = 5;
     }
 
     power(impulse) {
         this.vel[0] += impulse[0];
         this.vel[1] += impulse[1];
+    }
+
+    turn(angle) {
+        this.direction += angle;
     }
 
     relocate() {
@@ -31,12 +38,16 @@ class Ship extends MovingObject {
     }
 
     draw(ctx) {
-        ctx.fillStyle = this.color;
+        let x = this.pos[0] + 50;
+        let y = this.pos[1] + 50;
 
         ctx.beginPath();
-        ctx.moveTo(75, 50);
-        ctx.lineTo(200, 75);
-        ctx.lineTo(200, 25);
+        ctx.fillStyle = this.color;
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + 75, y + -180);
+        ctx.lineTo(x + 150, y);
+        ctx.scale(1, 1);
+        ctx.rotate(Math.PI / 1);
         ctx.fill();
     }
 }

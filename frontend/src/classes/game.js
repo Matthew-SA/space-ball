@@ -104,6 +104,12 @@ class Game {
             Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
         ];
     }
+
+    bounce(pos) {
+        return [
+            Util.bounce(pos[0], Game.DIM_X), Util.bounce(pos[1], Game.DIM_Y)
+        ];
+    }
 }
 
 Game.BG_COLOR = "#000000";

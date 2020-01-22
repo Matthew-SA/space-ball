@@ -8,9 +8,28 @@ const DEFAULTS = {
     SPEED: 0
 };
 
+const GOLD_BALL = {
+  COLOR: "#FFD517",
+  RADIUS: 5,
+  SPEED: 0
+};
+
+const SILVER_BALL = {
+  COLOR: "#DBDBDB",
+  RADIUS: 15,
+  SPEED: 0
+};
+
+const BRONZE_BALL = {
+  COLOR: "#E1945F",
+  RADIUS: 25,
+  SPEED: 0
+};
+
+
 class Ball extends MovingObject {
     constructor(options = {}) {
-        options.color = DEFAULTS.COLOR;
+        options.color = options.color || DEFAULTS.COLOR;
         options.pos = options.pos || options.game.randomPosition();
         options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
         super(options);
