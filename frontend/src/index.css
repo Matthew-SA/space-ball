@@ -65,6 +65,32 @@ select::-ms-expand {
   font-family: sans-serif;
 }
 
+.dashboard-section {
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  background-color: darkslategrey;
+  height: 50px;
+}
+
+.home-select {
+  text-align: center;
+  padding-top: 5px;
+  border: 1px solid white;
+  font-size: 30px;
+  color: white;
+}
+
+.home-select:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.home-select.active {
+  background-color: white;
+  color: black;
+}
+
 .intro-title {
   text-align: center;
   padding-top: 20%;
