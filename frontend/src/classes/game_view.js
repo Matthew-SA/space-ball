@@ -9,10 +9,10 @@ class GameView {
 
     bindKeyHandlers() {
         const ship = this.ship;
-        key('w', () => ship.power(-1.5))
-        key('s', () => ship.power(1.5))
-        key('a', () => ship.turn(-Math.PI / 32));
-        key('d', () => ship.turn(Math.PI / 32));
+        key('w', () => ship.power(0.2))
+        key('s', () => ship.power(-0.2))
+        key('a', () => ship.turn(-Math.PI / 16));
+        key('d', () => ship.turn(Math.PI / 16));
         // Object.keys(GameView.MOVES).forEach((k) => {
         //     const move = GameView.MOVES[k];
         //     key(k, () => { ship.power(move); });
@@ -22,7 +22,7 @@ class GameView {
     start() {
         this.bindKeyHandlers();
         this.lastTime = 0;
-        // start the animationsa
+        // start the animations
         requestAnimationFrame(this.animate.bind(this));
     }
 
