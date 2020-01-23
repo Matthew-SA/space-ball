@@ -2,8 +2,9 @@ import React from "react";
 
 function Lobby() {
   return (
-    <div className="play-container">
-      <div className="play">Play</div>
+    <div className="lobby-container">
+      <h1>Space Jam Logo Placeholder</h1>
+      <a href="#/game"><div className="play">Play</div></a>
     </div>
   );
 };
