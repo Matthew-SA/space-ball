@@ -15,12 +15,13 @@ class SignupForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearedErrors = false;
+    this.signupOrLogin = this.signupOrLogin.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.signedIn === true) {
-      this.props.history.push("/game");
-    }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // if (nextProps.signedIn === true) {
+    //   this.props.history.push("/game");
+    // }
 
     this.setState({ errors: nextProps.errors });
   }
@@ -44,6 +45,12 @@ class SignupForm extends React.Component {
     this.props.signup(user, this.props.history);
   }
 
+  signupOrLogin(e) {
+    Array.from(document.getElementsByClassName('form-container-login')).forEach(el => el.classList.remove('hidden'));
+    Array.from(document.getElementsByClassName('form-container-signup')).forEach(el => el.classList.add('hidden'));
+    // e.target.classList.add('hidden');
+  }
+
   renderErrors() {
     return (
       <ul>
@@ -56,7 +63,7 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="signup-form-container">
+      <div className="form-container-signup hidden">
         <form onSubmit={this.handleSubmit}>
           <div className="signup-form">
             <h1>Sign Up</h1>
@@ -99,7 +106,7 @@ class SignupForm extends React.Component {
         </form>
         <div className="alt-text">
           <div>Already have an account?</div>
-          <Link to={"/login"}>Login</Link>
+          <div className="pointer" onClick={this.signupOrLogin}>Login</div>
         </div>
       </div>
     );

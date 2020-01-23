@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, withRouter } from "react-router-dom";
+// import MainPage from "../components/main/main_page"
+
 
 // Passed in from parent component or from mapStateToProps
 const Auth = ({ component: Component, path, loggedIn, exact }) => (
@@ -11,8 +13,8 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
       !loggedIn ? (
         <Component {...props} />
       ) : (
-        // Redirect to the game page if the user is authenticated
-        <Redirect to="/game" />
+        // Rerender with updated logged in state
+        <Component {...props} />
       )
     }
   />

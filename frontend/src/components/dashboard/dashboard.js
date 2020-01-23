@@ -1,24 +1,48 @@
-// import React from 'react';
-// import NavBarContainer from "../nav/navbar_container";
+import React from "react";
+import MyShipContainer from "./myShip_container";
+import Leaderboard from "./leaderboard";
+import Lobby from "./lobby";
 
-// class Dashboard extends React.Component {
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { selected: "lobby" }
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-//   handleClick(e) {
-//     const selected = e.target.value;
-//     this.setState({
-//       selected: selected
-//     })
-//   }
+  handleClick(e) {
+    this.setState({
+      selected: e.target.id
+    });
+    Array.from(document.getElementsByClassName('home-select')).forEach(el => el.classList.remove('active'));
+    e.target.classList.add('active');
+  }
 
-//   render() {
-//     return (
-//       <div className="dashboard-section">
-//         <div className="lobby-select" value="lobby" onClick={this.handleClick}>Lobby</div>
-//         <div className="lobby-select" value="leaderboards" onClick={this.handleClick}>Leaderboards</div>
-//         <div className="lobby-select" value="custom" onClick={this.handleClick}>Custom Ship</div> 
-//       </div>
-//     );
-//   }
-// };
+  render() {
+    const selected = this.state.selected;
+    let currentViewPort;
 
-// export default Dashboard;
+    if (selected === "lobby") {
+      currentViewPort = <Lobby />;
+    } else if (selected === "leaderboard") {
+      currentViewPort = <Leaderboard />
+    } else if (selected === "myship") {
+      currentViewPort = <MyShipContainer />;
+    }
+
+    return (
+      <div>
+        <div className="dashboard-section">
+          <div className="home-select" id="myship" onClick={this.handleClick}>My Ship</div>
+          <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
+          <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
+        </div>
+        <div className="homepage-container">
+          {currentViewPort}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Dashboard;

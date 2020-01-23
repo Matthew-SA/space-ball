@@ -2,7 +2,9 @@ import React from "react";
 
 function Lobby() {
   return (
-    <div>Hello im Lobby</div>
+    <div className="play-container">
+      <div className="play">Play</div>
+    </div>
   );
 };
 

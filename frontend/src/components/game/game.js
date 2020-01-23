@@ -1,11 +1,11 @@
 import React from 'react';
-import NavBarContainer from "../nav/navbar_container";
+// import MyShipContainer from "../dashboard/myShip"
 
 class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <NavBarContainer />
+        {/* <MyShipContainer /> */}
         <div>GAME HERE</div>
       </div>
     );
