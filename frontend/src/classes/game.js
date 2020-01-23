@@ -1,11 +1,13 @@
 const Ball = require("./ball");
 const Ship = require("./ship");
 const Util = require("./util");
+const Goal = require("./goal");
 
 class Game {
     constructor() {
         this.balls = [];
         this.ships = [];
+        this.goals = [];
         // this.addShip()
         // this.addBalls();
     }
@@ -15,6 +17,8 @@ class Game {
             this.balls.push(object);
         } else if (object instanceof Ship) {
             this.ships.push(object);
+        } else if (object instanceof Goal){
+            this.goals.push(object);
         } else {
             throw new Error("unknown type of object");
         }
@@ -35,6 +39,16 @@ class Game {
         this.add(ship);
 
         return ship;
+    }
+
+    addGoal(){
+        const goal = new Goal({
+            pos: [Game.DIM_X/2, Game.DIM_Y/2],
+            game: this
+        })
+
+        this.add(goal);
+        return goal;
     }
 
     allObjects() {
@@ -60,7 +74,7 @@ class Game {
         ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
         ctx.fillStyle = Game.BG_COLOR;
         ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-
+        this.goals[0].draw(ctx);
         this.allObjects().forEach((object) => {
             object.draw(ctx);
         });
