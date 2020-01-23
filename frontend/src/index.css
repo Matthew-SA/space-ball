@@ -57,12 +57,41 @@ select::-ms-expand {
 /* Homepage CSS */
 
 .homepage-container {
-  height: 100vh;
+  height: 93vh;
   background-color: black;
-  color: white;
+  color: #ffcc66;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.dashboard-section {
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  background-color: #ed7161;
+  height: 7vh;
+}
+
+.home-select {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 22px;
+  color: #ffcc66;
+  border-left: 1px solid #ea4732;
+  border-right: 1px solid #ea4732;
+}
+
+.home-select:hover {
+  background-color: #ffcc66;
+  /* border-left: 1px solid #ed7161;
+  border-right: 1px solid #ed7161; */
+  color: #ed7161;
+  cursor: pointer;
+}
+
+.home-select.active {
+  background-color: #ffcc66;
+  color: #ed7161;
 }
 
 .intro-title {
@@ -71,57 +100,176 @@ select::-ms-expand {
   padding-bottom: 30px;
 }
 
-.links {
-  color: white;
-  display: grid;
-  text-align: center;
-}
-
-
 /* Signup & Login CSS */
 
-.signup-form-container, .login-form-container {
-  height: 100vh;
+.login-prompt {
+  padding: 80px 0px 40px 0px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.form-container-signup, .form-container-login{
   background-color: black;
-  color: white;
+  color: #ffcc66;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 .signup-form, .login-form {
-  padding-top: 15%;
   text-align: center;
 }
+
 .input-field {
   font-weight: 200;
-  color: #333333;
   height: 50px;
   font-size: 16px;
   width: 30%;
   padding-left: 20px;
   margin-bottom: 10px;
+  border-radius: 10px;
+  border: 5px solid #ed7161;
+  background-color: #ffcc66;
+  color: #ed7161;
+  transition: ease-in-out .4s;
+}
+
+.input-field::placeholder {
+  color: #ed7161;
+}
+
+.input-field:focus {
+  transform:scale(1.05);
 }
 
 .submit-button {
   font-weight: 200;
-  color: #333333;
+  color: #ffcc66  ;
   height: 50px;
   font-size: 16px;
   width: 30%;
   padding-left: 0px;
   margin-bottom: 10px;
-  border: 2px solid white;
+  border-radius: 10px;
+  background-color: #ed7161;
+  transition: ease-in-out .4s;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  border-color: white;
-  background-color: black;
-  color: white;
+  transform: scale(1.05);
 }
 
 .alt-text {
   text-align: center;
   padding-top: 20px;
+}
+
+.logout-container {
+  text-align: right;
+}
+
+.logout-button {
+  background-color: #000 ;
+  font-weight: 200;
+  color: #fff;
+  height: 35px;
+  width: 80px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #ed7161;
+  cursor: pointer;
+  margin: 10px 10px 0px 0px;
+}
+
+.logout-button:hover {
+  background-color: #ffcc66;
+  color: #000;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+/* Customize Ship CSS */
+
+.customize-ship-container {
+  display: grid;
+  height: 80vh;
+  grid-template-columns: 60% 40%;
+}
+
+.customize-panel {
+  height: 85%;
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 5px solid #ed7161;
+  background-color: #ffcc66;
+  color: #ed7161;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.ship-picture-container {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.ship {
+  width: 250px;
+}
+
+/* Leaderboard CSS  */
+
+.leaderboard-container {
+  height: 93vh;
+  padding-top: 70px;
+}
+
+.leaderboard {
+  height: 75%;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 5px solid #ed7161;
+  background-color: #ffcc66;
+  color: #ed7161;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+/* Play CSS */
+
+.lobby-container {
+  height: 93vh;
+  padding-top: 150px; 
+  text-align: center;
+  color: #ed7161;
+}
+
+.play {
+  height: 75px;
+  width: 200px;
+  margin: 100px auto;
+  border-radius: 10px;
+  border: 5px solid #ed7161;
+  background-color: #ffcc66;
+  color: #ed7161;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  transition: ease-in-out .4s;
+  cursor: pointer;
+}
+
+.play:hover {
+  transform:scale(1.05);
 }

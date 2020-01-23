@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBarContainer from "../nav/navbar_container";
 import GameView from "../../classes/game_view";
 const Game = require("../../classes/game");
 
@@ -14,11 +13,10 @@ class GameComponent extends React.Component {
     new GameView(game, ctx).start();
   }
 
+
   render() {
     return (
       <div className="game">
-        
-        <NavBarContainer />
         <div>
           <canvas></canvas>
         </div>

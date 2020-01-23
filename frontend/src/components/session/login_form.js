@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -9,18 +8,19 @@ class LoginForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      errors: {}
+      errors: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
+    this.signupOrLogin = this.signupOrLogin.bind(this);
   }
 
   // Once the user has been authenticated, redirect to the Game page
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push("/game");
-    }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // if (nextProps.currentUser === true) {
+    //   this.props.history.push("/game");
+    // }
 
     // Set or clear errors
     this.setState({ errors: nextProps.errors });
@@ -45,6 +45,11 @@ class LoginForm extends React.Component {
     this.props.login(user);
   }
 
+  signupOrLogin(e) {
+    Array.from(document.getElementsByClassName('form-container-signup')).forEach(el => el.classList.remove('hidden'));
+    Array.from(document.getElementsByClassName('form-container-login')).forEach(el => el.classList.add('hidden'));
+  }
+
   // Render the session errors if there are any
   renderErrors() {
     return (
@@ -58,7 +63,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container">
+      <div className="form-container-login">
         <form onSubmit={this.handleSubmit}>
           <div className="login-form">
             <h1>Login</h1>
@@ -79,13 +84,13 @@ class LoginForm extends React.Component {
               placeholder="Password"
             />
             <br />
-            <input className="submit-button" type="submit" value="Submit" />
+            <input className="submit-button" type="submit" value="SUBMIT" />
             {this.renderErrors()}
           </div>
         </form>
         <div className="alt-text">
-          <div>Already have an account?</div>
-          <Link to={"/signup"}>Sign Up</Link>
+          <div>Create an account?</div>
+          <div className="pointer" onClick={this.signupOrLogin}>Sign Up</div>
         </div>
       </div>
     );

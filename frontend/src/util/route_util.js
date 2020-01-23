@@ -11,8 +11,8 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
       !loggedIn ? (
         <Component {...props} />
       ) : (
-        // Redirect to the game page if the user is authenticated
-        <Redirect to="/game" />
+        // Rerender with updated logged in state
+        <Component {...props} />
       )
     }
   />
