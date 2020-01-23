@@ -66,9 +66,9 @@ class Game {
         });
     }
 
-    isOutOfBounds(pos) {
-        return (pos[0] < 0) || (pos[1] < 0) ||
-            (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
+    isOutOfBounds(object) {
+        return ((object.pos[0] - object.radius) < 0) || ((object.pos[1] - object.radius) < 0) ||
+            ((object.pos[0] + object.radius) > Game.DIM_X) || ((object.pos[1] + object.radius) > Game.DIM_Y);
     }
 
     moveObjects(delta) {
