@@ -18,18 +18,6 @@ const UserSchema = new Schema({
     type: Number,
     default: 1000
   },
-  points: {
-    type: Number,
-    default: 0
-  }, 
-  wins: {
-    type: Number,
-    default: 0
-  }, 
-  losses: {
-    type: Number,
-    default: 0
-  },
   date: {
     type: Date,
     default: Date.now

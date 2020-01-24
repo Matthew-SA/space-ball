@@ -1,121 +1,55 @@
+import Matter from 'matter-js';
 const Ball = require("./ball");
 const Ship = require("./ship");
 const Util = require("./util");
 
+
+
+const KEY_W = 87;
+const KEY_A = 65;
+const KEY_S = 83;
+const KEY_D = 68;
+const KEY_SPACE = 32;
+const KEY_SHIFT = 16;
+
+var mouseIsDown = false;
+var mp;
+var keys = [];
+
+
 class Game {
-    constructor() {
-        this.balls = [];
-        this.ships = [];
-        // this.addShip()
-        // this.addBalls();
+    constructor(canvas, ctx) {
+        this.canvas = canvas
+        this.ctx = ctx
     }
 
-    add(object) {
-        if (object instanceof Ball) {
-            this.balls.push(object);
-        } else if (object instanceof Ship) {
-            this.ships.push(object);
-        } else {
-            throw new Error("unknown type of object");
-        }
-    }
-
-    addBalls() {
-        for (let i = 0; i < Game.NUM_BALLS; i++) {
-            this.add(new Ball({ game: this }));
-        }
-    }
-
-    addShip() {
-        const ship = new Ship({
-          pos: [Game.DIM_X/2, Game.DIM_Y/2],
-          game: this
-        });
-
-        this.add(ship);
-
-        return ship;
-    }
-
-    allObjects() {
-        return [].concat(this.ships, this.balls);
-    }
-
-    checkCollisions() {
-        const allObjects = this.allObjects();
-        for (let i = 0; i < allObjects.length; i++) {
-            for (let j = 0; j < allObjects.length; j++) {
-                const obj1 = allObjects[i];
-                const obj2 = allObjects[j];
-
-                if (obj1.isCollidedWith(obj2)) {
-                    const collision = obj1.collideWith(obj2);
-                    if (collision) return;
-                }
+    addBall() {
+        const engine = Matter.Engine.create();
+        const world = engine.world;
+        const render = Matter.Render.create({
+            canvas: this.canvas,
+            engine: engine,
+            options: {
+            width: this.canvas.width,
+            height: this.canvas.height,
+            background: "#BBBBBB",
+            wireframes: false,
+            showAngleIndicator: false
             }
-        }
-    }
-
-    draw(ctx) {
-        ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-        ctx.fillStyle = Game.BG_COLOR;
-        ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-
-        this.allObjects().forEach((object) => {
-            object.draw(ctx);
         });
-    }
-
-    isOutOfBounds(object) {
-        return ((object.pos[0] - object.radius) < 0) || ((object.pos[1] - object.radius) < 0) ||
-            ((object.pos[0] + object.radius) > Game.DIM_X) || ((object.pos[1] + object.radius) > Game.DIM_Y);
-    }
-
-    moveObjects(delta) {
-        this.allObjects().forEach((object) => {
-            object.move(delta);
+        var ball = Matter.Bodies.circle(500, 300, 40, {
+          density: 0.04,
+          friction: 0.01,
+          frictionAir: 0.00001,
+          restitution: 0.8,
+          render: {
+            fillStyle: "#F35e66",
+            strokeStyle: "black",
+            lineWidth: 1
+          }
         });
+        Matter.World.add(world, ball);
     }
 
-    randomPosition() {
-        return [
-            Game.DIM_X * Math.random(),
-            Game.DIM_Y * Math.random()
-        ];
-    }
-
-    remove(object) {
-        if (object instanceof Ball) {
-            this.balls.splice(this.balls.indexOf(object), 1);
-        } else if (object instanceof Ship) {
-            this.ships.splice(this.ships.indexOf(object), 1);
-        } else {
-            throw new Error("unknown type of object");
-        }
-    }
-
-    step(delta) {
-        this.moveObjects(delta);
-        this.checkCollisions();
-    }
-
-    wrap(pos) {
-        return [
-            Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
-        ];
-    }
-
-    bounce(pos) {
-        return [
-            Util.bounce(pos[0], Game.DIM_X), Util.bounce(pos[1], Game.DIM_Y)
-        ];
-    }
 }
-
-Game.BG_COLOR = "#000000";
-Game.DIM_X = 1000;
-Game.DIM_Y = 600;
-Game.FPS = 32;
-Game.NUM_BALLS = 10;
-
-module.exports = Game;
+export default Game;

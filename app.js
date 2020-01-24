@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
 const path = require("path");
@@ -29,9 +30,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("Connected to MongoDB successfully"))
-  .catch(err => console.log(err));
+.connect(db, { useNewUrlParser: true })
+.then(() => console.log("Connected to MongoDB successfully"))
+.catch(err => console.log(err));
 
 // import body parser to app.js to parse the JSON sent to frontend
 const bodyParser = require("body-parser");
@@ -39,6 +40,9 @@ const bodyParser = require("body-parser");
 
 const users = require("./routes/api/users");
 app.use("/api/users", users);
+const stats = require("./routes/api/stats");
+app.use("/api/stats", stats);
+
 
 // setup some middleware for body parser:
 app.use(bodyParser.urlencoded({ extended: false }));
