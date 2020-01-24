@@ -1,5 +1,6 @@
 import key from "keymaster";
 
+
 class GameView {
     constructor(game, ctx) {
         this.ctx = ctx;
