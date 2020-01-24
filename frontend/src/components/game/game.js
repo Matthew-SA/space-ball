@@ -7,11 +7,17 @@ import key from "keymaster";
 
 
 class GameComponent extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
 
+    this.rightScore = 0;
+    this.leftScore = 0;
+  }
+
+
+  componentDidMount() {
     const canvas = document.getElementById("game-canvas");
     const ctx = canvas.getContext("2d");
-
 
     const background = new Image();
     background.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif';
@@ -160,6 +166,68 @@ class GameComponent extends React.Component {
 
     Matter.Engine.run(engine);
     Matter.Render.run(render);
+
+    let that = this;
+
+
+    Matter.Events.on(engine, "collisionEnd", function(event) {
+      var pairs = event.pairs;
+
+      for (var i = 0, j = pairs.length; i != j; ++i) {
+        var pair = pairs[i];
+
+        if (
+          (pair.bodyA === rightGoal && pair.bodyB === ball) ||
+          (pair.bodyB === rightGoal && pair.bodyA === ball)
+        ) {
+          that.leftScore += 1;
+          Matter.Body.setPosition(ball, { x: 500, y: 300 });
+          Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+          console.log(that.leftScore);
+
+        } else if (
+          (pair.bodyA === leftGoal && pair.bodyB === ball) ||
+          (pair.bodyB === leftGoal && pair.bodyA === ball)
+        ) {
+          that.rightScore += 1;
+          Matter.Body.setPosition(ball, { x: 500, y: 300 });
+          Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+          console.log(that.rightScore);
+        }
+      }
+    });
+
+    // Events.on(engine, "collisionEnd", function(event) {
+    //   let pairs = event.pairs;
+
+    //   for (var i = 0, j = pairs.length; i != j; ++i) {
+    //     var pair = pairs[i];
+
+    //     if (pair.bodyA === playerFloorSensor) {
+    //       playerBody.col = "#FFdddd";
+    //       playerOnFloor = false;
+    //     } else if (pair.bodyB === playerFloorSensor) {
+    //       playerBody.col = "#FFdddd";
+    //       playerOnFloor = false;
+    //     }
+    //   }
+    // });
+
+    // Events.on(engine, "collisionActive", function(event) {
+    //   var pairs = event.pairs;
+
+    //   for (var i = 0, j = pairs.length; i != j; ++i) {
+    //     var pair = pairs[i];
+
+    //     if (pair.bodyA === playerFloorSensor) {
+    //       playerBody.col = "#DDFFDD";
+    //       playerOnFloor = true;
+    //     } else if (pair.bodyB === playerFloorSensor) {
+    //       playerBody.col = "#DDFFDD";
+    //       playerOnFloor = true;
+    //     }
+    //   }
+    // });
   };
 
 
@@ -168,6 +236,9 @@ class GameComponent extends React.Component {
     return (
       <div className="game">
         <div>
+          <div>
+            Right Score: {this.rightScore} || Left Score: {this.leftScore}
+          </div>
           <canvas id="game-canvas"></canvas>
         </div>
       </div>
