@@ -8,7 +8,17 @@ import key from "keymaster";
 
 class GameComponent extends React.Component {
   componentDidMount() {
+
     const canvas = document.getElementById("game-canvas");
+    const ctx = canvas.getContext("2d");
+
+
+    const background = new Image();
+    background.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif';
+
+    background.onload = function() {
+      ctx.drawImage(background, 0, 0);
+    };
 
     const engine = Matter.Engine.create();
     const world = engine.world;
@@ -18,7 +28,7 @@ class GameComponent extends React.Component {
       options: {
         width: 1000,
         height: 600,
-        background: "transparent",
+        background: '#000000',
         wireframes: false,
         showAngleIndicator: false
       }
@@ -27,12 +37,11 @@ class GameComponent extends React.Component {
     engine.world.gravity.x = 0;
    
     const ship = Matter.Bodies.circle(50, 50, 30, {
-      density: 1,
+      density: 0.5,
+      friction: 0,
       render: {
         sprite: {
         texture: "images/default_ship.png"
-        // xScale: 1.5,
-        // yScale: 1.5
         }
       }
     });
@@ -45,7 +54,7 @@ class GameComponent extends React.Component {
       frictionAir: 0.00001,
       restitution: 0.8,
       render: {
-        fillStyle: "#F35e66",
+        fillStyle: "#00FF88",
         strokeStyle: "black",
         lineWidth: 1
       }
@@ -69,7 +78,7 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, floor);
 
-    const topLeft = Matter.Bodies.rectangle(0, 0, 40, 300, {
+    const topLeft = Matter.Bodies.rectangle(0, 0, 40, 350, {
       isStatic: true, 
       render: {
         // visible: false
@@ -77,7 +86,7 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, topLeft);
 
-    const topRight = Matter.Bodies.rectangle(1000, 0, 40, 300, {
+    const topRight = Matter.Bodies.rectangle(1000, 0, 40, 350, {
       isStatic: true, 
       render: {
         // visible: false
@@ -85,7 +94,7 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, topRight);
 
-    const bottomRight = Matter.Bodies.rectangle(1000, 600, 40, 300, {
+    const bottomRight = Matter.Bodies.rectangle(1000, 600, 40, 350, {
       isStatic: true, 
       render: {
         // visible: false
@@ -93,7 +102,7 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, bottomRight);
 
-    const bottomLeft = Matter.Bodies.rectangle(0, 600, 40, 300, {
+    const bottomLeft = Matter.Bodies.rectangle(0, 600, 40, 350, {
       isStatic: true, 
       render: {
         // visible: false
@@ -101,6 +110,23 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, bottomLeft);
 
+    const leftGoal = Matter.Bodies.rectangle(0, 300, 40, 250, {
+      isStatic: true,
+      isSensor: true,
+      render: {
+        fillStyle: "#F35e66"      
+      }
+    });
+    Matter.World.add(world, leftGoal);
+
+    const rightGoal = Matter.Bodies.rectangle(1000, 300, 40, 250, {
+      isStatic: true,
+      isSensor: true,
+      render: {
+        fillStyle: "#00FFFF"      
+      }
+    });
+    Matter.World.add(world, rightGoal);
 
 
     key('w', () => {
@@ -108,7 +134,7 @@ class GameComponent extends React.Component {
         x: 0,
         y: -10
       });
-    })
+    });
     
     key('s', () => {
       Matter.Body.applyForce(ship, ship.position, {
@@ -116,23 +142,25 @@ class GameComponent extends React.Component {
         y: 10
       });
     })
+
     key('a', () => {
       Matter.Body.applyForce(ship, ship.position, {
         x: -10,
         y: 0
       });
-    })
+    });
+
     key('d', () => {
       Matter.Body.applyForce(ship, ship.position, {
         x: 10,
         y: 0
       });
-    })
+    });
 
 
     Matter.Engine.run(engine);
     Matter.Render.run(render);
-  }
+  };
 
 
   
@@ -140,15 +168,7 @@ class GameComponent extends React.Component {
     return (
       <div className="game">
         <div>
-          <canvas
-            id="game-canvas"
-            style={{
-              backgroundImage:
-                "url(" +
-                "'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif" +
-                ")"
-            }}
-          ></canvas>
+          <canvas id="game-canvas"></canvas>
         </div>
       </div>
     );
