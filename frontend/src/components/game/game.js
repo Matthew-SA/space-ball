@@ -8,18 +8,17 @@ import key from "keymaster";
 
 class GameComponent extends React.Component {
   componentDidMount() {
-    var canvas = document.getElementById("game-canvas");
+    const canvas = document.getElementById("game-canvas");
 
-    //Setup Matter JS
-    var engine = Matter.Engine.create();
-    var world = engine.world;
-    var render = Matter.Render.create({
+    const engine = Matter.Engine.create();
+    const world = engine.world;
+    const render = Matter.Render.create({
       canvas: canvas,
       engine: engine,
       options: {
         width: 1000,
         height: 600,
-        background: "#000000",
+        background: "transparent",
         wireframes: false,
         showAngleIndicator: false
       }
@@ -27,13 +26,20 @@ class GameComponent extends React.Component {
     engine.world.gravity.y = 0;
     engine.world.gravity.x = 0;
    
-    var ship = Matter.Bodies.circle(50, 50, 30, {
-      density: 1
-    })
+    const ship = Matter.Bodies.circle(50, 50, 30, {
+      density: 1,
+      render: {
+        sprite: {
+        texture: "images/default_ship.png"
+        // xScale: 1.5,
+        // yScale: 1.5
+        }
+      }
+    });
 
     Matter.World.add(world, ship);
 
-    var ball = Matter.Bodies.circle(250, 250, 50, {
+    const ball = Matter.Bodies.circle(250, 250, 50, {
       density: 0.04,
       friction: 0.01,
       frictionAir: 0.00001,
@@ -44,9 +50,10 @@ class GameComponent extends React.Component {
         lineWidth: 1
       }
     });
+
     Matter.World.add(world, ball);
 
-    var ceiling = Matter.Bodies.rectangle(0, 0, 2000, 40, {
+    const ceiling = Matter.Bodies.rectangle(0, 0, 2000, 40, {
       isStatic: true, 
       render: {
         // visible: false
@@ -54,13 +61,47 @@ class GameComponent extends React.Component {
     });
     Matter.World.add(world, ceiling);
 
-    var floor = Matter.Bodies.rectangle(0, 600, 2000, 40, {
+    const floor = Matter.Bodies.rectangle(0, 600, 2000, 40, {
       isStatic: true, 
       render: {
         // visible: false
       }
     });
     Matter.World.add(world, floor);
+
+    const topLeft = Matter.Bodies.rectangle(0, 0, 40, 300, {
+      isStatic: true, 
+      render: {
+        // visible: false
+      }
+    });
+    Matter.World.add(world, topLeft);
+
+    const topRight = Matter.Bodies.rectangle(1000, 0, 40, 300, {
+      isStatic: true, 
+      render: {
+        // visible: false
+      }
+    });
+    Matter.World.add(world, topRight);
+
+    const bottomRight = Matter.Bodies.rectangle(1000, 600, 40, 300, {
+      isStatic: true, 
+      render: {
+        // visible: false
+      }
+    });
+    Matter.World.add(world, bottomRight);
+
+    const bottomLeft = Matter.Bodies.rectangle(0, 600, 40, 300, {
+      isStatic: true, 
+      render: {
+        // visible: false
+      }
+    });
+    Matter.World.add(world, bottomLeft);
+
+
 
     key('w', () => {
       Matter.Body.applyForce(ship, ship.position, {
@@ -99,7 +140,15 @@ class GameComponent extends React.Component {
     return (
       <div className="game">
         <div>
-          <canvas id="game-canvas"></canvas>
+          <canvas
+            id="game-canvas"
+            style={{
+              backgroundImage:
+                "url(" +
+                "'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif" +
+                ")"
+            }}
+          ></canvas>
         </div>
       </div>
     );
