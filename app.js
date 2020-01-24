@@ -28,3 +28,6 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 const users = require("./routes/api/users");
 app.use("/api/users", users);
+
+const stats = require("./routes/api/stats");
+app.use("/api/stats", stats);

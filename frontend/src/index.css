@@ -74,7 +74,7 @@ select::-ms-expand {
 
 .home-select {
   text-align: center;
-  padding-top: 10px;
+  padding-top: 12px;
   font-size: 22px;
   color: #ffcc66;
   border-left: 1px solid #ea4732;
@@ -228,9 +228,13 @@ select::-ms-expand {
 
 /* Leaderboard CSS  */
 
-.leaderboard-container {
+.leaderboard-section {
   height: 93vh;
   padding-top: 70px;
+}
+
+.leaderboard-container {
+  padding-top: 20px;
 }
 
 .leaderboard {
@@ -245,6 +249,20 @@ select::-ms-expand {
   text-align: center;
   padding-top: 20px;
 }
+
+.table {
+  width: 100%;
+}
+
+.leaderboard-title {
+  background-color: black;
+  margin: 40px 0px 20px 0px;
+}
+
+.column-player, .column-rank, .column-stat {
+  width: 33%;
+}
+
 
 /* Play CSS */
 
