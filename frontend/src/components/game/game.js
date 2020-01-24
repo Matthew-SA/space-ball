@@ -18,7 +18,7 @@ class GameComponent extends React.Component {
     // websocket tester
     document.addEventListener('keydown', (e) => {
       console.log('keydown!');
-      socket.emit('player-join');
+      socket.emit('test-function');
     });
 
 

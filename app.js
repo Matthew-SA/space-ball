@@ -61,9 +61,13 @@ app.get("/", (req, res) => {
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
 
+  socket.on('test-function', () => {
+    console.log('server: user pressed a key')
+  })
+
   socket.on('player-join', () => {
     // game.addNewPlayer(socket);
-    console.log('server: user pressed a key')
+    console.log('user joined')
   })
 
   socket.on('disconnect', () => {
