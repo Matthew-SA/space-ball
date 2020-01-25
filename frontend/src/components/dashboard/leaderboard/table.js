@@ -7,35 +7,35 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchStats();
+    this.props.fetchLeaderboard();
   }
 
   render() {
     const leaderboard = this.props.leaderboard;
     let counter = 0;
     return (
-      <div className="leaderboard-container">
-        <table className="table">
-          <thead>
-            <tr className="leaderboard-title">
-              <td className="column-rank">RANK</td>
-              <td className="column-player">PLAYER</td>
-              <td className="column-stat">POINTS</td>
-              {/* <td className='column-stat'>WINS</td> */}
-              {/* <td className='column-stat'>LOSSES</td> */}
+      <table className="leaderboard-table">
+        <thead>
+          <tr className="table-title">
+            <td className="column-rank">RANK</td>
+            <td className="column-player">PLAYER</td>
+            <td className="column-stat">POINTS</td>
+            <td className="column-wins">WINS</td>
+            <td className="column-losses">LOSSES</td>
+          </tr>
+        </thead>
+        <tbody className="table-body">
+          {leaderboard.map(el => (
+            <tr key={counter}>
+              <td>#{(counter += 1)}</td>
+              <td className="player-name column-player">{el.username}</td>
+              <td>{el.points}</td>
+              <td>{el.wins}</td>
+              <td>{el.losses}</td>
             </tr>
-          </thead>
-          <tbody>
-            {leaderboard.map(el => (
-              <tr key={counter}>
-                <td>#{(counter += 1)}</td>
-                <td className="player-name column-player">{el.username}</td>
-                <td>{el.points}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     );
   }
 }
