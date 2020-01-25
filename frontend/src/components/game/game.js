@@ -14,25 +14,43 @@ class GameComponent extends React.Component {
     super(props);
 
     this.state = {
-      leftScore: 0,
-      rightScore: 0
+      score: {
+        leftScore: 0,
+        rightScore: 0,
+        over: false
+      }
+      // game: null
     }
   }
 
   componentDidMount() {
-    const game = new gameLogic();
-    game.playGame();
+    this.game = new gameLogic();
+    this.game.playGame();
+    // this.setState({game: game})
+    this.scoreId = setInterval(() => this.updateScore()
+    , 250)
   };
   
+  updateScore() {
+    this.setState({ score: this.game.checkScore() });
+    // debugger
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.scoreId);
+  }
+
   render() {
     return (
       <div className="game">
         <div>
-          <div>
-            Right Score: {this.state.rightScore} || Left Score: {this.state.leftScore}
-          </div>
+          <div></div>
           <canvas id="game-canvas"></canvas>
         </div>
+        <ul className="scores">
+          <li>Left Score: {this.state.score.leftScore}</li>
+          <li>Right Score: {this.state.score.rightScore}</li>
+        </ul>
       </div>
     );
   }
