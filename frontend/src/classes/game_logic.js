@@ -24,6 +24,11 @@ class gameLogic {
           ctx.drawImage(background, 0, 0);
         };
         
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText("Hello World", canvas.width / 2, canvas.height / 2); 
+
         const engine = Matter.Engine.create();
         const world = engine.world;
         const render = Matter.Render.create({
