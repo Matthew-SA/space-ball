@@ -21,8 +21,8 @@ const User = require("../../models/User");
 //   }
 // );
 
-// Register route
-router.post("/register", (req, res) => {
+// Signup route
+router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {

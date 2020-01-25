@@ -22,22 +22,22 @@ export const fetchStats = () => dispatch => {
     );
 };
 
-// export const createStat = statData => dispatch => {
-//   // dispatch(clearStats());
-//   axios
-//     .post("/api/stats", statData)
-//     .then(res =>
-//       dispatch({
-//         type: RECEIVE_LEADERBOARD,
-//         payload: res.data
-//       })
-//     )
-//     .catch(err =>
-//       dispatch({
-//         type: RECEIVE_ERRORS,
-//         payload: err
-//       })
-//     );
-// };
+export const createStat = statData => dispatch => {
+  // dispatch(clearStats());
+  axios
+    .post("/api/stats", statData)
+    .then(res =>
+      dispatch({
+        type: RECEIVE_LEADERBOARD,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: RECEIVE_ERRORS,
+        payload: err
+      })
+    );
+};
 
-// export const clearStats = () => ({ type: CLEAR_STATS });
+export const clearStats = () => ({ type: CLEAR_STATS });
