@@ -1,7 +1,9 @@
+import Matter from 'matter-js';
 const Ball = require("./ball");
 const Ship = require("./ship");
 const Util = require("./util");
 const Goal = require("./goal");
+
 
 class Game {
     constructor() {
@@ -24,22 +26,20 @@ class Game {
         }
     }
 
-    addBalls() {
-        for (let i = 0; i < Game.NUM_BALLS; i++) {
-            this.add(new Ball({ game: this }));
-        }
-    }
 
-    addShip() {
-        const ship = new Ship({
-          pos: [Game.DIM_X/2, Game.DIM_Y/2],
-          game: this
-        });
 
-        this.add(ship);
+const KEY_W = 87;
+const KEY_A = 65;
+const KEY_S = 83;
+const KEY_D = 68;
+const KEY_SPACE = 32;
+const KEY_SHIFT = 16;
 
-        return ship;
-    }
+var mouseIsDown = false;
+var mp;
+var keys = [];
+
+
 
     addGoal(){
         const goal = new Goal({
@@ -77,59 +77,21 @@ class Game {
         this.goals[0].draw(ctx);
         this.allObjects().forEach((object) => {
             object.draw(ctx);
+
         });
-    }
-
-    isOutOfBounds(object) {
-        return ((object.pos[0] - object.radius) < 0) || ((object.pos[1] - object.radius) < 0) ||
-            ((object.pos[0] + object.radius) > Game.DIM_X) || ((object.pos[1] + object.radius) > Game.DIM_Y);
-    }
-
-    moveObjects(delta) {
-        this.allObjects().forEach((object) => {
-            object.move(delta);
+        var ball = Matter.Bodies.circle(500, 300, 40, {
+          density: 0.04,
+          friction: 0.01,
+          frictionAir: 0.00001,
+          restitution: 0.8,
+          render: {
+            fillStyle: "#F35e66",
+            strokeStyle: "black",
+            lineWidth: 1
+          }
         });
+        Matter.World.add(world, ball);
     }
 
-    randomPosition() {
-        return [
-            Game.DIM_X * Math.random(),
-            Game.DIM_Y * Math.random()
-        ];
-    }
-
-    remove(object) {
-        if (object instanceof Ball) {
-            this.balls.splice(this.balls.indexOf(object), 1);
-        } else if (object instanceof Ship) {
-            this.ships.splice(this.ships.indexOf(object), 1);
-        } else {
-            throw new Error("unknown type of object");
-        }
-    }
-
-    step(delta) {
-        this.moveObjects(delta);
-        this.checkCollisions();
-    }
-
-    wrap(pos) {
-        return [
-            Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
-        ];
-    }
-
-    bounce(pos) {
-        return [
-            Util.bounce(pos[0], Game.DIM_X), Util.bounce(pos[1], Game.DIM_Y)
-        ];
-    }
 }
-
-Game.BG_COLOR = "#000000";
-Game.DIM_X = 1000;
-Game.DIM_Y = 600;
-Game.FPS = 32;
-Game.NUM_BALLS = 10;
-
-module.exports = Game;
+export default Game;
