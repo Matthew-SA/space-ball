@@ -10,10 +10,11 @@ class GameComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.rightScore = 0;
-    this.leftScore = 0;
+    this.state = {
+      leftScore: 0,
+      rightScore: 0
+    }
   }
-
 
   componentDidMount() {
     const game = new gameLogic();
@@ -25,7 +26,7 @@ class GameComponent extends React.Component {
       <div className="game">
         <div>
           <div>
-            Right Score: {this.rightScore} || Left Score: {this.leftScore}
+            Right Score: {this.state.rightScore} || Left Score: {this.state.leftScore}
           </div>
           <canvas id="game-canvas"></canvas>
         </div>

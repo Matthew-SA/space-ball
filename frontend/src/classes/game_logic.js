@@ -4,6 +4,15 @@ import key from "keymaster";
 
 
 class gameLogic {
+    constructor() {
+        this.gameState = {
+            // ballPositionX: ball.position.x,
+            // ballPositionY: ball.position.y
+        }
+        this.leftScore = 0;
+        this.rightScore = 0;
+    }
+
     playGame() {
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
@@ -31,7 +40,18 @@ class gameLogic {
         engine.world.gravity.y = 0;
         engine.world.gravity.x = 0;
         
-        const ship = Matter.Bodies.circle(50, 50, 30, {
+        const leftShip = Matter.Bodies.circle(200, 300, 30, {
+          density: 0.5,
+          friction: 0,
+          render: {
+            sprite: {
+            texture: "images/default_ship.png"
+            }
+          }
+        });
+        Matter.World.add(world, leftShip);
+        
+        const rightShip = Matter.Bodies.circle(800, 300, 30, {
           density: 0.5,
           friction: 0,
           render: {
@@ -41,7 +61,7 @@ class gameLogic {
           }
         });
         
-        Matter.World.add(world, ship);
+        Matter.World.add(world, rightShip);
         
         const ball = Matter.Bodies.circle(500, 300, 50, {
           density: 0.04,
@@ -125,28 +145,28 @@ class gameLogic {
         
         
         key('w', () => {
-          Matter.Body.applyForce(ship, ship.position, {
+          Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 0,
             y: -10
           });
         });
         
         key('s', () => {
-          Matter.Body.applyForce(ship, ship.position, {
+          Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 0,
             y: 10
           });
         })
         
         key('a', () => {
-          Matter.Body.applyForce(ship, ship.position, {
+          Matter.Body.applyForce(leftShip, leftShip.position, {
             x: -10,
             y: 0
           });
         });
         
         key('d', () => {
-          Matter.Body.applyForce(ship, ship.position, {
+          Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 10,
             y: 0
           });
@@ -156,7 +176,7 @@ class gameLogic {
         Matter.Engine.run(engine);
         Matter.Render.run(render);
         
-        let that = GameComponent;
+        let that = this;
         
         
         Matter.Events.on(engine, "collisionEnd", function(event) {
@@ -172,8 +192,11 @@ class gameLogic {
               that.leftScore += 1;
               Matter.Body.setPosition(ball, { x: 500, y: 300 });
               Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+              Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
+              Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
+              Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
+              Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
               console.log(that.leftScore);
-        
             } else if (
               (pair.bodyA === leftGoal && pair.bodyB === ball) ||
               (pair.bodyB === leftGoal && pair.bodyA === ball)
@@ -181,7 +204,35 @@ class gameLogic {
               that.rightScore += 1;
               Matter.Body.setPosition(ball, { x: 500, y: 300 });
               Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+              Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
+              Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
+              Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
+              Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
               console.log(that.rightScore);
+            } else if (
+              (pair.bodyA === leftGoal && pair.bodyB === leftShip) ||
+              (pair.bodyB === leftGoal && pair.bodyA === leftShip)
+            ) {
+              Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
+              Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
+            } else if (
+              (pair.bodyA === rightGoal && pair.bodyB === leftShip) ||
+              (pair.bodyB === rightGoal && pair.bodyA === leftShip)
+            ) {
+              Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
+              Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
+            } else if (
+              (pair.bodyB === leftGoal && pair.bodyA === rightShip) ||
+              (pair.bodyB === leftGoal && pair.bodyA === rightShip)
+            ) {
+              Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
+              Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
+            } else if (
+              (pair.bodyB === rightGoal && pair.bodyA === rightShip) ||
+              (pair.bodyB === rightGoal && pair.bodyA === rightShip)
+            ) {
+              Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
+              Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
             }
           }
         });
