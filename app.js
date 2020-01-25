@@ -61,8 +61,8 @@ app.get("/", (req, res) => {
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
 
-  socket.on('test-function', () => {
-    console.log('server: user pressed a key')
+  socket.on('test-function', (data) => {
+    console.log(data)
   })
 
   socket.on('player-join', () => {

@@ -15,11 +15,11 @@ class GameComponent extends React.Component {
     const canvas = document.getElementById("game-canvas");
     const ctx = canvas.getContext("2d");
 
-    // websocket tester
-    document.addEventListener('keydown', (e) => {
-      console.log('keydown!');
-      socket.emit('test-function');
-    });
+    // // websocket tester
+    // document.addEventListener('keydown', (e) => {
+    //   console.log('keydown!');
+    //   socket.emit('test-function');
+    // });
 
 
     const background = new Image();
@@ -139,6 +139,7 @@ class GameComponent extends React.Component {
 
 
     key('w', () => {
+      socket.emit('test-function', 'UP!');
       Matter.Body.applyForce(ship, ship.position, {
         x: 0,
         y: -10
@@ -146,6 +147,7 @@ class GameComponent extends React.Component {
     });
     
     key('s', () => {
+      socket.emit('test-function', 'DOWN!');
       Matter.Body.applyForce(ship, ship.position, {
         x: 0,
         y: 10
@@ -153,6 +155,7 @@ class GameComponent extends React.Component {
     })
 
     key('a', () => {
+      socket.emit('test-function', 'LEFT!');
       Matter.Body.applyForce(ship, ship.position, {
         x: -10,
         y: 0
@@ -160,10 +163,16 @@ class GameComponent extends React.Component {
     });
 
     key('d', () => {
+      socket.emit('test-function', 'RIGHT!');
       Matter.Body.applyForce(ship, ship.position, {
         x: 10,
         y: 0
       });
+    });
+
+    key('space', () => {
+      console.log('client side message!')  // <-- this will only show client side.
+      socket.emit('test-function', 'PEW!');  // <-- this will be transmitted to server and a function there will handle the data.
     });
 
 
