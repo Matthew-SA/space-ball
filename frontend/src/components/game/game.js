@@ -1,24 +1,37 @@
 import React from 'react';
-import GameView from "../../classes/game_view";
-const Game = require("../../classes/game");
+// import GameView from "../../classes/game_view";
+import gameLogic from "../../classes/game_logic";
+import Matter from "matter-js";
+// import Util from "./util/util";
+import key from "keymaster";
+
+//websocket client setup
+import io from 'socket.io-client';
+const socket = io();
 
 class GameComponent extends React.Component {
-  componentDidMount() {
-    const canvasEl = document.getElementsByTagName("canvas")[0];
-    canvasEl.width = Game.DIM_X;
-    canvasEl.height = Game.DIM_Y;
+  constructor(props) {
+    super(props);
 
-    const ctx = canvasEl.getContext("2d");
-    const game = new Game();
-    new GameView(game, ctx).start();
+    this.state = {
+      leftScore: 0,
+      rightScore: 0
+    }
   }
 
-
+  componentDidMount() {
+    const game = new gameLogic();
+    game.playGame();
+  };
+  
   render() {
     return (
       <div className="game">
         <div>
-          <canvas></canvas>
+          <div>
+            Right Score: {this.state.rightScore} || Left Score: {this.state.leftScore}
+          </div>
+          <canvas id="game-canvas"></canvas>
         </div>
       </div>
     );
