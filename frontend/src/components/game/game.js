@@ -5,6 +5,9 @@ import Matter from "matter-js";
 // import Util from "./util/util";
 import key from "keymaster";
 
+//websocket client setup
+import io from 'socket.io-client';
+const socket = io();
 
 class GameComponent extends React.Component {
   constructor(props) {

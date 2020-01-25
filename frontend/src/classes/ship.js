@@ -62,6 +62,8 @@ class Ship extends MovingObject {
           ctx.fillStyle = this.color;
           ctx.beginPath();
           ctx.lineTo(this.pos[0], this.pos[1]);
+              ctx.lineWidth = "1";
+              ctx.strokeStyle = "black";
           ctx.arc(
             this.pos[0],
             this.pos[1],
