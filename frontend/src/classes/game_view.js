@@ -6,6 +6,7 @@ class GameView {
         this.ctx = ctx;
         this.game = game;
         this.ship = this.game.addShip();
+        this.goal = this.game.addGoal();
     }
 
     bindKeyHandlers() {

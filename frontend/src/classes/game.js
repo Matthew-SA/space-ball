@@ -2,6 +2,29 @@ import Matter from 'matter-js';
 const Ball = require("./ball");
 const Ship = require("./ship");
 const Util = require("./util");
+const Goal = require("./goal");
+
+
+class Game {
+    constructor() {
+        this.balls = [];
+        this.ships = [];
+        this.goals = [];
+        // this.addShip()
+        // this.addBalls();
+    }
+
+    add(object) {
+        if (object instanceof Ball) {
+            this.balls.push(object);
+        } else if (object instanceof Ship) {
+            this.ships.push(object);
+        } else if (object instanceof Goal){
+            this.goals.push(object);
+        } else {
+            throw new Error("unknown type of object");
+        }
+    }
 
 
 
@@ -17,25 +40,44 @@ var mp;
 var keys = [];
 
 
-class Game {
-    constructor(canvas, ctx) {
-        this.canvas = canvas
-        this.ctx = ctx
+
+    addGoal(){
+        const goal = new Goal({
+            pos: [Game.DIM_X/2, Game.DIM_Y/2],
+            game: this
+        })
+
+        this.add(goal);
+        return goal;
     }
 
-    addBall() {
-        const engine = Matter.Engine.create();
-        const world = engine.world;
-        const render = Matter.Render.create({
-            canvas: this.canvas,
-            engine: engine,
-            options: {
-            width: this.canvas.width,
-            height: this.canvas.height,
-            background: "#BBBBBB",
-            wireframes: false,
-            showAngleIndicator: false
+    allObjects() {
+        return [].concat(this.ships, this.balls);
+    }
+
+    checkCollisions() {
+        const allObjects = this.allObjects();
+        for (let i = 0; i < allObjects.length; i++) {
+            for (let j = 0; j < allObjects.length; j++) {
+                const obj1 = allObjects[i];
+                const obj2 = allObjects[j];
+
+                if (obj1.isCollidedWith(obj2)) {
+                    const collision = obj1.collideWith(obj2);
+                    if (collision) return;
+                }
             }
+        }
+    }
+
+    draw(ctx) {
+        ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+        ctx.fillStyle = Game.BG_COLOR;
+        ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+        this.goals[0].draw(ctx);
+        this.allObjects().forEach((object) => {
+            object.draw(ctx);
+
         });
         var ball = Matter.Bodies.circle(500, 300, 40, {
           density: 0.04,
