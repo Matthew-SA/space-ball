@@ -1,9 +1,9 @@
 import React from 'react';
 // import GameView from "../../classes/game_view";
 import gameLogic from "../../classes/game_logic";
-import Matter from "matter-js";
+// import Matter from "matter-js";
 // import Util from "./util/util";
-import key from "keymaster";
+// import key from "keymaster";
 
 
 class GameComponent extends React.Component {

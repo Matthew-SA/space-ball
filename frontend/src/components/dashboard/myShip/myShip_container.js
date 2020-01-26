@@ -1,10 +1,18 @@
 import { connect } from "react-redux";
-import { logout } from "../../../actions/session_actions";
+import { logout, clearErrors } from "../../../actions/session_actions";
+import { clearStats } from "../../../actions/stats_actions";
 
 import MyShip from "./myShip";
 
 const mapStateToProps = state => ({
-  loggedIn: state.session.isAuthenticated
+  loggedIn: state.session.isAuthenticated,
+  user: state.session.user
 });
 
-export default connect(mapStateToProps, { logout })(MyShip);
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+  clearErrors: () => dispatch(clearErrors()),
+  clearStats: () => dispatch(clearStats())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyShip);

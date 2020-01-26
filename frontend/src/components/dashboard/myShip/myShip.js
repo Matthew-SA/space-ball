@@ -10,17 +10,24 @@ class MyShip extends React.Component {
     this.getLinks = this.getLinks.bind(this);
   }
 
+  // componentDidUpdate() {
+  //   debugger
+  //   this.props.clearErrors();
+  // }
+
   logoutUser(e) {
     e.preventDefault();
     this.props.logout();
+    this.props.clearStats();
   }
 
-
+  
   getLinks() {
     if (this.props.loggedIn) {
       return (
         <div>
-          <div className="logout-container">
+          <div className="greeting-container">
+            <div className="greeting">Hello {this.props.user.username} !</div>
             <button className="logout-button" onClick={this.logoutUser}>
               Log Out
             </button>
@@ -28,11 +35,7 @@ class MyShip extends React.Component {
           <div className="customize-ship-container">
             <div className="customize-panel">Customize Ship Box</div>
             <div className="ship-picture-container">
-              <img
-                src="images/ship.png"
-                className="ship"
-                alt="ship"
-              />
+              <img src="images/ship.png" className="ship" alt="ship" />
             </div>
           </div>
         </div>
