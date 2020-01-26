@@ -1,14 +1,11 @@
-import { RECEIVE_STATS, CLEAR_STATS } from "../actions/stats_actions";
+import { RECEIVE_STATS } from "../actions/stats_actions";
 
-// export const statsOrder = ["rank", "kills"];
-export const nullStats = () => ({ points: 0 });
+export const nullStats = () => ({ points: 0, wins: 0, losses: 0 });
 
 const statsReducer = (state = nullStats(), action) => {
   switch (action.type) {
     case RECEIVE_STATS:
-      return Object.assign({}, state, action.stats);
-    case CLEAR_STATS:
-      return nullStats();
+      return Object.assign({}, state, action.payload);
     default:
       return state;
   }

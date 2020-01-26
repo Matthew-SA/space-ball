@@ -57,24 +57,25 @@ select::-ms-expand {
 /* Homepage CSS */
 
 .homepage-container {
-  height: 93vh;
+  height: 100vh;
   background-color: black;
   color: #ffcc66;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  overflow: scroll;
 }
 
-.dashboard-section {
+.dashboard {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
   background-color: #ed7161;
-  height: 7vh;
+  height: 45px;
 }
 
 .home-select {
   text-align: center;
-  padding-top: 12px;
+  padding-top: 10px;
   font-size: 22px;
   color: #ffcc66;
   border-left: 1px solid #ea4732;
@@ -83,8 +84,6 @@ select::-ms-expand {
 
 .home-select:hover {
   background-color: #ffcc66;
-  /* border-left: 1px solid #ed7161;
-  border-right: 1px solid #ed7161; */
   color: #ed7161;
   cursor: pointer;
 }
@@ -103,32 +102,43 @@ select::-ms-expand {
 /* Signup & Login CSS */
 
 .login-prompt {
-  padding: 80px 0px 40px 0px;
   text-align: center;
   font-size: 22px;
 }
 
-.form-container-signup, .form-container-login{
-  background-color: black;
-  color: #ffcc66;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.signup-form, .login-form {
+  text-align: center;
+  font-size: 18px;
+}
+
+.mystats-login {
+  padding-bottom: 20px;
+  background: black;
+}
+
+.myship-login > .login-prompt{
+  padding-top: 80px;
+  padding-bottom: 40px;
+}
+
+.mystats-login > .login-prompt{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.form-container-login, .form-container-signup {
+  color: #ed7161;
 }
 
 .hidden {
   display: none;
 }
 
-.signup-form, .login-form {
-  text-align: center;
-}
-
 .input-field {
   font-weight: 200;
   height: 50px;
   font-size: 16px;
-  width: 30%;
+  width: 225px;
   padding-left: 20px;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -147,11 +157,11 @@ select::-ms-expand {
 }
 
 .submit-button {
-  font-weight: 200;
-  color: #ffcc66  ;
+  /* font-weight: 200; */
+  color: black;
   height: 50px;
   font-size: 16px;
-  width: 30%;
+  width: 225px;
   padding-left: 0px;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -166,7 +176,13 @@ select::-ms-expand {
 
 .alt-text {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 10px;
+  font-size: 14px;
+}
+
+.errors {
+  font-size: 16px;
+  color: #ffcc66
 }
 
 .logout-container {
@@ -196,7 +212,7 @@ select::-ms-expand {
 }
 
 
-/* Customize Ship CSS */
+/* My Ship CSS */
 
 .customize-ship-container {
   display: grid;
@@ -226,19 +242,13 @@ select::-ms-expand {
   width: 250px;
 }
 
-/* Leaderboard CSS  */
+/* Leaderboard & Stats CSS  */
 
 .leaderboard-section {
-  height: 93vh;
   padding-top: 70px;
 }
 
-.leaderboard-container {
-  padding-top: 20px;
-}
-
 .leaderboard {
-  height: 75%;
   width: 80%;
   margin: 0 auto;
   border-radius: 10px;
@@ -247,22 +257,55 @@ select::-ms-expand {
   color: #ed7161;
   font-size: 30px;
   text-align: center;
-  padding-top: 20px;
+  overflow: scroll;
+}
+
+.leaderboard-menu {
+  font-size: 28px;
+  height: 60px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  /* border-bottom: 1px solid #ffcc66 */
+}
+.leaderboard-table, .stats-table {
+  width: 100%;
+  padding-bottom: 20px;
 }
 
 .table {
   width: 100%;
 }
 
-.leaderboard-title {
+.table-title, .stats-title {
   background-color: black;
-  margin: 40px 0px 20px 0px;
+  font-size: 22px;
 }
 
-.column-player, .column-rank, .column-stat {
-  width: 33%;
+.table-body {
+  font-size: 22px;
+  line-height: 1.7;
 }
 
+.column-player, .column-rank, .column-stat, .column-wins, .column-losses {
+  width: 20%;
+}
+
+.column-points, .column-wins, .column-losses, .column-winloss {
+  width: 25%;
+}
+
+.board-select {
+  padding-top: 12px;
+  background-color: #ed7161;
+  color: #ffcc66;
+  cursor: pointer;
+}
+
+.board-select.active {
+  background-color: #ffcc66;
+  color: #ed7161;
+  border-radius: 10px;
+}
 
 /* Play CSS */
 
