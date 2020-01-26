@@ -2,15 +2,24 @@ import GameComponent from '../components/game/game';
 import Matter from "matter-js";
 import key from "keymaster";
 
+//websocket client setup
+import io from 'socket.io-client';
 
 class gameLogic {
     constructor() {
+        this.socket = io();
         this.gameState = {
             // ballPositionX: ball.position.x,
             // ballPositionY: ball.position.y
         }
         this.leftScore = 0;
         this.rightScore = 0;
+    }
+
+    testfunction() {
+      this.socket.on('greeting', () => {
+        console.log("hey!")
+      })
     }
 
     playGame() {
@@ -27,7 +36,7 @@ class gameLogic {
         ctx.font = "30px Arial";
         ctx.fillStyle = "red";
         ctx.textAlign = "center";
-        ctx.fillText("Hello World", canvas.width / 2, canvas.height / 2); 
+        ctx.fillText("Hello World", 10, 10 ); 
 
         const engine = Matter.Engine.create();
         const world = engine.world;
@@ -150,6 +159,7 @@ class gameLogic {
         
         
         key('w', () => {
+          this.socket.emit('test-function', "UP!")
           Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 0,
             y: -10
@@ -157,6 +167,7 @@ class gameLogic {
         });
         
         key('s', () => {
+          this.socket.emit('test-function', "DOWN!")
           Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 0,
             y: 10
@@ -164,6 +175,7 @@ class gameLogic {
         })
         
         key('a', () => {
+          this.socket.emit('test-function', "LEFT!")
           Matter.Body.applyForce(leftShip, leftShip.position, {
             x: -10,
             y: 0
@@ -171,6 +183,7 @@ class gameLogic {
         });
         
         key('d', () => {
+          this.socket.emit('test-function', "RIGHT!")
           Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 10,
             y: 0
