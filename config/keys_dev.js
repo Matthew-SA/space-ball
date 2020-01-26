@@ -1,5 +1,5 @@
 module.exports = {
-  mongoURI:
+  MONGO_URI:
     "mongodb+srv://chris:8NkKsOMREZKaWSPB@cluster0-q1ev3.mongodb.net/test?retryWrites=true&w=majority",
-  secretOrKey: "teamawesomesauce"
+  SECRET_OR_KEY: "teamawesomesauce"
 };
