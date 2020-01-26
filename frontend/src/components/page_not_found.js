@@ -5,18 +5,22 @@ import { Route, Redirect, withRouter, Link } from "react-router-dom";
 class PageNotFound extends React.Component{
 
   componentDidMount(){   
-    setTimeout(() => {
-      this.props.history.push("/");
-    }, 5000);
+    // automatically redirect them (causes a edge case bug if the user tries to play too fast)
+    // setTimeout(() => {
+    //   this.props.history.push("/");
+    // }, 4000);
   }
 
   render(){
     return (
       <div className="homepage-container">
-        <h1 className="">You've reached a universe that does not exist!</h1>
+        <h1 className="intro-title">You've reached a universe that does not exist!</h1>
         <Link className="lobby-container" to="/">
-          Redirecting back to our universe (or click here!)...
+          {/* <h2>Redirecting back to our universe (or click here!)...</h2> */}
+          <h2>Return to our universe (click here!)</h2>
         </Link>
+              {/* <a href="#/" className="lobby-container"><h2>Redirecting back to our universe (or click here!)...</h2></a> */}
+
       </div>
     );
   }
