@@ -26,14 +26,13 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-// const Game = require('./frontend/src/classes/game')  <-- game or gameview here?  Need server side game.
+const Game = require('./lib/Game')  
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
-
-// const game = Game.create();  <-- create game instance and call functions to update game!
+const game = Game.create(); 
 app.set('port', PORT);
 // end websocket initialization
 
@@ -65,22 +64,28 @@ io.on('connection', (socket) => {
     console.log(data)
   })
 
+  socket.on('player-action', (data) => {
+    console.log(data)
+    game.updatePlayerOnInput(socket.id, data);
+  });
+
   socket.on('player-join', () => {
-    // game.addNewPlayer(socket);
+    game.addNewPlayer(socket);
     console.log('user joined')
   })
 
   socket.on('disconnect', () => {
-    // game.removePlayer(socket.id)
+    game.removePlayer(socket.id)
     console.log('user disconnected')
   })
 })
 
 // Server-side game loop.  Currently runs at 60 FPS.
-// setInterval(() => {
-//   game.update();
-//   game.sendState();
-// }, 1000 / FPS);
+const FPS = 60
+setInterval(() => {
+  game.update();
+  game.sendState();
+}, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
 // app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

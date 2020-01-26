@@ -1,10 +1,12 @@
 import React from 'react';
 // import GameView from "../../classes/game_view";
 import gameLogic from "../../classes/game_logic";
-// import Matter from "matter-js";
+import Game from '../../classes/game/Game'
+import Matter from "matter-js";
 // import Util from "./util/util";
-// import key from "keymaster";
-
+import key from "keymaster";
+import io from 'socket.io-client';
+import Input from '../../classes/game/Input'
 
 class GameComponent extends React.Component {
   constructor(props) {
@@ -14,18 +16,23 @@ class GameComponent extends React.Component {
       score: {
         leftScore: 0,
         rightScore: 0,
-        over: false
+        over: false,
+        winner: null
       }
       // game: null
     }
   }
 
   componentDidMount() {
-    this.game = new gameLogic();
-    this.game.playGame();
+    this.socket = io()
+    this.canvas = document.getElementById('game-canvas')
+    Input.applyEventHandlers();
+    this.game = Game.create(this.socket, this.canvas)
+    this.game.init()
+    this.game.animate();
     // this.setState({game: game})
-    this.scoreId = setInterval(() => this.updateScore()
-    , 250)
+    // this.scoreId = setInterval(() => this.updateScore()
+    // , 250)
   };
   
   updateScore() {
