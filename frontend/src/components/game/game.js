@@ -16,7 +16,8 @@ class GameComponent extends React.Component {
       score: {
         leftScore: 0,
         rightScore: 0,
-        over: false
+        over: false,
+        winner: null
       }
       // game: null
     }
