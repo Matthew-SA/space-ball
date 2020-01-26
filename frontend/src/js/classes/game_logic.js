@@ -1,18 +1,20 @@
-import GameComponent from '../components/game/game';
+import GameComponent from '../../components/game/game';
 import Matter from "matter-js";
 import key from "keymaster";
 import io from 'socket.io-client';
+import Input from './input';
+import Util from './util'; //this file is placeholder!
 
-class gameLogic {
+class GameLogic {
     constructor(socket) {
-        this.gameState = {
-            // ballPositionX: ball.position.x,
-            // ballPositionY: ball.position.y
-        }
-        this.leftScore = 0;
-        this.rightScore = 0;
-        // this.socket = io();
-        this.socket = socket;
+      this.gameState = {
+          // ballPositionX: ball.position.x,
+          // ballPositionY: ball.position.y
+      }
+      this.leftScore = 0;
+      this.rightScore = 0;
+      // this.socket = io();
+      this.socket = socket;
     }
 
     init(){
@@ -299,4 +301,4 @@ class gameLogic {
     }
 }
 
-export default gameLogic;
+export default GameLogic;
