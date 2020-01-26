@@ -14,6 +14,18 @@ class gameLogic {
         }
         this.leftScore = 0;
         this.rightScore = 0;
+        this.over = false;
+    }
+
+    checkScore() {
+        if (this.leftScore === 10 || this.rightScore === 10) {
+          this.over = true;
+        }
+        return {
+            leftScore: this.leftScore,
+            rightScore: this.rightScore,
+            over: this.over
+        }
     }
 
     testfunction() {
@@ -26,12 +38,12 @@ class gameLogic {
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
         
-        const background = new Image();
-        background.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif';
+        // const background = new Image();
+        // background.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif';
         
-        background.onload = function() {
-          ctx.drawImage(background, 0, 0);
-        };
+        // background.onload = function() {
+        //   ctx.drawImage(background, 0, 0);
+        // };
         
         ctx.font = "30px Arial";
         ctx.fillStyle = "red";
@@ -83,9 +95,9 @@ class gameLogic {
           frictionAir: 0.00001,
           restitution: 0.8,
           render: {
-            fillStyle: "#00FF88",
-            strokeStyle: "black",
-            lineWidth: 1
+            sprite: {
+              texture: "images/earth_ball.png"
+            }
           }
         });
         
@@ -139,20 +151,20 @@ class gameLogic {
         });
         Matter.World.add(world, bottomLeft);
         
-        const leftGoal = Matter.Bodies.rectangle(0, 300, 40, 250, {
+        const leftGoal = Matter.Bodies.rectangle(0, 300, 1, 250, {
           isStatic: true,
           isSensor: true,
           render: {
-            fillStyle: "#F35e66"      
+            visible: false
           }
         });
         Matter.World.add(world, leftGoal);
         
-        const rightGoal = Matter.Bodies.rectangle(1000, 300, 40, 250, {
+        const rightGoal = Matter.Bodies.rectangle(1000, 300, 1, 250, {
           isStatic: true,
           isSensor: true,
           render: {
-            fillStyle: "#00FFFF"      
+            visible: false
           }
         });
         Matter.World.add(world, rightGoal);
@@ -210,11 +222,12 @@ class gameLogic {
               that.leftScore += 1;
               Matter.Body.setPosition(ball, { x: 500, y: 300 });
               Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+              Matter.Body.setAngularVelocity(ball, 0);
               Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
               Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
               Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
               Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
-              console.log(that.leftScore);
+              // console.log(that.leftScore);
             } else if (
               (pair.bodyA === leftGoal && pair.bodyB === ball) ||
               (pair.bodyB === leftGoal && pair.bodyA === ball)
@@ -222,11 +235,12 @@ class gameLogic {
               that.rightScore += 1;
               Matter.Body.setPosition(ball, { x: 500, y: 300 });
               Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+              Matter.Body.setAngularVelocity(ball, 0);
               Matter.Body.setPosition(leftShip, { x: 200, y: 300 });
               Matter.Body.setVelocity(leftShip, { x: 0, y: 0 });
               Matter.Body.setPosition(rightShip, { x: 800, y: 300 });
               Matter.Body.setVelocity(rightShip, { x: 0, y: 0 });
-              console.log(that.rightScore);
+              // console.log(that.rightScore);
             } else if (
               (pair.bodyA === leftGoal && pair.bodyB === leftShip) ||
               (pair.bodyB === leftGoal && pair.bodyA === leftShip)
