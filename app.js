@@ -59,13 +59,13 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("../frontend/public/index.html"));
 });
 
-io.on("connection", socket => {
-  console.log("*** CONNECTION CREATED ***");
-  socket.broadcast.emit("hi!");
+io.on('connection', (socket) => {
+  console.log('*** CONNECTION CREATED ***');
+  socket.broadcast.emit('hi!')
 
-  socket.on("test-function", data => {
-    console.log(data);
-  });
+  socket.on('test-function', (data) => {
+    console.log(data)
+  })
 
   socket.on("player-join", () => {
     // game.addNewPlayer(socket);
