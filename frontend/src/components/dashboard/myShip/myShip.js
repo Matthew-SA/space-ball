@@ -39,7 +39,7 @@ class MyShip extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div className="myship-login">
           <div className="login-prompt">You must be logged in to customize your ship</div>
           <div><LoginFormContainer /></div>
           <div><SignupFormContainer /></div>

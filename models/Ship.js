@@ -6,6 +6,10 @@ const ShipSchema = new Schema ({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  name: {
+    type: String,
+    default: "Ship"
+  },
   color: {
     type: String,
     default: "white"

@@ -2,27 +2,21 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 class SignupForm extends React.Component {
+  componentDidMount() {
+    this.props.clearErrors();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       username: "",
       password: "",
-      password2: "",
-      errors: {}
+      password2: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
     this.signupOrLogin = this.signupOrLogin.bind(this);
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    // if (nextProps.signedIn === true) {
-    //   this.props.history.push("/game");
-    // }
-
-    this.setState({ errors: nextProps.errors });
   }
 
   update(field) {
@@ -45,16 +39,19 @@ class SignupForm extends React.Component {
   }
 
   signupOrLogin(e) {
-    Array.from(document.getElementsByClassName('form-container-login')).forEach(el => el.classList.remove('hidden'));
-    Array.from(document.getElementsByClassName('form-container-signup')).forEach(el => el.classList.add('hidden'));
-    // e.target.classList.add('hidden');
+    Array.from(
+      document.getElementsByClassName("form-container-login")
+    ).forEach(el => el.classList.remove("hidden"));
+    Array.from(
+      document.getElementsByClassName("form-container-signup")
+    ).forEach(el => el.classList.add("hidden"));
   }
 
   renderErrors() {
     return (
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+      <ul className="errors">
+        {Object.keys(this.props.errors).map((error, i) => (
+          <li key={`error-${i}`}>{this.props.errors[error]}</li>
         ))}
       </ul>
     );
@@ -65,8 +62,6 @@ class SignupForm extends React.Component {
       <div className="form-container-signup hidden">
         <form onSubmit={this.handleSubmit}>
           <div className="signup-form">
-            <h1>Sign Up</h1>
-            <br />
             <input
               className="input-field"
               type="text"
@@ -99,13 +94,15 @@ class SignupForm extends React.Component {
               placeholder="Confirm Password"
             />
             <br />
-            <input className="submit-button" type="submit" value="SUBMIT" />
+            <input className="submit-button" type="submit" value="SIGN UP" />
             {this.renderErrors()}
           </div>
         </form>
         <div className="alt-text">
           <div>Already have an account?</div>
-          <div className="pointer" onClick={this.signupOrLogin}>Login</div>
+          <div className="pointer" onClick={this.signupOrLogin}>
+            Login
+          </div>
         </div>
       </div>
     );

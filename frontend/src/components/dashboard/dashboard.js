@@ -1,7 +1,7 @@
 import React from "react";
-import MyShipContainer from "./myShip_container";
-import Leaderboard from "./leaderboard";
-import Lobby from "./lobby";
+import MyShipContainer from "./myShip/myShip_container";
+import Leaderboard from "./leaderboard/leaderboard";
+import Lobby from "./lobby/lobby";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -32,12 +32,12 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <div className="dashboard-section">
-          <div className="home-select" id="myship" onClick={this.handleClick}>My Ship</div>
-          <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
-          <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
-        </div>
         <div className="homepage-container">
+          <div className="dashboard">
+            <div className="home-select" id="myship" onClick={this.handleClick}>My Ship</div>
+            <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
+            <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
+          </div>
           {currentViewPort}
         </div>
       </div>

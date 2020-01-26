@@ -1,20 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Stat = require('../../models/Stat');
 const validateStatsInput = require('../../validation/stat');
-
-// router.get("/test", (req, res) => res.json({ msg: "Stats Works" }));
+const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const Stat = require('../../models/Stat');
 
 router.get(
   "/",
+  passport.authenticate('jwt', {session: false }),
   (req, res) => {
-    const errors = {};
-    Stat.find()
-      .find({"points": {$gte: 1}})
-      .limit(10)
-      .sort({points: -1})
-      .then(data => res.json(data))
-      .catch(err => res.status(404).json(err));
+    Stat.findOne({ username: req.user.username })
+      .then(stat => {
+        return res.json(stat)
+      })
+      .catch(err => {
+        return res.status(404).json(err)
+      });
   }
 );
 
@@ -25,7 +26,6 @@ router.post(
 
     // Check Validation
     if (!isValid) {
-      // If any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
 
