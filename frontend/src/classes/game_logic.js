@@ -28,12 +28,6 @@ class gameLogic {
         }
     }
 
-    testfunction() {
-      this.socket.on('greeting', () => {
-        console.log("hey!")
-      })
-    }
-
     playGame() {
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
@@ -44,11 +38,6 @@ class gameLogic {
         // background.onload = function() {
         //   ctx.drawImage(background, 0, 0);
         // };
-        
-        ctx.font = "30px Arial";
-        ctx.fillStyle = "red";
-        ctx.textAlign = "center";
-        ctx.fillText("Hello World", 10, 10 ); 
 
         const engine = Matter.Engine.create();
         const world = engine.world;
