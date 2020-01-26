@@ -42,14 +42,15 @@ class GameComponent extends React.Component {
 
   render() {
     return (
-      <div className="game">
+      <div>
         <div>
-          <div></div>
-          <canvas id="game-canvas"></canvas>
+          <div className="game">
+            <canvas id="game-canvas"></canvas>
+          </div>
         </div>
         <ul className="scores">
-          <li>Left Score: {this.state.score.leftScore}</li>
-          <li>Right Score: {this.state.score.rightScore}</li>
+          <li className="score">Left Score: {this.state.score.leftScore}</li>
+          <li className="score">Right Score: {this.state.score.rightScore}</li>
         </ul>
       </div>
     );

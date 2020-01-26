@@ -291,3 +291,18 @@ select::-ms-expand {
 .play:hover {
   transform:scale(1.05);
 }
+
+.scores {
+  display: flex;
+  justify-content: center;
+
+}
+.score {
+  float: left;
+  padding: 20px
+}
+.game {
+  display: flex;
+  justify-content: center;
+}
+

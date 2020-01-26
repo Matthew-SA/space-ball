@@ -11,21 +11,17 @@ class gameLogic {
         }
         this.leftScore = 0;
         this.rightScore = 0;
+        this.over = false;
     }
 
     checkScore() {
         if (this.leftScore === 10 || this.rightScore === 10) {
-            return {
-                leftScore: this.leftScore,
-                rightScore: this.rightScore,
-                over: true
-            }
-        } else {
-            return {
-                leftScore: this.leftScore,
-                rightScore: this.rightScore,
-                over: false
-            };            
+          this.over = true;
+        }
+        return {
+            leftScore: this.leftScore,
+            rightScore: this.rightScore,
+            over: this.over
         }
     }
 
