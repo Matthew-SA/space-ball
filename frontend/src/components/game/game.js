@@ -20,8 +20,8 @@ class GameComponent extends React.Component {
   }
 
   componentDidMount() {
-    const game = new gameLogic();
-    game.playGame();
+    const game = new gameLogic(socket);
+    game.playGame(socket);
   };
   
   render() {

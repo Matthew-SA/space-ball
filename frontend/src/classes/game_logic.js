@@ -1,19 +1,75 @@
 import GameComponent from '../components/game/game';
 import Matter from "matter-js";
 import key from "keymaster";
-
+import io from 'socket.io-client';
 
 class gameLogic {
-    constructor() {
+    constructor(socket) {
         this.gameState = {
             // ballPositionX: ball.position.x,
             // ballPositionY: ball.position.y
         }
         this.leftScore = 0;
         this.rightScore = 0;
+        // this.socket = io();
+        this.socket = socket;
     }
 
-    playGame() {
+    init(){
+      let that = this;
+      this.socket.on('update', function(data){
+        that.receiveGameState(data);
+      });
+      this.socket.emit('player-joined!')
+    }
+
+    receiveGameState(state){
+      this.selfPlayer = state['self]'];
+      this.otherPlayers = state['players'];
+    }
+
+    animate(){
+      this.animationFrameId = window.requestAnimationFrame(
+        Util.bind(this, this.update));
+    };
+
+    stopAnimation(){
+        window.cancelAnimationFrame(this.animationFrameId);
+    }
+
+    update(){
+      if (this.selfPlayer) {
+        this.socket.emit("player-action", {
+          keyboardState: {
+            left: Input.LEFT,
+            right: Input.RIGHT,
+            up: Input.UP,
+            down: Input.DOWN
+          }
+        });
+        this.draw();
+      }
+      this.animate();
+    }
+
+    draw(){
+      // Clear the canvas.
+      this.drawing.clear();
+
+      // Draw yourself
+      this.drawing.drawSelf(
+        this.selfPlayer.x,
+        this.selfPlayer.y,
+        this.selfPlayer.hitbox
+      );
+
+      // Draw the other players
+      for (var player of this.otherPlayers) {
+        this.drawing.drawOther(player.x, player.y, player.hitbox);
+      }
+    }
+
+    playGame(socket) {
         const canvas = document.getElementById("game-canvas");
         const ctx = canvas.getContext("2d");
         
@@ -145,31 +201,35 @@ class gameLogic {
         
         
         key('w', () => {
-          Matter.Body.applyForce(leftShip, leftShip.position, {
-            x: 0,
-            y: -10
-          });
+          this.socket.emit("test-function", "up")
+          // Matter.Body.applyForce(leftShip, leftShip.position, {
+          //   x: 0,
+          //   y: -10
+          // });
         });
         
         key('s', () => {
-          Matter.Body.applyForce(leftShip, leftShip.position, {
-            x: 0,
-            y: 10
-          });
+          this.socket.emit("test-function", "down")
+          // Matter.Body.applyForce(leftShip, leftShip.position, {
+          //   x: 0,
+          //   y: 10
+          // });
         })
         
         key('a', () => {
-          Matter.Body.applyForce(leftShip, leftShip.position, {
-            x: -10,
-            y: 0
-          });
+          this.socket.emit("test-function", "left")
+          // Matter.Body.applyForce(leftShip, leftShip.position, {
+          //   x: -10,
+          //   y: 0
+          // });
         });
         
         key('d', () => {
-          Matter.Body.applyForce(leftShip, leftShip.position, {
-            x: 10,
-            y: 0
-          });
+          this.socket.emit("test-function", "right")
+          // Matter.Body.applyForce(leftShip, leftShip.position, {
+          //   x: 10,
+          //   y: 0
+          // });
         });
         
         
@@ -182,7 +242,7 @@ class gameLogic {
         Matter.Events.on(engine, "collisionEnd", function(event) {
           var pairs = event.pairs;
         
-          for (var i = 0, j = pairs.length; i != j; ++i) {
+          for (var i = 0, j = pairs.length; i !== j; ++i) {
             var pair = pairs[i];
         
             if (
