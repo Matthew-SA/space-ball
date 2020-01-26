@@ -59,7 +59,7 @@ select::-ms-expand {
 .homepage-container {
   height: 100vh;
   background-color: black;
-  color: #ffcc66;
+  color: #ffe600;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -69,7 +69,7 @@ select::-ms-expand {
 .dashboard {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
-  background-color: #ed7161;
+  background-color: #fc03a1;
   height: 45px;
 }
 
@@ -77,20 +77,20 @@ select::-ms-expand {
   text-align: center;
   padding-top: 10px;
   font-size: 22px;
-  color: #ffcc66;
+  color: #ffe600;
   border-left: 1px solid #ea4732;
   border-right: 1px solid #ea4732;
 }
 
 .home-select:hover {
-  background-color: #ffcc66;
-  color: #ed7161;
+  background-color: #ffe600;
+  color: #fc03a1;
   cursor: pointer;
 }
 
 .home-select.active {
-  background-color: #ffcc66;
-  color: #ed7161;
+  background-color: #ffe600;
+  color: #fc03a1;
 }
 
 .intro-title {
@@ -127,7 +127,7 @@ select::-ms-expand {
 }
 
 .form-container-login, .form-container-signup {
-  color: #ed7161;
+  color: #fc03a1;
 }
 
 .hidden {
@@ -142,14 +142,14 @@ select::-ms-expand {
   padding-left: 20px;
   margin-bottom: 10px;
   border-radius: 10px;
-  border: 5px solid #ed7161;
-  background-color: #ffcc66;
-  color: #ed7161;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
   transition: ease-in-out .4s;
 }
 
 .input-field::placeholder {
-  color: #ed7161;
+  color: #fc03a1;
 }
 
 .input-field:focus {
@@ -165,7 +165,7 @@ select::-ms-expand {
   padding-left: 0px;
   margin-bottom: 10px;
   border-radius: 10px;
-  background-color: #ed7161;
+  background-color: #fc03a1;
   transition: ease-in-out .4s;
   cursor: pointer;
 }
@@ -182,7 +182,7 @@ select::-ms-expand {
 
 .errors {
   font-size: 16px;
-  color: #ffcc66
+  color: #ffe600
 }
 
 .logout-container {
@@ -197,13 +197,13 @@ select::-ms-expand {
   width: 80px;
   font-size: 16px;
   border-radius: 10px;
-  border: 2px solid #ed7161;
+  border: 2px solid #fc03a1;
   cursor: pointer;
   margin: 10px 10px 0px 0px;
 }
 
 .logout-button:hover {
-  background-color: #ffcc66;
+  background-color: #ffe600;
   color: #000;
 }
 
@@ -225,9 +225,9 @@ select::-ms-expand {
   width: 90%;
   margin: 20px auto;
   border-radius: 10px;
-  border: 5px solid #ed7161;
-  background-color: #ffcc66;
-  color: #ed7161;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
   font-size: 30px;
   text-align: center;
   padding-top: 20px;
@@ -252,9 +252,9 @@ select::-ms-expand {
   width: 80%;
   margin: 0 auto;
   border-radius: 10px;
-  border: 5px solid #ed7161;
-  background-color: #ffcc66;
-  color: #ed7161;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
   font-size: 30px;
   text-align: center;
   overflow: scroll;
@@ -265,7 +265,7 @@ select::-ms-expand {
   height: 60px;
   display: grid;
   grid-template-columns: 50% 50%;
-  /* border-bottom: 1px solid #ffcc66 */
+  /* border-bottom: 1px solid #ffe600 */
 }
 .leaderboard-table, .stats-table {
   width: 100%;
@@ -296,14 +296,14 @@ select::-ms-expand {
 
 .board-select {
   padding-top: 12px;
-  background-color: #ed7161;
-  color: #ffcc66;
+  background-color: #fc03a1;
+  color: #ffe600;
   cursor: pointer;
 }
 
 .board-select.active {
-  background-color: #ffcc66;
-  color: #ed7161;
+  background-color: #ffe600;
+  color: #fc03a1;
   border-radius: 10px;
 }
 
@@ -313,7 +313,7 @@ select::-ms-expand {
   height: 93vh;
   padding-top: 150px; 
   text-align: center;
-  color: #ed7161;
+  color: #fc03a1;
 }
 
 .play {
@@ -321,9 +321,9 @@ select::-ms-expand {
   width: 200px;
   margin: 100px auto;
   border-radius: 10px;
-  border: 5px solid #ed7161;
-  background-color: #ffcc66;
-  color: #ed7161;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
   font-size: 30px;
   text-align: center;
   padding-top: 15px;
@@ -335,6 +335,9 @@ select::-ms-expand {
   transform:scale(1.05);
 }
 
+
+/* Game CSS */
+
 .scores {
   display: flex;
   justify-content: center;
@@ -342,10 +345,21 @@ select::-ms-expand {
 }
 .score {
   float: left;
-  padding: 20px
+  padding: 20px;
+  height: 65px;
+  width: 200px;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  margin: 20px;
+  color: #fc03a1;
+  font-size: 22px;
+  text-align: center;
+  padding-top: 15px;
 }
 .game {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 

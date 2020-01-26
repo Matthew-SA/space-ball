@@ -15,23 +15,30 @@ class gameLogic {
         this.leftScore = 0;
         this.rightScore = 0;
         this.over = false;
-    }
+        this.winner = null;
+    };
 
     checkScore() {
-        if (this.leftScore === 10 || this.rightScore === 10) {
+        if (this.leftScore === 10) {
+          this.over = true
+          this.winner = "left";
+        } else if (this.rightScore === 10) {
           this.over = true;
-        }
+          this.winner = "right";
+        };
+
         return {
             leftScore: this.leftScore,
             rightScore: this.rightScore,
-            over: this.over
-        }
-    }
+            over: this.over,
+            winner: this.winner
+        };
+    };
 
     testfunction() {
       this.socket.on('greeting', () => {
-        console.log("hey!")
-      })
+        console.log("hey!");
+      });
     }
 
     playGame() {
@@ -58,7 +65,10 @@ class gameLogic {
           options: {
             width: 1000,
             height: 600,
-            background: '#000000',
+            // background: '#000000',
+            sprite: {
+              texture: 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif'
+            },
             wireframes: false,
             showAngleIndicator: false
           }
@@ -68,7 +78,7 @@ class gameLogic {
         
         const leftShip = Matter.Bodies.circle(200, 300, 30, {
           density: 0.5,
-          friction: 0,
+          friction: 1,
           render: {
             sprite: {
             texture: "images/default_ship.png"
@@ -79,7 +89,8 @@ class gameLogic {
         
         const rightShip = Matter.Bodies.circle(800, 300, 30, {
           density: 0.5,
-          friction: 0,
+          friction: 1,
+          restitution: 0.5,
           render: {
             sprite: {
             texture: "images/default_ship.png"
@@ -103,50 +114,50 @@ class gameLogic {
         
         Matter.World.add(world, ball);
         
-        const ceiling = Matter.Bodies.rectangle(0, 0, 2000, 40, {
-          isStatic: true, 
+        const ceiling = Matter.Bodies.rectangle(0, 0, 2000, 30, {
+          isStatic: true,
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, ceiling);
         
-        const floor = Matter.Bodies.rectangle(0, 600, 2000, 40, {
-          isStatic: true, 
+        const floor = Matter.Bodies.rectangle(0, 600, 2000, 30, {
+          isStatic: true,
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, floor);
         
-        const topLeft = Matter.Bodies.rectangle(0, 0, 40, 350, {
-          isStatic: true, 
+        const topLeft = Matter.Bodies.rectangle(0, 0, 30, 350, {
+          isStatic: true,
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, topLeft);
         
-        const topRight = Matter.Bodies.rectangle(1000, 0, 40, 350, {
+        const topRight = Matter.Bodies.rectangle(1000, 0, 30, 350, {
           isStatic: true, 
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, topRight);
         
-        const bottomRight = Matter.Bodies.rectangle(1000, 600, 40, 350, {
-          isStatic: true, 
+        const bottomRight = Matter.Bodies.rectangle(1000, 600, 30, 350, {
+          isStatic: true,
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, bottomRight);
         
-        const bottomLeft = Matter.Bodies.rectangle(0, 600, 40, 350, {
-          isStatic: true, 
+        const bottomLeft = Matter.Bodies.rectangle(0, 600, 30, 350, {
+          isStatic: true,
           render: {
-            // visible: false
+            fillStyle: "#fc03a1"
           }
         });
         Matter.World.add(world, bottomLeft);
