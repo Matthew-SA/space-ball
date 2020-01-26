@@ -5,73 +5,6 @@ import io from 'socket.io-client';
 import Input from './input';
 import Util from './util'; //this file is placeholder!
 
-<<<<<<< HEAD:frontend/src/js/classes/game_logic.js
-class GameLogic {
-    constructor(socket) {
-      this.gameState = {
-          // ballPositionX: ball.position.x,
-          // ballPositionY: ball.position.y
-      }
-      this.leftScore = 0;
-      this.rightScore = 0;
-      // this.socket = io();
-      this.socket = socket;
-    }
-
-    init(){
-      let that = this;
-      this.socket.on('update', function(data){
-        that.receiveGameState(data);
-      });
-      this.socket.emit('player-joined!')
-    }
-
-    receiveGameState(state){
-      this.selfPlayer = state['self]'];
-      this.otherPlayers = state['players'];
-    }
-
-    animate(){
-      this.animationFrameId = window.requestAnimationFrame(
-        Util.bind(this, this.update));
-    };
-
-    stopAnimation(){
-        window.cancelAnimationFrame(this.animationFrameId);
-    }
-
-    update(){
-      if (this.selfPlayer) {
-        this.socket.emit("player-action", {
-          keyboardState: {
-            left: Input.LEFT,
-            right: Input.RIGHT,
-            up: Input.UP,
-            down: Input.DOWN
-          }
-        });
-        this.draw();
-      }
-      this.animate();
-    }
-
-    draw(){
-      // Clear the canvas.
-      this.drawing.clear();
-
-      // Draw yourself
-      this.drawing.drawSelf(
-        this.selfPlayer.x,
-        this.selfPlayer.y,
-        this.selfPlayer.hitbox
-      );
-
-      // Draw the other players
-      for (var player of this.otherPlayers) {
-        this.drawing.drawOther(player.x, player.y, player.hitbox);
-      }
-    }
-=======
 //websocket client setup
 import io from 'socket.io-client';
 
@@ -104,7 +37,6 @@ class gameLogic {
             winner: this.winner
         };
     };
->>>>>>> master:frontend/src/classes/game_logic.js
 
     playGame(socket) {
         const canvas = document.getElementById("game-canvas");
@@ -242,37 +174,6 @@ class gameLogic {
         
         
         key('w', () => {
-<<<<<<< HEAD:frontend/src/js/classes/game_logic.js
-          this.socket.emit("test-function", "up")
-          // Matter.Body.applyForce(leftShip, leftShip.position, {
-          //   x: 0,
-          //   y: -10
-          // });
-        });
-        
-        key('s', () => {
-          this.socket.emit("test-function", "down")
-          // Matter.Body.applyForce(leftShip, leftShip.position, {
-          //   x: 0,
-          //   y: 10
-          // });
-        })
-        
-        key('a', () => {
-          this.socket.emit("test-function", "left")
-          // Matter.Body.applyForce(leftShip, leftShip.position, {
-          //   x: -10,
-          //   y: 0
-          // });
-        });
-        
-        key('d', () => {
-          this.socket.emit("test-function", "right")
-          // Matter.Body.applyForce(leftShip, leftShip.position, {
-          //   x: 10,
-          //   y: 0
-          // });
-=======
           this.socket.emit('test-function', "UP!")
           Matter.Body.applyForce(leftShip, leftShip.position, {
             x: 0,
@@ -302,7 +203,6 @@ class gameLogic {
             x: 10,
             y: 0
           });
->>>>>>> master:frontend/src/classes/game_logic.js
         });
         
         
