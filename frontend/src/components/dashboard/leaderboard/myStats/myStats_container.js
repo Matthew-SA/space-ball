@@ -12,6 +12,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchStats: () => dispatch(fetchStats())
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyStats);

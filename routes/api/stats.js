@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const validateStatsInput = require('../../validation/stat');
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const Stat = require('../../models/Stat');
 

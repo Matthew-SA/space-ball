@@ -11,7 +11,7 @@ export const fetchStats = () => dispatch => {
     .then(res =>
       dispatch({
         type: RECEIVE_STATS,
-        payload: res.data,
+        payload: res.data
       })
     )
     .catch(err =>

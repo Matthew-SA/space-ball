@@ -8,18 +8,19 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 const User = require("../../models/User");
 
-// Private Auth route
-// router.get(
-//   "/current",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     res.json({
-//       id: req.user.id,
-//       username: req.user.username,
-//       email: req.user.email
-//     });
-//   }
-// );
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOne({ username: req.user.username })
+      .then(user => {
+        return res.json(user);
+      })
+      .catch(err => {
+        return res.status(404).json(err);
+      });
+  }
+);
 
 // Signup route
 router.post("/signup", (req, res) => {
@@ -86,7 +87,7 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: user.id, username: user.username };
+        const payload = { id: user.id, username: user.username, currency: user.currency };
         jwt.sign(
           payload,
           keys.secretOrKey,
