@@ -25,7 +25,7 @@ app.use("/api/leaderboard", leaderboard);
 
 // websocket dependencies
 const http = require("http");
-const socketIO = require("socket.io");
+const socketIO = require('socket.io')
 // const Game = require('./frontend/src/classes/game')  <-- game or gameview here?  Need server side game.
 // end websocket dependencies
 
@@ -34,15 +34,13 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 // const game = Game.create();  <-- create game instance and call functions to update game!
-app.set("port", PORT);
+app.set('port', PORT);
 // end websocket initialization
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "frontend", "public", "build", "index.html")
-    ); // TODO: change build to public?  added public currently. check path
+    res.sendFile(path.resolve(__dirname, "frontend", "public", "build", "index.html")); // TODO: change build to public?  added public currently. check path
   });
 }
 
@@ -67,16 +65,16 @@ io.on('connection', (socket) => {
     console.log(data)
   })
 
-  socket.on("player-join", () => {
+  socket.on('player-join', () => {
     // game.addNewPlayer(socket);
-    console.log("user joined");
-  });
+    console.log('user joined')
+  })
 
-  socket.on("disconnect", () => {
+  socket.on('disconnect', () => {
     // game.removePlayer(socket.id)
-    console.log("user disconnected");
-  });
-});
+    console.log('user disconnected')
+  })
+})
 
 // Server-side game loop.  Currently runs at 60 FPS.
 // setInterval(() => {
