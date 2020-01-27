@@ -1,6 +1,7 @@
 import React from "react";
 import LoginFormContainer from "../session/login_form_container";
 import SignupFormContainer from "../session/signup_form_container";
+import CustomizeContainer from "./customize_container";
 
 
 class MyShip extends React.Component {
@@ -13,28 +14,20 @@ class MyShip extends React.Component {
   logoutUser(e) {
     e.preventDefault();
     this.props.logout();
+    this.props.clearStats();
   }
-
-
+  
   getLinks() {
     if (this.props.loggedIn) {
       return (
         <div>
-          <div className="logout-container">
+          <div className="greeting-container">
+            <div className="greeting">Hello {this.props.user.username} !</div>
             <button className="logout-button" onClick={this.logoutUser}>
               Log Out
             </button>
           </div>
-          <div className="customize-ship-container">
-            <div className="customize-panel">Customize Ship Box</div>
-            <div className="ship-picture-container">
-              <img
-                src="images/ship.png"
-                className="ship"
-                alt="ship"
-              />
-            </div>
-          </div>
+          <CustomizeContainer />
         </div>
       );
     } else {
@@ -48,8 +41,8 @@ class MyShip extends React.Component {
     }
   }
 
-
   render() {
+    // debugger
     return (
     <div>
       {this.getLinks()}

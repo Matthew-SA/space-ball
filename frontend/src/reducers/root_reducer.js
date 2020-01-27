@@ -4,6 +4,7 @@ import errors from "./errors_reducer";
 import sessionErrors from "./session_errors_reducer";
 import statsReducer from "./stats_reducer";
 import leaderboardReducer from "./leaderboard_reducer";
+// import customizeReducer from "./customize_reducer";
 
 const RootReducer = combineReducers({
   session,
@@ -11,6 +12,7 @@ const RootReducer = combineReducers({
   sessionErrors,
   stats: statsReducer,
   leaderboard: leaderboardReducer
+  // customize: customizeReducer
 });
 
 export default RootReducer;

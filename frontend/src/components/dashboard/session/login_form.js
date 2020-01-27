@@ -2,11 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 class LoginForm extends React.Component {
-  componentDidMount() {
-    // debugger
-    this.props.clearErrors();
-  }
-
   constructor(props) {
     super(props);
 
@@ -31,27 +26,25 @@ class LoginForm extends React.Component {
   // Handle form submission
   handleSubmit(e) {
     e.preventDefault();
-
     let user = {
       username: this.state.username,
       password: this.state.password
     };
     this.props.login(user);
-    window.user = user;
   }
 
-  signupOrLogin(e) {
+  signupOrLogin() {
     Array.from(
       document.getElementsByClassName("form-container-signup")
     ).forEach(el => el.classList.remove("hidden"));
     Array.from(
       document.getElementsByClassName("form-container-login")
     ).forEach(el => el.classList.add("hidden"));
+    this.props.clearErrors();
   }
 
   // Render the session errors if there are any
   renderErrors() {
-    // debugger
     return (
       <ul className="errors">
         {Object.keys(this.props.errors).map((error, i) => (

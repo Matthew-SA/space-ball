@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export const RECEIVE_STATS = 'RECEIVE_STATS';
-export const RECEIVE_LEADERBOARD = "RECEIVE_LEADERBOARD";
+export const RECEIVE_LEADERBOARD = 'RECEIVE_LEADERBOARD';
 export const CLEAR_STATS = 'CLEAR_STATS';
-export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const CREATE_STAT = 'CREATE_STAT'
 
 export const fetchStats = () => dispatch => {
   axios
@@ -11,7 +12,7 @@ export const fetchStats = () => dispatch => {
     .then(res =>
       dispatch({
         type: RECEIVE_STATS,
-        payload: res.data,
+        payload: res.data
       })
     )
     .catch(err =>
@@ -22,13 +23,13 @@ export const fetchStats = () => dispatch => {
     );
 };
 
-export const createStat = statData => dispatch => {
+export const createStat = (statData) => dispatch => {
   // dispatch(clearStats());
   axios
     .post("/api/stats", statData)
     .then(res =>
       dispatch({
-        type: RECEIVE_LEADERBOARD,
+        type: CREATE_STAT,
         payload: res.data
       })
     )

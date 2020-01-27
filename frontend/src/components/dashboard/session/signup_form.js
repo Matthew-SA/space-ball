@@ -2,10 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 class SignupForm extends React.Component {
-  componentDidMount() {
-    this.props.clearErrors();
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,15 +32,17 @@ class SignupForm extends React.Component {
     };
 
     this.props.signup(user, this.props.history);
+    this.props.createStat();
   }
 
-  signupOrLogin(e) {
+  signupOrLogin() {
     Array.from(
       document.getElementsByClassName("form-container-login")
     ).forEach(el => el.classList.remove("hidden"));
     Array.from(
       document.getElementsByClassName("form-container-signup")
     ).forEach(el => el.classList.add("hidden"));
+    this.props.clearErrors();
   }
 
   renderErrors() {
