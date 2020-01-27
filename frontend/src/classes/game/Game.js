@@ -179,6 +179,8 @@ class Game {
     var context = this;
     this.socket.on("update", function(data) {
       context.receiveGameState(data);
+      // THIS MAKES INFINITE SHIPS
+      // DON'T DO THIS HERE
       context.createSelfShip();
     });
     this.socket.emit("player-join");
