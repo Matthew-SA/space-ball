@@ -1,4 +1,4 @@
-import GameComponent from '../components/game/game';
+// import GameComponent from '../components/game/game';
 import Matter from "matter-js";
 import key from "keymaster";
 
@@ -212,7 +212,7 @@ class gameLogic {
         Matter.Events.on(engine, "collisionEnd", function(event) {
           var pairs = event.pairs;
         
-          for (var i = 0, j = pairs.length; i != j; ++i) {
+          for (var i = 0, j = pairs.length; i !== j; ++i) {
             var pair = pairs[i];
         
             if (

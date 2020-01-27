@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: "Guest"
 };
 
 export default function(state = initialState, action) {
@@ -14,7 +14,7 @@ export default function(state = initialState, action) {
     case RECEIVE_USER_LOGOUT:
       return {
         isAuthenticated: false,
-        user: undefined
+        user: "Guest"
       };
     case RECEIVE_CURRENT_USER:
       return {

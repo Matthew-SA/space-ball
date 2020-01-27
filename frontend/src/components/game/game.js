@@ -1,10 +1,10 @@
 import React from 'react';
 // import GameView from "../../classes/game_view";
-import gameLogic from "../../classes/game_logic";
+// import gameLogic from "../../classes/game_logic";
 import Game from '../../classes/game/Game'
-import Matter from "matter-js";
+// import Matter from "matter-js";
 // import Util from "./util/util";
-import key from "keymaster";
+// import key from "keymaster";
 import io from 'socket.io-client';
 import Input from '../../classes/game/Input'
 

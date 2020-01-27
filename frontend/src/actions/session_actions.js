@@ -1,5 +1,6 @@
 import * as APIUtil from "../util/session_api_util";
 import jwt_decode from "jwt-decode";
+import { fetchStats } from "./stats_actions";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
@@ -53,6 +54,7 @@ export const login = user => dispatch =>
       const decoded = jwt_decode(token);
       dispatch(receiveCurrentUser(decoded));
     })
+    .then(() => dispatch(fetchStats()))
     .catch(err => {
       dispatch(receiveErrors(err.response.data));
     });

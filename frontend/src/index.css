@@ -185,8 +185,13 @@ select::-ms-expand {
   color: #ffe600
 }
 
-.logout-container {
-  text-align: right;
+.greeting-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.greeting {
+  padding: 20px 20px 0px 20px;
 }
 
 .logout-button {
@@ -195,7 +200,7 @@ select::-ms-expand {
   color: #fff;
   height: 35px;
   width: 80px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 10px;
   border: 2px solid #fc03a1;
   cursor: pointer;
