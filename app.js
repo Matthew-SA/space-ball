@@ -61,11 +61,11 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('hi!')
 
   socket.on('test-function', (data) => {
-    console.log(data)
+    // console.log(data)
   })
 
   socket.on('player-action', (data) => {
-    console.log(data)
+    // console.log(data)
     game.updatePlayerOnInput(socket.id, data);
   });
 
@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     game.removePlayer(socket.id)
-    console.log('user disconnected')
+    // console.log('user disconnected')
   })
 })
 

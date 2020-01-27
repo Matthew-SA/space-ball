@@ -28,9 +28,10 @@ class GameComponent extends React.Component {
     this.socket = io()
     this.canvas = document.getElementById('game-canvas')
     Input.applyEventHandlers();
-    this.game = Game.create(this.socket, this.canvas)
+    this.game = Game.create(this.socket)
     this.game.init()
     this.game.animate();
+    // this.game.createSelfShip();
     // this.setState({game: game})
     // this.scoreId = setInterval(() => this.updateScore()
     // , 250)
