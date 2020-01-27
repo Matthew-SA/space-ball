@@ -30,7 +30,145 @@ class Game {
     this.rightScore = 0;
     this.over = false;
     this.winner = null;
+
+    this.canvas = document.getElementById("game-canvas");
+    this.ctx = this.canvas.getContext("2d");
+
+    this.engine = Matter.Engine.create();
+    this.world = this.engine.world;
+
+    this.render = Matter.Render.create({
+      canvas: this.canvas,
+      engine: this.engine,
+      options: {
+        width: 1000,
+        height: 600,
+        // background: '#000000',
+        sprite: {
+          texture:
+            "https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif"
+        },
+        wireframes: false,
+        showAngleIndicator: false
+      }
+    });
+    this.engine.world.gravity.y = 0;
+    this.engine.world.gravity.x = 0;
+
+
+
+    // iterate through otherPlayers and create a ship for each
+    for (var player of this.otherPlayers){
+      this.otherPlayerShip = Matter.Bodies.circle(player.x, player.y, 30, {
+        density: 0.5,
+        friction: 1,
+        restitution: 0.5,
+        render: {
+          sprite: {
+            texture: "images/default_ship.png"
+          }
+        }
+      });
+
+      Matter.World.add(this.world, this.otherPlayerShip);
+    }
+
+    // Create a ball
+    this.ball = Matter.Bodies.circle(500, 300, 50, {
+      density: 0.04,
+      friction: 0.01,
+      frictionAir: 0.00001,
+      restitution: 0.8,
+      render: {
+        sprite: {
+          texture: "images/earth_ball.png"
+        }
+      }
+    });
     
+    Matter.World.add(this.world, this.ball);
+
+
+
+    // Add static walls
+    this.ceiling = Matter.Bodies.rectangle(0, 0, 2000, 30, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.ceiling);
+
+    this.floor = Matter.Bodies.rectangle(0, 600, 2000, 30, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.floor);
+
+    this.topLeft = Matter.Bodies.rectangle(0, 0, 30, 350, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.topLeft);
+
+    this.topRight = Matter.Bodies.rectangle(1000, 0, 30, 350, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.topRight);
+
+    this.bottomRight = Matter.Bodies.rectangle(1000, 600, 30, 350, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.bottomRight);
+
+    this.bottomLeft = Matter.Bodies.rectangle(0, 600, 30, 350, {
+      isStatic: true,
+      render: {
+        fillStyle: "#fc03a1"
+      }
+    });
+    Matter.World.add(this.world, this.bottomLeft);
+
+
+    // Add goals which are static, sensor, and invisible
+
+    this.leftGoal = Matter.Bodies.rectangle(0, 300, 1, 250, {
+      isStatic: true,
+      isSensor: true,
+      render: {
+        visible: false
+      }
+    });
+    Matter.World.add(this.world, this.leftGoal);
+
+    this.rightGoal = Matter.Bodies.rectangle(1000, 300, 1, 250, {
+      isStatic: true,
+      isSensor: true,
+      render: {
+        visible: false
+      }
+    });
+    Matter.World.add(this.world, this.rightGoal);
+
+    /////I got the following snippet from StackOverFlow which makes things work///
+    // run the engine
+    Matter.Engine.run(this.engine);
+
+    // run the renderer
+    Matter.Render.run(this.render);
+    ////////////// -END- //////////////
+
+    Matter.Engine.update(this.engine, 1000 / 60);
   }
 
   /**
@@ -43,6 +181,8 @@ class Game {
       context.receiveGameState(data);
     });
     this.socket.emit("player-join");
+    debugger
+    // this.createSelfShip();
   }
 
   /**
@@ -52,6 +192,21 @@ class Game {
     this.animationFrameId = window.requestAnimationFrame(
       Util.bind(this, this.update)
     );
+  }
+
+  createSelfShip() {
+    // create your own ship using this.selfPlayer params
+    // if (!this.selfPlayer) return
+    this.selfShip = Matter.Bodies.circle(this.selfPlayer.x, this.selfPlayer.y, 30, {
+      density: 0.5,
+      friction: 1,
+      render: {
+        sprite: {
+          texture: "images/default_ship.png"
+        }
+      }
+    });
+    Matter.World.add(this.world, this.selfShip);
   }
 
   /**
@@ -88,75 +243,17 @@ class Game {
           down: Input.DOWN
         }
       });
-      this.draw();
+      // this.draw();
     }
     this.animate();
   }
 
-  /**
-   * Draws the state of the game using Matterjs.
-   */
-  draw() {
-        const canvas = document.getElementById("game-canvas");
-        const ctx = canvas.getContext("2d");
-
-        const engine = Matter.Engine.create();
-        const world = engine.world;
-        const render = Matter.Render.create({
-          canvas: canvas,
-          engine: engine,
-          options: {
-            width: 1000,
-            height: 600,
-            // background: '#000000',
-            sprite: {
-              texture:
-                "https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif"
-            },
-            wireframes: false,
-            showAngleIndicator: false
-          }
-        });
-        engine.world.gravity.y = 0;
-        engine.world.gravity.x = 0;
-
-        // create your own ship using this.selfPlayer params
-        const selfShip = Matter.Bodies.circle(this.selfPlayer.x, this.selfPlayer.y, 30, {
-          density: 0.5,
-          friction: 1,
-          render: {
-            sprite: {
-              texture: "images/default_ship.png"
-            }
-          }
-        });
-        Matter.World.add(world, selfShip);
-
-        // iterate through otherPlayers and create a ship for each
-        for (var player of this.otherPlayers){
-          const otherPlayerShip = Matter.Bodies.circle(player.x, player.y, 30, {
-            density: 0.5,
-            friction: 1,
-            restitution: 0.5,
-            render: {
-              sprite: {
-                texture: "images/default_ship.png"
-              }
-            }
-          });
-
-          Matter.World.add(world, otherPlayerShip);
-        }
-
-        /////I got the following snippet from StackOverFlow which makes things work///
-        // run the engine
-        Matter.Engine.run(engine);
-
-        // run the renderer
-        Matter.Render.run(render);
-         ////////////// -END- //////////////
-
-  }
+//   /**
+//    * Draws the state of the game using Matterjs.
+//    */
+//   draw() {
+//     ;
+//   }
 }
 
 Game.create = function(socket) {

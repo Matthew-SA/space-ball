@@ -31,6 +31,7 @@ class GameComponent extends React.Component {
     this.game = Game.create(this.socket)
     this.game.init()
     this.game.animate();
+    // this.game.createSelfShip();
     // this.setState({game: game})
     // this.scoreId = setInterval(() => this.updateScore()
     // , 250)
