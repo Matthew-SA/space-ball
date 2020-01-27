@@ -31,9 +31,9 @@ router.post(
 
     const stat = new Stat({
       username: req.body.username,
-      points: req.body.points,
-      wins: req.body.wins,
-      losses: req.body.losses 
+      points: 0,
+      wins: 0,
+      losses: 0
     });
 
     stat.save().then(data => res.json(data));

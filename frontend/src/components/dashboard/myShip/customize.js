@@ -1,9 +1,9 @@
 import React from "react";
 
 class Customize extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   // componentDidMount() {
   //   this.props.fetchCurrency();
@@ -11,7 +11,6 @@ class Customize extends React.Component {
 
   render() {
     console.log(this.props)
-    // debugger
     return (
       <div className="customize-ship-container">
         <div className="customize-panel">
