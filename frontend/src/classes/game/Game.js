@@ -181,8 +181,10 @@ class Game {
       context.receiveGameState(data);
     });
     this.socket.emit("player-join");
-    debugger
-    // this.createSelfShip();
+    // debugger
+    if (!this.selfShip) {
+      this.createSelfShip();
+    }
   }
 
   /**
@@ -196,17 +198,18 @@ class Game {
 
   createSelfShip() {
     // create your own ship using this.selfPlayer params
-    // if (!this.selfPlayer) return
-    this.selfShip = Matter.Bodies.circle(this.selfPlayer.x, this.selfPlayer.y, 30, {
-      density: 0.5,
-      friction: 1,
-      render: {
-        sprite: {
-          texture: "images/default_ship.png"
+    if (this.selfPlayer) {
+      this.selfShip = Matter.Bodies.circle(200, 300, 30, {
+        density: 0.5,
+        friction: 1,
+        render: {
+          sprite: {
+            texture: "images/default_ship.png"
+          }
         }
-      }
-    });
-    Matter.World.add(this.world, this.selfShip);
+      });
+      Matter.World.add(this.world, this.selfShip);
+    }
   }
 
   /**
