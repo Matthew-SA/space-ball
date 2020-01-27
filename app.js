@@ -12,8 +12,15 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
-app.use(passport.initialize());
-require("./config/passport")(passport);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "public", "build", "index.html")); // TODO: change build to public?  added public currently. check path
+  });
+}
+
+// app.use(passport.initialize());
+// require("./config/passport")(passport);
 
 // setup some middleware for body parser:
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,12 +43,6 @@ const game = Game.create();
 app.set('port', PORT);
 // end websocket initialization
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/build"));
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "public", "build", "index.html")); // TODO: change build to public?  added public currently. check path
-  });
-}
 
 mongoose
   .connect(db, { useNewUrlParser: true })
