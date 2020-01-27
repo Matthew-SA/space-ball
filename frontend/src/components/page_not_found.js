@@ -19,8 +19,6 @@ class PageNotFound extends React.Component{
           {/* <h2>Redirecting back to our universe (or click here!)...</h2> */}
           <h2>Return to our universe (click here!)</h2>
         </Link>
-              {/* <a href="#/" className="lobby-container"><h2>Redirecting back to our universe (or click here!)...</h2></a> */}
-
       </div>
     );
   }
