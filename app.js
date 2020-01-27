@@ -19,6 +19,13 @@ require("./config/passport")(passport);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")); // TODO: change build to public?  added public currently. check path
+  });
+}
+
 app.use("/api/users", users);
 app.use("/api/stats", stats);
 app.use("/api/leaderboard", leaderboard);
@@ -26,7 +33,7 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const Game = require('./lib/Game')  
+const Game = require('./lib/game')  
 // end websocket dependencies
 
 // Websocket Initialization
@@ -35,13 +42,6 @@ const io = socketIO(server);
 const game = Game.create(); 
 app.set('port', PORT);
 // end websocket initialization
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/build"));
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")); // TODO: change build to public?  added public currently. check path
-  });
-}
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
