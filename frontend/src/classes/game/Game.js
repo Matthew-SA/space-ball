@@ -179,12 +179,10 @@ class Game {
     var context = this;
     this.socket.on("update", function(data) {
       context.receiveGameState(data);
+      context.createSelfShip();
     });
     this.socket.emit("player-join");
     // debugger
-    if (!this.selfShip) {
-      this.createSelfShip();
-    }
   }
 
   /**
