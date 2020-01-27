@@ -39,7 +39,6 @@ class gameLogic {
     const canvas = document.getElementById("game-canvas");
     const ctx = canvas.getContext("2d");
 
-
         const engine = Matter.Engine.create();
         const world = engine.world;
         const render = Matter.Render.create({
