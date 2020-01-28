@@ -39,12 +39,12 @@ app.set('port', PORT);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "public", "build", "index.html")); // TODO: change build to public?  added public currently. check path
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")); // TODO: change build to public?  added public currently. check path
   });
 }
 
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
@@ -61,11 +61,11 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('hi!')
 
   socket.on('test-function', (data) => {
-    console.log(data)
+    // console.log(data)
   })
 
   socket.on('player-action', (data) => {
-    console.log(data)
+    // console.log(data)
     game.updatePlayerOnInput(socket.id, data);
   });
 
@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     game.removePlayer(socket.id)
-    console.log('user disconnected')
+    // console.log('user disconnected')
   })
 })
 

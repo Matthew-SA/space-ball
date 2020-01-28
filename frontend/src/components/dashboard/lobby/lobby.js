@@ -3,7 +3,7 @@ import React from "react";
 function Lobby() {
   return (
     <div className="lobby-container">
-      <h1>Space Jam Logo Placeholder</h1>
+      <img src="images/space_jam.png" width="800"/>
       <a href="#/game"><div className="play">Play</div></a>
     </div>
   );

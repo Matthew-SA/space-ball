@@ -111,7 +111,7 @@ Util.sum = function(array) {
  * @return {number}
  */
 Util.getManhattanDistance = function(p1, p2) {
-  if (p1.length != p2.length) {
+  if (p1.length !== p2.length) {
     throw new Error(`Cannot compute distance between ${p1} and ${p2}`);
   }
   return Util.sum(p1.map((value, index) => {
@@ -126,7 +126,7 @@ Util.getManhattanDistance = function(p1, p2) {
  * @return {number}
  */
 Util.getEuclideanDistance2 = function(p1, p2) {
-  if (p1.length != p2.length) {
+  if (p1.length !== p2.length) {
     throw new Error(`Cannot compute distance between ${p1} and ${p2}`);
   }
   return Util.sum(p1.map((value, index) => {

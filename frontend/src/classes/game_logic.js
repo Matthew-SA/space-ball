@@ -1,50 +1,43 @@
-import GameComponent from '../components/game/game';
+// import GameComponent from '../components/game/game';
 import Matter from "matter-js";
 import key from "keymaster";
 
 //websocket client setup
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 class gameLogic {
-    constructor() {
-        this.socket = io();
-        this.gameState = {
-            // ballPositionX: ball.position.x,
-            // ballPositionY: ball.position.y
-        }
-        this.leftScore = 0;
-        this.rightScore = 0;
-        this.over = false;
-        this.winner = null;
+  constructor() {
+    this.socket = io();
+    this.gameState = {
+      // ballPositionX: ball.position.x,
+      // ballPositionY: ball.position.y
     };
+    this.leftScore = 0;
+    this.rightScore = 0;
+    this.over = false;
+    this.winner = null;
+  }
 
-    checkScore() {
-        if (this.leftScore === 10) {
-          this.over = true
-          this.winner = "left";
-        } else if (this.rightScore === 10) {
-          this.over = true;
-          this.winner = "right";
-        };
+  checkScore() {
+    if (this.leftScore === 10) {
+      this.over = true;
+      this.winner = "left";
+    } else if (this.rightScore === 10) {
+      this.over = true;
+      this.winner = "right";
+    }
 
-        return {
-            leftScore: this.leftScore,
-            rightScore: this.rightScore,
-            over: this.over,
-            winner: this.winner
-        };
+    return {
+      leftScore: this.leftScore,
+      rightScore: this.rightScore,
+      over: this.over,
+      winner: this.winner
     };
+  }
 
-    playGame() {
-        const canvas = document.getElementById("game-canvas");
-        const ctx = canvas.getContext("2d");
-        
-        // const background = new Image();
-        // background.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/PIA23165-Comet-C2018Y1-Animation-20190225.gif';
-        
-        // background.onload = function() {
-        //   ctx.drawImage(background, 0, 0);
-        // };
+  playGame() {
+    const canvas = document.getElementById("game-canvas");
+    const ctx = canvas.getContext("2d");
 
         const engine = Matter.Engine.create();
         const world = engine.world;
@@ -212,7 +205,7 @@ class gameLogic {
         Matter.Events.on(engine, "collisionEnd", function(event) {
           var pairs = event.pairs;
         
-          for (var i = 0, j = pairs.length; i != j; ++i) {
+          for (var i = 0, j = pairs.length; i !== j; ++i) {
             var pair = pairs[i];
         
             if (
