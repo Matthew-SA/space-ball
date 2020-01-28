@@ -65,108 +65,108 @@ class gameLogic {
         engine.world.gravity.y = 0;
         engine.world.gravity.x = 0;
         
-        const leftShip = Matter.Bodies.circle(200, 300, 30, {
-          density: 0.5,
-          friction: 1,
-          render: {
-            sprite: {
-            texture: "images/default_ship.png"
-            }
-          }
-        });
+        // const leftShip = Matter.Bodies.circle(200, 300, 30, {
+        //   density: 0.5,
+        //   friction: 1,
+        //   render: {
+        //     sprite: {
+        //     texture: "images/default_ship.png"
+        //     }
+        //   }
+        // });
         Matter.World.add(world, leftShip);
         
-        const rightShip = Matter.Bodies.circle(800, 300, 30, {
-          density: 0.5,
-          friction: 1,
-          restitution: 0.5,
-          render: {
-            sprite: {
-            texture: "images/default_ship.png"
-            }
-          }
-        });
+        // const rightShip = Matter.Bodies.circle(800, 300, 30, {
+        //   density: 0.5,
+        //   friction: 1,
+        //   restitution: 0.5,
+        //   render: {
+        //     sprite: {
+        //     texture: "images/default_ship.png"
+        //     }
+        //   }
+        // });
         
         Matter.World.add(world, rightShip);
         
-        const ball = Matter.Bodies.circle(500, 300, 50, {
-          density: 0.04,
-          friction: 0.01,
-          frictionAir: 0.00001,
-          restitution: 0.8,
-          render: {
-            sprite: {
-              texture: "images/earth_ball.png"
-            }
-          }
-        });
+        // const ball = Matter.Bodies.circle(500, 300, 50, {
+        //   density: 0.04,
+        //   friction: 0.01,
+        //   frictionAir: 0.00001,
+        //   restitution: 0.8,
+        //   render: {
+        //     sprite: {
+        //       texture: "images/earth_ball.png"
+        //     }
+        //   }
+        // });
         
         Matter.World.add(world, ball);
         
-        const ceiling = Matter.Bodies.rectangle(0, 0, 2000, 30, {
-          isStatic: true,
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const ceiling = Matter.Bodies.rectangle(0, 0, 2000, 30, {
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, ceiling);
         
-        const floor = Matter.Bodies.rectangle(0, 600, 2000, 30, {
-          isStatic: true,
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const floor = Matter.Bodies.rectangle(0, 600, 2000, 30, {
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, floor);
         
-        const topLeft = Matter.Bodies.rectangle(0, 0, 30, 350, {
-          isStatic: true,
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const topLeft = Matter.Bodies.rectangle(0, 0, 30, 350, {
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, topLeft);
         
-        const topRight = Matter.Bodies.rectangle(1000, 0, 30, 350, {
-          isStatic: true, 
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const topRight = Matter.Bodies.rectangle(1000, 0, 30, 350, {
+        //   isStatic: true, 
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, topRight);
         
-        const bottomRight = Matter.Bodies.rectangle(1000, 600, 30, 350, {
-          isStatic: true,
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const bottomRight = Matter.Bodies.rectangle(1000, 600, 30, 350, {
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, bottomRight);
         
-        const bottomLeft = Matter.Bodies.rectangle(0, 600, 30, 350, {
-          isStatic: true,
-          render: {
-            fillStyle: "#fc03a1"
-          }
-        });
+        // const bottomLeft = Matter.Bodies.rectangle(0, 600, 30, 350, {
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "#fc03a1"
+        //   }
+        // });
         Matter.World.add(world, bottomLeft);
         
-        const leftGoal = Matter.Bodies.rectangle(0, 300, 1, 250, {
-          isStatic: true,
-          isSensor: true,
-          render: {
-            visible: false
-          }
-        });
+        // const leftGoal = Matter.Bodies.rectangle(0, 300, 1, 250, {
+        //   isStatic: true,
+        //   isSensor: true,
+        //   render: {
+        //     visible: false
+        //   }
+        // });
         Matter.World.add(world, leftGoal);
         
-        const rightGoal = Matter.Bodies.rectangle(1000, 300, 1, 250, {
-          isStatic: true,
-          isSensor: true,
-          render: {
-            visible: false
-          }
-        });
+        // const rightGoal = Matter.Bodies.rectangle(1000, 300, 1, 250, {
+        //   isStatic: true,
+        //   isSensor: true,
+        //   render: {
+        //     visible: false
+        //   }
+        // });
         Matter.World.add(world, rightGoal);
         
         
