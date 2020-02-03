@@ -33,13 +33,15 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const Game = require('./lib/game')  
+const Engine = require('./lib/matterEngine')
+// const Game = require('./lib/game')  
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
-const game = Game.create(); 
+// const game = Game.create(); 
+const engine = new Engine;
 app.set('port', PORT);
 // end websocket initialization
 
@@ -58,7 +60,7 @@ app.get("/", (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
-  socket.broadcast.emit('hi!')
+  // socket.broadcast.emit('hi!')
 
   socket.on('test-function', (data) => {
     // console.log(data)
@@ -66,26 +68,28 @@ io.on('connection', (socket) => {
 
   socket.on('player-action', (data) => {
     // console.log(data)
-    game.updatePlayerOnInput(socket.id, data);
+    // game.updatePlayerOnInput(socket.id, data);
   });
 
   socket.on('player-join', () => {
-    game.addNewPlayer(socket);
-    console.log('user joined')
+    // game.addNewPlayer(socket);
+    // console.log('user joined')
   })
 
   socket.on('disconnect', () => {
-    game.removePlayer(socket.id)
-    // console.log('user disconnected')
+    // game.removePlayer(socket.id)
+    console.log('user disconnected')
   })
 })
 
 // Server-side game loop.  Currently runs at 60 FPS.
-const FPS = 60
-setInterval(() => {
-  game.update();
-  game.sendState();
-}, 1000 / FPS);
+
+
+// const FPS = 60
+// setInterval(() => {
+//   game.update();
+//   game.sendState();
+// }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
 // app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
