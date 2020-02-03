@@ -316,15 +316,25 @@ select::-ms-expand {
 
 .lobby-container {
   height: 93vh;
-  padding-top: 10%; 
   text-align: center;
   color: #fc03a1;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .play {
   height: 75px;
   width: 200px;
-  margin: 100px auto;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 10px;
   border: 5px solid #fc03a1;
   background-color: #ffe600;
@@ -338,6 +348,10 @@ select::-ms-expand {
 
 .play:hover {
   transform:scale(1.05);
+   /* position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
 }
 
 
