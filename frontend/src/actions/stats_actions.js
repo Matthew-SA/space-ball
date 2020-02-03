@@ -23,10 +23,8 @@ export const fetchStats = () => dispatch => {
     );
 };
 
-export const createStat = (statData) => dispatch => {
-  // dispatch(clearStats());
-  axios
-    .post("/api/stats", statData)
+export const createStat = user => dispatch => {
+  return axios.post("/api/stats", user)
     .then(res =>
       dispatch({
         type: CREATE_STAT,

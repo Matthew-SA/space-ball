@@ -116,8 +116,14 @@ select::-ms-expand {
   background: black;
 }
 
+.myship-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .myship-login > .login-prompt{
-  padding-top: 80px;
   padding-bottom: 40px;
 }
 
@@ -156,8 +162,7 @@ select::-ms-expand {
   transform:scale(1.05);
 }
 
-.submit-button {
-  /* font-weight: 200; */
+.submit-button, .demo-login-button {
   color: black;
   height: 50px;
   font-size: 16px;
@@ -170,7 +175,7 @@ select::-ms-expand {
   cursor: pointer;
 }
 
-.submit-button:hover {
+.submit-button:hover, .demo-login-button:hover {
   transform: scale(1.05);
 }
 
@@ -233,19 +238,47 @@ select::-ms-expand {
   border: 5px solid #fc03a1;
   background-color: #ffe600;
   color: #fc03a1;
+}
+
+.customize-title{
   font-size: 30px;
   text-align: center;
   padding-top: 20px;
 }
 
-.ship-picture-container {
+.currency {
+  font-size: 22px;
+  text-align: center;
+}
+
+.select-customization{
+  display: flex;
+  background: black;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.customize.active {
+  background: #fc03a1;
+  color: black;
+}
+
+.customize {
+  width: 50%;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+}
+
+.picture-container {
   text-align: center;
   padding-top: 100px;
 }
 
-.ship {
+.ship, .ball {
   width: 250px;
 }
+
 
 /* Leaderboard & Stats CSS  */
 
@@ -321,20 +354,21 @@ select::-ms-expand {
   position: relative;
 }
 
-.logo {
+.lobby-content {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.logo {
+  padding-bottom: 50px;
 }
 
 .play {
   height: 75px;
   width: 200px;
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
   border-radius: 10px;
   border: 5px solid #fc03a1;
   background-color: #ffe600;
