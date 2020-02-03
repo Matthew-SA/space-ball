@@ -10,7 +10,6 @@ class Customize extends React.Component {
   // }
 
   render() {
-    console.log(this.props)
     return (
       <div className="customize-ship-container">
         <div className="customize-panel">

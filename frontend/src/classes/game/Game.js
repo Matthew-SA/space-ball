@@ -23,6 +23,7 @@ class Game {
     this.socket = socket;
 
     this.selfPlayer = null;
+    this.selfShip = null;
     this.otherPlayers = [];
     this.animationFrameId = 0;
 
@@ -168,7 +169,7 @@ class Game {
     Matter.Render.run(this.render);
     ////////////// -END- //////////////
 
-    Matter.Engine.update(this.engine, 1000 / 60);
+    // Matter.Engine.update(this.engine, 1000 / 60);
   }
 
   /**
@@ -181,9 +182,11 @@ class Game {
       context.receiveGameState(data);
       // THIS MAKES INFINITE SHIPS
       // DON'T DO THIS HERE
-      // context.createSelfShip();
+      context.createSelfShip();
     });
     this.socket.emit("player-join");
+    // if(!this.selfPlayer){
+    // }
     // debugger
   }
 
@@ -194,11 +197,43 @@ class Game {
     this.animationFrameId = window.requestAnimationFrame(
       Util.bind(this, this.update)
     );
+
+            key("w", () => {
+              this.socket.emit("test-function", "UP!");
+              Matter.Body.applyForce(this.selfShip, this.selfShip.position, {
+                x: 0,
+                y: -10
+              });
+            });
+
+            key("s", () => {
+              this.socket.emit("test-function", "DOWN!");
+              Matter.Body.applyForce(this.selfShip, this.selfShip.position, {
+                x: 0,
+                y: 10
+              });
+            });
+
+            key("a", () => {
+              this.socket.emit("test-function", "LEFT!");
+              Matter.Body.applyForce(this.selfShip, this.selfShip.position, {
+                x: -10,
+                y: 0
+              });
+            });
+
+            key("d", () => {
+              this.socket.emit("test-function", "RIGHT!");
+              Matter.Body.applyForce(this.selfShip, this.selfShip.position, {
+                x: 10,
+                y: 0
+              });
+            });
   }
 
   createSelfShip() {
     // create your own ship using this.selfPlayer params
-    if (this.selfPlayer) {
+    if (!this.selfShip) {
       this.selfShip = Matter.Bodies.circle(200, 300, 30, {
         density: 0.5,
         friction: 1,
@@ -234,8 +269,6 @@ class Game {
    * server.
    */
   update() {
-    console.log("self player is....?????")
-    console.log(this.selfPlayer)
     if (this.selfPlayer) {
       // Emits an event for the containing the player's input.
       this.socket.emit("player-action", {

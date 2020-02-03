@@ -61,11 +61,9 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('hi!')
 
   socket.on('test-function', (data) => {
-    // console.log(data)
   })
 
   socket.on('player-action', (data) => {
-    // console.log(data)
     game.updatePlayerOnInput(socket.id, data);
   });
 
@@ -76,7 +74,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     game.removePlayer(socket.id)
-    // console.log('user disconnected')
   })
 })
 
@@ -88,5 +85,4 @@ setInterval(() => {
 }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
-// app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
