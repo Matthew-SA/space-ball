@@ -181,7 +181,7 @@ class Game {
       context.receiveGameState(data);
       // THIS MAKES INFINITE SHIPS
       // DON'T DO THIS HERE
-      context.createSelfShip();
+      // context.createSelfShip();
     });
     this.socket.emit("player-join");
     // debugger
