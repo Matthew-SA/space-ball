@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Customize from "./customize";
 
 const mapStateToProps = state => {
+  console.log("state", state)
   return {
     currency: state.session.user.currency
   };

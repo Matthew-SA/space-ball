@@ -32,7 +32,7 @@ class SignupForm extends React.Component {
     };
 
     this.props.signup(user, this.props.history);
-    this.props.createStat();
+    this.props.createStat(user);
   }
 
   signupOrLogin() {

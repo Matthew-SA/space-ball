@@ -13,6 +13,7 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
     this.signupOrLogin = this.signupOrLogin.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
   }
 
   // Handle field updates (called in the render method)
@@ -42,6 +43,51 @@ class LoginForm extends React.Component {
     ).forEach(el => el.classList.add("hidden"));
     this.props.clearErrors();
   }
+
+  demo(user) {
+    const intervalSpeed = 70;
+    const { username, password } = user;
+    const demoUsernameTime = username.length * intervalSpeed;
+    const demoPasswordTime = password.length * intervalSpeed;
+    const buffer = intervalSpeed * 2;
+    const totalDemoTime = demoUsernameTime + demoPasswordTime + buffer;
+    this.demoUsername(username, intervalSpeed);
+    this.update("username")
+    setTimeout(() => this.demoPassword(password, intervalSpeed), demoUsernameTime);
+    this.update("password")
+    setTimeout(() => this.props.login(user), totalDemoTime + 200);
+  }
+
+  demoUsername(username, intervalSpeed) {
+    let i = 0;
+    setInterval(() => {
+      if (i <= username.length) {
+        this.setState({ username: username.slice(0, i) });
+        i++;
+      } else {
+        clearInterval();
+      }
+    }, intervalSpeed);
+  }
+
+  demoPassword(password, intervalSpeed) {
+    let j = 0;
+    setInterval(() => {
+      if (j <= password.length) {
+        this.setState({ password: password.slice(0, j) });
+        j++;
+      } else {
+        clearInterval();
+      }
+    }, intervalSpeed);
+  }
+
+  handleDemo(e) {
+    e.preventDefault();
+    const user = Object.assign({}, { username: 'DemoUser', password: 'demodemo' });
+    this.demo(user);
+  }
+
 
   // Render the session errors if there are any
   renderErrors() {
@@ -76,6 +122,8 @@ class LoginForm extends React.Component {
             />
             <br />
             <input className="submit-button" type="submit" value="LOG IN" />
+            <br />
+            <button className="demo-login-button" onClick={this.handleDemo} type="button">DEMO LOG IN</button>
             {this.renderErrors()}
           </div>
         </form>
