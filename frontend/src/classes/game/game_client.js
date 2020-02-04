@@ -73,6 +73,10 @@ class GameClient {
     ctx.fillStyle = "#fc03a1";
     ctx.fillRect(0, 0, 1000, 15);
     ctx.fillRect(0, 585, 1000, 15);
+    ctx.fillRect(0, 0, 15, 175);
+    ctx.fillRect(0, 425, 15, 175);
+    ctx.fillRect(985, 0, 15, 175);
+    ctx.fillRect(985, 425, 15, 175);
   }
 
   draw(ctx) {
