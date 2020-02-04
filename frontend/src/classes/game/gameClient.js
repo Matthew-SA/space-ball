@@ -8,6 +8,7 @@ class GameClient {
   constructor(socket){
     this.socket = socket;
     this.canvas = document.getElementById('game-canvas');
+    this.engine = Matter.Engine.create();
     this.world = null;
     this.selfShip = null;
     this.otherShips = [];
@@ -18,9 +19,8 @@ class GameClient {
     // this.rightScore = 0;
     // this.gameOver = false;
     // this.winner = null;
-    this.render = this.renderWorld();
+    this.render = this.render();
     Matter.Render.run(this.render);
-    
   };
 
   init(){
@@ -50,10 +50,10 @@ class GameClient {
     this.otherPlayers = state['players'];
   };
 
-  renderWorld(){
-    let world = Matter.Render.create({
+  render(){
+    let render = Matter.Render.create({
       canvas: this.canvas,
-      engine: Matter.Engine.create(),
+      engine: this.engine,
       options: {
         width: 1000,
         height: 600,
@@ -66,7 +66,7 @@ class GameClient {
         showAngleIndicator: false
       }
     });
-    return world;
+    return render;
   };
 };
 

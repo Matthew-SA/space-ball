@@ -33,7 +33,7 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const Engine = require('./lib/matterEngine');
+const serverEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
@@ -66,7 +66,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('player-action', (data) => {
-    // console.log(data)
+    console.log(data)
     // game.updatePlayerOnInput(socket.id, data);
   });
 
