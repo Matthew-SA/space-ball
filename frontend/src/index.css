@@ -58,7 +58,11 @@ select::-ms-expand {
 
 .homepage-container {
   height: 100vh;
-  background-color: black;
+  background-image: url('./background.gif');
+  /* object-fit: cover; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: black; */
   color: #ffe600;
   margin: 0;
   padding: 0;
@@ -116,14 +120,14 @@ select::-ms-expand {
   background: black;
 }
 
-.myship-login {
+.options-login {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.myship-login > .login-prompt{
+.options-login > .login-prompt{
   padding-bottom: 40px;
 }
 
@@ -150,7 +154,7 @@ select::-ms-expand {
   border-radius: 10px;
   border: 5px solid #fc03a1;
   background-color: #ffe600;
-  color: #fc03a1;
+  color: black;
   transition: ease-in-out .4s;
 }
 
@@ -222,9 +226,9 @@ select::-ms-expand {
 }
 
 
-/* My Ship CSS */
+/* Options CSS */
 
-.customize-ship-container {
+.options-container {
   display: grid;
   height: 80vh;
   grid-template-columns: 60% 40%;
@@ -238,6 +242,7 @@ select::-ms-expand {
   border: 5px solid #fc03a1;
   background-color: #ffe600;
   color: #fc03a1;
+  opacity: .9;
 }
 
 .customize-title{
@@ -246,10 +251,15 @@ select::-ms-expand {
   padding-top: 20px;
 }
 
+.shop-container {
+  opacity: .8;
+}
+
 .currency {
   font-size: 22px;
   text-align: center;
   color: black;
+  padding-top: 10px;
 }
 
 .select-customization{
@@ -277,7 +287,7 @@ select::-ms-expand {
 }
 
 .ship, .ball {
-  width: 250px;
+  height: 250px;
 }
 
 .ship-select, .ball-select {
@@ -320,6 +330,41 @@ select::-ms-expand {
   transform: scale(1.05);
 }
 
+.purchased {
+  width: 200px;
+  border: 2px solid;
+  border-radius: 5px;
+  margin: 40px auto;
+  padding: 9px 0px 7px 0px;
+  /* position: absolute;
+  top: 75%;
+  left: 72%; */
+  transition: ease-in-out .4s;
+}
+
+.buy-button {
+  width: 100px;
+  color: #fc03a1;
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  border-radius: 5px;
+  margin: auto;
+  padding: 9px 0px 7px 0px;
+  margin: 40px auto;
+
+  /* position: absolute;
+  top: 75%;
+  left: 76%; */
+  cursor: pointer;
+  transition: ease-in-out .4s;
+}
+
+.buy-button:hover {
+  background: black;
+  color: #ffe600;
+  border: 2px solid #ffe600;
+}
+
 /* Leaderboard & Stats CSS  */
 
 .leaderboard-section {
@@ -336,6 +381,7 @@ select::-ms-expand {
   font-size: 30px;
   text-align: center;
   overflow: scroll;
+  opacity: .9;
 }
 
 .leaderboard-menu {
@@ -426,10 +472,6 @@ select::-ms-expand {
 
 .play:hover {
   transform:scale(1.05);
-   /* position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
 }
 
 

@@ -24,7 +24,7 @@ const UserSchema = new Schema({
   },
   balls:{
     type: Array,
-    default: ["Default"]
+    default: ["Earth"]
   },
   date: {
     type: Date,

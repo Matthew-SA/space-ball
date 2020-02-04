@@ -33,6 +33,7 @@ class Customize extends React.Component {
     const optionSelection = this.state.optionSelection;
     let currentViewPort;
     let rightView;
+    let purchaseOption;
 
     if (selected === "shop") {
       
@@ -70,17 +71,28 @@ class Customize extends React.Component {
       } else if (optionSelection === "Moon") {
         rightView = <img className="ball" src="images/moon.png" alt="moon" />
       }
-
     } else if (selected === "mySettings") {
       console.log(this.props)
       currentViewPort = 
-        <div className="myball-container">
+        <div className="settings-container">
           
         </div>
     }
 
+    if (this.state.selected === "shop") {
+      if (this.props.ships.includes(optionSelection) || (this.props.balls.includes(optionSelection))) {
+        purchaseOption = 
+          <div className="purchased">PURCHASED</div>
+      } else {
+        purchaseOption = 
+          <div className="buy-button">BUY NOW</div>
+      }
+    } else {
+      purchaseOption = null
+    }
+
     return (
-      <div className="customize-ship-container">
+      <div className="options-container">
         <div className="customize-panel">
           <div className="customize-title">Customization Options</div>
           <div className="currency">${this.props.currency}</div>
@@ -94,7 +106,7 @@ class Customize extends React.Component {
         </div>
         <div className="picture-container">
           {rightView}
-          <div className="purchase"></div>
+          {purchaseOption}
         </div>
       </div>
     );
