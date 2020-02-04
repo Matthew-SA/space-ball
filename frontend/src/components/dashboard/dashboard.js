@@ -1,5 +1,5 @@
 import React from "react";
-import MyShipContainer from "./myShip/myShip_container";
+import OptionsContainer from "./options/options_container";
 import Leaderboard from "./leaderboard/leaderboard";
 import Lobby from "./lobby/lobby";
 
@@ -26,15 +26,15 @@ class Dashboard extends React.Component {
       currentViewPort = <Lobby />;
     } else if (selected === "leaderboard") {
       currentViewPort = <Leaderboard />
-    } else if (selected === "myship") {
-      currentViewPort = <MyShipContainer />;
+    } else if (selected === "options") {
+      currentViewPort = <OptionsContainer />;
     }
 
     return (
       <div>
         <div className="homepage-container">
           <div className="dashboard">
-            <div className="home-select" id="myship" onClick={this.handleClick}>My Ship</div>
+            <div className="home-select" id="options" onClick={this.handleClick}>Options</div>
             <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
             <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
           </div>

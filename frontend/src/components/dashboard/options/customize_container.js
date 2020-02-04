@@ -4,7 +4,9 @@ import Customize from "./customize";
 const mapStateToProps = state => {
   console.log("state", state)
   return {
-    currency: state.session.user.currency
+    currency: state.session.user.currency,
+    ships: state.session.user.ships,
+    balls: state.session.user.balls
   };
 };
 

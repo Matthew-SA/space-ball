@@ -4,7 +4,7 @@ import SignupFormContainer from "../session/signup_form_container";
 import CustomizeContainer from "./customize_container";
 
 
-class MyShip extends React.Component {
+class Options extends React.Component {
   constructor(props) {
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
@@ -32,8 +32,8 @@ class MyShip extends React.Component {
       );
     } else {
       return (
-        <div className="myship-login">
-          <div className="login-prompt">You must be logged in to customize your ship</div>
+        <div className="options-login">
+          <div className="login-prompt">You must be logged in to customize your game</div>
           <div><LoginFormContainer /></div>
           <div><SignupFormContainer /></div>
         </div>
@@ -42,13 +42,8 @@ class MyShip extends React.Component {
   }
 
   render() {
-    // debugger
-    return (
-    <div>
-      {this.getLinks()}
-    </div>
-    );
+    return <div>{this.getLinks()}</div>
   }
 };
 
-export default MyShip;
+export default Options;
