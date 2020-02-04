@@ -26,7 +26,7 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io()
+    this.socket = io('ws://localhost:3000', { transports: ['websocket'] })
     this.canvas = document.getElementById('game-canvas')
     Input.applyEventHandlers();
     this.gameClient = new GameClient(this.socket)

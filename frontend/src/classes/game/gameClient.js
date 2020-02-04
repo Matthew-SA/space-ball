@@ -9,8 +9,8 @@ class GameClient {
     this.socket = socket;
     this.canvas = document.getElementById('game-canvas');
     this.engine = Matter.Engine.create();
-    this.world = null;
-    this.selfShip = null;
+    this.world = this.engine.world;
+    this.selfShip = this.createShip();
     this.otherShips = [];
     this.leftGoal = null;
     this.rightGoal = null;
@@ -21,6 +21,20 @@ class GameClient {
     // this.winner = null;
     this.render = this.render();
     Matter.Render.run(this.render);
+
+    //used for animate() method, responsible for listening for player input.
+    this.animationFrameId = 0;
+
+    // setInterval(() => {
+    //   console.log('test!')
+    // }, 1000);
+    setInterval(() => {
+      this.socket.emit('test', 'TEST!')
+    }, 1000);
+
+    // this.socket.emit('test', (data) => {
+    //   console.log(data)
+    // })
   };
 
   init(){
@@ -31,6 +45,14 @@ class GameClient {
     });
     this.socket.emit('player-join');
   };
+
+  //get update() to run constantly using requestAnimationFrame (temp solution, not fully understood)
+  // animate(){
+  //   this.animationFrameId = window.requestAnimationFrame(
+  //     Util.bind(this, this.update)
+  //   );
+  // };
+  //
 
   update(){
     if(this.selfPlayer){
@@ -68,6 +90,18 @@ class GameClient {
     });
     return render;
   };
+
+  createShip() {
+    const ship = Matter.Bodies.circle(200, 300, 30, {
+      isStatic: true,
+      render: {
+        sprite: {
+          texture: "images/default_ship.png"
+        }
+      }
+    });
+    Matter.World.add(this.world, ship);
+  }
 };
 
 module.exports = GameClient;

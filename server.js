@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const Matter = require("matter-js")
 
 const users = require("./routes/api/users");
 const stats = require("./routes/api/stats");
@@ -11,6 +12,7 @@ const leaderboard = require("./routes/api/leaderboard");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
+
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
@@ -59,14 +61,40 @@ app.get("/", (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
-  // socket.broadcast.emit('hi!')
 
-  socket.on('test-function', (data) => {
-    // console.log(data)
+
+  socket.on('test', (data) => {
+    console.log(data)
   })
 
   socket.on('player-action', (data) => {
-    console.log(data)
+    // let selfShip = this.gameClient.selfShip;
+    // switch (data) {
+    //   case keyboardState[left] > 0:
+    //     Matter.Body.applyforce(selfShip, selfShip.position, {
+    //       x: -10,
+    //       y: 0
+    //     });
+    //     break;
+    //   case keyboardState[right] > 0:
+    //     Matter.Body.applyforce(selfShip, selfShip.position, {
+    //       x: 10,
+    //       y: 0
+    //     });
+    //   case keyboardState[up] > 0:
+    //     Matter.Body.applyforce(selfShip, selfShip.position, {
+    //       x: 0,
+    //       y: -10
+    //     });
+    //   case keyboardState[down] > 0:
+    //     Matter.Body.applyforce(selfShip, selfShip.position, {
+    //       x: 0,
+    //       y: 10
+    //     });
+    //   default:
+    //     break;
+    // }
+
     // game.updatePlayerOnInput(socket.id, data);
   });
 
@@ -85,8 +113,7 @@ io.on('connection', (socket) => {
 
 // const FPS = 60
 // setInterval(() => {
-//   game.update();
-//   game.sendState();
+  
 // }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
