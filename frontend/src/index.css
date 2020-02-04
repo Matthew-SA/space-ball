@@ -249,6 +249,7 @@ select::-ms-expand {
 .currency {
   font-size: 22px;
   text-align: center;
+  color: black;
 }
 
 .select-customization{
@@ -279,6 +280,45 @@ select::-ms-expand {
   width: 250px;
 }
 
+.ship-select, .ball-select {
+  text-align: center;
+  font-size: 22px;
+  padding-top: 25px;
+}
+
+.ship-options, .ball-options {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-bottom: 2px solid;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ball-options {
+  border-bottom: none;
+}
+
+.select-button {
+  background: black;
+  border-radius: 5px;
+  border: 2px solid #fc03a1;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  color: #ffe600;
+  transition: ease-in-out .4s;
+}
+
+.select-button.active {
+  background: #fc03a1;
+  color: black;
+  border: 2px solid black;
+}
+
+.select-button:hover {
+  transform: scale(1.05);
+}
 
 /* Leaderboard & Stats CSS  */
 
@@ -343,6 +383,10 @@ select::-ms-expand {
   background-color: #ffe600;
   color: #fc03a1;
   border-radius: 10px;
+}
+
+.stats-data {
+  padding-top: 20px;
 }
 
 /* Play CSS */

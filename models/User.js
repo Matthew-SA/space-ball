@@ -18,6 +18,14 @@ const UserSchema = new Schema({
     type: Number,
     default: 1000
   },
+  ships:{
+    type: Array,
+    default: ["Default"]
+  },
+  balls:{
+    type: Array,
+    default: ["Default"]
+  },
   date: {
     type: Date,
     default: Date.now
