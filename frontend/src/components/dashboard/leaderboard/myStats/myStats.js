@@ -36,10 +36,10 @@ class MyStats extends React.Component {
           </thead>
           <tbody className="stats-body">
             <tr>
-              <td>{stats.points}</td>
-              <td>{stats.wins}</td>
-              <td>{stats.losses}</td>
-              <td>{winpercent}%</td>
+              <td className="stats-data">{stats.points}</td>
+              <td className="stats-data">{stats.wins}</td>
+              <td className="stats-data">{stats.losses}</td>
+              <td className="stats-data">{winpercent}%</td>
             </tr>
           </tbody>
         </table>

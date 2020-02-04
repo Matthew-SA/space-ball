@@ -15,7 +15,6 @@ class LoginForm extends React.Component {
     this.signupOrLogin = this.signupOrLogin.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
   }
-
   // Handle field updates (called in the render method)
   update(field) {
     return e =>
