@@ -44,7 +44,7 @@ const io = socketIO(server);
 // const game = Game.create(); 
 const serverEngine = new ServerEngine;
 // console.log(data.bodies[0])
-console.log(serverEngine.world.bodies)
+// console.log(serverEngine.world.bodies)
 
 app.set('port', PORT);
 // end websocket initialization
@@ -67,25 +67,56 @@ io.on('connection', (socket) => {
 
   setInterval(function() {
     Matter.Engine.update(serverEngine.engine, 20);
-    const data = serverEngine.world
-    const ball = data.bodies[0]
-    const ship = data.bodies[1]
+    // console.log('CURRENT:', serverEngine.ball.position)
+    // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
 
     io.emit('to-client', {
       ball: {
-        pos: ball.position,
-        lastPos: ball.positionPrev
+        pos: serverEngine.ball.position,
+        lastPos: serverEngine.ball.positionPrev
       },
       ship: {
-        pos: ship.position,
-        lastPos: ship.positionPrev
+        pos: serverEngine.ship.position,
+        lastPos: serverEngine.ship.positionPrev
       }
     });
   },20);
 
 
+  
+
   socket.on('player-action', data => {
-    console.log(data)
+    // console.log(data.keyboardState.left)
+    // console.log(data.keyboardState.down)
+
+    if (data.keyboardState.up) {
+      console.log('fired up!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 0,
+        y: -5
+      })
+    }
+    if (data.keyboardState.right) {
+      console.log('fired right!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 5,
+        y: 0
+      })
+    }
+    if (data.keyboardState.down) {
+      console.log('fired down!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 0,
+        y: 5
+      })
+    }
+    if (data.keyboardState.left) {
+      console.log('fired left!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: -5,
+        y: 0
+      })
+    }
   });
 
   socket.on('test', (data) => {
