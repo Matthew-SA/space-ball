@@ -84,11 +84,9 @@ io.on('connection', (socket) => {
   },20);
 
 
-  // socket.on('player-action', data => {
-  //   Matter.Body.applyForce(databodies[1], data.position){
-  //     x: 
-  //   }
-  // });
+  socket.on('player-action', data => {
+    console.log(data)
+  });
 
   socket.on('test', (data) => {
     console.log(data)
