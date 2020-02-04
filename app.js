@@ -33,15 +33,14 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const Engine = require('./lib/matterEngine')
-// const Game = require('./lib/game')  
+const Engine = require('./lib/matterEngine');
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
 // const game = Game.create(); 
-const engine = new Engine;
+// const engine = new Engine;
 app.set('port', PORT);
 // end websocket initialization
 
@@ -72,7 +71,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-join', () => {
-    // game.addNewPlayer(socket);
     // console.log('user joined')
   })
 

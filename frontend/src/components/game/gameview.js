@@ -1,15 +1,16 @@
 import React from 'react';
 // import GameView from "../../classes/game_view";
 // import gameLogic from "../../classes/game_logic";
-import Game from '../../classes/game/Game'
+// import Game from '../../classes/game/Game'
 // import Matter from "matter-js";
 // import Util from "./util/util";
 // import key from "keymaster";
 
+import GameClient from '../../classes/game/gameClient'
 import io from 'socket.io-client';
 import Input from '../../classes/game/Input'
 
-class GameComponent extends React.Component {
+class GameView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,23 +29,23 @@ class GameComponent extends React.Component {
     this.socket = io()
     this.canvas = document.getElementById('game-canvas')
     Input.applyEventHandlers();
-    this.game = Game.create(this.socket)
-    this.game.init()
-    this.game.animate();
+    this.gameClient = new GameClient(this.socket)
+    this.gameClient.init()
+    // this.game.animate();
     // this.game.createSelfShip();
     // this.setState({game: game})
     // this.scoreId = setInterval(() => this.updateScore()
     // , 250)
   };
   
-  updateScore() {
-    this.setState({ score: this.game.checkScore() });
-    // debugger
-  }
+  // updateScore() {
+  //   this.setState({ score: this.game.checkScore() });
+  //   // debugger
+  // }
 
-  componentWillUnmount() {
-    clearInterval(this.scoreId);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.scoreId);
+  // }
 
   render() {
     return (
@@ -63,4 +64,4 @@ class GameComponent extends React.Component {
   }
 };
 
-export default GameComponent;
+export default GameView;

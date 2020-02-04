@@ -89,4 +89,4 @@ Input.applyEventHandlers = function () {
 };
 
 
-export default Input;
+module.exports = Input;
