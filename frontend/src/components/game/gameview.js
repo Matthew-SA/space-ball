@@ -38,15 +38,6 @@ class GameView extends React.Component {
     // , 250)
   };
   
-  // updateScore() {
-  //   this.setState({ score: this.game.checkScore() });
-  //   // debugger
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.scoreId);
-  // }
-
   render() {
     return (
       <div>
