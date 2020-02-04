@@ -37,8 +37,14 @@ class GameClient {
 
   init() {
     setInterval(() => {
-      this.socket.emit('player-action', "connected!")
-      
+      this.socket.emit('player-action', {
+        keyboardState: {
+          left: Input.LEFT,
+          right: Input.RIGHT,
+          up: Input.UP,
+          down: Input.DOWN
+        }
+      });
     }, 20);
   }
 
