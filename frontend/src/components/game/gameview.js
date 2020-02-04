@@ -6,7 +6,7 @@ import React from 'react';
 // import Util from "./util/util";
 // import key from "keymaster";
 
-import GameClient from '../../classes/game/gameClient'
+import GameClient from '../../classes/game/game_client'
 import io from 'socket.io-client';
 import Input from '../../classes/game/Input'
 
@@ -26,7 +26,7 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io('ws://localhost:3000', { transports: ['websocket'] })
+    this.socket = io()
     this.canvas = document.getElementById('game-canvas')
     Input.applyEventHandlers();
     this.gameClient = new GameClient(this.socket)
@@ -42,8 +42,13 @@ class GameView extends React.Component {
     return (
       <div>
         <div>
+          <div style={{display: "none"}}>
+            <img id="earth-ball" src="images/earth_ball.png" width="100"/>
+
+          </div>
+
           <div className="game">
-            <canvas id="game-canvas"></canvas>
+            <canvas width="1000" height="600" id="game-canvas" style={{ backgroundColor: "black" }}></canvas>
           </div>
         </div>
         <ul className="scores">

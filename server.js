@@ -35,14 +35,17 @@ app.use("/api/leaderboard", leaderboard);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const serverEngine = require('./lib/server_engine');
+const ServerEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
 // const game = Game.create(); 
-// const engine = new Engine;
+const serverEngine = new ServerEngine;
+// console.log(data.bodies[0])
+console.log(serverEngine.world.bodies)
+
 app.set('port', PORT);
 // end websocket initialization
 
@@ -62,45 +65,35 @@ app.get("/", (req, res) => {
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
 
+  setInterval(function() {
+    Matter.Engine.update(serverEngine.engine, 20);
+    const data = serverEngine.world
+    const ball = data.bodies[0]
+    const ship = data.bodies[1]
+
+    io.emit('to-client', {
+      ball: {
+        pos: ball.position,
+        lastPos: ball.positionPrev
+      },
+      ship: {
+        pos: ship.position,
+        lastPos: ship.positionPrev
+      }
+    });
+  },20);
+
+
+  // socket.on('player-action', data => {
+  //   Matter.Body.applyForce(databodies[1], data.position){
+  //     x: 
+  //   }
+  // });
 
   socket.on('test', (data) => {
     console.log(data)
   })
 
-  socket.on('player-action', (data) => {
-    // let selfShip = this.gameClient.selfShip;
-    // switch (data) {
-    //   case keyboardState[left] > 0:
-    //     Matter.Body.applyforce(selfShip, selfShip.position, {
-    //       x: -10,
-    //       y: 0
-    //     });
-    //     break;
-    //   case keyboardState[right] > 0:
-    //     Matter.Body.applyforce(selfShip, selfShip.position, {
-    //       x: 10,
-    //       y: 0
-    //     });
-    //   case keyboardState[up] > 0:
-    //     Matter.Body.applyforce(selfShip, selfShip.position, {
-    //       x: 0,
-    //       y: -10
-    //     });
-    //   case keyboardState[down] > 0:
-    //     Matter.Body.applyforce(selfShip, selfShip.position, {
-    //       x: 0,
-    //       y: 10
-    //     });
-    //   default:
-    //     break;
-    // }
-
-    // game.updatePlayerOnInput(socket.id, data);
-  });
-
-  socket.on('player-join', () => {
-    // console.log('user joined')
-  })
 
   socket.on('disconnect', () => {
     // game.removePlayer(socket.id)
