@@ -66,6 +66,10 @@ class GameClient {
     )
   }
 
+  drawWalls(ctx) {
+    
+  }
+
   draw() {
     this.ctx.beginPath();
     this.ctx.lineWidth = "6";

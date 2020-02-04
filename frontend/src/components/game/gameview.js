@@ -48,7 +48,7 @@ class GameView extends React.Component {
           </div>
 
           <div className="game">
-            <canvas width="1000" height="600" id="game-canvas" style={{ backgroundColor: "black" }}></canvas>
+            <canvas width="1000" height="600" id="game-canvas"></canvas>
           </div>
         </div>
         <ul className="scores">

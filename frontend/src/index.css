@@ -416,3 +416,8 @@ select::-ms-expand {
   margin-top: 30px;
 }
 
+
+/*  CANVAS BELOW */
+#game-canvas {
+  background-color: black;
+}
