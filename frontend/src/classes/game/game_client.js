@@ -1,9 +1,9 @@
 // import Input from './Input';
 // import Util from './Util';
 // import Matter from 'matter-js';
-
+const Input = require('./Input');
 const Matter = require('matter-js');
-import Input from './Input'
+
 class GameClient {
   constructor(socket){
     this.socket = socket;
@@ -37,9 +37,8 @@ class GameClient {
 
   init() {
     setInterval(() => {
-      this.socket.emit('player-action', {
-
-      })
+      this.socket.emit('player-action', "connected!")
+      
     }, 20);
   }
 
