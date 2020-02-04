@@ -41,20 +41,8 @@ class GameView extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <div style={{display: "none"}}>
-            <img id="earth-ball" src="images/earth_ball.png" width="100"/>
-
-          </div>
-
-          <div className="game">
-            <canvas width="1000" height="600" id="game-canvas"></canvas>
-          </div>
-        </div>
-        <ul className="scores">
-          <li className="score">Left Score: {this.state.score.leftScore}</li>
-          <li className="score">Right Score: {this.state.score.rightScore}</li>
-        </ul>
+        <canvas width="1000" height="600" id="background-canvas" data-paper-resize></canvas>
+        <canvas width="1000" height="600" id="game-canvas" data-paper-resize></canvas>
       </div>
     );
   }

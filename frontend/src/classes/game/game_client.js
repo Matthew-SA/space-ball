@@ -8,6 +8,8 @@ class GameClient {
   constructor(socket){
     this.socket = socket;
     this.canvas = document.getElementById('game-canvas');
+    this.background = document.getElementById('background-canvas');
+    this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
     // this.sprite = new Image();
     // this.sprite.src = '../../../public/images/earth_ball.png'
@@ -24,6 +26,7 @@ class GameClient {
       this.drawBall(this.ctx, this.ballX, this.ballY)
       this.drawShip(this.ctx, this.shipX, this.shipY)
     })
+    this.drawWalls(this.bgctx)
     // this.drawBall(this.ctx);
     this.ballSprite = new Image();
     this.ballSprite.src = 'images/earth_ball.png'
@@ -67,15 +70,17 @@ class GameClient {
   }
 
   drawWalls(ctx) {
-    
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(0, 0, 1000, 15);
+    ctx.fillRect(0, 585, 1000, 15);
   }
 
-  draw() {
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "6";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(5, 5, 290, 140);
-    this.ctx.stroke();
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = "6";
+    ctx.strokeStyle = "red";
+    ctx.rect(5, 5, 290, 140);
+    ctx.stroke();
   }
 }
 
