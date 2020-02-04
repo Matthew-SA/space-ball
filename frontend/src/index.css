@@ -230,12 +230,17 @@ select::-ms-expand {
 
 .options-container {
   display: grid;
-  height: 80vh;
+  /* height: 80vh; */
   grid-template-columns: 60% 40%;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .customize-panel {
-  height: 85%;
+  height: 470px;
   width: 90%;
   margin: 20px auto;
   border-radius: 10px;
@@ -256,7 +261,7 @@ select::-ms-expand {
 }
 
 .currency {
-  font-size: 22px;
+  font-size: 28px;
   text-align: center;
   color: black;
   padding-top: 10px;
