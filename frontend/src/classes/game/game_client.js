@@ -17,22 +17,7 @@ class GameClient {
     this.ball = new Ball;
     this.ship = new Ship;
 
-    // this.ballSprite = new Image();
-    // this.ballSprite.src = 'images/earth_ball.png'
-    // this.shipSprite = new Image();
-    // this.shipSprite.src = 'images/default_ship.png'
-
     this.drawWalls(this.bgctx)
-
-    this.ballX = 0
-    this.ballY = 0
-    this.ballLastX = 0
-    this.ballLastY = 0
-
-    this.shipX = 0
-    this.shipY = 0
-    this.shipLastX = 0
-    this.shipLastY = 0
   }
 
   init() {
