@@ -370,7 +370,8 @@ textarea {
 
 .homepage-container {
   height: 100vh;
-  background-image: url('./background.gif');
+  /* background-image: url('./background.gif'); */
+  background-image: url('./assets/images/background.gif');
   /* object-fit: cover; */
   background-repeat: no-repeat;
   background-size: cover;

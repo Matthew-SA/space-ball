@@ -11,37 +11,27 @@ class GameClient {
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    // this.sprite = new Image();
-    // this.sprite.src = '../../../public/images/earth_ball.png'
-    this.socket.on('to-client', (data) => {
-      // console.log(data)
-      this.ballX = data.ball.pos.x - 50
-      this.ballY = data.ball.pos.y - 50
-      this.ballLastX = data.ball.lastPos.x - 55
-      this.ballLastY = data.ball.lastPos.y - 55
-      this.shipX = data.ship.pos.x - 30
-      this.shipY = data.ship.pos.y - 30
-      this.shipLastX = data.ship.lastPos.x - 35
-      this.shipLastY = data.ship.lastPos.y - 35
-      this.drawBall(this.ctx, this.ballX, this.ballY)
-      this.drawShip(this.ctx, this.shipX, this.shipY)
-    })
-    this.drawWalls(this.bgctx)
-    // this.drawBall(this.ctx);
+    
     this.ballSprite = new Image();
     this.ballSprite.src = 'images/earth_ball.png'
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png'
-    // this.sprite.onload = () => {
-    //   this.drawBall(this.ctx)
-      // this.ctx.drawImage(this.sprite, 0, 0);
-    // };
-    this.pixel = this.ctx.getImageData(1, 1, 1, 1);
-    console.log (this.pixel)
+
+    this.drawWalls(this.bgctx)
+
+    this.ballX = 0
+    this.ballY = 0
+    this.ballLastX = 0
+    this.ballLastY = 0
+
+    this.shipX = 0
+    this.shipY = 0
+    this.shipLastX = 0
+    this.shipLastY = 0
   }
 
   init() {
-    setInterval(() => {
+    this.socket.on('to-client', (data) => {
       this.socket.emit('player-action', {
         keyboardState: {
           left: Input.LEFT,
@@ -50,24 +40,51 @@ class GameClient {
           down: Input.DOWN
         }
       });
-    }, 20);
+      this.clearBall(this.ctx)
+      this.clearship(this.ctx)
+      this.stepBall(data)
+      this.stepShip(data)
+      this.drawBall(this.ctx)
+      this.drawShip(this.ctx)
+    })
   }
 
-  drawBall(ctx, x, y) {
-    ctx.clearRect(this.ballLastX, this.ballLastY, 110, 110);
+
+  clearBall(ctx) {
+    ctx.clearRect(this.ballLastX, this.ballLastY, 110, 110); 
+  }
+
+  stepBall(data) {
+    this.ballLastX = this.ballX
+    this.ballLastY = this.ballY
+    this.ballX = data.ball.pos.x - 50
+    this.ballY = data.ball.pos.y - 50
+  }
+
+  drawBall(ctx) {
     ctx.drawImage(
       this.ballSprite,
-      x,
-      y,
+      this.ballX,
+      this.ballY,
     )
   }
 
-  drawShip(ctx, x, y) {
+  clearship(ctx) {
     ctx.clearRect(this.shipLastX, this.shipLastY, 70, 70);
+  }
+
+  stepShip(data) {
+    this.shipLastX = this.shipX
+    this.shipLastY = this.shipY
+    this.shipX = data.ship.pos.x - 30
+    this.shipY = data.ship.pos.y - 30
+  }
+
+  drawShip(ctx) {
     ctx.drawImage(
       this.shipSprite,
-      x,
-      y,
+      this.shipX,
+      this.shipY,
     )
   }
 
@@ -79,14 +96,6 @@ class GameClient {
     ctx.fillRect(0, 550, 15, 350);
     ctx.fillRect(1585, 0, 15, 350);
     ctx.fillRect(1585, 550, 15, 350);
-  }
-
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "6";
-    ctx.strokeStyle = "red";
-    ctx.rect(5, 5, 290, 140);
-    ctx.stroke();
   }
 }
 

@@ -75,11 +75,9 @@ io.on('connection', (socket) => {
     io.emit('to-client', {
       ball: {
         pos: serverEngine.ball.position,
-        lastPos: serverEngine.ball.positionPrev
       },
       ship: {
         pos: serverEngine.ship.position,
-        lastPos: serverEngine.ship.positionPrev
       }
     });
   },20);
@@ -92,7 +90,7 @@ io.on('connection', (socket) => {
     // console.log(data.keyboardState.down)
 
     if (data.keyboardState.up) {
-      console.log('fired up!');
+      console.log(serverEngine.ship.position);
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: -2
