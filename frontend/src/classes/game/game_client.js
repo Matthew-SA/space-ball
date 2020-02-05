@@ -14,17 +14,20 @@ class GameClient {
     // this.sprite = new Image();
     // this.sprite.src = '../../../public/images/earth_ball.png'
     this.socket.on('to-client', (data) => {
-      console.log(data)
-      this.ballX = data.ball.pos.x - 50
-      this.ballY = data.ball.pos.y - 50
-      this.ballLastX = data.ball.lastPos.x - 55
-      this.ballLastY = data.ball.lastPos.y - 55
-      this.shipX = data.ship.pos.x - 30
-      this.shipY = data.ship.pos.y - 30
-      this.shipLastX = data.ship.lastPos.x - 35
-      this.shipLastY = data.ship.lastPos.y - 35
-      this.drawBall(this.ctx, this.ballX, this.ballY)
-      this.drawShip(this.ctx, this.shipX, this.shipY)
+      console.log(data);
+      this.ballX = data.ball.pos.x - 50;
+      this.ballY = data.ball.pos.y - 50;
+      this.ballLastX = data.ball.lastPos.x - 55;
+      this.ballLastY = data.ball.lastPos.y - 55;
+      this.shipX = data.ship.pos.x - 30;
+      this.shipY = data.ship.pos.y - 30;
+      this.shipLastX = data.ship.lastPos.x - 35;
+      this.shipLastY = data.ship.lastPos.y - 35;
+      this.drawBall(this.ctx, this.ballX, this.ballY);
+      this.drawShip(this.ctx, this.shipX, this.shipY);
+      this.leftScore = data.leftScore;
+      this.rightScore = data.rightScore;
+      this.isOver();
     })
     this.drawWalls(this.bgctx)
     // this.drawBall(this.ctx);
@@ -36,6 +39,17 @@ class GameClient {
     //   this.drawBall(this.ctx)
       // this.ctx.drawImage(this.sprite, 0, 0);
     // };
+  }
+
+  isOver() {
+    if (this.rightScore === 10) {
+      this.winner = "right";
+      return true;
+    } else if (this.leftScore === 10) {
+      this.winner = "left";
+      return true;
+    }
+    return false;
   }
 
   init() {

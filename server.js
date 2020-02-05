@@ -69,7 +69,6 @@ io.on('connection', (socket) => {
     Matter.Engine.update(serverEngine.engine, 20);
     // console.log('CURRENT:', serverEngine.ball.position)
     // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
-
     io.emit('to-client', {
       ball: {
         pos: serverEngine.ball.position,
@@ -78,6 +77,10 @@ io.on('connection', (socket) => {
       ship: {
         pos: serverEngine.ship.position,
         lastPos: serverEngine.ship.positionPrev
+      },
+      score: {
+        leftScore: serverEngine.leftScore,
+        rightScore: serverEngine.rightScore
       }
     });
   },20);
