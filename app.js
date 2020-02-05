@@ -7,6 +7,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const stats = require("./routes/api/stats");
 const leaderboard = require("./routes/api/leaderboard");
+const inventory = require("./routes/api/inventory");
 
 const app = express();
 const path = require("path");
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/users", users);
 app.use("/api/stats", stats);
 app.use("/api/leaderboard", leaderboard);
+app.use("/api/inventory", inventory);
 
 // websocket dependencies
 const http = require("http");

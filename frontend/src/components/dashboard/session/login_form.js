@@ -83,7 +83,7 @@ class LoginForm extends React.Component {
 
   handleDemo(e) {
     e.preventDefault();
-    const user = Object.assign({}, { username: 'DemoUser', password: 'demodemo' });
+    const user = Object.assign({}, { username: 'Demo User', password: 'demodemo' });
     this.demo(user);
   }
 

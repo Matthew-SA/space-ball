@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Stat = require("../../models/Stat");
-// const validateStatsInput = require("../../validation/stat");
 
 router.get("/", (req, res) => {
   Stat.find()
