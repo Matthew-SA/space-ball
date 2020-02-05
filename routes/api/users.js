@@ -48,7 +48,12 @@ router.post("/signup", (req, res) => {
           newUser
             .save()
             .then(user => {
-              const payload = { id: user.id, username: user.username, currency: user.currency };
+              const payload = { 
+                id: user.id, 
+                username: user.username, 
+                currency: user.currency, 
+                inventory: user.inventory
+              };
               jwt.sign(
                 payload,
                 keys.secretOrKey,
@@ -87,7 +92,12 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: user.id, username: user.username, currency: user.currency };
+        const payload = { 
+          id: user.id, 
+          username: user.username, 
+          currency: user.currency, 
+          inventory: user.inventory
+        };
         jwt.sign(
           payload,
           keys.secretOrKey,
