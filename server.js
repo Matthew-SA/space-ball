@@ -95,28 +95,28 @@ io.on('connection', (socket) => {
     // console.log(data.keyboardState.down)
 
     if (data.keyboardState.up) {
-      console.log('fired up!');
+      // console.log('fired up!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: -2
       })
     }
     if (data.keyboardState.right) {
-      console.log('fired right!');
+      // console.log('fired right!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 2,
         y: 0
       })
     }
     if (data.keyboardState.down) {
-      console.log('fired down!');
+      // console.log('fired down!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: 2
       })
     }
     if (data.keyboardState.left) {
-      console.log('fired left!');
+      // console.log('fired left!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: -2,
         y: 0
