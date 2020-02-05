@@ -9,9 +9,9 @@ class MyStats extends React.Component {
     this.getLinks = this.getLinks.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchStats();
-  }
+  // componentDidMount() {
+  //   this.props.fetchStats();
+  // }
 
   logoutUser(e) {
     e.preventDefault();

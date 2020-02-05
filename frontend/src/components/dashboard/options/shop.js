@@ -1,6 +1,6 @@
 import React from "react";
 
-class Customize extends React.Component {
+class Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -9,6 +9,7 @@ class Customize extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.buyShip = this.buyShip.bind(this);
   }
 
   handleClick(e) {
@@ -26,6 +27,10 @@ class Customize extends React.Component {
     });
     Array.from(document.getElementsByClassName('select-button')).forEach(el => el.classList.remove('active'));
     e.target.classList.add('active');
+  }
+
+  buyShip() {
+    this.props.buyShip("test");
   }
 
   render() {
@@ -80,12 +85,18 @@ class Customize extends React.Component {
     }
 
     if (this.state.selected === "shop") {
-      if (this.props.ships.includes(optionSelection) || (this.props.balls.includes(optionSelection))) {
+      if (this.props.inventory.ships.includes(optionSelection) || (this.props.inventory.balls.includes(optionSelection))) {
         purchaseOption = 
-          <div className="purchased">PURCHASED</div>
+          <div>
+            <div className="price">$500</div>
+            <div className="sell">SELL</div>
+          </div>
       } else {
         purchaseOption = 
-          <div className="buy-button">BUY NOW</div>
+          <div>
+            <div className="price">$500</div>
+            <div className="buy-button" onClick={this.buyShip}>BUY</div>
+          </div>
       }
     } else {
       purchaseOption = null
@@ -94,15 +105,13 @@ class Customize extends React.Component {
     return (
       <div className="options-container">
         <div className="customize-panel">
-          <div className="customize-title">Customization Options</div>
+          <div className="customize-title">Customize Your Game</div>
           <div className="currency">${this.props.currency}</div>
           <div className="select-customization">
             <div className="customize active" id="shop" onClick={this.handleClick}>Shop</div>
             <div className="customize" id="mySettings" onClick={this.handleClick}>My Settings</div>
           </div>
-          <div>
-            {currentViewPort}
-          </div>
+          {currentViewPort}
         </div>
         <div className="picture-container">
           {rightView}
@@ -113,4 +122,4 @@ class Customize extends React.Component {
   }
 }
 
-export default Customize;
+export default Shop;

@@ -1,7 +1,7 @@
 import React from "react";
 import LoginFormContainer from "../session/login_form_container";
 import SignupFormContainer from "../session/signup_form_container";
-import CustomizeContainer from "./customize_container";
+import ShopContainer from "./shop_container";
 
 
 class Options extends React.Component {
@@ -27,7 +27,7 @@ class Options extends React.Component {
               Log Out
             </button>
           </div>
-          <CustomizeContainer />
+          <ShopContainer />
         </div>
       );
     } else {
