@@ -1,5 +1,5 @@
 class Ship {
-  constructor(sprite) {
+  constructor() {
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png'
 

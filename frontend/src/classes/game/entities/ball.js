@@ -1,5 +1,5 @@
 class Ball {
-  constructor(sprite) {
+  constructor() {
     this.ballSprite = new Image();
     this.ballSprite.src = 'images/earth_ball.png'
 
