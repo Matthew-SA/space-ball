@@ -2,7 +2,9 @@
 // import Util from './Util';
 // import Matter from 'matter-js';
 const Input = require('./Input');
-const Matter = require('matter-js');
+// const Matter = require('matter-js');
+const Ball = require('./entities/ball');
+const Ship = require('./entities/ship');
 
 class GameClient {
   constructor(socket){
@@ -12,10 +14,13 @@ class GameClient {
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
     
-    this.ballSprite = new Image();
-    this.ballSprite.src = 'images/earth_ball.png'
-    this.shipSprite = new Image();
-    this.shipSprite.src = 'images/default_ship.png'
+    this.ball = new Ball;
+    this.ship = new Ship;
+
+    // this.ballSprite = new Image();
+    // this.ballSprite.src = 'images/earth_ball.png'
+    // this.shipSprite = new Image();
+    // this.shipSprite.src = 'images/default_ship.png'
 
     this.drawWalls(this.bgctx)
 
@@ -40,52 +45,29 @@ class GameClient {
           down: Input.DOWN
         }
       });
-      this.clearBall(this.ctx)
-      this.clearship(this.ctx)
-      this.stepBall(data)
-      this.stepShip(data)
-      this.drawBall(this.ctx)
-      this.drawShip(this.ctx)
+      this.cycleAll(this.ctx, data)
     })
   }
 
-
-  clearBall(ctx) {
-    ctx.clearRect(this.ballLastX, this.ballLastY, 110, 110); 
+  cycleAll(ctx, data) {
+    this.clearEntities(ctx)
+    this.stepEntities(data)
+    this.drawEntities(ctx)
   }
 
-  stepBall(data) {
-    this.ballLastX = this.ballX
-    this.ballLastY = this.ballY
-    this.ballX = data.ball.pos.x - 50
-    this.ballY = data.ball.pos.y - 50
+  clearEntities(ctx) {
+    this.ball.clear(ctx)
+    this.ship.clear(ctx)
   }
 
-  drawBall(ctx) {
-    ctx.drawImage(
-      this.ballSprite,
-      this.ballX,
-      this.ballY,
-    )
+  stepEntities(data) {
+    this.ball.step(data)
+    this.ship.step(data)
   }
 
-  clearship(ctx) {
-    ctx.clearRect(this.shipLastX, this.shipLastY, 70, 70);
-  }
-
-  stepShip(data) {
-    this.shipLastX = this.shipX
-    this.shipLastY = this.shipY
-    this.shipX = data.ship.pos.x - 30
-    this.shipY = data.ship.pos.y - 30
-  }
-
-  drawShip(ctx) {
-    ctx.drawImage(
-      this.shipSprite,
-      this.shipX,
-      this.shipY,
-    )
+  drawEntities(ctx) {
+    this.ball.draw(ctx)
+    this.ship.draw(ctx)
   }
 
   drawWalls(ctx) {
