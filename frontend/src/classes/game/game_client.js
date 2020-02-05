@@ -39,6 +39,8 @@ class GameClient {
     //   this.drawBall(this.ctx)
       // this.ctx.drawImage(this.sprite, 0, 0);
     // };
+    this.pixel = this.ctx.getImageData(1, 1, 1, 1);
+    console.log (this.pixel)
   }
 
   isOver() {
@@ -85,12 +87,12 @@ class GameClient {
 
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
-    ctx.fillRect(0, 0, 1000, 15);
-    ctx.fillRect(0, 585, 1000, 15);
-    ctx.fillRect(0, 0, 15, 175);
-    ctx.fillRect(0, 425, 15, 175);
-    ctx.fillRect(985, 0, 15, 175);
-    ctx.fillRect(985, 425, 15, 175);
+    ctx.fillRect(0, 0, 1600, 15);
+    ctx.fillRect(0, 885, 1600, 15);
+    ctx.fillRect(0, 0, 15, 350);
+    ctx.fillRect(0, 550, 15, 350);
+    ctx.fillRect(1585, 0, 15, 350);
+    ctx.fillRect(1585, 550, 15, 350);
   }
 
   draw(ctx) {

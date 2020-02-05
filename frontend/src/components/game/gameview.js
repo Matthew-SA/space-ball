@@ -40,9 +40,9 @@ class GameView extends React.Component {
   
   render() {
     return (
-      <div>
-        <canvas width="1500" height="900" id="background-canvas" data-paper-resize></canvas>
-        <canvas width="1500" height="900" id="game-canvas" data-paper-resize></canvas>
+      <div id="game-container">
+        <canvas width="1600" height="900" id="background-canvas" data-paper-resize></canvas>
+        <canvas width="1600" height="900" id="game-canvas" data-paper-resize></canvas>
       </div>
     );
   }

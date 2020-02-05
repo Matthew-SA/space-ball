@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { logout, clearErrors } from "../../../actions/session_actions";
 import { clearStats } from "../../../actions/stats_actions";
 
-import MyShip from "./myShip";
+import Options from "./options";
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
   clearStats: () => dispatch(clearStats())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyShip);
+export default connect(mapStateToProps, mapDispatchToProps)(Options);

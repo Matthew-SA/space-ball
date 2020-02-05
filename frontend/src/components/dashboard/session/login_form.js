@@ -15,7 +15,6 @@ class LoginForm extends React.Component {
     this.signupOrLogin = this.signupOrLogin.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
   }
-
   // Handle field updates (called in the render method)
   update(field) {
     return e =>
@@ -84,7 +83,7 @@ class LoginForm extends React.Component {
 
   handleDemo(e) {
     e.preventDefault();
-    const user = Object.assign({}, { username: 'DemoUser', password: 'demodemo' });
+    const user = Object.assign({}, { username: 'Demo User', password: 'demodemo' });
     this.demo(user);
   }
 
