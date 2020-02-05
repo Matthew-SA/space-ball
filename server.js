@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const Matter = require("matter-js")
 
 const users = require("./routes/api/users");
 const stats = require("./routes/api/stats");
@@ -12,6 +13,7 @@ const inventory = require("./routes/api/inventory");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
+
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
@@ -35,15 +37,17 @@ app.use("/api/inventory", inventory);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const Engine = require('./lib/matterEngine')
-// const Game = require('./lib/game')  
+const ServerEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
 // const game = Game.create(); 
-const engine = new Engine;
+const serverEngine = new ServerEngine;
+// console.log(data.bodies[0])
+// console.log(serverEngine.world.bodies)
+
 app.set('port', PORT);
 // end websocket initialization
 
@@ -62,21 +66,65 @@ app.get("/", (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('*** CONNECTION CREATED ***');
-  // socket.broadcast.emit('hi!')
 
-  socket.on('test-function', (data) => {
-    // console.log(data)
-  })
+  setInterval(function() {
+    Matter.Engine.update(serverEngine.engine, 20);
+    // console.log('CURRENT:', serverEngine.ball.position)
+    // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
 
-  socket.on('player-action', (data) => {
-    // console.log(data)
-    // game.updatePlayerOnInput(socket.id, data);
+    io.emit('to-client', {
+      ball: {
+        pos: serverEngine.ball.position,
+        lastPos: serverEngine.ball.positionPrev
+      },
+      ship: {
+        pos: serverEngine.ship.position,
+        lastPos: serverEngine.ship.positionPrev
+      }
+    });
+  },20);
+
+
+  
+
+  socket.on('player-action', data => {
+    // console.log(data.keyboardState.left)
+    // console.log(data.keyboardState.down)
+
+    if (data.keyboardState.up) {
+      console.log('fired up!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 0,
+        y: -2
+      })
+    }
+    if (data.keyboardState.right) {
+      console.log('fired right!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 2,
+        y: 0
+      })
+    }
+    if (data.keyboardState.down) {
+      console.log('fired down!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: 0,
+        y: 2
+      })
+    }
+    if (data.keyboardState.left) {
+      console.log('fired left!');
+      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
+        x: -2,
+        y: 0
+      })
+    }
   });
 
-  socket.on('player-join', () => {
-    // game.addNewPlayer(socket);
-    // console.log('user joined')
+  socket.on('test', (data) => {
+    console.log(data)
   })
+
 
   socket.on('disconnect', () => {
     // game.removePlayer(socket.id)
@@ -89,8 +137,7 @@ io.on('connection', (socket) => {
 
 // const FPS = 60
 // setInterval(() => {
-//   game.update();
-//   game.sendState();
+  
 // }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
