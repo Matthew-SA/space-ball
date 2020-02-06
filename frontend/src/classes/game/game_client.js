@@ -57,7 +57,7 @@ class GameClient {
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.ship.clear(ctx)
-    ctx.clearRect(750, 0, 400, 100);
+    ctx.clearRect(700, 0, 600, 100);
   }
 
   stepEntities(data) {
