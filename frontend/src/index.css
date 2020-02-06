@@ -76,7 +76,9 @@ video {
     *display: inline;
     *zoom: 1;
     max-width: 100%;
+    max-height: 100%;
 }
+
 /**
  * Prevent modern browsers from displaying `audio` without controls.
  * Remove excess height in iOS 5 devices.
@@ -813,8 +815,47 @@ select::-ms-expand {
   text-align: center;
   padding-top: 15px;
 }
+
 .game {
   display: flex;
   justify-content: center;
   margin-top: 30px;
+}
+
+/* CANVAS CSS */
+
+header {
+  height: 30px;
+  text-align: center;
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+}
+#game-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 0;
+  background-image: url('./assets/space.png');
+}
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+}
+#background-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  /* background-image: url('./assets/space.png'); */
 }
