@@ -31,11 +31,6 @@ class GameView extends React.Component {
     Input.applyEventHandlers();
     this.gameClient = new GameClient(this.socket)
     this.gameClient.init()
-    // this.game.animate();
-    // this.game.createSelfShip();
-    // this.setState({game: game})
-    // this.scoreId = setInterval(() => this.updateScore()
-    // , 250)
   };
   
   render() {

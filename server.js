@@ -37,14 +37,15 @@ app.use("/api/inventory", inventory);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const ServerEngine = require('./lib/server_engine');
+const ServerGame = require('./lib/server_game');
+// const ServerEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
 // const game = Game.create(); 
-const serverEngine = new ServerEngine;
+const serverGame = new ServerGame;
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
@@ -56,6 +57,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
+mongoose.set('useFindAndModify', false);
+
 // app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
 // app.use('/shared', express.static(__dirname + '/shared'));
 
@@ -65,78 +68,33 @@ app.get("/", (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('*** CONNECTION CREATED ***');
+  socket.on('player-join', () => {
+    serverGame.addNewPlayer(socket);
+  });
 
   setInterval(function() {
-    Matter.Engine.update(serverEngine.engine, 20);
-    // console.log('CURRENT:', serverEngine.ball.position)
-    // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
+    Matter.Engine.update(serverGame.engine, 20);
     io.emit('to-client', {
       ball: {
-        pos: serverEngine.ball.position,
+        pos: serverGame.ball.position,
       },
-      ship: {
-        pos: serverEngine.ship.position,
-      },
+      ships: serverGame.getAllPos(),
       score: {
-        leftScore: serverEngine.leftScore,
-        rightScore: serverEngine.rightScore
+        leftScore: serverGame.serverEngine.leftScore,
+        rightScore: serverGame.serverEngine.rightScore
       }
     });
   },20);
 
-
-  
-
   socket.on('player-action', data => {
-    if (data.keyboardState.up) {
-      console.log(serverEngine.ship.position);
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 0,
-        y: -2
-      })
-    }
-    if (data.keyboardState.right) {
-      // console.log('fired right!');
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 2,
-        y: 0
-      })
-    }
-    if (data.keyboardState.down) {
-      // console.log('fired down!');
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 0,
-        y: 2
-      })
-    }
-    if (data.keyboardState.left) {
-      // console.log('fired left!');
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: -2,
-        y: 0
-      })
-    }
+    serverGame.movePlayer(socket.id, data)
   });
-
-  socket.on('test', (data) => {
-    console.log(data)
-  })
-
-
+  
   socket.on('disconnect', () => {
-    // game.removePlayer(socket.id)
+    serverGame.removePlayer(socket.id)
     console.log('user disconnected')
   })
 })
-
-// Server-side game loop.  Currently runs at 60 FPS.
-
-
-// const FPS = 60
-// setInterval(() => {
-  
-// }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

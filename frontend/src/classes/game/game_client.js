@@ -13,27 +13,21 @@ class GameClient {
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    // this.leftScore = data.leftScore;
-    // this.rightScore = data.rightScore;
-    this.isOver();
-    this.ball = new Ball;
-    this.ship = new Ship;
-
+    // this.isOver();
+    this.ball = new Ball();
+    this.ship = new Ship();
     this.drawWalls(this.bgctx)
-  }
+    
+    /// NEW CODE FOR SHIPS - TEMPORARY?
+    this.shipSprite = new Image();
+    this.shipSprite.src = 'images/default_ship.png'
+    this.allPlayerPos = [];
+    this.allPlayerPosPrev = this.allPlayerPos
 
-  isOver() {
-    if (this.rightScore === 10) {
-      this.winner = "right";
-      return true;
-    } else if (this.leftScore === 10) {
-      this.winner = "left";
-      return true;
-    }
-    return false;
   }
 
   init() {
+    this.socket.emit('player-join')
     this.socket.on('to-client', (data) => {
       this.socket.emit('player-action', {
         keyboardState: {
@@ -51,23 +45,46 @@ class GameClient {
     this.clearEntities(ctx)
     this.stepEntities(data)
     this.drawEntities(ctx)
+    this.drawScore(ctx, data)
+  }
+
+  clearAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      this.ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
+    }
+  }
+
+  stepAllShips(data) {
+    this.allPlayerPosPrev = this.allPlayerPos
+    this.allPlayerPos = data.ships
+  }
+
+  drawAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      this.ship.draw2(
+        this.ctx,
+        player.x - 30,
+        player.y - 30,
+      );
+    }
   }
 
   clearEntities(ctx) {
     this.ball.clear(ctx)
-    this.ship.clear(ctx)
+    this.clearAllShips();
+    ctx.clearRect(700, 0, 600, 100);
   }
-
+  
   stepEntities(data) {
     this.ball.step(data)
-    this.ship.step(data)
+    this.stepAllShips(data);
   }
-
+  
   drawEntities(ctx) {
     this.ball.draw(ctx)
-    this.ship.draw(ctx)
+    this.drawAllShips();
   }
-
+  
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
     ctx.fillRect(0, 0, 1600, 15);
@@ -76,6 +93,13 @@ class GameClient {
     ctx.fillRect(0, 550, 15, 350);
     ctx.fillRect(1585, 0, 15, 350);
     ctx.fillRect(1585, 550, 15, 350);
+  }
+
+  drawScore(ctx, data) {
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "60px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(data.score.leftScore + "   |   " + data.score.rightScore, 800, 90);
   }
 }
 
