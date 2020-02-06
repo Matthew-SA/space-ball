@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
 
 
   socket.on('disconnect', () => {
-    // game.removePlayer(socket.id)
+    serverGame.removePlayer(socket.id)
     console.log('user disconnected')
   })
 })
