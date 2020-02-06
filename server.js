@@ -86,9 +86,6 @@ io.on('connection', (socket) => {
   
 
   socket.on('player-action', data => {
-    // console.log(data.keyboardState.left)
-    // console.log(data.keyboardState.down)
-
     if (data.keyboardState.up) {
       console.log(serverEngine.ship.position);
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
