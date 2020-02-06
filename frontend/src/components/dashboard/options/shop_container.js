@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { buyShip, fetchInventory } from "../../../actions/inventory_actions";
+import { addShip, fetchInventory } from "../../../actions/inventory_actions";
 import Shop from "./shop";
 
 const mapStateToProps = state => {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  buyShip: selection => dispatch(buyShip(selection)),
+  addShip: selection => dispatch(addShip(selection)),
   fetchInventory: () => dispatch(fetchInventory())
 });
 

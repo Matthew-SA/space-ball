@@ -35,7 +35,7 @@ class Shop extends React.Component {
 
   buyShip() {
     const buy = new Promise((resolve, reject) => {
-      resolve(this.props.buyShip(this.state.optionSelection));
+      resolve(this.props.addShip(this.state.optionSelection));
     })
     buy.then(() => {
       this.props.fetchInventory();
@@ -100,7 +100,8 @@ class Shop extends React.Component {
             <div className="price">Not For Sale</div>
             <div className="default-button">Default</div>
           </div>
-      } else if (this.props.inventory.ships.includes(optionSelection) || (this.props.inventory.balls.includes(optionSelection))) {
+      } else if (this.props.inventory.ships.includes(optionSelection) 
+        || (this.props.inventory.balls.includes(optionSelection))) {
         purchaseOption = 
           <div>
             <div className="price">$500</div>

@@ -3,7 +3,8 @@ import axios from "axios";
 export const RECEIVE_INVENTORY = 'RECEIVE_INVENTORY';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CREATE_INVENTORY = 'CREATE_INVENTORY';
-export const BUY_SHIP = 'BUY_SHIP';
+export const ADD_SHIP = 'ADD_SHIP';
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY'
 
 export const fetchInventory = () => dispatch => {
   axios.get("/api/inventory")
@@ -37,11 +38,11 @@ export const createInventory = user => dispatch => {
     );
 };
 
-export const buyShip = ship => dispatch => {
+export const addShip = ship => dispatch => {
   axios.patch("/api/inventory/ships", { ship: ship })
   .then(res =>
     dispatch({
-      type: BUY_SHIP,
+      type: ADD_SHIP,
       payload: res.data
     }))
   .catch(err =>
@@ -51,3 +52,8 @@ export const buyShip = ship => dispatch => {
     })
   )
 };
+
+export const changeCurrency = amount => dispatch => {
+  axios.patch("/api/inventory/currency", { currency: amount })
+  
+}
