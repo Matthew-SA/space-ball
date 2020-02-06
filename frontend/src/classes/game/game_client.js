@@ -51,12 +51,13 @@ class GameClient {
     this.clearEntities(ctx)
     this.stepEntities(data)
     this.drawEntities(ctx)
-    this.updateScore(ctx, data)
+    this.drawScore(ctx, data)
   }
 
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.ship.clear(ctx)
+    ctx.clearRect(750, 0, 400, 100);
   }
 
   stepEntities(data) {
@@ -79,15 +80,11 @@ class GameClient {
     ctx.fillRect(1585, 550, 15, 350);
   }
 
-  updateScore(ctx, data) {
-    // console.log(data.score.leftScore)
-    // console.log(data.score.rightScore)
-    ctx.clearRect(750, 0, 400, 100);
-
+  drawScore(ctx, data) {
     ctx.fillStyle = "#FFFFFF"
-    ctx.font = "60px serif";
-    ctx.fillText(data.score.leftScore + "  |  " + data.score.rightScore, 750, 70);
-    // ctx.fillText("TEST", 00, 50);
+    ctx.font = "60px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(data.score.leftScore + "   |   " + data.score.rightScore, 800, 90);
   }
 }
 
