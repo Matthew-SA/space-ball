@@ -24,9 +24,24 @@ router.post("/", (req, res) => {
     balls: ["Earth"],
     selected: ["Default", "Earth"]
   });
-
   inventory.save().then(data => res.json(data));
-  console.log(data)
 });
+
+router.patch(
+  "/ships", 
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username },
+      { $push: { ships: req.body.ship } }
+    )
+    .then(inventory => {
+      return res.json(inventory);
+    })
+    .catch(err => {
+      return res.status(404).json(err);
+    });
+})
+    
 
 module.exports = router;

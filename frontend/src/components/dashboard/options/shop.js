@@ -12,6 +12,10 @@ class Shop extends React.Component {
     this.buyShip = this.buyShip.bind(this);
   }
 
+  componentDidMount(){
+    this.props.fetchInventory();
+  }
+  
   handleClick(e) {
     this.setState({
       selected: e.target.id,
@@ -30,7 +34,12 @@ class Shop extends React.Component {
   }
 
   buyShip() {
-    this.props.buyShip("test");
+    const buy = new Promise((resolve, reject) => {
+      resolve(this.props.buyShip(this.state.optionSelection));
+    })
+    buy.then(() => {
+      this.props.fetchInventory();
+    })
   }
 
   render() {
@@ -85,11 +94,17 @@ class Shop extends React.Component {
     }
 
     if (this.state.selected === "shop") {
-      if (this.props.inventory.ships.includes(optionSelection) || (this.props.inventory.balls.includes(optionSelection))) {
+      if (optionSelection === "Default" || optionSelection === "Earth") {
+        purchaseOption =
+          <div>
+            <div className="price">Not For Sale</div>
+            <div className="default-button">Default</div>
+          </div>
+      } else if (this.props.inventory.ships.includes(optionSelection) || (this.props.inventory.balls.includes(optionSelection))) {
         purchaseOption = 
           <div>
             <div className="price">$500</div>
-            <div className="sell">SELL</div>
+            <div className="sell-button">SELL</div>
           </div>
       } else {
         purchaseOption = 

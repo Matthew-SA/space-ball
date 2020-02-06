@@ -3,6 +3,7 @@ import axios from "axios";
 export const RECEIVE_INVENTORY = 'RECEIVE_INVENTORY';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CREATE_INVENTORY = 'CREATE_INVENTORY';
+export const BUY_SHIP = 'BUY_SHIP';
 
 export const fetchInventory = () => dispatch => {
   axios.get("/api/inventory")
@@ -21,7 +22,7 @@ export const fetchInventory = () => dispatch => {
 };
 
 export const createInventory = user => dispatch => {
-  return axios.post("/api/inventory", user)
+  axios.post("/api/inventory", user)
     .then(res =>
       dispatch({
         type: CREATE_INVENTORY,
@@ -34,4 +35,19 @@ export const createInventory = user => dispatch => {
         payload: err
       })
     );
+};
+
+export const buyShip = ship => dispatch => {
+  axios.patch("/api/inventory/ships", { ship: ship })
+  .then(res =>
+    dispatch({
+      type: BUY_SHIP,
+      payload: res.data
+    }))
+  .catch(err =>
+    dispatch({
+      type: RECEIVE_ERRORS,
+      payload: err
+    })
+  )
 };

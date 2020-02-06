@@ -260,13 +260,7 @@ textarea {
     overflow: auto; /* 1 */
     vertical-align: top; /* 2 */
 }
-/**
- * Remove most spacing between table cells.
- */
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+
 html,
 button,
 input,
@@ -399,6 +393,8 @@ select::-ms-expand {
 }
 
 .mystats-login {
+  height: 430px;
+  padding-top: 40px;
   padding-bottom: 20px;
   background: black;
 }
@@ -618,7 +614,7 @@ select::-ms-expand {
   transform: scale(1.05);
 }
 
-.sell {
+.sell-button {
   width: 150px;
   border: 2px solid;
   border-radius: 5px;
@@ -629,10 +625,22 @@ select::-ms-expand {
   cursor: pointer;
 }
 
-.sell:hover {
+.sell-button:hover {
   background: #ffe600;
   border: 2px solid #fc03a1;
   color: #fc03a1;
+}
+
+.default-button {
+  width: 150px;
+  color: #fc03a1;
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  border-radius: 5px;
+  margin: auto;
+  padding: 9px 0px 7px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .buy-button {
@@ -684,11 +692,18 @@ select::-ms-expand {
   height: 60px;
   display: grid;
   grid-template-columns: 50% 50%;
-  border-bottom: 2px solid #ffe600
 }
+
 .leaderboard-table, .stats-table {
   width: 100%;
-  padding-bottom: 20px;
+}
+
+.leaderboard-table {
+  height: 500px;
+}
+
+.stats-table {
+  height: 120px;
 }
 
 .table {
@@ -709,8 +724,15 @@ select::-ms-expand {
   width: 20%;
 }
 
+.column-rank {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
 .column-points, .column-wins, .column-losses, .column-winloss {
   width: 25%;
+  padding-top: 15px;
+  padding-bottom: 10px;
 }
 
 .board-select {
@@ -728,7 +750,6 @@ select::-ms-expand {
 
 .stats-data {
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 /* Play CSS */
