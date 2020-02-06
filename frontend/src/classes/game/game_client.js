@@ -9,6 +9,7 @@ const Ship = require('./entities/ship');
 class GameClient {
   constructor(socket){
     this.socket = socket;
+    console.log(socket)
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
