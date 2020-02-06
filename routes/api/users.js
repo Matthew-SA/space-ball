@@ -52,8 +52,7 @@ router.post("/signup", (req, res) => {
                 id: user.id, 
                 username: user.username, 
                 currency: user.currency, 
-                ships: user.ships,
-                balls: user.balls
+                inventory: user.inventory
               };
               jwt.sign(
                 payload,
@@ -97,8 +96,7 @@ router.post("/login", (req, res) => {
           id: user.id, 
           username: user.username, 
           currency: user.currency, 
-          ships: user.ships,
-          balls: user.balls
+          inventory: user.inventory
         };
         jwt.sign(
           payload,

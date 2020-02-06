@@ -31,15 +31,13 @@ class Dashboard extends React.Component {
     }
 
     return (
-      <div>
-        <div className="homepage-container">
-          <div className="dashboard">
-            <div className="home-select" id="options" onClick={this.handleClick}>Options</div>
-            <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
-            <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
-          </div>
-          {currentViewPort}
+      <div className="homepage-container">
+        <div className="dashboard">
+          <div className="home-select" id="options" onClick={this.handleClick}>Options</div>
+          <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
+          <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
         </div>
+        {currentViewPort}
       </div>
     );
   }
