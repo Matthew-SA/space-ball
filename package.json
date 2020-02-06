@@ -4,6 +4,7 @@
   "description": "Battle of Fate",
   "main": "server.js",
   "scripts": {
+    "server:debug": "nodemon --inspect app.js",
     "start": "node server.js",
     "server": "nodemon server.js",
     "frontend-install": "npm install --prefix frontend",
