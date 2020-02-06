@@ -20,6 +20,14 @@ class Ship {
     this.shipY = data.ship.pos.y - 30
   }
 
+  draw2(ctx,x,y) {
+    ctx.drawImage(
+      this.shipSprite,
+      x,
+      y,
+    )
+  }
+
   draw(ctx) {
     ctx.drawImage(
       this.shipSprite,
