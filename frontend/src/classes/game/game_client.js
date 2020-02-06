@@ -9,7 +9,6 @@ const Ship = require('./entities/ship');
 class GameClient {
   constructor(socket){
     this.socket = socket;
-    console.log(socket)
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
@@ -17,14 +16,20 @@ class GameClient {
     // this.leftScore = data.leftScore;
     // this.rightScore = data.rightScore;
     // this.isOver();
-    this.ball = new Ball;
-    this.ship = new Ship;
-
+    this.ball = new Ball();
+    this.ship = new Ship();
     this.drawWalls(this.bgctx)
+    
+    /// NEW CODE FOR SHIPS - TEMPORARY?
+    this.shipSprite = new Image();
+    this.shipSprite.src = 'images/default_ship.png'
+    this.allPlayerPos = [];
+    this.allPlayerPosPrev = this.allPlayerPos
+
   }
 
-  
   init() {
+    this.socket.emit('player-join')
     this.socket.on('to-client', (data) => {
       this.socket.emit('player-action', {
         keyboardState: {
@@ -37,26 +42,50 @@ class GameClient {
       this.cycleAll(this.ctx, data)
     })
   }
-  
+
   cycleAll(ctx, data) {
     this.clearEntities(ctx)
     this.stepEntities(data)
     this.drawEntities(ctx)
   }
-  
+
+  clearAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      this.ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
+    }
+  }
+
+  stepAllShips(data) {
+    this.allPlayerPosPrev = this.allPlayerPos
+    this.allPlayerPos = data.ships
+  }
+
+  drawAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      this.ship.draw2(
+        this.ctx,
+        player.x - 30,
+        player.y - 30,
+      );
+    }
+  }
+
   clearEntities(ctx) {
     this.ball.clear(ctx)
-    this.ship.clear(ctx)
+    // this.ship.clear(ctx)
+    this.clearAllShips();
   }
   
   stepEntities(data) {
     this.ball.step(data)
-    this.ship.step(data)
+    // this.ship.step(data)
+    this.stepAllShips(data);
   }
   
   drawEntities(ctx) {
     this.ball.draw(ctx)
-    this.ship.draw(ctx)
+    // this.ship.draw(ctx)
+    this.drawAllShips();
   }
   
   drawWalls(ctx) {
