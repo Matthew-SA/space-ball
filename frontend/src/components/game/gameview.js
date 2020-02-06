@@ -1,9 +1,8 @@
 import React from 'react';
-
-const GameClient = require('../../classes/game/game_client');
 import io from 'socket.io-client';
 import Input from '../../classes/game/Input'
 
+const GameClient = require('../../classes/game/game_client');
 // import GameView from "../../classes/game_view";
 // import gameLogic from "../../classes/game_logic";
 // import Game from '../../classes/game/Game'
