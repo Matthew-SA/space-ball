@@ -1,10 +1,12 @@
+import Ball from "./entities/ball";
+import Ship from "./entities/ship";
 // import Input from './Input';
 // import Util from './Util';
 // import Matter from 'matter-js';
 const Input = require('./Input');
 // const Matter = require('matter-js');
-const Ball = require('./entities/ball');
-const Ship = require('./entities/ship');
+// const Ball = require('./entities/ball');
+// const Ship = require('./entities/ship');
 
 class GameClient {
   constructor(socket){
@@ -104,4 +106,4 @@ class GameClient {
   }
 }
 
-module.exports = GameClient;
+export default GameClient;

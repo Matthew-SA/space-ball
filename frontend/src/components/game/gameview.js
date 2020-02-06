@@ -1,4 +1,8 @@
 import React from 'react';
+import io from 'socket.io-client';
+import Input from '../../classes/game/Input'
+import GameClient from '../../classes/game/game_client';
+// const GameClient = require('../../classes/game/game_client');
 // import GameView from "../../classes/game_view";
 // import gameLogic from "../../classes/game_logic";
 // import Game from '../../classes/game/Game'
@@ -6,9 +10,6 @@ import React from 'react';
 // import Util from "./util/util";
 // import key from "keymaster";
 
-import GameClient from '../../classes/game/game_client'
-import io from 'socket.io-client';
-// import Input from '../../classes/game/Input'
 
 class GameView extends React.Component {
   constructor(props) {
