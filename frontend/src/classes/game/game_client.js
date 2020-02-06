@@ -13,8 +13,8 @@ class GameClient {
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    this.leftScore = data.leftScore;
-    this.rightScore = data.rightScore;
+    // this.leftScore = data.leftScore;
+    // this.rightScore = data.rightScore;
     this.isOver();
     this.ball = new Ball;
     this.ship = new Ship;
