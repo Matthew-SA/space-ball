@@ -65,7 +65,10 @@ app.get("/", (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('*** CONNECTION CREATED ***');
+  // console.log('SOCKET.ID:', socket.id)
+  // socket.on('player-join', () => {
+  //   game.addNewPlayer(socket);
+  // });
 
   setInterval(function() {
     Matter.Engine.update(serverEngine.engine, 20);
@@ -90,28 +93,24 @@ io.on('connection', (socket) => {
 
   socket.on('player-action', data => {
     if (data.keyboardState.up) {
-      console.log(serverEngine.ship.position);
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: -2
       })
     }
     if (data.keyboardState.right) {
-      // console.log('fired right!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 2,
         y: 0
       })
     }
     if (data.keyboardState.down) {
-      // console.log('fired down!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: 2
       })
     }
     if (data.keyboardState.left) {
-      // console.log('fired left!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: -2,
         y: 0
