@@ -8,7 +8,7 @@ import React from 'react';
 
 import GameClient from '../../classes/game/game_client'
 import io from 'socket.io-client';
-import Input from '../../classes/game/Input'
+// import Input from '../../classes/game/Input'
 
 class GameView extends React.Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class GameView extends React.Component {
   componentDidMount() {
     this.socket = io()
     this.canvas = document.getElementById('game-canvas')
-    Input.applyEventHandlers();
     this.gameClient = new GameClient(this.socket)
     this.gameClient.init()
   };

@@ -24,6 +24,7 @@ class GameClient {
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
 
+    Input.applyEventHandlers();
   }
 
   init() {
