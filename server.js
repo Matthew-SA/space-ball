@@ -71,13 +71,16 @@ io.on('connection', (socket) => {
     Matter.Engine.update(serverEngine.engine, 20);
     // console.log('CURRENT:', serverEngine.ball.position)
     // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
-
     io.emit('to-client', {
       ball: {
         pos: serverEngine.ball.position,
       },
       ship: {
         pos: serverEngine.ship.position,
+      },
+      score: {
+        leftScore: serverEngine.leftScore,
+        rightScore: serverEngine.rightScore
       }
     });
   },20);
@@ -94,21 +97,21 @@ io.on('connection', (socket) => {
       })
     }
     if (data.keyboardState.right) {
-      console.log('fired right!');
+      // console.log('fired right!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 2,
         y: 0
       })
     }
     if (data.keyboardState.down) {
-      console.log('fired down!');
+      // console.log('fired down!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: 0,
         y: 2
       })
     }
     if (data.keyboardState.left) {
-      console.log('fired left!');
+      // console.log('fired left!');
       Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
         x: -2,
         y: 0
