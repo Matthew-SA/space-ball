@@ -13,11 +13,11 @@ class GameClient {
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    // this.leftScore = data.leftScore;
-    // this.rightScore = data.rightScore;
-    this.isOver();
+    this.leftScore = 0;
+    this.rightScore = 0;
     this.ball = new Ball;
     this.ship = new Ship;
+    this.winner = null;
 
     this.drawWalls(this.bgctx)
   }
@@ -51,11 +51,13 @@ class GameClient {
     this.clearEntities(ctx)
     this.stepEntities(data)
     this.drawEntities(ctx)
+    this.drawScore(ctx, data)
   }
 
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.ship.clear(ctx)
+    ctx.clearRect(750, 0, 400, 100);
   }
 
   stepEntities(data) {
@@ -76,6 +78,13 @@ class GameClient {
     ctx.fillRect(0, 550, 15, 350);
     ctx.fillRect(1585, 0, 15, 350);
     ctx.fillRect(1585, 550, 15, 350);
+  }
+
+  drawScore(ctx, data) {
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "60px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(data.score.leftScore + "   |   " + data.score.rightScore, 800, 90);
   }
 }
 
