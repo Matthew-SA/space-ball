@@ -90,12 +90,6 @@ io.on('connection', (socket) => {
     serverGame.movePlayer(socket.id, data)
   });
   
-
-  socket.on('test', (data) => {
-    console.log(data)
-  })
-
-
   socket.on('disconnect', () => {
     serverGame.removePlayer(socket.id)
     console.log('user disconnected')
