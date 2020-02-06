@@ -37,14 +37,15 @@ app.use("/api/inventory", inventory);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const ServerEngine = require('./lib/server_engine');
+const ServerGame = require('./lib/server_game');
+// const ServerEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
 const server = http.createServer(app);
 const io = socketIO(server);
 // const game = Game.create(); 
-const serverEngine = new ServerEngine;
+const serverGame = new ServerGame;
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
@@ -65,58 +66,32 @@ app.get("/", (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  // console.log('SOCKET.ID:', socket.id)
-  // socket.on('player-join', () => {
-  //   game.addNewPlayer(socket);
-  // });
+  console.log('SOCKET.ID:', socket.id)
+  socket.on('player-join', () => {
+    serverGame.addNewPlayer(socket);
+    console.log(serverGame.getAllPos())
+    // console.log(serverGame.ship)
+  });
 
   setInterval(function() {
-    Matter.Engine.update(serverEngine.engine, 20);
-    // console.log('CURRENT:', serverEngine.ball.position)
-    // console.log('PREVIOUS:', serverEngine.ball.positionPrev)
+    Matter.Engine.update(serverGame.engine, 20);
+    // serverGame,sendState()
     io.emit('to-client', {
       ball: {
-        pos: serverEngine.ball.position,
+        pos: serverGame.ball.position,
       },
-      ship: {
-        pos: serverEngine.ship.position,
-      },
+      ships: serverGame.getAllPos(),
       score: {
-        leftScore: serverEngine.leftScore,
-        rightScore: serverEngine.rightScore
+        leftScore: serverGame.serverEngine.leftScore,
+        rightScore: serverGame.serverEngine.rightScore
       }
     });
   },20);
 
-
-  
-
   socket.on('player-action', data => {
-    if (data.keyboardState.up) {
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 0,
-        y: -2
-      })
-    }
-    if (data.keyboardState.right) {
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 2,
-        y: 0
-      })
-    }
-    if (data.keyboardState.down) {
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: 0,
-        y: 2
-      })
-    }
-    if (data.keyboardState.left) {
-      Matter.Body.applyForce(serverEngine.ship, serverEngine.ship.position, {
-        x: -2,
-        y: 0
-      })
-    }
+    serverGame.movePlayer(socket.id, data)
   });
+  
 
   socket.on('test', (data) => {
     console.log(data)
@@ -124,7 +99,7 @@ io.on('connection', (socket) => {
 
 
   socket.on('disconnect', () => {
-    // game.removePlayer(socket.id)
+    serverGame.removePlayer(socket.id)
     console.log('user disconnected')
   })
 })
