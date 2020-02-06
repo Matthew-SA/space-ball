@@ -30,5 +30,4 @@ class Ball {
   }
 }
 
-// export default Ball;
-module.exports = Ball;
+export default Ball;
