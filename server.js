@@ -81,9 +81,6 @@ io.on('connection', (socket) => {
         pos: serverGame.ball.position,
       },
       ships: serverGame.getAllPos(),
-      ship: {
-        pos: serverGame.ship.position,
-      },
       score: {
         leftScore: serverGame.leftScore,
         rightScore: serverGame.rightScore

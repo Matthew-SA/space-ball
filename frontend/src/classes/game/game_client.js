@@ -72,19 +72,16 @@ class GameClient {
 
   clearEntities(ctx) {
     this.ball.clear(ctx)
-    // this.ship.clear(ctx)
     this.clearAllShips();
   }
   
   stepEntities(data) {
     this.ball.step(data)
-    // this.ship.step(data)
     this.stepAllShips(data);
   }
   
   drawEntities(ctx) {
     this.ball.draw(ctx)
-    // this.ship.draw(ctx)
     this.drawAllShips();
   }
   
