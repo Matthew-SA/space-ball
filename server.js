@@ -66,16 +66,12 @@ app.get("/", (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('SOCKET.ID:', socket.id)
   socket.on('player-join', () => {
     serverGame.addNewPlayer(socket);
-    console.log(serverGame.getAllPos())
-    // console.log(serverGame.ship)
   });
 
   setInterval(function() {
     Matter.Engine.update(serverGame.engine, 20);
-    // serverGame,sendState()
     io.emit('to-client', {
       ball: {
         pos: serverGame.ball.position,
@@ -103,14 +99,6 @@ io.on('connection', (socket) => {
     console.log('user disconnected')
   })
 })
-
-// Server-side game loop.  Currently runs at 60 FPS.
-
-
-// const FPS = 60
-// setInterval(() => {
-  
-// }, 1000 / FPS);
 
 // using server to initialize server instead of port?  need to review functionality.
 // app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
