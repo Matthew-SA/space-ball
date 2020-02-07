@@ -25,11 +25,10 @@ class GameClient {
     this.shipSprite.src = 'images/default_ship.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
-
-    Input.applyEventHandlers();
   }
 
   init() {
+    this.socket.removeAllListeners()
     this.socket.emit('player-join')
     this.socket.on('to-client', (data) => {
       this.socket.emit('player-action', {

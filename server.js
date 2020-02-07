@@ -43,7 +43,10 @@ const ServerGame = require('./lib/server_game');
 
 // Websocket Initialization
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO(server, {
+  pingInterval: 3000,
+  pingTimeout: 3000,
+});
 // const game = Game.create(); 
 const serverGame = new ServerGame;
 // console.log(data.bodies[0])
@@ -68,9 +71,12 @@ app.get("/", (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  socket.removeAllListeners()
   socket.on('player-join', () => {
     serverGame.addNewPlayer(socket);
   });
+
+  io.emit('ping', )
 
   setInterval(function() {
     Matter.Engine.update(serverGame.engine, 20);
@@ -91,7 +97,7 @@ io.on('connection', (socket) => {
   });
   
   socket.on('disconnect', () => {
-    serverGame.removePlayer(socket.id)
+    serverGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
