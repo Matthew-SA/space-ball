@@ -28,15 +28,11 @@ class GameView extends React.Component {
 
   componentDidMount() {
     // Input.applyEventHandlers();
-    this.socket = io.connect()
+    this.socket = io()
     this.canvas = document.getElementById('game-canvas')
     this.gameClient = new GameClient(this.socket)
     this.gameClient.init()
   };
-  
-  // componentDidUpdate() {
-  //   this.socket.disconnect();
-  // }
   
   componentWillUnmount() {
     this.socket.disconnect()
