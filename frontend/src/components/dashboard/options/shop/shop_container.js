@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addShip, fetchInventory, changeCurrency } from "../../../actions/inventory_actions";
+import { addShip, fetchInventory, changeCurrency } from "../../../../actions/inventory_actions";
 import Shop from "./shop";
 
 const mapStateToProps = state => {

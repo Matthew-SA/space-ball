@@ -358,7 +358,7 @@ select::-ms-expand {
 
 .home-select {
   text-align: center;
-  padding-top: 10px;
+  padding-top: 11px;
   font-size: 22px;
   color: #ffe600;
   border-left: 1px solid #ea4732;
@@ -484,7 +484,7 @@ select::-ms-expand {
   padding: 20px 20px 0px 20px;
 }
 
-.logout-button {
+.logout-button, .login-button {
   background-color: #000 ;
   font-weight: 200;
   color: #fff;
@@ -497,7 +497,7 @@ select::-ms-expand {
   margin: 10px 10px 0px 0px;
 }
 
-.logout-button:hover {
+.logout-button:hover, .login-button:hover {
   background-color: #ffe600;
   color: #000;
 }
@@ -838,7 +838,7 @@ header {
   right: 0;
   margin: auto;
   z-index: 0;
-  background-image: url('./assets/space.png');
+  background-image: url('./assets/images/space.gif');
 }
 #game-canvas {
   position: absolute;
