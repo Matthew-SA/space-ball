@@ -33,6 +33,13 @@ class GameView extends React.Component {
     this.gameClient.init()
   };
   
+  componentDidUpdate() {
+    this.socket.disconnect();
+  }
+  componentWillUnmount() {
+    this.socket.disconnect()
+  }
+
   render() {
     return (
       <div id="game-container">
