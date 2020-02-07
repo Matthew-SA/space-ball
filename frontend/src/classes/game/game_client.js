@@ -4,7 +4,6 @@ import Input from './Input';
 // import Util from './Util';
 // import Matter from 'matter-js';
 // const Input = require('./Input');
-// const Matter = require('matter-js');
 // const Ball = require('./entities/ball');
 // const Ship = require('./entities/ship');
 
@@ -53,31 +52,10 @@ class GameClient {
     this.drawEntities(ctx)
     this.drawScore(ctx, data)
   }
-
-  clearAllShips(ctx) {
-    for (let player of this.allPlayerPos) {
-      this.ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
-    }
-  }
-
-  stepAllShips(data) {
-    this.allPlayerPosPrev = this.allPlayerPos
-    this.allPlayerPos = data.ships
-  }
-
-  drawAllShips(ctx) {
-    for (let player of this.allPlayerPos) {
-      this.ship.draw2(
-        this.ctx,
-        player.x - 30,
-        player.y - 30,
-      );
-    }
-  }
-
+  
   clearEntities(ctx) {
     this.ball.clear(ctx)
-    this.clearAllShips();
+    this.clearAllShips(ctx);
     ctx.clearRect(700, 0, 600, 100);
   }
   
@@ -88,9 +66,37 @@ class GameClient {
   
   drawEntities(ctx) {
     this.ball.draw(ctx)
-    this.drawAllShips();
+    this.drawAllShips(ctx);
   }
+
+
+
+
+  clearAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
+    }
+  }
+
+  stepAllShips(data) {
+    this.allPlayerPosPrev = this.allPlayerPos
+    this.allPlayerPos = data.ships
+  }
+
+  drawAllShips(ctx) {
+    for (let player of this.allPlayerPos) {
+      ctx.drawImage(
+        this.shipSprite,
+        player.x - 30,
+        player.y - 30,
+      )
+    }
+  }
+
   
+
+
+
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
     ctx.fillRect(0, 0, 1600, 15);

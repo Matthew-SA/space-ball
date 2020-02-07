@@ -38,7 +38,6 @@ app.use("/api/inventory", inventory);
 const http = require("http");
 const socketIO = require('socket.io')
 const ServerGame = require('./lib/server_game');
-// const ServerEngine = require('./lib/server_engine');
 // end websocket dependencies
 
 // Websocket Initialization
@@ -47,7 +46,7 @@ const io = socketIO(server, {
   pingInterval: 3000,
   pingTimeout: 3000,
 });
-// const game = Game.create(); 
+
 const serverGame = new ServerGame;
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
@@ -76,20 +75,6 @@ io.on('connection', (socket) => {
     serverGame.addNewPlayer(socket);
   });
 
-  // setInterval(function() {
-  //   Matter.Engine.update(serverGame.engine, 20);
-  //   io.emit('to-client', {
-  //     ball: {
-  //       pos: serverGame.ball.position,
-  //     },
-  //     ships: serverGame.getAllPos(),
-  //     score: {
-  //       leftScore: serverGame.serverEngine.leftScore,
-  //       rightScore: serverGame.serverEngine.rightScore
-  //     }
-  //   });
-  // },1000/ 5);
-
   socket.on('player-action', data => {
     serverGame.movePlayer(socket.id, data)
   });
@@ -100,6 +85,7 @@ io.on('connection', (socket) => {
   })
 })
 
+/// server-side game loop ///
 setInterval(function () {
   Matter.Engine.update(serverGame.engine, 20);
   io.emit('to-client', {
@@ -114,6 +100,4 @@ setInterval(function () {
   });
 }, 20);
 
-// using server to initialize server instead of port?  need to review functionality.
-// app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
