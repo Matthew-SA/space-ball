@@ -88,6 +88,8 @@ io.on('connection', (socket) => {
 
   socket.on('player-action', data => {
     serverGame.movePlayer(socket.id, data)
+        console.log(socket.id);
+
   });
   
   socket.on('disconnect', () => {
