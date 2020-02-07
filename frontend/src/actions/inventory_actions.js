@@ -55,5 +55,16 @@ export const addShip = ship => dispatch => {
 
 export const changeCurrency = amount => dispatch => {
   axios.patch("/api/inventory/currency", { currency: amount })
-  
+    .then(res =>
+      dispatch({
+        type: CHANGE_CURRENCY,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: RECEIVE_ERRORS,
+        payload: err
+      })
+    );
 }

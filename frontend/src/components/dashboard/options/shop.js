@@ -39,7 +39,10 @@ class Shop extends React.Component {
     })
     buy.then(() => {
       this.props.fetchInventory();
+      // this.props.changeCurrency(-500);
     })
+    // .then(() => {
+    // })
   }
 
   render() {
