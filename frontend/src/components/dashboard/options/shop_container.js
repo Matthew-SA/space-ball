@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { addShip, fetchInventory } from "../../../actions/inventory_actions";
+import { addShip, fetchInventory, changeCurrency } from "../../../actions/inventory_actions";
 import Shop from "./shop";
 
 const mapStateToProps = state => {
-  console.log("state", state)
+  // console.log("state", state)
   return {
     currency: state.session.user.currency,
     inventory: state.inventory,
@@ -13,7 +13,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   addShip: selection => dispatch(addShip(selection)),
-  fetchInventory: () => dispatch(fetchInventory())
+  fetchInventory: () => dispatch(fetchInventory()),
+  changeCurrency: amount => dispatch(changeCurrency(amount)) 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

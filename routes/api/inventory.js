@@ -40,20 +40,20 @@ router.patch("/ships", passport.authenticate('jwt', { session: false }),
     });
 })
     
-router.patch("/currency", passport.authenticate('jwt', { session: false }),
+router.patch("/currency", passport.authenticate("jwt", { session: false }),
   (req, res) => {
     User.findOneAndUpdate(
       { username: req.user.username },
-      { $inc: { currency: req.body.change } }
+      { $inc: { currency: req.body.currency } }
     )
-    .then(inventory => {
-      return res.json(inventory);
-    })
-    .catch(err => {
-      return res.status(404).json(err);
-    });
-  
-})
+      .then(currency => {
+        return res.json(currency);
+      })
+      .catch(err => {
+        return res.status(404).json(err);
+      });
+  }
+);
 
 
 
