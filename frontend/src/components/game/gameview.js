@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import Input from '../../classes/game/Input'
+// import Input from '../../classes/game/Input'
 import GameClient from '../../classes/game/game_client';
 // const GameClient = require('../../classes/game/game_client');
 // import GameView from "../../classes/game_view";
@@ -27,7 +27,7 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    Input.applyEventHandlers();
+    // Input.applyEventHandlers();
     this.socket = io.connect('http://localhost:3000', { 'sync disconnect on unload': true })
     this.canvas = document.getElementById('game-canvas')
     this.gameClient = new GameClient(this.socket)
