@@ -1,9 +1,9 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
-// import Input from './Input';
+import Input from './Input';
 // import Util from './Util';
 // import Matter from 'matter-js';
-const Input = require('./Input');
+// const Input = require('./Input');
 // const Matter = require('matter-js');
 // const Ball = require('./entities/ball');
 // const Ship = require('./entities/ship');
@@ -25,32 +25,26 @@ class GameClient {
     this.shipSprite.src = 'images/default_ship.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
-
+    Input.applyEventHandlers();
     setInterval(() => {
-            this.socket.emit("player-action", {
-              keyboardState: {
-                left: Input.LEFT,
-                right: Input.RIGHT,
-                up: Input.UP,
-                down: Input.DOWN
-              }
-            });
+      this.socket.emit('player-action', {
+        keyboardState: {
+          left: Input.LEFT,
+          right: Input.RIGHT,
+          up: Input.UP,
+          down: Input.DOWN
+        }
+      });
     }, 20);
+    
   }
-
+  
   init() {
+    // this.socket.removeAllListeners()
     this.socket.emit('player-join')
-    this.socket.on('to-client', (data) => {
-      // this.socket.emit('player-action', {
-      //   keyboardState: {
-      //     left: Input.LEFT,
-      //     right: Input.RIGHT,
-      //     up: Input.UP,
-      //     down: Input.DOWN
-      //   }
-      // });
-      this.cycleAll(this.ctx, data)
-    })
+    this.socket.on('to-client', (data) => { 
+      this.cycleAll(this.ctx,data)
+    });
   }
 
   cycleAll(ctx, data) {
