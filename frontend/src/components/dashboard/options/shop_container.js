@@ -3,7 +3,6 @@ import { addShip, fetchInventory } from "../../../actions/inventory_actions";
 import Shop from "./shop";
 
 const mapStateToProps = state => {
-  console.log("state", state)
   return {
     currency: state.session.user.currency,
     inventory: state.inventory,

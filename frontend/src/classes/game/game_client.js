@@ -26,19 +26,29 @@ class GameClient {
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
 
+    setInterval(() => {
+            this.socket.emit("player-action", {
+              keyboardState: {
+                left: Input.LEFT,
+                right: Input.RIGHT,
+                up: Input.UP,
+                down: Input.DOWN
+              }
+            });
+    }, 20);
   }
 
   init() {
     this.socket.emit('player-join')
     this.socket.on('to-client', (data) => {
-      this.socket.emit('player-action', {
-        keyboardState: {
-          left: Input.LEFT,
-          right: Input.RIGHT,
-          up: Input.UP,
-          down: Input.DOWN
-        }
-      });
+      // this.socket.emit('player-action', {
+      //   keyboardState: {
+      //     left: Input.LEFT,
+      //     right: Input.RIGHT,
+      //     up: Input.UP,
+      //     down: Input.DOWN
+      //   }
+      // });
       this.cycleAll(this.ctx, data)
     })
   }

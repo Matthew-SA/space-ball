@@ -72,24 +72,8 @@ io.on('connection', (socket) => {
     serverGame.addNewPlayer(socket);
   });
 
-  setInterval(function() {
-    Matter.Engine.update(serverGame.engine, 20);
-    io.emit('to-client', {
-      ball: {
-        pos: serverGame.ball.position,
-      },
-      ships: serverGame.getAllPos(),
-      score: {
-        leftScore: serverGame.serverEngine.leftScore,
-        rightScore: serverGame.serverEngine.rightScore
-      }
-    });
-  },20);
-
   socket.on('player-action', data => {
     serverGame.movePlayer(socket.id, data)
-        console.log(socket.id);
-
   });
   
   socket.on('disconnect', () => {
@@ -97,6 +81,20 @@ io.on('connection', (socket) => {
     console.log('user disconnected')
   })
 })
+
+setInterval(function() {
+  Matter.Engine.update(serverGame.engine, 20);
+  io.emit("to-client", {
+    ball: {
+      pos: serverGame.ball.position
+    },
+    ships: serverGame.getAllPos(),
+    score: {
+      leftScore: serverGame.serverEngine.leftScore,
+      rightScore: serverGame.serverEngine.rightScore
+    }
+  });
+}, 20);
 
 // using server to initialize server instead of port?  need to review functionality.
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
