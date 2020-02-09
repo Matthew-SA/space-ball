@@ -337,11 +337,10 @@ select::-ms-expand {
 
 .homepage-container {
   height: 100vh;
-  background-image: url('./background.gif');
-  /* object-fit: cover; */
+  background-image: url('./assets/images/background.gif');
+  /* background-image: url('./background.gif'); */
   background-repeat: no-repeat;
   background-size: cover;
-  /* background-color: black; */
   color: #ffe600;
   margin: 0;
   padding: 0;
@@ -384,9 +383,23 @@ select::-ms-expand {
 
 /* Signup & Login CSS */
 
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: black;
+  width: 400px;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  opacity: .9;
+  /* height: 470px; */
+}
+
 .login-prompt {
   text-align: center;
   font-size: 22px;
+  padding-top: 30px;
 }
 
 .signup-form, .login-form {
@@ -395,7 +408,6 @@ select::-ms-expand {
 }
 
 .mystats-login {
-  height: 430px;
   padding-top: 40px;
   padding-bottom: 20px;
   background: black;
@@ -417,8 +429,14 @@ select::-ms-expand {
   padding-bottom: 20px;
 }
 
-.form-container-login, .form-container-signup {
+.login-container > .form-container-login, .login-container >.form-container-signup {
   color: #fc03a1;
+  padding-top: 30px;
+}
+
+.form-container-login, .form-container-signup{
+  color: #fc03a1;
+  padding-bottom: 20px;
 }
 
 .hidden {
@@ -437,6 +455,10 @@ select::-ms-expand {
   background-color: #ffe600;
   color: black;
   transition: ease-in-out .4s;
+}
+
+.login-container > .input-field {
+  transition: none;
 }
 
 .input-field::placeholder {
@@ -471,7 +493,7 @@ select::-ms-expand {
 }
 
 .errors {
-  font-size: 16px;
+  font-size: 14px;
   color: #ffe600
 }
 
@@ -506,6 +528,10 @@ select::-ms-expand {
   cursor: pointer;
 }
 
+.back {
+  padding-bottom: 20px;
+  cursor: pointer;
+}
 
 /* Options CSS */
 
@@ -521,7 +547,7 @@ select::-ms-expand {
 }
 
 .customize-panel {
-  height: 470px;
+  /* height: 470px; */
   width: 90%;
   margin: 20px auto;
   border-radius: 10px;
@@ -569,7 +595,11 @@ select::-ms-expand {
 
 .picture-container {
   text-align: center;
-  padding-top: 100px;
+  margin-top: 40px;
+}
+
+.purchase-container {
+  padding-top: 40px;
 }
 
 .ship, .ball {
@@ -579,13 +609,13 @@ select::-ms-expand {
 .ship-select, .ball-select {
   text-align: center;
   font-size: 22px;
-  padding-top: 25px;
+  padding-top: 35px;
 }
 
 .ship-options, .ball-options {
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 40px;
-  border-bottom: 2px solid;
+  /* border-bottom: 2px solid; */
   display: flex;
   justify-content: space-evenly;
 }
@@ -666,7 +696,7 @@ select::-ms-expand {
 }
 
 .price {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   font-size: 30px;
 }
 
@@ -701,7 +731,7 @@ select::-ms-expand {
 }
 
 .leaderboard-table {
-  height: 500px;
+  height: 450px;
 }
 
 .stats-table {

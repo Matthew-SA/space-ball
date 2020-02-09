@@ -6,6 +6,10 @@ const InventorySchema = new Schema({
     type: String,
     required: true
   },
+  currency: {
+    type: Number,
+    default: 1000
+  },
   ships: {
     type: Array,
     default: ["Default"]

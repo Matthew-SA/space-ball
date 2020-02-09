@@ -1,7 +1,6 @@
 import { RECEIVE_INVENTORY, CREATE_INVENTORY, ADD_SHIP, CHANGE_CURRENCY } from "../actions/inventory_actions";
 
-export const nullInventory = () => ({ ships: ["Default"], balls: ["Earth"], selected: ["Default", "Earth"] });
-// export const nullCurrency = () => ({ currency: [1000] });
+export const nullInventory = () => ({ currency: 0, ships: ["Default"], balls: ["Earth"], selected: ["Default", "Earth"] });
 
 const inventoryReducer = (state = nullInventory(), action) => {
   switch (action.type) {

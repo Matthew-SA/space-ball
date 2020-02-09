@@ -31,6 +31,7 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
     this.props.login(user);
+    
   }
 
   signupOrLogin() {
@@ -54,7 +55,7 @@ class LoginForm extends React.Component {
     this.update("username")
     setTimeout(() => this.demoPassword(password, intervalSpeed), demoUsernameTime);
     this.update("password")
-    setTimeout(() => this.props.login(user), totalDemoTime + 200);
+    setTimeout(() => this.props.login(user), totalDemoTime + 200)
   }
 
   demoUsername(username, intervalSpeed) {

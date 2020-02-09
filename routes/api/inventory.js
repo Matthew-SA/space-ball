@@ -19,6 +19,7 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 router.post("/", (req, res) => {
   const inventory = new Inventory({
     username: req.body.username,
+    currency: 1000,
     ships: ["Default"],
     balls: ["Earth"],
     selected: ["Default", "Earth"]
