@@ -83,9 +83,6 @@ class GameClient {
     this.drawAllShips(ctx);
   }
 
-
-
-
   clearAllShips(ctx) {
     for (let player of this.allPlayerPos) {
       ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
