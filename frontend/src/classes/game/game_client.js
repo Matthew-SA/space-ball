@@ -26,16 +26,17 @@ class GameClient {
     this.allPlayerPosPrev = this.allPlayerPos
     Input.applyEventHandlers();
     setInterval(() => {
-      this.socket.emit('player-action', {
-        keyboardState: {
-          left: Input.LEFT,
-          right: Input.RIGHT,
-          up: Input.UP,
-          down: Input.DOWN
-        }
-      });
+      if (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN) {
+        this.socket.emit('player-action', {
+          keyboardState: {
+            left: Input.LEFT,
+            right: Input.RIGHT,
+            up: Input.UP,
+            down: Input.DOWN
+          }
+        });
+     }
     }, 20);
-    
   }
   
   init() {

@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-action', data => {
+    console.log(data)
     serverGame.movePlayer(socket.id, data)
   });
   
