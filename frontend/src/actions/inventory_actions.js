@@ -4,7 +4,9 @@ export const RECEIVE_INVENTORY = 'RECEIVE_INVENTORY';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CREATE_INVENTORY = 'CREATE_INVENTORY';
 export const ADD_SHIP = 'ADD_SHIP';
-export const CHANGE_CURRENCY = 'CHANGE_CURRENCY'
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
+export const SELECT_SHIP = 'SELECT_SHIP';
+export const SELECT_BALL = 'SELECT_BALL'
 
 export const fetchInventory = () => dispatch => {
   axios.get("/api/inventory")
@@ -47,7 +49,40 @@ export const addShip = ship => dispatch => {
         payload: res.data
       })
     )
-    .then(() => dispatch(changeCurrency(-500)))
+    .catch(err =>
+      dispatch({
+        type: RECEIVE_ERRORS,
+        payload: err
+      })
+    );
+};
+
+export const selectShip = ship => dispatch => {
+  axios
+    .patch("/api/inventory/selectship", { gameoptions: ship })
+    .then(res => 
+      dispatch({
+        type: SELECT_SHIP,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: RECEIVE_ERRORS,
+        payload: err
+      })
+    );
+};
+
+export const selectBall = ball => dispatch => {
+  axios
+    .patch("/api/inventory/selectball", { gameoptions: ball })
+    .then(res => 
+      dispatch({
+        type: SELECT_BALL,
+        payload: res.data
+      })
+    )
     .catch(err =>
       dispatch({
         type: RECEIVE_ERRORS,

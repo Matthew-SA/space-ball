@@ -1,6 +1,7 @@
 import * as APIUtil from "../util/session_api_util";
 import jwt_decode from "jwt-decode";
 import { fetchStats } from "./stats_actions";
+
 // import { fetchInventory } from "./inventory_actions";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
@@ -56,6 +57,7 @@ export const login = user => dispatch =>
       dispatch(receiveCurrentUser(decoded));
     })
     .then(() => dispatch(fetchStats()))
+    
     // .then(() => dispatch(fetchInventory()))
     .catch(err => {
       dispatch(receiveErrors(err.response.data));
@@ -64,7 +66,7 @@ export const login = user => dispatch =>
 export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
   APIUtil.setAuthToken(false);
-  dispatch(logoutUser());
+  dispatch(logoutUser())
 };
 
 export const clearErrors = () => ({

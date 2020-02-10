@@ -7,23 +7,64 @@ class Ball extends React.Component {
     this.state = {
       optionSelection: "Earth"
     };
+
+    this.handleSelectChild = this.handleSelectChild.bind(this);
+    this.selectBall = this.selectBall.bind(this);
   }
 
   componentDidMount() {
     this.props.toggleSelect();
   }
 
+  selectBall() {
+    this.props.selectBall(this.state.optionSelection);
+    setTimeout(() => {
+      this.props.fetchInventory();
+    }, 100);
+  }
+
+  handleSelectChild(e) {
+    this.props.handleSelect(e);
+    this.setState({
+      optionSelection: e.target.id
+    })
+  }
+
+  display() {
+    const optionSelection = this.state.optionSelection;
+    const gameoptions = this.props.inventory.gameoptions;
+    const balls = this.props.inventory.balls;
+
+    if (gameoptions.includes(optionSelection)) {
+      return (
+        <div className="ball-selected-message">SELECTED</div>
+      )
+    } else if (balls.includes(optionSelection)) {
+      return (
+        <div className="select-ball"
+          onClick={this.selectShip}>SELECT THIS SHIP</div>
+      )
+    } else {
+      return (
+        <div>
+          <div className="unavailable">ACQUIRE BALL TO USE</div>
+        </div>
+      )
+    }
+  }
+
   render() {
-    console.log("ballmounted")
     return (
       <div className="shop-container">
+        <div className="currency">${this.props.inventory.currency}</div>
         <div className="ball-select">Choose a Ball Type:</div>
         <div className="ball-options">
-          <div className="select-button active" id="Earth" onClick={this.props.handleSelect}>Earth</div>
-          <div className="select-button" id="Soccer" onClick={this.props.handleSelect}>Soccer</div>
-          <div className="select-button" id="Pizza" onClick={this.props.handleSelect}>Pizza</div>
-          <div className="select-button" id="Moon" onClick={this.props.handleSelect}>Moon</div>
+          <div className="select-button active" id="Earth" onClick={this.handleSelectChild}>Earth</div>
+          <div className="select-button" id="Soccer" onClick={this.handleSelectChild}>Soccer</div>
+          <div className="select-button" id="Pizza" onClick={this.handleSelectChild}>Pizza</div>
+          <div className="select-button" id="Moon" onClick={this.handleSelectChild}>Moon</div>
         </div>
+        {this.display()}
       </div>
     );
   }

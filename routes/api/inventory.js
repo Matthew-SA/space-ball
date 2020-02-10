@@ -56,6 +56,34 @@ router.patch("/currency", passport.authenticate("jwt", { session: false }),
   }
 );
 
+router.patch("/selectship", passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username},
+      { $set: {"gameoptions.0": req.body.gameoptions} }
+    )
+  .then(selected => {
+    return res.json(selected);
+  })
+  .catch(err => {
+    return res.status(404).json(err);
+  });
+})
+
+router.patch("/selectball", passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username},
+      { $set: {"gameoptions.1": req.body.gameoptions} }
+    )
+  .then(selected => {
+    return res.json(selected);
+  })
+  .catch(err => {
+    return res.status(404).json(err);
+  });
+})
+
 
 
 module.exports = router;

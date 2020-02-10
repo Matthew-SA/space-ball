@@ -16,6 +16,7 @@ class Toggle extends React.Component {
     this.leftViewPort = this.leftViewPort.bind(this);
     this.rightViewPort = this.rightViewPort.bind(this);
     this.toggleSelect = this.toggleSelect.bind(this);
+    this.addShip = this.addShip.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +50,20 @@ class Toggle extends React.Component {
       el.classList.remove("active")
     );
     e.target.classList.add("active");
+  }
+
+  addShip() {
+    if (this.props.inventory.currency - 500 >= 0) {
+      this.props.addShip(this.state.optionSelection)
+    } else {
+      alert("NOT ENOUGH MONEY! Play more, earn more.")
+      // return (
+      //   <div className="no-money">NOT ENOUGH MONEY</div>
+      // )
+    }
+    setTimeout(() => {
+      this.props.fetchInventory();
+    }, 100);
   }
 
   leftViewPort() {
@@ -91,43 +106,57 @@ class Toggle extends React.Component {
   purchaseOption() {
     const optionSelection = this.state.optionSelection;
 
-    if (optionSelection === "Default" || optionSelection === "Earth") {
-      return (
-        <div className="purchase-container">
-          <div className="price">Not For Sale</div>
-          <div className="default-button">Default</div>
-          {/* <div className="default-button" onClick={this.doMoney}>
-            MONEY
-          </div> */}
-        </div>
-      );
-    } else if (
-      this.props.inventory.ships.includes(optionSelection) ||
-      this.props.inventory.balls.includes(optionSelection)
-    ) {
-      return (
-        <div className="purchase-container">
-          <div className="price">$500</div>
-          <div className="sell-button">SELL</div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="purchase-container">
-          <div className="price">$500</div>
-          <div className="buy-button" onClick={this.buyShip}>
-            BUY
+    if (!this.props.loggedIn) {
+      if (optionSelection === "Default" || optionSelection === "Earth") {
+        return (
+          <div className="purchase-container">
+            <div className="price">Not For Sale</div>
+            <div className="default-button">Default</div>
           </div>
-          {/* <div className="default-button" onClick={this.doMoney}>
-            MONEY
-          </div> */}
-        </div>
-      );
+        );
+      } else { 
+        return (
+          <div className="purchase-container">
+            <div className="price">$500</div>
+            <div className="buy-button" id="login" onClick={this.props.showLogin}>
+              BUY
+            </div>
+          </div>
+        )
+      }
+    } else {
+      if (optionSelection === "Default" || optionSelection === "Earth") {
+        return (
+          <div className="purchase-container">
+            <div className="price">Not For Sale</div>
+            <div className="default-button">Default</div>
+          </div>
+        )
+      } else if (
+        this.props.inventory.ships.includes(optionSelection) ||
+        this.props.inventory.balls.includes(optionSelection)
+      ) {
+        return (
+          <div className="purchase-container">
+            <div className="price">$500</div>
+            <div className="sell-button">SELL</div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="purchase-container">
+            <div className="price">$500</div>
+            <div className="buy-button" onClick={this.addShip}>
+              BUY
+            </div>
+          </div>
+        );
+      }
     }
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="options-container">
         <div className="customize-panel">

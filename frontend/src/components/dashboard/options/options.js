@@ -27,7 +27,9 @@ class Options extends React.Component {
 
   logoutUser(e) {
     e.preventDefault();
+    window.location.href = "/";
     this.props.logout();
+    
   }
 
   showLogin(e) {
@@ -73,7 +75,7 @@ class Options extends React.Component {
           </div>
         </div>
       } else {
-        viewPort = <ToggleContainer />
+        viewPort = <ToggleContainer showLogin={this.showLogin} />
       }
     }
 

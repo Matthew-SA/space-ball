@@ -91,7 +91,7 @@ class Shop extends React.Component {
         rightView = <img className="ball" src="images/moon.png" alt="moon" />
       }
     } else if (selected === "mySettings") {
-      console.log(this.props)
+      // console.log(this.props)
       currentViewPort = 
         <div className="settings-container">
           

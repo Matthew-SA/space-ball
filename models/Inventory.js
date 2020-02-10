@@ -18,7 +18,7 @@ const InventorySchema = new Schema({
     type: Array,
     default: ["Earth"]
   },
-  selected: {
+  gameoptions: {
     type: Array,
     default: ["Default", "Earth"]
   }
