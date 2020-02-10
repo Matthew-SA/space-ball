@@ -47,10 +47,7 @@ const io = socketIO(server, {
   pingInterval: 3000,
   pingTimeout: 3000,
 });
-// const game = Game.create(); 
 const serverGame = new ServerGame;
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
 
 app.set('port', PORT);
 // end websocket initialization
@@ -92,7 +89,10 @@ setInterval(function () {
     ball: {
       pos: serverGame.ball.position,
     },
-    ships: serverGame.getAllPos(),
+    ships: {
+      positions: serverGame.getAllPos(),
+      forces: serverGame.getAllForce()
+      },
     score: {
       leftScore: serverGame.serverEngine.leftScore,
       rightScore: serverGame.serverEngine.rightScore

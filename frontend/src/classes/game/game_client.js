@@ -1,6 +1,7 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
 import Input from './Input';
+import Booster from "./entities/booster";
 // import Util from './Util';
 // import Matter from 'matter-js';
 // const Input = require('./Input');
@@ -18,6 +19,8 @@ class GameClient {
     // this.isOver();
     this.ball = new Ball();
     this.ship = new Ship();
+    this.boosters = new Booster();
+    this.degrees = 0;
     this.drawWalls(this.bgctx)
     
     /// NEW CODE FOR SHIPS - TEMPORARY?
@@ -25,6 +28,8 @@ class GameClient {
     this.shipSprite.src = 'images/default_ship.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
+    this.allBoosterPos = [];
+    this.allBoosterPosPrev = this.allBoosterPos
     Input.applyEventHandlers();
     setInterval(() => {
       this.socket.emit('player-action', {
@@ -42,8 +47,8 @@ class GameClient {
   init() {
     // this.socket.removeAllListeners()
     this.socket.emit('player-join')
-    this.socket.on('to-client', (data) => { 
-      this.cycleAll(this.ctx,data)
+    this.socket.on('to-client', data => { 
+      this.cycleAll(this.ctx, data)
     });
   }
 
@@ -60,9 +65,20 @@ class GameClient {
     }
   }
 
+  clearAllBoosters(ctx) {
+    for (let player of this.allBoosterPos) {
+      this.ctx.clearRect(player.x - 100, player.y - 100, 250, 280);
+    }
+  }
+
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
-    this.allPlayerPos = data.ships
+    this.allPlayerPos = data.ships.positions
+  }
+
+  stepAllBoosters(data) {
+    this.allBoosterPosPrev = this.allBoosterPos
+    this.allBoosterPos = data.ships.positions
   }
 
   drawAllShips(ctx) {
@@ -75,19 +91,34 @@ class GameClient {
     }
   }
 
+  drawBoosters(ctx){
+    for (let player of this.allPlayerPos){
+      this.boosters.draw(
+        this.ctx,
+        (this.degrees % 360),
+        player.x - 30,
+        player.y - 30
+      )
+    };
+    this.degrees += 2;
+  };
+
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.clearAllShips();
+    this.clearAllBoosters();
     ctx.clearRect(700, 0, 600, 100);
-  }
+  };
   
   stepEntities(data) {
     this.ball.step(data)
     this.stepAllShips(data);
-  }
+    this.stepAllBoosters(data);
+  };
   
   drawEntities(ctx) {
     this.ball.draw(ctx)
+    this.drawBoosters();
     this.drawAllShips();
   }
   
