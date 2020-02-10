@@ -47,6 +47,7 @@ class GameClient {
     });
 
     this.socket.on('updateScore', data => {
+      this.updateScore(data)
       console.log(data)
     })
   }
@@ -61,7 +62,7 @@ class GameClient {
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.clearAllShips(ctx);
-    ctx.clearRect(700, 0, 600, 100);
+    ctx.clearRect(600, 0, 600, 100);
   }
   
   stepEntities(data) {
@@ -73,9 +74,6 @@ class GameClient {
     this.ball.draw(ctx)
     this.drawAllShips(ctx);
   }
-
-
-
 
   clearAllShips(ctx) {
     for (let player of this.allPlayerPos) {
@@ -98,10 +96,6 @@ class GameClient {
     }
   }
 
-  
-
-
-
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
     ctx.fillRect(0, 0, 1600, 15);
@@ -112,11 +106,43 @@ class GameClient {
     ctx.fillRect(1585, 550, 15, 350);
   }
 
+  updateScore(score) {
+    this.drawGoal(this.ctx)
+    let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
+    setTimeout(() => clearInterval(flashGoal), 1000)
+    this.score = score
+
+    if (this.score.LEFT === 10) {
+      // game over
+      this.winner = "left";
+    }
+
+    if (this.score.RIGHT === 10) {
+      // game over
+      this.winner = "left";
+    }
+  }
+
   drawScore(ctx, data) {
     ctx.fillStyle = "#FFFFFF"
-    ctx.font = "60px sans-serif";
+    ctx.font = "40pt Audiowide";
     ctx.textAlign = "center";
     ctx.fillText(data.score.leftScore + "   |   " + data.score.rightScore, 800, 90);
+  }
+
+  drawGoal(ctx) {
+    console.log("drawing goal?")
+    ctx.save();
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "80px Faster One";
+    ctx.textAlign = "center";
+    ctx.fillText("GOAL!!", 800, 800);
+    ctx.restore();
+    setTimeout(() => this.clearGoal(ctx), 100)
+  }
+
+  clearGoal(ctx) {
+    ctx.clearRect(600, 600, 400, 300);
   }
 }
 
