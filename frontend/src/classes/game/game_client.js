@@ -5,7 +5,6 @@ import Booster from "./entities/booster";
 // import Util from './Util';
 // import Matter from 'matter-js';
 // const Input = require('./Input');
-// const Matter = require('matter-js');
 // const Ball = require('./entities/ball');
 // const Ship = require('./entities/ship');
 
@@ -32,16 +31,17 @@ class GameClient {
     this.allBoosterPosPrev = this.allBoosterPos
     Input.applyEventHandlers();
     setInterval(() => {
-      this.socket.emit('player-action', {
-        keyboardState: {
-          left: Input.LEFT,
-          right: Input.RIGHT,
-          up: Input.UP,
-          down: Input.DOWN
-        }
-      });
+      if (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN) {
+        this.socket.emit('player-action', {
+          keyboardState: {
+            left: Input.LEFT,
+            right: Input.RIGHT,
+            up: Input.UP,
+            down: Input.DOWN
+          }
+        });
+     }
     }, 20);
-    
   }
   
   init() {
@@ -50,18 +50,45 @@ class GameClient {
     this.socket.on('to-client', data => { 
       this.cycleAll(this.ctx, data)
     });
+
+    this.socket.on('updateScore', data => {
+      console.log(data)
+    })
   }
 
   cycleAll(ctx, data) {
     this.clearEntities(ctx)
     this.stepEntities(data)
+    
     this.drawEntities(ctx)
     this.drawScore(ctx, data)
   }
+  
+  clearEntities(ctx) {
+    this.ball.clear(ctx)
+    this.clearAllShips(ctx);
+    this.clearAllBoosters(ctx);
+    ctx.clearRect(700, 0, 600, 100);
+  }
+  
+  stepEntities(data) {
+    this.ball.step(data)
+    this.stepAllShips(data);
+    this.stepAllBoosters(data);
+  }
+  
+  drawEntities(ctx) {
+    this.ball.draw(ctx)
+    this.drawBoosters(ctx);
+    this.drawAllShips(ctx);
+  }
+
+
+
 
   clearAllShips(ctx) {
     for (let player of this.allPlayerPos) {
-      this.ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
+      ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
     }
   }
 
@@ -83,11 +110,11 @@ class GameClient {
 
   drawAllShips(ctx) {
     for (let player of this.allPlayerPos) {
-      this.ship.draw2(
-        this.ctx,
+      ctx.drawImage(
+        this.shipSprite,
         player.x - 30,
         player.y - 30,
-      );
+      )
     }
   }
 
@@ -103,25 +130,6 @@ class GameClient {
     this.degrees += 2;
   };
 
-  clearEntities(ctx) {
-    this.ball.clear(ctx)
-    this.clearAllShips();
-    this.clearAllBoosters();
-    ctx.clearRect(700, 0, 600, 100);
-  };
-  
-  stepEntities(data) {
-    this.ball.step(data)
-    this.stepAllShips(data);
-    this.stepAllBoosters(data);
-  };
-  
-  drawEntities(ctx) {
-    this.ball.draw(ctx)
-    this.drawBoosters();
-    this.drawAllShips();
-  }
-  
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
     ctx.fillRect(0, 0, 1600, 15);

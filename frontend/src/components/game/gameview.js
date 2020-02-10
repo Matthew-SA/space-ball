@@ -35,7 +35,6 @@ class GameView extends React.Component {
   };
   
   componentWillUnmount() {
-    // this.socket.emit('ohno')
     this.socket.disconnect()
   }
 
