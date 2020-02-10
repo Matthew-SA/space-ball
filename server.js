@@ -47,7 +47,7 @@ const io = socketIO(server, {
   pingTimeout: 3000,
 });
 
-const serverGame = new ServerGame;
+const serverGame = new ServerGame(io);
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
@@ -76,7 +76,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-action', data => {
-    console.log(data)
     serverGame.movePlayer(socket.id, data)
   });
   
@@ -85,20 +84,5 @@ io.on('connection', (socket) => {
     console.log('user disconnected')
   })
 })
-
-/// server-side game loop ///
-setInterval(function () {
-  Matter.Engine.update(serverGame.engine, 20);
-  io.emit('to-client', {
-    ball: {
-      pos: serverGame.ball.position,
-    },
-    ships: serverGame.getAllPos(),
-    score: {
-      leftScore: serverGame.serverEngine.leftScore,
-      rightScore: serverGame.serverEngine.rightScore
-    }
-  });
-}, 20);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

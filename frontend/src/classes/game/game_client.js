@@ -45,6 +45,10 @@ class GameClient {
     this.socket.on('to-client', (data) => { 
       this.cycleAll(this.ctx,data)
     });
+
+    this.socket.on('updateScore', data => {
+      console.log(data)
+    })
   }
 
   cycleAll(ctx, data) {
