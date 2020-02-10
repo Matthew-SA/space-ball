@@ -4,12 +4,13 @@ class Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      selected: "shop",
+      selected: "mySettings",
       optionSelection: "Default"
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.buyShip = this.buyShip.bind(this);
+    this.doMoney = this.doMoney.bind(this);
   }
 
   componentDidMount(){
@@ -40,6 +41,10 @@ class Shop extends React.Component {
     buy.then(() => {
       this.props.fetchInventory();
     })
+  }
+  
+  doMoney() {
+    this.props.changeCurrency(-500);
   }
 
   render() {
@@ -98,6 +103,7 @@ class Shop extends React.Component {
           <div>
             <div className="price">Not For Sale</div>
             <div className="default-button">Default</div>
+            <div className="default-button" onClick={this.doMoney}>MONEY</div>
           </div>
       } else if (this.props.inventory.ships.includes(optionSelection) 
         || (this.props.inventory.balls.includes(optionSelection))) {
@@ -111,6 +117,7 @@ class Shop extends React.Component {
           <div>
             <div className="price">$500</div>
             <div className="buy-button" onClick={this.buyShip}>BUY</div>
+            <div className="default-button" onClick={this.doMoney}>MONEY</div>
           </div>
       }
     } else {
@@ -121,10 +128,10 @@ class Shop extends React.Component {
       <div className="options-container">
         <div className="customize-panel">
           <div className="customize-title">Customize Your Game</div>
-          <div className="currency">${this.props.currency}</div>
+          {/* <div className="currency">${this.props.currency}</div> */}
           <div className="select-customization">
-            <div className="customize active" id="shop" onClick={this.handleClick}>Shop</div>
-            <div className="customize" id="mySettings" onClick={this.handleClick}>My Settings</div>
+            <div className="customize active" id="mySettings" onClick={this.handleClick}>My Settings</div>
+            <div className="customize" id="shop" onClick={this.handleClick}>Shop</div>
           </div>
           {currentViewPort}
         </div>
