@@ -1,14 +1,9 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
 import Input from './Input';
-// import Util from './Util';
-// import Matter from 'matter-js';
-// const Input = require('./Input');
-// const Ball = require('./entities/ball');
-// const Ship = require('./entities/ship');
 
 class GameClient {
-  constructor(socket){
+  constructor(socket) {
     this.socket = socket;
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
@@ -20,7 +15,7 @@ class GameClient {
     this.ship = new Ship();
     this.score = { LEFT: 0, RIGHT: 0 }
     this.drawWalls(this.bgctx)
-    
+
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png'
@@ -37,14 +32,14 @@ class GameClient {
             down: Input.DOWN
           }
         });
-     }
+      }
     }, 20);
   }
-  
+
   init() {
     // this.socket.removeAllListeners()
     this.socket.emit('player-join')
-    this.socket.on('to-client', (data) => { 
+    this.socket.on('to-client', (data) => {
       this.cycleAll(this.ctx, data)
     });
 
@@ -55,23 +50,25 @@ class GameClient {
   }
 
   cycleAll(ctx, data) {
-    this.clearEntities(ctx)
-    this.stepEntities(data)
-    this.drawEntities(ctx)
-    this.drawScore(ctx, data)
+    if (!this.winner) {
+      this.clearEntities(ctx)
+      this.stepEntities(data)
+      this.drawEntities(ctx)
+      this.drawScore(ctx, data)
+    }
   }
-  
+
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.clearAllShips(ctx);
     ctx.clearRect(600, 0, 600, 100);
   }
-  
+
   stepEntities(data) {
     this.ball.step(data)
     this.stepAllShips(data);
   }
-  
+
   drawEntities(ctx) {
     this.ball.draw(ctx)
     this.drawAllShips(ctx);
@@ -116,14 +113,14 @@ class GameClient {
     setTimeout(() => clearInterval(flashGoal), 1000)
     this.score = score
 
-    if (this.score.LEFT === 1) {
-      // game over
+    if (this.score.LEFT === 10) {
       this.winner = "left";
+      setTimeout(() => this.gameOver(this.ctx), 1000)
     }
 
-    if (this.score.RIGHT === 1) {
-      // game over
-      this.winner = "left";
+    if (this.score.RIGHT === 10) {
+      this.winner = "right";
+      setTimeout(() => this.gameOver(this.ctx), 1000)
     }
   }
 
@@ -135,17 +132,34 @@ class GameClient {
   }
 
   drawGoal(ctx) {
-    ctx.save();
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "80px Faster One";
     ctx.textAlign = "center";
     ctx.fillText("GOAL!!", 800, 800);
-    ctx.restore();
     setTimeout(() => this.clearGoal(ctx), 100)
   }
 
   clearGoal(ctx) {
     ctx.clearRect(600, 600, 400, 300);
+  }
+
+  gameOver(ctx) {
+    this.cooldown = true;
+    // this.socket.removeAllListeners()
+    ctx.clearRect(0, 0, 1600, 900);
+    this.drawScore(ctx)
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "80px Faster One";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", 800, 400);
+
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "40pt Audiowide";
+    ctx.textAlign = "center";
+    ctx.fillText(this.winner + " wins!", 800, 500);
+
+    ctx.font = "20pt Audiowide";
+    ctx.fillText("press enter to return to lobby", 800, 600);
   }
 }
 
