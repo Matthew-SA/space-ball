@@ -73,7 +73,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-action', data => {
+    serverGame.getAllInput(socket.id, data)
     serverGame.movePlayer(socket.id, data)
+
   });
   
   socket.on('disconnect', () => {

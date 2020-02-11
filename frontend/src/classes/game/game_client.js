@@ -18,6 +18,7 @@ class GameClient {
     // this.isOver();
     this.ball = new Ball();
     this.ship = new Ship();
+    this.shipAngle = 0;
     this.boosters = new Booster();
     this.degrees = 0;
     this.drawWalls(this.bgctx)
@@ -27,6 +28,8 @@ class GameClient {
     this.shipSprite.src = 'images/default_ship.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
+    this.allPlayerInput = [];
+    this.allPlayerInputPrev = this.allPlayerInput
     this.allBoosterPos = [];
     this.allBoosterPosPrev = this.allBoosterPos
     Input.applyEventHandlers();
@@ -50,10 +53,12 @@ class GameClient {
     this.socket.on('to-client', data => { 
       this.cycleAll(this.ctx, data)
     });
+    this.socket.on('to-client-again', data => {
+      this.drawAllShips(this.ctx, data)
+    });
 
     this.socket.on('updateScore', data => {
       this.updateScore(data)
-      console.log(data)
     })
   }
 
@@ -61,7 +66,7 @@ class GameClient {
     this.clearEntities(ctx)
     this.stepEntities(data)
     
-    this.drawEntities(ctx)
+    this.drawEntities(ctx, data)
     this.drawScore(ctx, data)
   }
   
@@ -78,10 +83,10 @@ class GameClient {
     this.stepAllBoosters(data);
   }
   
-  drawEntities(ctx) {
+  drawEntities(ctx, data) {
     this.ball.draw(ctx)
     this.drawBoosters(ctx);
-    this.drawAllShips(ctx);
+    this.drawAllShips(ctx, data);
   }
 
   clearAllShips(ctx) {
@@ -99,6 +104,8 @@ class GameClient {
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerPos = data.ships.positions
+    this.allPlayerInputPrev = this.allPlayerInput
+    this.allPlayerInput = data.ships.inputs
   }
 
   stepAllBoosters(data) {
@@ -106,14 +113,55 @@ class GameClient {
     this.allBoosterPos = data.ships.positions
   }
 
-  drawAllShips(ctx) {
-    for (let player of this.allPlayerPos) {
-      ctx.drawImage(
-        this.shipSprite,
-        player.x - 30,
-        player.y - 30,
-      )
+  drawAllShips(ctx, data) {
+    // if(data.ships.inputs){
+
+    for (let i = 0; i < this.allPlayerPos.length; i++){
+      if(data.ships.inputs === null){
+        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
+        ctx.rotate(0);
+        ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      } else {
+        if(data.ships.inputs[i].left){
+          console.log(data.ships.inputs[i].left)
+          this.shipAngle = ((this.shipAngle - .05) % 360);
+        }
+        if(data.ships.inputs[i].right){
+          this.shipAngle = ((this.shipAngle + .05) % 360);
+        }
+        if(data.ships.inputs[i].up){
+          this.shipAngle = ((this.shipAngle + .05) % 360);
+        }
+        if(data.ships.inputs[i].down){
+          this.shipAngle = ((this.shipAngle - .05) % 360);
+        } else {
+          this.shipAngle = this.shipAngle
+        }
+        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
+        ctx.rotate(this.shipAngle);
+        ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+
     }
+    // }
+    // for (let player of this.allPlayerPos) {
+    //   let degrees = 0;
+    //   ctx.setTransform(1, 0, 0, 1, player.x, player.y); // sets scale and origin
+    //   ctx.rotate(degrees);
+    //   ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
+    //   ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      // ctx.drawImage(
+      //   this.shipSprite,
+      //   player.x - 30,
+      //   player.y - 30,
+      // )
+      // console.log(data.ships.forces[0].x)
+      // console.log(data.ships.forces[0].y)
+    // }
+    
   }
 
   drawBoosters(ctx){
@@ -124,7 +172,6 @@ class GameClient {
         (this.degrees % 360),
         player.x - 26,
         player.y - 88
-        // player.y - 84
       )
     };
     this.degrees += 2;
