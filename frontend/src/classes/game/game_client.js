@@ -20,7 +20,8 @@ class GameClient {
     this.ship = new Ship();
     this.shipAngle = 0;
     this.boosters = new Booster();
-    this.degrees = 0;
+    this.boosterPosX = 0;
+    this.boosterPosY = 0;
     this.drawWalls(this.bgctx)
     
     /// NEW CODE FOR SHIPS - TEMPORARY?
@@ -85,7 +86,7 @@ class GameClient {
   
   drawEntities(ctx, data) {
     this.ball.draw(ctx)
-    this.drawBoosters(ctx);
+    // this.drawBoosters(ctx);
     this.drawAllShips(ctx, data);
   }
 
@@ -124,21 +125,44 @@ class GameClient {
         let input = data.ships.inputs[i];
         if(!!input.up && !!input.right){
           this.shipAngle = 45;
+          this.boosterPosX = 92;
+          this.boosterPosY = -463;
         } else if(!!input.right && !!input.down){
           this.shipAngle = 135;
+          this.boosterPosX = 120;
+          this.boosterPosY = -166;
         } else if(!!input.down && !!input.left){
           this.shipAngle = 225;
+          this.boosterPosX = -180;
+          this.boosterPosY = -138;
         } else if(!!input.up && !!input.left){
           this.shipAngle = 315;
+          this.boosterPosX = -208;
+          this.boosterPosY = -434;
         } else if(!!input.up){
           this.shipAngle = 0;
+          this.boosterPosX = -64;
+          this.boosterPosY = -510;
         } else if(!!input.right) {
           this.shipAngle = 90;
+          this.boosterPosX = 164;
+          this.boosterPosY = -320;
         } else if(!!input.down) {
           this.shipAngle = 180;
+          this.boosterPosX = -24;
+          this.boosterPosY = -88;
         } else if(!!input.left) {
           this.shipAngle = 270;
+          this.boosterPosX = -255;
+          this.boosterPosY = -280;
         }
+
+        this.boosters.draw(
+          this.ctx,
+          ((this.shipAngle + 180) * Math.PI) / 180,
+          this.allPlayerPos[i].x + this.boosterPosX,
+          this.allPlayerPos[i].y + this.boosterPosY
+        );
         ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
         ctx.rotate((this.shipAngle * Math.PI) / 180);
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
@@ -165,18 +189,17 @@ class GameClient {
     
   }
 
-  drawBoosters(ctx){
-    this.boosters.cycle++
-    for (let player of this.allPlayerPos){
-      this.boosters.draw(
-        this.ctx,
-        (this.degrees % 360),
-        player.x - 26,
-        player.y - 88
-      )
-    };
-    this.degrees += 2;
-  };
+  // drawBoosters(ctx){
+  //   this.boosters.cycle++
+  //   for (let player of this.allPlayerPos){
+      // this.boosters.draw(
+      //   this.ctx,
+      //   (this.degrees % 360),
+      //   player.x - 26,
+      //   player.y - 88
+      // )
+  //   };
+  // };
 
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
