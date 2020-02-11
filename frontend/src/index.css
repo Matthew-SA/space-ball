@@ -629,7 +629,7 @@ select::-ms-expand {
   border-radius: 5px;
   border: 2px solid #fc03a1;
   padding: 10px;
-  width: 100px;
+  width: 20%;
   text-align: center;
   cursor: pointer;
   color: #ffe600;
