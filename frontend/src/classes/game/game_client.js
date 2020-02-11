@@ -14,7 +14,8 @@ class GameClient {
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    // this.isOver();
+    this.cooldown = false;
+    this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
     this.drawWalls(this.bgctx)
@@ -26,7 +27,7 @@ class GameClient {
     this.allPlayerPosPrev = this.allPlayerPos
     Input.applyEventHandlers();
     setInterval(() => {
-      if (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN) {
+      if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
         this.socket.emit('player-action', {
           keyboardState: {
             left: Input.LEFT,
@@ -108,16 +109,18 @@ class GameClient {
 
   updateScore(score) {
     this.drawGoal(this.ctx)
+    this.cooldown = true;
+    setTimeout(() => this.cooldown = false, 1000)
     let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
     setTimeout(() => clearInterval(flashGoal), 1000)
     this.score = score
 
-    if (this.score.LEFT === 10) {
+    if (this.score.LEFT === 1) {
       // game over
       this.winner = "left";
     }
 
-    if (this.score.RIGHT === 10) {
+    if (this.score.RIGHT === 1) {
       // game over
       this.winner = "left";
     }
@@ -131,7 +134,6 @@ class GameClient {
   }
 
   drawGoal(ctx) {
-    console.log("drawing goal?")
     ctx.save();
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "80px Faster One";
