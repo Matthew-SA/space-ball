@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const passport = require("passport");
 const Inventory = require('../../models/Inventory');
-const User = require('../../models/User');
 
 router.get("/", passport.authenticate('jwt', { session: false }),
   (req, res) => {
@@ -13,8 +12,7 @@ router.get("/", passport.authenticate('jwt', { session: false }),
       .catch(err => {
         return res.status(404).json(err)
       });
-  }
-);
+  });
 
 router.post("/", (req, res) => {
   const inventory = new Inventory({
@@ -27,7 +25,7 @@ router.post("/", (req, res) => {
   inventory.save().then(data => res.json(data));
 });
 
-router.patch("/ships", passport.authenticate('jwt', { session: false }),
+router.patch("/addship", passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Inventory.findOneAndUpdate(
       { username: req.user.username },
@@ -39,11 +37,53 @@ router.patch("/ships", passport.authenticate('jwt', { session: false }),
     .catch(err => {
       return res.status(404).json(err);
     });
-})
+  });
+
+router.patch("/removeship", passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username },
+      { $pull: { ships: req.body.ship} }
+    )
+    .then(inventory => {
+      return res.json(inventory);
+    })
+    .catch(err => {
+      return res.status(404).json(err);
+    })
+  });
+
+router.patch("/addball", passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username },
+      { $push: { balls: req.body.ball } }
+    )
+    .then(inventory => {
+      return res.json(inventory);
+    })
+    .catch(err => {
+      return res.status(404).json(err);
+    });
+  });
+
+router.patch("/removeball", passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Inventory.findOneAndUpdate(
+      { username: req.user.username },
+      { $pull: { balls: req.body.ball } }
+    )
+      .then(inventory => {
+        return res.json(inventory);
+      })
+      .catch(err => {
+        return res.status(404).json(err);
+      })
+  });
     
 router.patch("/currency", passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    User.findOneAndUpdate(
+    Inventory.findOneAndUpdate(
       { username: req.user.username },
       { $inc: { currency: req.body.currency } }
     )
@@ -53,8 +93,7 @@ router.patch("/currency", passport.authenticate("jwt", { session: false }),
       .catch(err => {
         return res.status(404).json(err);
       });
-  }
-);
+  });
 
 router.patch("/selectship", passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -62,13 +101,13 @@ router.patch("/selectship", passport.authenticate("jwt", { session: false }),
       { username: req.user.username},
       { $set: {"gameoptions.0": req.body.gameoptions} }
     )
-  .then(selected => {
-    return res.json(selected);
-  })
-  .catch(err => {
-    return res.status(404).json(err);
+    .then(selected => {
+      return res.json(selected);
+    })
+    .catch(err => {
+      return res.status(404).json(err);
+    });
   });
-})
 
 router.patch("/selectball", passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -76,13 +115,13 @@ router.patch("/selectball", passport.authenticate("jwt", { session: false }),
       { username: req.user.username},
       { $set: {"gameoptions.1": req.body.gameoptions} }
     )
-  .then(selected => {
-    return res.json(selected);
-  })
-  .catch(err => {
-    return res.status(404).json(err);
+    .then(selected => {
+      return res.json(selected);
+    })
+    .catch(err => {
+      return res.status(404).json(err);
+    });
   });
-})
 
 
 

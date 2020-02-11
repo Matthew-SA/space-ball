@@ -17,16 +17,14 @@ class Ship extends React.Component {
   }
 
   selectShip() {
-    // const setShip = new Promise((resolve, reject) => {
-    //   resolve(this.props.selectShip(this.state.optionSelection));
-    // })
-    // setShip.then(() => {
-    //   this.props.fetchInventory();
-    // })
-    this.props.selectShip(this.state.optionSelection);
-    setTimeout(() => {
-      this.props.fetchInventory();
-    }, 100);
+    const sel = new Promise((resolve, reject) => {
+      resolve(this.props.selectShip(this.state.optionSelection))
+    })
+    sel.then(() => {
+      setTimeout(() => {
+        this.props.fetchInventory();
+      }, 100);
+    })
   }
 
   handleSelectChild(e) {

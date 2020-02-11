@@ -1,4 +1,4 @@
-import { RECEIVE_INVENTORY, CREATE_INVENTORY, ADD_SHIP, CHANGE_CURRENCY, SELECT_SHIP, SELECT_BALL } from "../actions/inventory_actions";
+import { RECEIVE_INVENTORY, CREATE_INVENTORY, ADD_SHIP, ADD_BALL, CHANGE_CURRENCY, SELECT_SHIP, SELECT_BALL } from "../actions/inventory_actions";
 
 export const nullInventory = () => ({ currency: 0, ships: ["Default"], balls: ["Earth"], gameoptions: ["Default", "Earth"] });
 
@@ -10,6 +10,8 @@ const inventoryReducer = (state = nullInventory(), action) => {
       return Object.assign({}, state, action.payload);
     case ADD_SHIP:
       return Object.assign({}, state, action.payload);
+    case ADD_BALL:
+      return Object.assign({}, state, action.payload)
     case SELECT_SHIP: 
       return Object.assign({}, state, action.payload);
     case SELECT_BALL:
