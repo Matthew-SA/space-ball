@@ -18,6 +18,7 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
+    this.score = { LEFT: 0, RIGHT: 0 }
     this.drawWalls(this.bgctx)
     
     /// NEW CODE FOR SHIPS - TEMPORARY?
@@ -44,7 +45,7 @@ class GameClient {
     // this.socket.removeAllListeners()
     this.socket.emit('player-join')
     this.socket.on('to-client', (data) => { 
-      this.cycleAll(this.ctx,data)
+      this.cycleAll(this.ctx, data)
     });
 
     this.socket.on('updateScore', data => {
@@ -130,7 +131,7 @@ class GameClient {
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "40pt Audiowide";
     ctx.textAlign = "center";
-    ctx.fillText(data.score.leftScore + "   |   " + data.score.rightScore, 800, 90);
+    ctx.fillText(this.score.LEFT + "   |   " + this.score.RIGHT, 800, 90);
   }
 
   drawGoal(ctx) {
