@@ -25,7 +25,7 @@ class GameClient {
     
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
-    this.shipSprite.src = 'images/default_ship.png'
+    this.shipSprite.src = 'images/default_ship_arrow.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerInput = [];
@@ -114,8 +114,6 @@ class GameClient {
   }
 
   drawAllShips(ctx, data) {
-    // if(data.ships.inputs){
-
     for (let i = 0; i < this.allPlayerPos.length; i++){
       if(data.ships.inputs === null){
         ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
@@ -123,23 +121,26 @@ class GameClient {
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
       } else {
-        if(data.ships.inputs[i].left){
-          console.log(data.ships.inputs[i].left)
-          this.shipAngle = ((this.shipAngle - .05) % 360);
-        }
-        if(data.ships.inputs[i].right){
-          this.shipAngle = ((this.shipAngle + .05) % 360);
-        }
-        if(data.ships.inputs[i].up){
-          this.shipAngle = ((this.shipAngle + .05) % 360);
-        }
-        if(data.ships.inputs[i].down){
-          this.shipAngle = ((this.shipAngle - .05) % 360);
-        } else {
-          this.shipAngle = this.shipAngle
+        let input = data.ships.inputs[i];
+        if(!!input.up && !!input.right){
+          this.shipAngle = 45;
+        } else if(!!input.right && !!input.down){
+          this.shipAngle = 135;
+        } else if(!!input.down && !!input.left){
+          this.shipAngle = 225;
+        } else if(!!input.up && !!input.left){
+          this.shipAngle = 315;
+        } else if(!!input.up){
+          this.shipAngle = 0;
+        } else if(!!input.right) {
+          this.shipAngle = 90;
+        } else if(!!input.down) {
+          this.shipAngle = 180;
+        } else if(!!input.left) {
+          this.shipAngle = 270;
         }
         ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
-        ctx.rotate(this.shipAngle);
+        ctx.rotate((this.shipAngle * Math.PI) / 180);
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
       }

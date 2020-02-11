@@ -1,7 +1,7 @@
 class Ship {
   constructor() {
     this.shipSprite = new Image();
-    this.shipSprite.src = "images/default_ship.png";
+    this.shipSprite.src = "images/default_ship_arrow.png";
 
     this.shipX = 0;
     this.shipY = 0;
