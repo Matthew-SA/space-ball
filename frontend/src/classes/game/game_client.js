@@ -117,12 +117,14 @@ class GameClient {
   }
 
   drawBoosters(ctx){
+    this.boosters.cycle++
     for (let player of this.allPlayerPos){
       this.boosters.draw(
         this.ctx,
         (this.degrees % 360),
-        player.x - 30,
-        player.y - 30
+        player.x - 26,
+        player.y - 88
+        // player.y - 84
       )
     };
     this.degrees += 2;
