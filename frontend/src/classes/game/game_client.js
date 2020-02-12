@@ -3,7 +3,7 @@ import Ship from "./entities/ship";
 import Input from './Input';
 
 class GameClient {
-  constructor(socket) {
+  constructor(socket, user) {
     this.socket = socket;
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
@@ -13,14 +13,19 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
-    this.score = { LEFT: 0, RIGHT: 0 }
-    this.drawWalls(this.bgctx)
+    this.score = { LEFT: 0, RIGHT: 0 };
+    if (user === "Guest") {
+      this.user = user
+    } else {
+      this.user = user.username;
+    }
+    this.drawWalls(this.bgctx);
 
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
-    this.shipSprite.src = 'images/default_ship.png'
+    this.shipSprite.src = 'images/default_ship.png';
     this.allPlayerPos = [];
-    this.allPlayerPosPrev = this.allPlayerPos
+    this.allPlayerPosPrev = this.allPlayerPos;
     Input.applyEventHandlers();
     setInterval(() => {
       if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
@@ -34,6 +39,14 @@ class GameClient {
         });
       }
     }, 20);
+
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === 13 && this.winner) {
+        window.location.href = "/"
+      } else {
+        return;
+      }
+    })
   }
 
   init() {
@@ -76,7 +89,7 @@ class GameClient {
 
   clearAllShips(ctx) {
     for (let player of this.allPlayerPos) {
-      ctx.clearRect(player.x - 30, player.y - 30, 70, 70);
+      ctx.clearRect(player.x - 100, player.y - 30, 200, 200);
     }
   }
 
@@ -92,8 +105,14 @@ class GameClient {
         player.x - 30,
         player.y - 30,
       )
+      ctx.fillStyle = "#FFFFFF"
+      ctx.font = "16pt Audiowide";
+      ctx.fillText(this.user, player.x, player.y + 60);
+      ctx.textAlign = "center";
     }
   }
+
+
 
   drawWalls(ctx) {
     ctx.fillStyle = "#fc03a1";
@@ -113,13 +132,13 @@ class GameClient {
     setTimeout(() => clearInterval(flashGoal), 1000)
     this.score = score
 
-    if (this.score.LEFT === 10) {
-      this.winner = "left";
+    if (this.score.LEFT === 10 || this.score.RIGHT === 10) {
+      this.winner = this.user;
       setTimeout(() => this.gameOver(this.ctx), 1000)
     }
 
     if (this.score.RIGHT === 10) {
-      this.winner = "right";
+      this.winner = this.user;
       setTimeout(() => this.gameOver(this.ctx), 1000)
     }
   }

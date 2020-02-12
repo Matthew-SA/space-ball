@@ -14,23 +14,13 @@ import GameClient from '../../classes/game/game_client';
 class GameView extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      score: {
-        leftScore: 0,
-        rightScore: 0,
-        over: false,
-        winner: null
-      }
-      // game: null
-    }
   }
 
   componentDidMount() {
     // Input.applyEventHandlers();
     this.socket = io()
     this.canvas = document.getElementById('game-canvas')
-    this.gameClient = new GameClient(this.socket)
+    this.gameClient = new GameClient(this.socket, this.props.user)
     this.gameClient.init()
   };
   
