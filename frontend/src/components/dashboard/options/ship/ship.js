@@ -61,7 +61,7 @@ class Ship extends React.Component {
     return (
       <div className="shop-container">
         <div className="currency">${this.props.inventory.currency}</div>
-        <div className="ship-select">Choose a Ship Color:</div>
+        <div className="title">Choose a Ship Color:</div>
         <div className="ship-options">
           <div className="select-button active" id="Default"
             onClick={this.handleSelectChild}>
