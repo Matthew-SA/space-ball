@@ -61,7 +61,7 @@ class Ball extends React.Component {
     return (
       <div className="shop-container">
         <div className="currency">${this.props.inventory.currency}</div>
-        <div className="ball-select">Choose a Ball Type:</div>
+        <div className="title">Choose a Ball Type:</div>
         <div className="ball-options">
           <div className="select-button active" id="Earth" onClick={this.handleSelectChild}>Earth</div>
           <div className="select-button" id="Soccer" onClick={this.handleSelectChild}>Soccer</div>
