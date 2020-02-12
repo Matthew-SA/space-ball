@@ -18,6 +18,8 @@ Input.UP = false;
 Input.RIGHT = false;
 /** @type {boolean} */
 Input.DOWN = false;
+/** @type {boolean} */
+Input.ENTER = false;
 /** @type {Object<number, boolean>} */
 Input.MISC_KEYS = {};
 
@@ -28,19 +30,18 @@ Input.MISC_KEYS = {};
  */
 Input.onKeyDown = function (event) {
   switch (event.keyCode) {
-    case 37:
+    case 13:
+      Input.ENTER = true;
+      break;
     case 65:
       Input.LEFT = true;
       break;
-    case 38:
     case 87:
       Input.UP = true;
       break;
-    case 39:
     case 68:
       Input.RIGHT = true;
       break;
-    case 40:
     case 83:
       Input.DOWN = true;
       break;
