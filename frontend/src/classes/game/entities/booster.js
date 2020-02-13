@@ -36,7 +36,7 @@ class Booster {
 
   animate() {
     this.shift += 120;
-    if (this.shift >= 600) {
+    if (this.shift >= 600 - 120) {
       this.shift = 0;
     }
   }
