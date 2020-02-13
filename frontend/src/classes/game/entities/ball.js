@@ -17,8 +17,8 @@ class Ball {
   step(data) {
     this.ballLastX = this.ballX
     this.ballLastY = this.ballY
-    this.ballX = data.ball.pos.x - 50
-    this.ballY = data.ball.pos.y - 50
+    this.ballX = data.ball.x - 50
+    this.ballY = data.ball.y - 50
   }
 
   draw(ctx) {

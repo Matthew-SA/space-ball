@@ -67,7 +67,6 @@ class GameClient {
       this.clearEntities(ctx)
       this.stepEntities(data)
       this.drawEntities(ctx)
-      this.drawScore(ctx, data)
     }
   }
 
@@ -85,6 +84,7 @@ class GameClient {
   drawEntities(ctx) {
     this.ball.draw(ctx)
     this.drawAllShips(ctx);
+    this.drawScore(ctx)
   }
 
   clearAllShips(ctx) {
@@ -143,7 +143,7 @@ class GameClient {
     }
   }
 
-  drawScore(ctx, data) {
+  drawScore(ctx) {
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "40pt Audiowide";
     ctx.textAlign = "center";
