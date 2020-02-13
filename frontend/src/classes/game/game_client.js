@@ -90,7 +90,7 @@ class GameClient {
     this.ball.clear(ctx)
     this.clearAllShips(ctx);
     this.clearAllBoosters(ctx);
-    ctx.clearRect(700, 0, 600, 100);
+    ctx.clearRect(600, 0, 600, 100);
   }
 
   stepEntities(data) {
