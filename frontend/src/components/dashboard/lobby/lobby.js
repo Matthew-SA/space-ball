@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -47,8 +48,8 @@ function Lobby() {
               </div>
             </div>
             <div className="buy-button" onClick={handleClick}>Go Back</div>
-            <a href=""><div className="buy-button">Lobby 1</div></a>
-            <a href=""><div className="buy-button">Lobby 2</div></a>
+            <Link to="/waitingroom"><div className="buy-button">Lobby 1</div></Link>
+            <Link to="/waitingroom"><div className="buy-button">Lobby 1</div></Link>
           </div>
         </center>
       </div>
