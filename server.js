@@ -42,7 +42,6 @@ const ServerGame = require('./lib/server_game');
 
 
 
-
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
@@ -65,6 +64,7 @@ app.set('port', PORT);
 
 
 const serverGame = new ServerGame(io);
+
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
@@ -80,7 +80,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-action', data => {
+    // serverGame.getAllInput(socket.id, data)
+    serverGame.getInput(socket.id, data)
     serverGame.movePlayer(socket.id, data)
+
   });
   
   socket.on('disconnect', () => {
