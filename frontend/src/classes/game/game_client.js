@@ -14,8 +14,8 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
-    this.shipAngle = 0;
     this.boosters = new Booster();
+    this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
     this.drawWalls(this.bgctx)
@@ -113,7 +113,7 @@ class GameClient {
 
   clearAllBoosters(ctx) {
     for (let player of this.allBoosterPos) {
-      this.ctx.clearRect(player.x - 100, player.y - 100, 250, 280);
+      this.ctx.clearRect(player.pos.x - 100, player.pos.y - 100, 250, 280);
     }
   }
 
@@ -129,66 +129,57 @@ class GameClient {
     this.allBoosterPos = data.ships
   }
 
-  drawAllShips(ctx, data) {
+  drawAllShips(ctx) {
     for (let i = 0; i < this.allPlayerPos.length; i++){
-      if(data.ships.inputs === null){
-        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
-        ctx.rotate(0);
-        ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-      } else {
-        let input = data.ships.inputs[i];
-        if(!!input.up && !!input.right){
+        let jetDirection = this.allPlayerPos[i].jetDirection;
+        if(jetDirection.x === 0 && jetDirection.y === 0){
+          this.boosterPosX = false;
+          this.boosterPosY = false;
+        }
+          else if(jetDirection.x > 0 && jetDirection.y > 0){
           this.shipAngle = 45;
           this.boosterPosX = 92;
           this.boosterPosY = -463;
-        } else if(!!input.right && !!input.down){
+        } else if(jetDirection.x > 0 && jetDirection.y < 0){
           this.shipAngle = 135;
           this.boosterPosX = 120;
           this.boosterPosY = -166;
-        } else if(!!input.down && !!input.left){
+        } else if(jetDirection.y < 0 && jetDirection.x < 0){
           this.shipAngle = 225;
           this.boosterPosX = -180;
           this.boosterPosY = -138;
-        } else if(!!input.up && !!input.left){
+        } else if(jetDirection.y > 0 && jetDirection.x < 0){
           this.shipAngle = 315;
           this.boosterPosX = -208;
           this.boosterPosY = -434;
-        } else if(!!input.up){
+        } else if(jetDirection.y > 0){
           this.shipAngle = 0;
           this.boosterPosX = -64;
           this.boosterPosY = -510;
-        } else if(!!input.right) {
+        } else if(jetDirection.x > 0) {
           this.shipAngle = 90;
           this.boosterPosX = 164;
           this.boosterPosY = -320;
-        } else if(!!input.down) {
+        } else if(jetDirection.y < 0) {
           this.shipAngle = 180;
           this.boosterPosX = -24;
           this.boosterPosY = -88;
-        } else if(!!input.left) {
+        } else if(jetDirection.x < 0) {
           this.shipAngle = 270;
           this.boosterPosX = -255;
           this.boosterPosY = -280;
-        } else if(!input.left && !input.up && !input.down && !input.right){
-          this.boosterPosX = false;
-          this.boosterPosY = false;
-        }
-        if(!input.left && !input.up && !input.down && !input.right){
-          this.boosterPosX = false;
-          this.boosterPosY = false;
-        }
+        } 
 
         if(this.boosterPosX || this.boosterPosY){
           this.boosters.draw(
             this.ctx,
             ((this.shipAngle + 180) * Math.PI) / 180,
-            this.allPlayerPos[i].x + this.boosterPosX,
-            this.allPlayerPos[i].y + this.boosterPosY
+            this.allPlayerPos[i].pos.x + this.boosterPosX,
+            this.allPlayerPos[i].pos.y + this.boosterPosY
           );
         }
 
-        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
+        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y);
         ctx.rotate((this.shipAngle * Math.PI) / 180);
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -199,7 +190,7 @@ class GameClient {
         ctx.textAlign = "center";
       }
 
-    }    
+    //}
   }
 
 
