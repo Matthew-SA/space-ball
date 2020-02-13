@@ -47,7 +47,8 @@ const io = socketIO(server, {
   pingTimeout: 3000,
 });
 
-const serverGame = new ServerGame(io);
+const serverGame1 = new ServerGame(io);
+const serverGame2 = new ServerGame(io);
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
@@ -72,15 +73,15 @@ app.get("/", (req, res) => {
 io.on('connection', (socket) => {
   socket.removeAllListeners()
   socket.on('player-join', () => {
-    serverGame.addNewPlayer(socket);
+    serverGame1.addNewPlayer(socket);
   });
 
   socket.on('player-action', data => {
-    serverGame.movePlayer(socket.id, data)
+    serverGame1.movePlayer(socket.id, data)
   });
   
   socket.on('disconnect', () => {
-    serverGame.removePlayer(socket.id,socket)
+    serverGame1.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
