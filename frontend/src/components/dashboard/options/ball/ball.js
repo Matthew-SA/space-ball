@@ -17,10 +17,14 @@ class Ball extends React.Component {
   }
 
   selectBall() {
-    this.props.selectBall(this.state.optionSelection);
-    setTimeout(() => {
-      this.props.fetchInventory();
-    }, 100);
+    const sel = new Promise((resolve, reject) => {
+      resolve(this.props.selectBall(this.state.optionSelection))
+    })
+    sel.then(() => {
+      setTimeout(() => {
+        this.props.fetchInventory();
+      }, 100);
+    })
   }
 
   handleSelectChild(e) {
@@ -42,7 +46,7 @@ class Ball extends React.Component {
     } else if (balls.includes(optionSelection)) {
       return (
         <div className="select-ball"
-          onClick={this.selectShip}>SELECT THIS SHIP</div>
+          onClick={this.selectBall}>SELECT THIS BALL</div>
       )
     } else {
       return (
@@ -57,7 +61,7 @@ class Ball extends React.Component {
     return (
       <div className="shop-container">
         <div className="currency">${this.props.inventory.currency}</div>
-        <div className="ball-select">Choose a Ball Type:</div>
+        <div className="title">Choose a Ball Type:</div>
         <div className="ball-options">
           <div className="select-button active" id="Earth" onClick={this.handleSelectChild}>Earth</div>
           <div className="select-button" id="Soccer" onClick={this.handleSelectChild}>Soccer</div>

@@ -16,7 +16,10 @@ class Toggle extends React.Component {
     this.leftViewPort = this.leftViewPort.bind(this);
     this.rightViewPort = this.rightViewPort.bind(this);
     this.toggleSelect = this.toggleSelect.bind(this);
-    this.addShip = this.addShip.bind(this);
+    this.buyShip = this.buyShip.bind(this);
+    this.buyBall = this.buyBall.bind(this);
+    this.sellShip = this.sellShip.bind(this);
+    this.sellBall = this.sellBall.bind(this);
   }
 
   componentDidMount() {
@@ -52,19 +55,64 @@ class Toggle extends React.Component {
     e.target.classList.add("active");
   }
 
-  addShip() {
+  buyShip() {
+    const buy = new Promise((resolve, reject) => {
+      resolve(this.props.addShip(this.state.optionSelection))
+    })
+
     if (this.props.inventory.currency - 500 >= 0) {
-      this.props.addShip(this.state.optionSelection)
+      buy.then(() => {
+        this.props.changeCurrency(-500)
+      })
+      .then(() => {
+        setTimeout(() => {
+          this.props.fetchInventory();
+        }, 50);
+      })
     } else {
       alert("NOT ENOUGH MONEY! Play more, earn more.")
-      // return (
-      //   <div className="no-money">NOT ENOUGH MONEY</div>
-      // )
     }
-    setTimeout(() => {
-      this.props.fetchInventory();
-    }, 100);
   }
+
+  buyBall() {
+    const buy = new Promise((resolve, reject) => {
+      resolve(this.props.addBall(this.state.optionSelection))
+    })
+    if (this.props.inventory.currency - 500 >= 0) {
+      buy.then(() => {
+        this.props.changeCurrency(-500)
+      })
+      .then(() => {
+        setTimeout(() => {
+          this.props.fetchInventory();
+        }, 50);
+      })
+    } else {
+      alert("NOT ENOUGH MONEY! Play more, earn more.")
+    }
+  }
+
+ sellShip() {
+   this.props.removeShip(this.state.optionSelection)
+   this.props.selectShip("Default")
+   setTimeout(() => {
+     this.props.changeCurrency(500)
+   }, 50);
+   setTimeout(() => {
+     this.props.fetchInventory();
+   }, 100);
+ }
+
+ sellBall() {
+   this.props.removeBall(this.state.optionSelection)
+   this.props.selectBall("Earth")
+   setTimeout(() => {
+     this.props.changeCurrency(500)
+   }, 50);
+   setTimeout(() => {
+     this.props.fetchInventory();
+   }, 100);
+ }
 
   leftViewPort() {
     const selected = this.state.selected;
@@ -105,6 +153,7 @@ class Toggle extends React.Component {
 
   purchaseOption() {
     const optionSelection = this.state.optionSelection;
+    const selected = this.state.selected;
 
     if (!this.props.loggedIn) {
       if (optionSelection === "Default" || optionSelection === "Earth") {
@@ -136,21 +185,41 @@ class Toggle extends React.Component {
         this.props.inventory.ships.includes(optionSelection) ||
         this.props.inventory.balls.includes(optionSelection)
       ) {
-        return (
-          <div className="purchase-container">
-            <div className="price">$500</div>
-            <div className="sell-button">SELL</div>
-          </div>
-        );
-      } else {
-        return (
-          <div className="purchase-container">
-            <div className="price">$500</div>
-            <div className="buy-button" onClick={this.addShip}>
-              BUY
+        if (selected === "ship") {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="sell-button" onClick={this.sellShip}>SELL</div>
             </div>
-          </div>
-        );
+          );
+        } else {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="sell-button" onClick={this.sellBall}>SELL</div>
+            </div>
+          )
+        }
+      } else {
+        if (selected === "ship") {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="buy-button" onClick={this.buyShip}>
+                BUY
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="buy-button" onClick={this.buyBall}>
+                BUY
+              </div>
+            </div>
+          );
+        }
       }
     }
   }
