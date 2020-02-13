@@ -49,9 +49,6 @@ const io = socketIO(server, {
 
 const serverGame = new ServerGame(io);
 
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
-
 app.set('port', PORT);
 // end websocket initialization
 
@@ -77,7 +74,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-action', data => {
+    // serverGame.getAllInput(socket.id, data)
+    serverGame.getInput(socket.id, data)
     serverGame.movePlayer(socket.id, data)
+
   });
   
   socket.on('disconnect', () => {
