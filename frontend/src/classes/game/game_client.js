@@ -120,8 +120,6 @@ class GameClient {
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerPos = data.ships
-    // this.allPlayerInputPrev = this.allPlayerInput
-    // this.allPlayerInput = data.ships
   }
 
   stepAllBoosters(data) {

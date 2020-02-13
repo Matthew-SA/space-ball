@@ -48,6 +48,7 @@ const io = socketIO(server, {
 });
 
 const serverGame = new ServerGame(io);
+
 app.set('port', PORT);
 // end websocket initialization
 
