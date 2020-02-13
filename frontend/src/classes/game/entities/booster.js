@@ -22,7 +22,7 @@ class Booster {
 
     ctx.translate(x + 90 / 2, y + 600 / 2);
     ctx.rotate(degrees);
-    ctx.drawImage(this.boosters, 0, this.shift, 90, 120, -90 / 2, -600 / 2, 90/1.8, 120/1.8);
+    ctx.drawImage(this.boosters, 0, this.shift, 90, 120, -90 / 2, -600 / 2, 90/1.7, 120/2.0);
     ctx.rotate(-degrees);
     ctx.translate(-x - 90 / 2, -y - 600 / 2);
 

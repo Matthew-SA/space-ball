@@ -136,35 +136,35 @@ class GameClient {
         }
           else if(jetDirection.x > 0 && jetDirection.y > 0){
           this.shipAngle = 45;
-          this.boosterPosX = 92;
-          this.boosterPosY = -463;
+          this.boosterPosX = 95;
+          this.boosterPosY = -467;
         } else if(jetDirection.x > 0 && jetDirection.y < 0){
           this.shipAngle = 135;
-          this.boosterPosX = 120;
-          this.boosterPosY = -166;
+          this.boosterPosX = 121;
+          this.boosterPosY = -163;
         } else if(jetDirection.y < 0 && jetDirection.x < 0){
           this.shipAngle = 225;
-          this.boosterPosX = -180;
-          this.boosterPosY = -138;
+          this.boosterPosX = -182;
+          this.boosterPosY = -134;
         } else if(jetDirection.y > 0 && jetDirection.x < 0){
           this.shipAngle = 315;
-          this.boosterPosX = -208;
-          this.boosterPosY = -434;
+          this.boosterPosX = -212;
+          this.boosterPosY = -437;
         } else if(jetDirection.y > 0){
           this.shipAngle = 0;
-          this.boosterPosX = -64;
-          this.boosterPosY = -510;
+          this.boosterPosX = -65;
+          this.boosterPosY = -515;
         } else if(jetDirection.x > 0) {
           this.shipAngle = 90;
-          this.boosterPosX = 164;
+          this.boosterPosX = 169;
           this.boosterPosY = -320;
         } else if(jetDirection.y < 0) {
           this.shipAngle = 180;
-          this.boosterPosX = -24;
-          this.boosterPosY = -88;
+          this.boosterPosX = -25;
+          this.boosterPosY = -83;
         } else if(jetDirection.x < 0) {
           this.shipAngle = 270;
-          this.boosterPosX = -255;
+          this.boosterPosX = -260;
           this.boosterPosY = -280;
         } 
 
