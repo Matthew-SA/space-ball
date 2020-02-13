@@ -89,7 +89,7 @@ class GameClient {
 
   clearAllShips(ctx) {
     for (let player of this.allPlayerPos) {
-      ctx.clearRect(player.x - 100, player.y - 30, 200, 200);
+      ctx.clearRect(player.pos.x - 100, player.pos.y - 30, 200, 200);
     }
   }
 
@@ -102,12 +102,12 @@ class GameClient {
     for (let player of this.allPlayerPos) {
       ctx.drawImage(
         this.shipSprite,
-        player.x - 30,
-        player.y - 30,
+        player.pos.x - 30,
+        player.pos.y - 30,
       )
       ctx.fillStyle = "#FFFFFF"
       ctx.font = "16pt Audiowide";
-      ctx.fillText(this.user, player.x, player.y + 60);
+      ctx.fillText(this.user, player.pos.x, player.pos.y + 60);
       ctx.textAlign = "center";
     }
   }
