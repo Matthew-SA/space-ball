@@ -100,9 +100,9 @@ class GameClient {
   }
 
   drawEntities(ctx) {
-    this.ball.draw(ctx)
+    this.ball.draw(ctx);
     this.drawAllShips(ctx);
-    this.drawScore(ctx)
+    this.drawScore(ctx);
   }
 
   clearAllShips(ctx) {
@@ -119,14 +119,14 @@ class GameClient {
 
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
-    this.allPlayerPos = data.ships.positions
-    this.allPlayerInputPrev = this.allPlayerInput
-    this.allPlayerInput = data.ships.inputs
+    this.allPlayerPos = data.ships
+    // this.allPlayerInputPrev = this.allPlayerInput
+    // this.allPlayerInput = data.ships
   }
 
   stepAllBoosters(data) {
     this.allBoosterPosPrev = this.allBoosterPos
-    this.allBoosterPos = data.ships.positions
+    this.allBoosterPos = data.ships
   }
 
   drawAllShips(ctx, data) {
