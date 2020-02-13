@@ -96,7 +96,6 @@ class GameClient {
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerPos = data.ships
-    console.log(data.ships)
   }
 
   drawAllShips(ctx) {

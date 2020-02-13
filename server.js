@@ -40,20 +40,8 @@ const socketIO = require('socket.io')
 const ServerGame = require('./lib/server_game');
 // end websocket dependencies
 
-// Websocket Initialization
-const server = http.createServer(app);
-const io = socketIO(server, {
-  pingInterval: 3000,
-  pingTimeout: 3000,
-});
 
-const serverGame = new ServerGame(io);
 
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
-
-app.set('port', PORT);
-// end websocket initialization
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -64,6 +52,21 @@ mongoose.set('useFindAndModify', false);
 
 // app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
 // app.use('/shared', express.static(__dirname + '/shared'));
+
+
+// Websocket Initialization
+const server = http.createServer(app);
+const io = socketIO(server, {
+  pingInterval: 3000,
+  pingTimeout: 3000,
+});
+app.set('port', PORT);
+// end websocket initialization
+
+
+const serverGame = new ServerGame(io);
+// console.log(data.bodies[0])
+// console.log(serverEngine.world.bodies)
 
 // Websocket logic below
 app.get("/", (req, res) => {
