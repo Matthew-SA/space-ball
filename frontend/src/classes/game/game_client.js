@@ -26,7 +26,7 @@ class GameClient {
     
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
-    this.shipSprite.src = 'images/default_ship_arrow.png'
+    this.shipSprite.src = 'images/default_ship.png'
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerInput = [];
@@ -35,7 +35,7 @@ class GameClient {
     this.allBoosterPosPrev = this.allBoosterPos
     Input.applyEventHandlers();
     setInterval(() => {
-      if (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN) {
+      // if (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN) {
         this.socket.emit('player-action', {
           keyboardState: {
             left: Input.LEFT,
@@ -44,7 +44,7 @@ class GameClient {
             down: Input.DOWN
           }
         });
-     }
+    //  }
     }, 20);
   }
   
@@ -155,14 +155,24 @@ class GameClient {
           this.shipAngle = 270;
           this.boosterPosX = -255;
           this.boosterPosY = -280;
+        } else if(!input.left && !input.up && !input.down && !input.right){
+          this.boosterPosX = false;
+          this.boosterPosY = false;
+        }
+        if(!input.left && !input.up && !input.down && !input.right){
+          this.boosterPosX = false;
+          this.boosterPosY = false;
         }
 
-        this.boosters.draw(
-          this.ctx,
-          ((this.shipAngle + 180) * Math.PI) / 180,
-          this.allPlayerPos[i].x + this.boosterPosX,
-          this.allPlayerPos[i].y + this.boosterPosY
-        );
+        if(this.boosterPosX || this.boosterPosY){
+          this.boosters.draw(
+            this.ctx,
+            ((this.shipAngle + 180) * Math.PI) / 180,
+            this.allPlayerPos[i].x + this.boosterPosX,
+            this.allPlayerPos[i].y + this.boosterPosY
+          );
+        }
+
         ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].x, this.allPlayerPos[i].y);
         ctx.rotate((this.shipAngle * Math.PI) / 180);
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
