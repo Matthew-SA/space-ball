@@ -62,18 +62,22 @@ const io = socketIO(server, {
 });
 app.set('port', PORT);
 // end websocket initialization
-
-
-const serverGame = new ServerGame(io);
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
-
-// Websocket logic below
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("../frontend/public/index.html"));
 });
 
+
+const serverGame1= new ServerGame(io);
+const serverGame2 = new ServerGame(io);
+// console.log(data.bodies[0])
+// console.log(serverEngine.world.bodies)
+
+// Websocket logic below
+
 io.on('connection', (socket) => {
+
+  socket.on('join-room-1') 
+
   socket.removeAllListeners()
   socket.on('player-join', () => {
     serverGame.addNewPlayer(socket);
