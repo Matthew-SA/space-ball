@@ -14,8 +14,12 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
+
+    ////// very temporary solution for distinguishing other players. easily modifiable when needed.
     this.boosters = new Booster("red");
-    this.enemyBoosters = new Booster("blue"); // very temporary solution to make ship distinctions
+    this.enemyBoosters = new Booster("blue"); 
+    //////
+
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
@@ -160,6 +164,7 @@ class GameClient {
         this.boosterPosY = -280;
       };
 
+      ////// draws boosters with different colors based on even or odds numbered player ids in the array. Very temporary solution, easily modifiable
       if (!!this.boosterPosX || !!this.boosterPosY) {
         if(i % 2 === 0){
           this.boosters.draw(
@@ -176,12 +181,8 @@ class GameClient {
           this.allPlayerPos[i].pos.y + this.boosterPosY,
           );
         }
-        // this.boosters.draw(
-        //   this.ctx,
-        //   ((this.shipAngle + 180) * Math.PI) / 180,
-        //   this.allPlayerPos[i].pos.x + this.boosterPosX,
-        //   this.allPlayerPos[i].pos.y + this.boosterPosY
-        // );
+      ///////
+      
       };
     };
   };
