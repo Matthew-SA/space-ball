@@ -130,16 +130,16 @@ class Toggle extends React.Component {
 
     if (optionSelection === "Default") {
       return (
-        <img src="images/ship-default.png" className="ship" alt="defaultship" />
+        <img src="images/default_ship_full.png" className="ship" alt="defaultship" />
       );
     } else if (optionSelection === "Red") {
-      return <img src="images/ship-red.png" className="ship" alt="redship" />;
+      return <img src="images/red_ship_full.png" className="ship" alt="redship" />;
     } else if (optionSelection === "Green") {
       return (
-        <img src="images/greenship.png" className="ship" alt="greenship" />
+        <img src="images/green_ship_full.png" className="ship" alt="greenship" />
       );
     } else if (optionSelection === "Blue") {
-      return <img src="images/ship-blue.png" className="ship" alt="blueship" />;
+      return <img src="images/blue_ship_full.png" className="ship" alt="blueship" />;
     } else if (optionSelection === "Earth") {
       return <img className="ball" src="images/earth.png" alt="earth" />;
     } else if (optionSelection === "Soccer") {
