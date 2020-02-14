@@ -14,7 +14,8 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
-    this.boosters = new Booster();
+    this.boosters = new Booster("red");
+    this.enemyBoosters = new Booster("blue"); // very temporary solution to make ship distinctions
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
@@ -160,12 +161,27 @@ class GameClient {
       };
 
       if (!!this.boosterPosX || !!this.boosterPosY) {
-        this.boosters.draw(
+        if(i % 2 === 0){
+          this.boosters.draw(
           this.ctx,
           ((this.shipAngle + 180) * Math.PI) / 180,
           this.allPlayerPos[i].pos.x + this.boosterPosX,
-          this.allPlayerPos[i].pos.y + this.boosterPosY
-        );
+          this.allPlayerPos[i].pos.y + this.boosterPosY,
+          );
+        } else {
+          this.enemyBoosters.draw(
+          this.ctx,
+          ((this.shipAngle + 180) * Math.PI) / 180,
+          this.allPlayerPos[i].pos.x + this.boosterPosX,
+          this.allPlayerPos[i].pos.y + this.boosterPosY,
+          );
+        }
+        // this.boosters.draw(
+        //   this.ctx,
+        //   ((this.shipAngle + 180) * Math.PI) / 180,
+        //   this.allPlayerPos[i].pos.x + this.boosterPosX,
+        //   this.allPlayerPos[i].pos.y + this.boosterPosY
+        // );
       };
     };
   };
