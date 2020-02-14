@@ -967,6 +967,7 @@ header {
   z-index: 0;
   background-image: url('./assets/images/space.gif');
 }
+
 #game-canvas {
   position: absolute;
   top: 0;
