@@ -66,7 +66,7 @@ app.get("/", (req, res) => {
 });
 
 
-const serverGame1= new ServerGame(io);
+const serverGame= new ServerGame(io);
 const serverGame2 = new ServerGame(io);
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
@@ -74,8 +74,10 @@ const serverGame2 = new ServerGame(io);
 // Websocket logic below
 
 io.on('connection', (socket) => {
-
-  socket.on('join-room-1') 
+  console.log('***USER CONNECTED***')
+  socket.on('join-room', (roomNum) => {
+    socket.join("room-" + roomNum)
+  }) 
 
   socket.removeAllListeners()
   socket.on('player-join', () => {
@@ -90,7 +92,7 @@ io.on('connection', (socket) => {
   });
   
   socket.on('disconnect', () => {
-    serverGame.removePlayer(socket.id,socket)
+    // serverGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
