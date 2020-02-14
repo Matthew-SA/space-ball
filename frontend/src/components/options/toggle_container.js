@@ -9,7 +9,7 @@ import {
   selectShip, 
   selectBall, 
   changeCurrency 
-} from "../../../actions/inventory_actions";
+} from "../../actions/inventory_actions";
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,

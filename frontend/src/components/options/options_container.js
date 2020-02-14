@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { logout, clearErrors } from "../../../actions/session_actions";
+import { logout, clearErrors } from "../../actions/session_actions";
 
 import Options from "./options";
 

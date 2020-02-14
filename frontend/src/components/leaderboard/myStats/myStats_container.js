@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchStats } from "../../../../actions/stats_actions";
+import { fetchStats } from "../../../actions/stats_actions";
 import MyStats from "./myStats";
 
 const mapStateToProps = state => {

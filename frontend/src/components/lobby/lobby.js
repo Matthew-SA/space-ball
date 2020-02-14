@@ -1,7 +1,7 @@
 import React from 'react' 
 import { Link } from 'react-router-dom';
 
-class WaitingRoom extends React.Component {
+class Lobby extends React.Component {
     constructor(props) {
         super(props)
         this.socket = this.props.location.socket
@@ -33,4 +33,4 @@ class WaitingRoom extends React.Component {
     }
 }
 
-export default WaitingRoom;
+export default Lobby;

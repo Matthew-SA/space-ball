@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Ball from "./ball";
-import { fetchInventory, selectBall } from "../../../../actions/inventory_actions";
+import { fetchInventory, selectBall } from "../../../actions/inventory_actions";
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
