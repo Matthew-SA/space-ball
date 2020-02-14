@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
   });
   
   socket.on('disconnect', () => {
-    serverGame.removePlayer(socket.id,socket)
+    // serverGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
