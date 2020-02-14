@@ -1,5 +1,4 @@
 import React from 'react';
-import io from 'socket.io-client';
 // import Input from '../../classes/game/Input'
 import GameClient from '../../classes/game/game_client';
 // const GameClient = require('../../classes/game/game_client');
@@ -14,14 +13,21 @@ import GameClient from '../../classes/game/game_client';
 class GameView extends React.Component {
   constructor(props) {
     super(props);
+    this.socket = this.props.location.socket
+    console.log(this.props)
   }
 
   componentDidMount() {
     // Input.applyEventHandlers();
-    this.socket = io()
+    // this.socket = io()
+    if (!this.socket) {
+      window.location.href = "/waitingroom"
+    }
     this.canvas = document.getElementById('game-canvas')
     this.gameClient = new GameClient(this.socket, this.props.user)
     this.gameClient.init()
+    this.props.fetchInventory();
+    // debugger
   };
   
   componentWillUnmount() {

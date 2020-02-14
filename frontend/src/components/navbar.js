@@ -1,12 +1,12 @@
 import React from "react";
 import OptionsContainer from "./options/options_container";
 import Leaderboard from "./leaderboard/leaderboard";
-import Lobby from "./lobby/lobby";
+import Play from "./lobby/play";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selected: "lobby" }
+    this.state = { selected: "Play" }
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -22,8 +22,8 @@ class Dashboard extends React.Component {
     const selected = this.state.selected;
     let currentViewPort;
 
-    if (selected === "lobby") {
-      currentViewPort = <Lobby />;
+    if (selected === "play") {
+      currentViewPort = <Play />;
     } else if (selected === "leaderboard") {
       currentViewPort = <Leaderboard />
     } else if (selected === "options") {
@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
       <div className="homepage-container">
         <div className="dashboard">
           <div className="home-select" id="options" onClick={this.handleClick}>Options</div>
-          <div className="home-select active" id="lobby" onClick={this.handleClick}>Lobby</div>
+          <div className="home-select active" id="play" onClick={this.handleClick}>Play</div>
           <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
         </div>
         {currentViewPort}

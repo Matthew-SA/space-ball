@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Table from "./table";
-import { fetchLeaderboard } from "../../../actions/leaderboard_actions";
+import { fetchLeaderboard } from "../../actions/leaderboard_actions";
 
 const mapStateToProps = state => ({
   leaderboard: Object.values(state.leaderboard)
