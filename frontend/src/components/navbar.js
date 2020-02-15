@@ -1,46 +1,47 @@
 import React from "react";
-import OptionsContainer from "./options/options_container";
-import Leaderboard from "./leaderboard/leaderboard";
-import Play from "./lobby/play";
+import { Link } from "react-router-dom";
 
-class Dashboard extends React.Component {
+class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selected: "Play" }
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
-    this.setState({
-      selected: e.target.id
-    });
-    Array.from(document.getElementsByClassName('home-select')).forEach(el => el.classList.remove('active'));
-    e.target.classList.add('active');
+  loginLinks() {
+    if (this.props.loggedIn) {
+      return (
+        <div className="loggedin">
+          <div className="greeting">Hello {this.props.user.username} !</div>
+          <button className="logout-button" onClick={this.logoutUser}>Log Out</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="loggedout">
+          <Link to="/login"><button className="login-button" id="login">Log In</button></Link>
+        </div>
+      );
+    }
   }
 
   render() {
-    const selected = this.state.selected;
-    let currentViewPort;
-
-    if (selected === "play") {
-      currentViewPort = <Play />;
-    } else if (selected === "leaderboard") {
-      currentViewPort = <Leaderboard />
-    } else if (selected === "options") {
-      currentViewPort = <OptionsContainer />;
-    }
 
     return (
-      <div className="homepage-container">
-        <div className="dashboard">
-          <div className="home-select" id="options" onClick={this.handleClick}>Options</div>
-          <div className="home-select active" id="play" onClick={this.handleClick}>Play</div>
-          <div className="home-select" id="leaderboard" onClick={this.handleClick}>Leaderboards</div>
+      <div >
+        <div className="navbar">
+          <Link to="/options"><div className="home-select" id="options" >Options</div></Link>
+          <Link to="/play"><div className="home-select" id="play">Play</div></Link>
+          <Link to="/leaderboard"><div className="home-select" id="leaderboard">Leaderboards</div></Link>
         </div>
-        {currentViewPort}
+        <div className="greeting-container">
+          <svg className="home-button" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+          </svg>
+          {this.loginLinks()}
+        </div>
+        
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default NavBar;
