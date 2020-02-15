@@ -66,29 +66,35 @@ app.get("/", (req, res) => {
 });
 
 
-const serverGame= new ServerGame(io);
-const serverGame2 = new ServerGame(io);
+// const serverGame= new ServerGame(io,1);
+// const serverGame2 = new ServerGame(io,2);
 // console.log(data.bodies[0])
 // console.log(serverEngine.world.bodies)
 
 // Websocket logic below
 
+const gameList = {}
+
 io.on('connection', (socket) => {
   console.log('***USER CONNECTED***')
-  socket.on('join-room', (roomNum) => {
+
+
+  socket.on('enter-room', (roomNum) => {
     socket.join("room-" + roomNum)
+    gameList[roomNum] = new ServerGame(io, roomNum)
+    // console.log(Object.keys(gameList))
+    // console.log('joined ' + roomNum + '!')
   }) 
 
-  socket.removeAllListeners()
-  socket.on('player-join', () => {
-    serverGame.addNewPlayer(socket);
+  socket.on('player-join', (roomNum) => {
+    // console.log('player joined ' + this.room)
+    gameList[roomNum].addNewPlayer(socket)
   });
 
   socket.on('player-action', data => {
-    // serverGame.getAllInput(socket.id, data)
-    serverGame.getInput(socket.id, data)
-    serverGame.movePlayer(socket.id, data)
-
+    let roomNum = data.room;
+    gameList[roomNum].getInput(socket.id, data)
+    gameList[roomNum].movePlayer(socket.id, data)   
   });
   
   socket.on('disconnect', () => {
@@ -96,5 +102,6 @@ io.on('connection', (socket) => {
     console.log('user disconnected')
   })
 })
+
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

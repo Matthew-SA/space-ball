@@ -4,8 +4,10 @@ import Input from './Input';
 import Booster from "./entities/booster";
 
 class GameClient {
-  constructor(socket, user) {
+  constructor(socket, room, user) {
     this.socket = socket;
+    this.room = room;
+    console.log(this.room)
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
@@ -42,6 +44,7 @@ class GameClient {
     setInterval(() => {
       if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
         this.socket.emit('player-action', {
+          room: this.room,
           keyboardState: {
             left: Input.LEFT,
             right: Input.RIGHT,
@@ -49,6 +52,7 @@ class GameClient {
             down: Input.DOWN
           }
         });
+        console.log(this.room)
       }
     }, 20);
 
@@ -63,12 +67,7 @@ class GameClient {
 
   init() {
     // this.socket.removeAllListeners()
-    this.socket.emit('player-join')
-    // this.socket.on('to-client', data => { 
-    //   this.cycleAll(this.ctx, data)
-    // });
-    // this.socket.on('to-client-again', data => {
-    //   this.drawAllShips(this.ctx, data)
+    this.socket.emit('player-join', this.room)
     this.socket.on('to-client', (data) => {
       this.cycleAll(this.ctx, data)
     });

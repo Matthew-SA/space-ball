@@ -53,10 +53,12 @@ class Lobby extends React.Component {
               <div className="buy-button" onClick={this.handleClick}>Go Back</div>
               <Link to={{
                 pathname: "/waitingroom",
+                room: 1,
                 socket: this.socket
               }}><div className="buy-button">Lobby 1</div></Link>
               <Link to={{
                 pathname: "/waitingroom",
+                room: 2,
                 socket: this.socket
               }}><div className="buy-button">Lobby 1.5</div></Link>
             </div>

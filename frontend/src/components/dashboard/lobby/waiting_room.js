@@ -5,6 +5,14 @@ class WaitingRoom extends React.Component {
     constructor(props) {
         super(props)
         this.socket = this.props.location.socket
+        this.room = this.props.location.room
+    }
+
+    componentDidMount() {
+        this.socket.emit('enter-room', this.room)
+        this.socket.on('test', data => {
+            console.log(data)
+        })
     }
 
     render() {
@@ -21,6 +29,7 @@ class WaitingRoom extends React.Component {
                             </div>
                             <Link to={{
                                 pathname: "/game",
+                                room: this.room,
                                 socket: this.socket
                                 }}>
                                     <div className="play">Start Game</div>

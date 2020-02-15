@@ -14,7 +14,7 @@ class GameView extends React.Component {
   constructor(props) {
     super(props);
     this.socket = this.props.location.socket
-    // console.log(this.props)
+    this.room = this.props.location.room
   }
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class GameView extends React.Component {
       window.location.href = "/waitingroom"
     }
     this.canvas = document.getElementById('game-canvas')
-    this.gameClient = new GameClient(this.socket, this.props.user)
+    this.gameClient = new GameClient(this.socket, this.room, this.props.user)
     this.gameClient.init()
     // debugger
   };
