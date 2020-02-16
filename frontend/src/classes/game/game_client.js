@@ -68,7 +68,7 @@ class GameClient {
   init() {
     // this.socket.removeAllListeners()
     this.socket.emit('player-join', this.room)
-    this.socket.on('to-client', (data) => {
+    this.socket.on('gameState', (data) => {
       this.cycleAll(this.ctx, data)
     });
 
@@ -88,14 +88,14 @@ class GameClient {
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.clearAllShips(ctx);
-    this.clearAllBoosters(ctx);
+    // this.clearAllBoosters(ctx);
     ctx.clearRect(600, 0, 600, 100);
   }
 
   stepEntities(data) {
     this.ball.step(data)
     this.stepAllShips(data);
-    this.stepAllBoosters(data);
+    // this.stepAllBoosters(data);
   }
 
   drawEntities(ctx) {
@@ -118,7 +118,7 @@ class GameClient {
 
   stepAllShips(data) {
     this.allPlayerPosPrev = this.allPlayerPos
-    this.allPlayerPos = data.ships
+    this.allPlayerPos = [data.self]
   }
 
   stepAllBoosters(data) {

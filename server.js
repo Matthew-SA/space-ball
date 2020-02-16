@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")); 
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
 
@@ -65,12 +65,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("../frontend/public/index.html"));
 });
 
-
-// const serverGame= new ServerGame(io,1);
-// const serverGame2 = new ServerGame(io,2);
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
-
 // Websocket logic below
 
 const gameList = {}
@@ -81,22 +75,22 @@ io.on('connection', (socket) => {
 
   socket.on('enter-room', (roomNum) => {
     socket.join("room-" + roomNum)
-    gameList[roomNum] = new ServerGame(io, roomNum)
     // console.log(Object.keys(gameList))
     // console.log('joined ' + roomNum + '!')
-  }) 
+  })
 
   socket.on('player-join', (roomNum) => {
     // console.log('player joined ' + this.room)
+    if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket)
   });
 
   socket.on('player-action', data => {
     let roomNum = data.room;
-    gameList[roomNum].getInput(socket.id, data)
-    gameList[roomNum].movePlayer(socket.id, data)   
+    // gameList[roomNum].getInput(socket.id, data)
+    gameList[roomNum].movePlayer(socket.id, data)
   });
-  
+
   socket.on('disconnect', () => {
     // serverGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
