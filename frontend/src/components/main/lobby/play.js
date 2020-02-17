@@ -39,12 +39,12 @@ class Play extends React.Component {
               </div>
               <div className="buy-button" onClick={this.handleClick}>Go Back</div>
               <Link to={{
-                pathname: "/waitingroom",
+                pathname: "/lobby",
                 room: 1,
                 socket: this.socket
               }}><div className="buy-button">Lobby 1</div></Link>
               <Link to={{
-                pathname: "/waitingroom",
+                pathname: "/lobby",
                 room: 2,
                 socket: this.socket
               }}><div className="buy-button">Lobby 1.5</div></Link>
