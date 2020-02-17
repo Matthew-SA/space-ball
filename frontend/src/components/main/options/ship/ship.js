@@ -51,7 +51,7 @@ class Ship extends React.Component {
     } else {
       return (
         <div>
-          <div className="unavailable">ACQUIRE SHIP TO USE</div>
+          <div className="unavailable">SHIP NOT IN INVENTORY</div>
         </div>
       )
     }

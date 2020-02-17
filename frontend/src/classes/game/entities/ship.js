@@ -11,7 +11,7 @@ class Ship {
     this.pos = { x: 0, y: 0 }
     this.posPrev = { x: 0, y: 0 }
 
-    this.boosters = new Booster();
+    this.boosters = new Booster("self");
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
@@ -73,7 +73,7 @@ class Ship {
         this.ctx,
         ((this.shipAngle + 180) * Math.PI) / 180,
         this.pos.x + this.boosterPosX,
-        this.pos.y + this.boosterPosY
+        this.pos.y + this.boosterPosY,
       );
     }
 

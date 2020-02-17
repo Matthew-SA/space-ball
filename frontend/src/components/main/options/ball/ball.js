@@ -51,7 +51,7 @@ class Ball extends React.Component {
     } else {
       return (
         <div>
-          <div className="unavailable">ACQUIRE BALL TO USE</div>
+          <div className="unavailable">BALL NOT IN INVENTORY</div>
         </div>
       )
     }
