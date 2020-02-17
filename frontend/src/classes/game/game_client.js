@@ -23,7 +23,27 @@ class GameClient {
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
+    
     this.drawWalls(this.bgctx)
+    
+    this.socket.on('ceiling', () => {
+      this.collideWall(this.bgctx, "ceiling")
+    });
+    this.socket.on('floor', () => {
+      this.collideWall(this.bgctx, "floor")
+    });
+    this.socket.on('topRight', () => {
+      this.collideWall(this.bgctx, "topRight")
+    });
+    this.socket.on('bottomRight', () => {
+      this.collideWall(this.bgctx, "bottomRight")
+    });
+    this.socket.on('topLeft', () => {
+      this.collideWall(this.bgctx, "topLeft")
+    });
+    this.socket.on('bottomLeft', () => {
+      this.collideWall(this.bgctx, "bottomLeft")
+    });
     
     this.score = { LEFT: 0, RIGHT: 0 };
     if (user === "Guest") {
@@ -76,7 +96,7 @@ class GameClient {
 
     this.socket.on('updateScore', data => {
       this.updateScore(data)
-    })
+    });
   }
 
   cycleAll(ctx, data) {
@@ -211,6 +231,118 @@ class GameClient {
     ctx.fillRect(0, 550, 15, 350);
     ctx.fillRect(1585, 0, 15, 350);
     ctx.fillRect(1585, 550, 15, 350);
+  }
+
+  drawBangedCeiling(ctx){
+    ctx.clearRect(0, 0, 1600, 15);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(0, 0, 1600, 15);
+  }
+  drawCeiling(ctx){
+    ctx.clearRect(0, 0, 1600, 15);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(0, 0, 1600, 15);
+  }
+  drawBangedFloor(ctx){
+    ctx.fillRect(0, 885, 1600, 15);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(0, 885, 1600, 15);
+  }
+  drawFloor(ctx){
+    ctx.clearRect(0, 885, 1600, 15);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(0, 885, 1600, 15);
+  }
+  drawBangedTopRight(ctx){
+    ctx.fillRect(1585, 0, 15, 350);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(1585, 0, 15, 350);
+  }
+  drawTopRight(ctx){
+    ctx.clearRect(1585, 0, 15, 350);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(1585, 0, 15, 350);
+  }
+  drawBangedBottomRight(ctx){
+    ctx.fillRect(1585, 550, 15, 350);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(1585, 550, 15, 350);
+  }
+  drawBottomRight(ctx){
+    ctx.clearRect(1585, 550, 15, 350);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(1585, 550, 15, 350);
+  }
+  drawBangedTopLeft(ctx){
+    ctx.fillRect(0, 0, 15, 350);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(0, 0, 15, 350);
+  }
+  drawTopLeft(ctx){
+    ctx.clearRect(0, 0, 15, 350);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(0, 0, 15, 350);
+  }
+  drawBangedBottomLeft(ctx){
+    ctx.fillRect(0, 550, 15, 350);
+    ctx.fillStyle = "#ffff00";
+    ctx.fillRect(0, 550, 15, 350);
+  }
+  drawBottomLeft(ctx){
+    ctx.clearRect(0, 550, 15, 350);
+    ctx.fillStyle = "#fc03a1";
+    ctx.fillRect(0, 550, 15, 350);
+  }
+
+  collideWall(ctx, wall){
+    switch (wall) {
+      case "ceiling":
+        this.drawBangedCeiling(ctx);
+        setTimeout(() => {
+          this.drawCeiling(ctx);
+        }, 500);
+        break;
+      case "floor":
+        this.drawBangedFloor(ctx);
+        setTimeout(() => {
+          this.drawFloor(ctx);
+        }, 500);
+        break;
+      case "topRight":
+        this.drawBangedTopRight(ctx);
+        setTimeout(() => {
+          this.drawTopRight(ctx);
+        }, 500);
+        break;
+      case "bottomRight":
+        this.drawBangedBottomRight(ctx);
+        setTimeout(() => {
+          this.drawBottomRight(ctx);
+        }, 500);
+        break;
+      case "topLeft":
+        this.drawBangedTopLeft(ctx);
+        setTimeout(() => {
+          this.drawTopLeft(ctx);
+        }, 500);
+        break;
+      case "bottomLeft":
+        this.drawBangedBottomLeft(ctx);
+        setTimeout(() => {
+          this.drawBottomLeft(ctx);
+        }, 500);
+        break;
+      default:
+        break;
+    }
+
+    // if (wall === "ceiling"){
+    //   this.drawBangedCeiling(ctx);
+    //   setTimeout(() => {
+    //     this.drawCeiling(ctx);
+    //   }, 500);
+    // }
+
   }
 
   updateScore(score) {
