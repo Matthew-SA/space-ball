@@ -224,110 +224,79 @@ class GameClient {
 
 
   drawWalls(ctx) {
-    ctx.fillStyle = "#fc03a1";
-    ctx.fillRect(0, 0, 1600, 15);
-    ctx.fillRect(0, 885, 1600, 15);
-    ctx.fillRect(0, 0, 15, 350);
-    ctx.fillRect(0, 550, 15, 350);
-    ctx.fillRect(1585, 0, 15, 350);
-    ctx.fillRect(1585, 550, 15, 350);
+    this.drawCeiling(ctx);
+    this.drawFloor(ctx);
+    this.drawTopRight(ctx);
+    this.drawBottomRight(ctx);
+    this.drawTopLeft(ctx);
+    this.drawBottomLeft(ctx);
   }
 
-  drawBangedCeiling(ctx){
+  drawCeiling(ctx, color = "#fc03a1"){
     ctx.clearRect(0, 0, 1600, 15);
-    ctx.fillStyle = "#ffff00";
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, 1600, 15);
   }
-  drawCeiling(ctx){
-    ctx.clearRect(0, 0, 1600, 15);
-    ctx.fillStyle = "#fc03a1";
-    ctx.fillRect(0, 0, 1600, 15);
-  }
-  drawBangedFloor(ctx){
-    ctx.fillRect(0, 885, 1600, 15);
-    ctx.fillStyle = "#ffff00";
-    ctx.fillRect(0, 885, 1600, 15);
-  }
-  drawFloor(ctx){
+  drawFloor(ctx, color = "#fc03a1"){
     ctx.clearRect(0, 885, 1600, 15);
-    ctx.fillStyle = "#fc03a1";
+    ctx.fillStyle = color;
     ctx.fillRect(0, 885, 1600, 15);
   }
-  drawBangedTopRight(ctx){
-    ctx.fillRect(1585, 0, 15, 350);
-    ctx.fillStyle = "#ffff00";
-    ctx.fillRect(1585, 0, 15, 350);
-  }
-  drawTopRight(ctx){
+  drawTopRight(ctx, color = "#fc03a1"){
     ctx.clearRect(1585, 0, 15, 350);
-    ctx.fillStyle = "#fc03a1";
+    ctx.fillStyle = color;
     ctx.fillRect(1585, 0, 15, 350);
   }
-  drawBangedBottomRight(ctx){
-    ctx.fillRect(1585, 550, 15, 350);
-    ctx.fillStyle = "#ffff00";
-    ctx.fillRect(1585, 550, 15, 350);
-  }
-  drawBottomRight(ctx){
+  drawBottomRight(ctx, color = "#fc03a1"){
     ctx.clearRect(1585, 550, 15, 350);
-    ctx.fillStyle = "#fc03a1";
+    ctx.fillStyle = color;
     ctx.fillRect(1585, 550, 15, 350);
   }
-  drawBangedTopLeft(ctx){
-    ctx.fillRect(0, 0, 15, 350);
-    ctx.fillStyle = "#ffff00";
-    ctx.fillRect(0, 0, 15, 350);
-  }
-  drawTopLeft(ctx){
+  drawTopLeft(ctx, color = "#fc03a1"){
     ctx.clearRect(0, 0, 15, 350);
-    ctx.fillStyle = "#fc03a1";
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, 15, 350);
   }
-  drawBangedBottomLeft(ctx){
-    ctx.fillRect(0, 550, 15, 350);
-    ctx.fillStyle = "#ffff00";
-    ctx.fillRect(0, 550, 15, 350);
-  }
-  drawBottomLeft(ctx){
+  drawBottomLeft(ctx, color = "#fc03a1"){
     ctx.clearRect(0, 550, 15, 350);
-    ctx.fillStyle = "#fc03a1";
+    ctx.fillStyle = color;
     ctx.fillRect(0, 550, 15, 350);
   }
 
   collideWall(ctx, wall){
     switch (wall) {
       case "ceiling":
-        this.drawBangedCeiling(ctx);
+        this.drawCeiling(ctx, "#ffff00");
         setTimeout(() => {
           this.drawCeiling(ctx);
         }, 500);
         break;
       case "floor":
-        this.drawBangedFloor(ctx);
+        this.drawFloor(ctx, "#ffff00");
         setTimeout(() => {
           this.drawFloor(ctx);
         }, 500);
         break;
       case "topRight":
-        this.drawBangedTopRight(ctx);
+        this.drawTopRight(ctx, "#ffff00");
         setTimeout(() => {
           this.drawTopRight(ctx);
         }, 500);
         break;
       case "bottomRight":
-        this.drawBangedBottomRight(ctx);
+        this.drawBottomRight(ctx, "#ffff00");
         setTimeout(() => {
           this.drawBottomRight(ctx);
         }, 500);
         break;
       case "topLeft":
-        this.drawBangedTopLeft(ctx);
+        this.drawTopLeft(ctx, "#ffff00");
         setTimeout(() => {
           this.drawTopLeft(ctx);
         }, 500);
         break;
       case "bottomLeft":
-        this.drawBangedBottomLeft(ctx);
+        this.drawBottomLeft(ctx, "#ffff00");
         setTimeout(() => {
           this.drawBottomLeft(ctx);
         }, 500);
