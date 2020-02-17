@@ -15,7 +15,7 @@ class Play extends React.Component {
       <div className="mainpage-container">
         <NavBarContainer />
         <div className="lobby-container">
-          {/* <center>
+          <center>
             <div className="lobby-content game-lobby">
               <div className="play-container">
                 <div className="title link">Create Lobby</div>
@@ -49,7 +49,7 @@ class Play extends React.Component {
                 socket: this.socket
               }}><div className="buy-button">Lobby 1.5</div></Link>
             </div>
-          </center> */}
+          </center>
         </div>
       </div>
     );
