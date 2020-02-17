@@ -182,6 +182,12 @@ class GameClient {
           );
         }
       ///////
+        this.enemyBoosters.draw(
+          this.ctx,
+          ((this.shipAngle + 180) * Math.PI) / 180,
+          this.allPlayerPos[i].pos.x + this.boosterPosX,
+          this.allPlayerPos[i].pos.y + this.boosterPosY,
+        );
       
       };
     };

@@ -112,7 +112,7 @@ class ClientGame {
           this.ctx,
           ((this.shipAngle + 180) * Math.PI) / 180,
           this.others[i].pos.x + this.boosterPosX,
-          this.others[i].pos.y + this.boosterPosY
+          this.others[i].pos.y + this.boosterPosY,
         );
       }
 
