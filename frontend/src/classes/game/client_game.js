@@ -7,13 +7,10 @@ class ClientGame {
   constructor(socket, room, user) {
     this.socket = socket;
     this.room = room;
-    console.log(this.room)
     this.canvas = document.getElementById('game-canvas');
     this.background = document.getElementById('background-canvas');
     this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
-    this.cooldown = false;
-    this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
     this.boosters = new Booster();
@@ -22,13 +19,11 @@ class ClientGame {
     this.boosterPosY = 0;
     this.drawWalls(this.bgctx)
     
-    this.score = { LEFT: 0, RIGHT: 0 };
     if (user === "Guest") {
       this.user = user
     } else {
       this.user = user.username;
     }
-    this.drawWalls(this.bgctx);
 
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
@@ -40,40 +35,8 @@ class ClientGame {
     this.allBoosterPos = [];
     this.allBoosterPosPrev = this.allBoosterPos
 
-    // Input.applyEventHandlers();
-    // setInterval(() => {
-    //   if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
-    //     this.socket.emit('player-action', {
-    //       room: this.room,
-    //       keyboardState: {
-    //         left: Input.LEFT,
-    //         right: Input.RIGHT,
-    //         up: Input.UP,
-    //         down: Input.DOWN
-    //       }
-    //     });
-    //     console.log(this.room)
-    //   }
-    // }, 20);
-
     document.addEventListener('keydown', e => {
-      if (e.keyCode === 13 && this.winner) {
-        window.location.href = "/"
-      } else {
-        return;
-      }
-    })
-  }
-
-  init() {
-    // this.socket.removeAllListeners()
-    // this.socket.emit('player-join', this.room)
-    this.socket.on('gameState', (data) => {
-      this.cycleAll(this.ctx, data)
-    });
-
-    this.socket.on('updateScore', data => {
-      this.updateScore(data)
+      if (e.keyCode === 13 && this.winner) window.location.href = "/"
     })
   }
 
@@ -88,20 +51,17 @@ class ClientGame {
   clearEntities(ctx) {
     this.ball.clear(ctx)
     this.clearAllShips(ctx);
-    // this.clearAllBoosters(ctx);
     ctx.clearRect(600, 0, 600, 100);
   }
 
   stepEntities(data) {
     this.ball.step(data)
     this.stepAllShips(data);
-    // this.stepAllBoosters(data);
   }
 
   drawEntities(ctx) {
     this.ball.draw(ctx);
     this.drawAllShips(ctx);
-    // this.drawScore(ctx);
   }
 
   clearAllShips(ctx) {
@@ -186,8 +146,6 @@ class ClientGame {
         ctx.fillText(this.user, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y + 60);
         ctx.textAlign = "center";
       }
-
-    //}
   }
 
 
@@ -200,63 +158,6 @@ class ClientGame {
     ctx.fillRect(1585, 0, 15, 350);
     ctx.fillRect(1585, 550, 15, 350);
   }
-
-  // updateScore(score) {
-  //   this.drawGoal(this.ctx)
-  //   this.cooldown = true;
-  //   setTimeout(() => this.cooldown = false, 1000)
-  //   let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
-  //   setTimeout(() => clearInterval(flashGoal), 1000)
-  //   this.score = score
-
-  //   if (this.score.LEFT === 10 || this.score.RIGHT === 10) {
-  //     this.winner = this.user;
-  //     setTimeout(() => this.gameOver(this.ctx), 1000)
-  //   }
-
-  //   if (this.score.RIGHT === 10) {
-  //     this.winner = this.user;
-  //     setTimeout(() => this.gameOver(this.ctx), 1000)
-  //   }
-  // }
-
-  // drawScore(ctx) {
-  //   ctx.fillStyle = "#FFFFFF"
-  //   ctx.font = "40pt Audiowide";
-  //   ctx.textAlign = "center";
-  //   ctx.fillText(this.score.LEFT + "   |   " + this.score.RIGHT, 800, 90);
-  // }
-
-  // drawGoal(ctx) {
-  //   ctx.fillStyle = "#FFFFFF"
-  //   ctx.font = "80px Faster One";
-  //   ctx.textAlign = "center";
-  //   ctx.fillText("GOAL!!", 800, 800);
-  //   setTimeout(() => this.clearGoal(ctx), 100)
-  // }
-
-  // clearGoal(ctx) {
-  //   ctx.clearRect(600, 600, 400, 300);
-  // }
-
-  // gameOver(ctx) {
-  //   this.cooldown = true;
-  //   // this.socket.removeAllListeners()
-  //   ctx.clearRect(0, 0, 1600, 900);
-  //   this.drawScore(ctx)
-  //   ctx.fillStyle = "#FFFFFF"
-  //   ctx.font = "80px Faster One";
-  //   ctx.textAlign = "center";
-  //   ctx.fillText("GAME OVER", 800, 400);
-
-  //   ctx.fillStyle = "#FFFFFF"
-  //   ctx.font = "40pt Audiowide";
-  //   ctx.textAlign = "center";
-  //   ctx.fillText(this.winner + " wins!", 800, 500);
-
-  //   ctx.font = "20pt Audiowide";
-  //   ctx.fillText("press enter to return to lobby", 800, 600);
-  // }
 }
 
 export default ClientGame;
