@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import NavBarContainer from '../navbar/navbar_container';
 
