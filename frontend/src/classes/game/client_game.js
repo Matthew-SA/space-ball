@@ -3,7 +3,7 @@ import Ship from "./entities/ship";
 import Input from './Input';
 import Booster from "./entities/booster";
 
-class GameClient {
+class ClientGame {
   constructor(socket, room, user) {
     this.socket = socket;
     this.room = room;
@@ -40,21 +40,21 @@ class GameClient {
     this.allBoosterPos = [];
     this.allBoosterPosPrev = this.allBoosterPos
 
-    Input.applyEventHandlers();
-    setInterval(() => {
-      if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
-        this.socket.emit('player-action', {
-          room: this.room,
-          keyboardState: {
-            left: Input.LEFT,
-            right: Input.RIGHT,
-            up: Input.UP,
-            down: Input.DOWN
-          }
-        });
-        console.log(this.room)
-      }
-    }, 20);
+    // Input.applyEventHandlers();
+    // setInterval(() => {
+    //   if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
+    //     this.socket.emit('player-action', {
+    //       room: this.room,
+    //       keyboardState: {
+    //         left: Input.LEFT,
+    //         right: Input.RIGHT,
+    //         up: Input.UP,
+    //         down: Input.DOWN
+    //       }
+    //     });
+    //     console.log(this.room)
+    //   }
+    // }, 20);
 
     document.addEventListener('keydown', e => {
       if (e.keyCode === 13 && this.winner) {
@@ -67,7 +67,7 @@ class GameClient {
 
   init() {
     // this.socket.removeAllListeners()
-    this.socket.emit('player-join', this.room)
+    // this.socket.emit('player-join', this.room)
     this.socket.on('gameState', (data) => {
       this.cycleAll(this.ctx, data)
     });
@@ -101,7 +101,7 @@ class GameClient {
   drawEntities(ctx) {
     this.ball.draw(ctx);
     this.drawAllShips(ctx);
-    this.drawScore(ctx);
+    // this.drawScore(ctx);
   }
 
   clearAllShips(ctx) {
@@ -201,62 +201,62 @@ class GameClient {
     ctx.fillRect(1585, 550, 15, 350);
   }
 
-  updateScore(score) {
-    this.drawGoal(this.ctx)
-    this.cooldown = true;
-    setTimeout(() => this.cooldown = false, 1000)
-    let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
-    setTimeout(() => clearInterval(flashGoal), 1000)
-    this.score = score
+  // updateScore(score) {
+  //   this.drawGoal(this.ctx)
+  //   this.cooldown = true;
+  //   setTimeout(() => this.cooldown = false, 1000)
+  //   let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
+  //   setTimeout(() => clearInterval(flashGoal), 1000)
+  //   this.score = score
 
-    if (this.score.LEFT === 10 || this.score.RIGHT === 10) {
-      this.winner = this.user;
-      setTimeout(() => this.gameOver(this.ctx), 1000)
-    }
+  //   if (this.score.LEFT === 10 || this.score.RIGHT === 10) {
+  //     this.winner = this.user;
+  //     setTimeout(() => this.gameOver(this.ctx), 1000)
+  //   }
 
-    if (this.score.RIGHT === 10) {
-      this.winner = this.user;
-      setTimeout(() => this.gameOver(this.ctx), 1000)
-    }
-  }
+  //   if (this.score.RIGHT === 10) {
+  //     this.winner = this.user;
+  //     setTimeout(() => this.gameOver(this.ctx), 1000)
+  //   }
+  // }
 
-  drawScore(ctx) {
-    ctx.fillStyle = "#FFFFFF"
-    ctx.font = "40pt Audiowide";
-    ctx.textAlign = "center";
-    ctx.fillText(this.score.LEFT + "   |   " + this.score.RIGHT, 800, 90);
-  }
+  // drawScore(ctx) {
+  //   ctx.fillStyle = "#FFFFFF"
+  //   ctx.font = "40pt Audiowide";
+  //   ctx.textAlign = "center";
+  //   ctx.fillText(this.score.LEFT + "   |   " + this.score.RIGHT, 800, 90);
+  // }
 
-  drawGoal(ctx) {
-    ctx.fillStyle = "#FFFFFF"
-    ctx.font = "80px Faster One";
-    ctx.textAlign = "center";
-    ctx.fillText("GOAL!!", 800, 800);
-    setTimeout(() => this.clearGoal(ctx), 100)
-  }
+  // drawGoal(ctx) {
+  //   ctx.fillStyle = "#FFFFFF"
+  //   ctx.font = "80px Faster One";
+  //   ctx.textAlign = "center";
+  //   ctx.fillText("GOAL!!", 800, 800);
+  //   setTimeout(() => this.clearGoal(ctx), 100)
+  // }
 
-  clearGoal(ctx) {
-    ctx.clearRect(600, 600, 400, 300);
-  }
+  // clearGoal(ctx) {
+  //   ctx.clearRect(600, 600, 400, 300);
+  // }
 
-  gameOver(ctx) {
-    this.cooldown = true;
-    // this.socket.removeAllListeners()
-    ctx.clearRect(0, 0, 1600, 900);
-    this.drawScore(ctx)
-    ctx.fillStyle = "#FFFFFF"
-    ctx.font = "80px Faster One";
-    ctx.textAlign = "center";
-    ctx.fillText("GAME OVER", 800, 400);
+  // gameOver(ctx) {
+  //   this.cooldown = true;
+  //   // this.socket.removeAllListeners()
+  //   ctx.clearRect(0, 0, 1600, 900);
+  //   this.drawScore(ctx)
+  //   ctx.fillStyle = "#FFFFFF"
+  //   ctx.font = "80px Faster One";
+  //   ctx.textAlign = "center";
+  //   ctx.fillText("GAME OVER", 800, 400);
 
-    ctx.fillStyle = "#FFFFFF"
-    ctx.font = "40pt Audiowide";
-    ctx.textAlign = "center";
-    ctx.fillText(this.winner + " wins!", 800, 500);
+  //   ctx.fillStyle = "#FFFFFF"
+  //   ctx.font = "40pt Audiowide";
+  //   ctx.textAlign = "center";
+  //   ctx.fillText(this.winner + " wins!", 800, 500);
 
-    ctx.font = "20pt Audiowide";
-    ctx.fillText("press enter to return to lobby", 800, 600);
-  }
+  //   ctx.font = "20pt Audiowide";
+  //   ctx.fillText("press enter to return to lobby", 800, 600);
+  // }
 }
 
-export default GameClient;
+export default ClientGame;

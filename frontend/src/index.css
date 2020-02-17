@@ -967,6 +967,15 @@ header {
   z-index: 0;
   background-image: url('./assets/images/space.gif');
 }
+#hud-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 3;
+}
 #game-canvas {
   position: absolute;
   top: 0;

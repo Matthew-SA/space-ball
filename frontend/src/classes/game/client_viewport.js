@@ -28,39 +28,41 @@ class ClientViewPort {
 
   init() {
     this.socket.on('gameState', (data) => {
-      this.clear(this.ctx)
-      this.step(data)
-      this.draw(this.ctx)
+      this.game.cycleAll(this.ctx, data)
     });
-    requestAnimationFrame(() => this.gameLoop())
+    // requestAnimationFrame(() => this.gameLoop())
+    this.gameLoop();
   }
 
   gameLoop() {
-    if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
-      this.socket.emit('player-action', {
-        room: this.room,
-        keyboardState: {
-          left: Input.LEFT,
-          right: Input.RIGHT,
-          up: Input.UP,
-          down: Input.DOWN
-        }
-      });
-    }
-    requestAnimationFrame(() => this.gameLoop())
+    Input.applyEventHandlers();
+    setInterval(() => {
+      if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
+        this.socket.emit('player-action', {
+          room: this.room,
+          keyboardState: {
+            left: Input.LEFT,
+            right: Input.RIGHT,
+            up: Input.UP,
+            down: Input.DOWN
+          }
+        });
+        console.log(this.room)
+      }
+    }, 20);
   }
 
-  clear(ctx) {
-    this.game.clearEntities(ctx);
-  }
+  // clear(ctx) {
+  //   this.game.clearEntities(ctx);
+  // }
 
-  step(data) {
-    this.game.stepEntities(data);
-  }
+  // step(data) {
+  //   this.game.stepEntities(data);
+  // }
 
-  draw(ctx) {
-    this.game.drawEntities(ctx);
-  }
+  // draw(ctx) {
+  //   this.game.drawEntities(ctx);
+  // }
 }
 
 export default ClientViewPort;
