@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Ship from "./ship";
-import { fetchInventory, selectShip } from "../../../actions/inventory_actions";
+import { fetchInventory, selectShip } from "../../../../actions/inventory_actions";
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,

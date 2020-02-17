@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
-import NavBar from "../navbar";
+import NavBarContainer from "../main/navbar/navbar_container";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -63,8 +63,9 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="mainpage-container">
-        <NavBar />
+        <NavBarContainer />
         <div className="form-container-signup">
+          <div className="title">Sign Up for a New Account</div>
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
               <input
@@ -103,10 +104,12 @@ class SignupForm extends React.Component {
               {this.renderErrors()}
             </div>
           </form>
-          <div className="alt-text">
-            <div>Already have an account?</div>
-            <Link to="/login"><div className="link">Login</div></Link>
-          </div>
+          <Link to="/login">
+            <div className="alt-text">
+              <div>Already have an account?</div>
+              <div className="link">Login</div>
+            </div>
+          </Link>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import io from 'socket.io-client';
+import NavBarContainer from '../navbar/navbar_container';
 
 class Play extends React.Component {
   constructor(props) {
@@ -11,9 +12,10 @@ class Play extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mainpage-container">
+        <NavBarContainer />
         <div className="lobby-container">
-          <center>
+          {/* <center>
             <div className="lobby-content game-lobby">
               <div className="play-container">
                 <div className="title link">Create Lobby</div>
@@ -37,15 +39,15 @@ class Play extends React.Component {
               </div>
               <div className="buy-button" onClick={this.handleClick}>Go Back</div>
               <Link to={{
-                pathname: "/waitingroom",
+                pathname: "/lobby",
                 socket: this.socket
               }}><div className="buy-button">Lobby 1</div></Link>
               <Link to={{
-                pathname: "/waitingroom",
+                pathname: "/lobby",
                 socket: this.socket
               }}><div className="buy-button">Lobby 1.5</div></Link>
             </div>
-          </center>
+          </center> */}
         </div>
       </div>
     );

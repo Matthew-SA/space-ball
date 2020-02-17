@@ -1,6 +1,6 @@
 import React from 'react' 
 import { Link } from 'react-router-dom';
-import NavBar from "../navbar";
+import NavBarContainer from "../navbar/navbar_container";
 
 class Lobby extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class Lobby extends React.Component {
         return (
             
             <div className="lobby-container">
-                <NavBar />
+                <NavBarContainer />
                 <div className="lobby-content">
                     <div className="play-container">
                         <div className="instructions">

@@ -14,7 +14,7 @@ class GameView extends React.Component {
   constructor(props) {
     super(props);
     this.socket = this.props.location.socket
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   componentDidMount() {

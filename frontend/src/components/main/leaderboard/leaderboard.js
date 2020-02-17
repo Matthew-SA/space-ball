@@ -1,6 +1,8 @@
 import React from "react";
-import TableContainer from "./table_container";
-import MyStatsContainer from "./myStats/myStats_container";
+import NavBarContainer from "../navbar/navbar_container"
+import BoardContainer from "./board/board_container";
+import StatsContainer from "./stats/stats_container";
+
 
 class Leaderboard extends React.Component {
   constructor(props) {
@@ -24,13 +26,14 @@ class Leaderboard extends React.Component {
     let currentViewPort;
 
     if (selected === "leader") {
-      currentViewPort = <TableContainer />;
+      currentViewPort = <BoardContainer />;
     } else if (selected === "stats") {
-      currentViewPort = <MyStatsContainer />;
+      currentViewPort = <StatsContainer />;
     }
 
     return (
-      <div className="leaderboard-section">
+      <div className="mainpage-container">
+        <NavBarContainer />
         <div className="leaderboard">
           <div className="leaderboard-menu">
             <div className="board-select active" id="leader" onClick={this.handleClick}>
