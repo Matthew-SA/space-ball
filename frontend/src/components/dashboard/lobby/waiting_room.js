@@ -10,9 +10,6 @@ class WaitingRoom extends React.Component {
 
     componentDidMount() {
         this.socket.emit('enter-room', this.room)
-        this.socket.on('test', data => {
-            console.log(data)
-        })
     }
 
     render() {

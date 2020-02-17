@@ -29,11 +29,11 @@ class ClientGame {
     })
   }
 
-  cycleAll(ctx, data) {
+  cycleAll(data) {
     if (!this.winner) {
-      this.clearEntities(ctx)
+      this.clearEntities(this.ctx)
       this.stepEntities(data)
-      this.drawEntities(ctx)
+      this.drawEntities(this.ctx)
     }
   }
 

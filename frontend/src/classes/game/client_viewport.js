@@ -6,8 +6,8 @@ import Input from './Input';
 class ClientViewPort {
   constructor(socket, room, user) {
     // get game canvases
-    this.canvas = document.getElementById('game-canvas');
-    this.ctx = this.canvas.getContext("2d");
+    // this.canvas = document.getElementById('game-canvas');
+    // this.ctx = this.canvas.getContext("2d");
 
     // instantiate game parts
     this.hud = new ClientHud(socket)
@@ -19,8 +19,8 @@ class ClientViewPort {
     this.room = room
     this.user = user
 
+    // adds player to game room on backend
     this.socket.emit('player-join', this.room)
-
 
     // apply game controls
     Input.applyEventHandlers();
@@ -28,13 +28,12 @@ class ClientViewPort {
 
   init() {
     this.socket.on('gameState', (data) => {
-      this.game.cycleAll(this.ctx, data)
+      this.game.cycleAll(data)
     });
     this.gameLoop();
   }
 
   gameLoop() {
-    Input.applyEventHandlers();
     setInterval(() => {
       if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
         this.socket.emit('player-action', {

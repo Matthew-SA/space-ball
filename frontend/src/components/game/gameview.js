@@ -12,10 +12,7 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.socket) {
-      window.location.href = "/waitingroom"
-    }
-    // this.canvas = document.getElementById('game-canvas')
+    if (!this.socket) window.location.href = "/waitingroom"
     this.clientViewPort = new ClientViewPort(this.socket, this.room, this.props.user)
     this.clientViewPort.init()
   };
