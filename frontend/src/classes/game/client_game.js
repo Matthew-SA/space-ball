@@ -8,16 +8,14 @@ class ClientGame {
     this.socket = socket;
     this.room = room;
     this.canvas = document.getElementById('game-canvas');
-    this.background = document.getElementById('background-canvas');
-    this.bgctx = this.background.getContext("2d");
     this.ctx = this.canvas.getContext("2d");
+
     this.ball = new Ball();
     this.ship = new Ship();
     this.boosters = new Booster();
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
-    this.drawWalls(this.bgctx)
     
     if (user === "Guest") {
       this.user = user
@@ -146,17 +144,6 @@ class ClientGame {
         ctx.fillText(this.user, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y + 60);
         ctx.textAlign = "center";
       }
-  }
-
-
-  drawWalls(ctx) {
-    ctx.fillStyle = "#fc03a1";
-    ctx.fillRect(0, 0, 1600, 15);
-    ctx.fillRect(0, 885, 1600, 15);
-    ctx.fillRect(0, 0, 15, 350);
-    ctx.fillRect(0, 550, 15, 350);
-    ctx.fillRect(1585, 0, 15, 350);
-    ctx.fillRect(1585, 550, 15, 350);
   }
 }
 

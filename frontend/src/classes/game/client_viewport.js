@@ -1,5 +1,6 @@
 import ClientHud from './client_hud'
 import ClientGame from './client_game'
+import ClientArena from './client_arena';
 import Input from './Input';
 
 class ClientViewPort {
@@ -7,13 +8,12 @@ class ClientViewPort {
     // get game canvases
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
-    this.background = document.getElementById('background-canvas');
-    this.bgCtx = this.background.getContext("2d");
 
     // instantiate game parts
-    this.game = new ClientGame(socket, room, user);
     this.hud = new ClientHud(socket)
-
+    this.game = new ClientGame(socket, room, user);
+    this.arena = new ClientArena();
+    
     // assign unique user info to game
     this.socket = socket
     this.room = room
@@ -30,7 +30,6 @@ class ClientViewPort {
     this.socket.on('gameState', (data) => {
       this.game.cycleAll(this.ctx, data)
     });
-    // requestAnimationFrame(() => this.gameLoop())
     this.gameLoop();
   }
 
