@@ -26,6 +26,7 @@ class ClientGame {
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png';
+
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
     this.allPlayerInput = [];
@@ -133,7 +134,7 @@ class ClientGame {
             this.allPlayerPos[i].pos.y + this.boosterPosY
           );
         }
-
+        // ctx.drawImage(this.texture, 0, 0)
         ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y);
         ctx.rotate((this.shipAngle * Math.PI) / 180);
         ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);

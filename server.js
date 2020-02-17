@@ -49,7 +49,7 @@ mongoose
 
 mongoose.set('useFindAndModify', false);
 
-// app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
+app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
 // app.use('/shared', express.static(__dirname + '/shared'));
 
 

@@ -1,14 +1,39 @@
-import asdasd from '../../'
-
 class ClientArena {
   constructor() {
     this.background = document.getElementById('background-canvas');
     this.ctx = this.background.getContext("2d");
 
     this.texture = new Image();
-    this.texture.src = './assets/images/maps/overworld-collision.png'
+    this.texture.src = 'images/grid.png'
+
+    this.pos = { x: 0, y: 0 }
 
     this.drawWalls(this.ctx)
+    setTimeout(() => {
+      this.draw1()
+    }, 200);
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.texture,
+      0, // x axis anchor point
+      0, // y axis anchor point
+    )
+  }
+
+  draw1() {
+    this.ctx.drawImage(
+      this.texture,
+      this.pos.x, // x axis anchor point
+      this.pos.y, // y axis anchor point
+      1600,
+      900,
+      0,
+      0,
+      1600,
+      900
+    )
   }
 
   drawWalls(ctx) {
