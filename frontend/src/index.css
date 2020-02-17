@@ -997,7 +997,6 @@ header {
   z-index: 0;
   background-image: url('./assets/images/space.gif');
 }
-
 #hud-canvas {
   position: absolute;
   top: 0;
