@@ -8,10 +8,8 @@ class Ship {
     this.ctx = ctx
     this.user = user === "Guest" ? user : user.username
 
-    this.shipX = 200;
-    this.shipY = 200;
-    this.shipLastX = 200;
-    this.shipLastY = 200;
+    this.pos = { x: 0, y: 0 }
+    this.posPrev = { x: 0, y: 0 }
 
     this.boosters = new Booster();
     this.shipAngle = 0;
@@ -21,27 +19,15 @@ class Ship {
   }
 
   clear(ctx) {
-    // ctx.clearRect(this.shipLastX, this.shipLastY, 70, 70);
-    ctx.clearRect(this.shipX - 100, this.shipY - 80, 200, 200);
+    ctx.clearRect(this.pos.x - 100, this.pos.y - 80, 200, 200);
   }
 
 
   step(data) {
-    this.shipLastX = this.shipX
-    this.shipLastY = this.shipY
-    this.jetDirectionPrev = this.jetDirection
+    this.posPrev = this.pos
+    this.pos = data.self.pos
     this.jetDirection = data.self.jetDirection
-    this.shipX = data.self.pos.x
-    this.shipY = data.self.pos.y
   }
-
-  // draw(ctx) {
-  //   ctx.drawImage(
-  //     this.shipSprite,
-  //     this.shipX,
-  //     this.shipY,
-  //   )
-  // }
 
   draw(ctx) {
     // for (let i = 0; i < this.allPlayerPos.length; i++) {
@@ -88,19 +74,19 @@ class Ship {
         this.boosters.draw(
           this.ctx,
           ((this.shipAngle + 180) * Math.PI) / 180,
-          this.shipX + this.boosterPosX,
-          this.shipY + this.boosterPosY
+          this.pos.x + this.boosterPosX,
+          this.pos.y + this.boosterPosY
         );
       }
-      // ctx.drawImage(this.texture, 0, 0)
-      ctx.setTransform(1, 0, 0, 1, this.shipX, this.shipY);
+
+      ctx.setTransform(1, 0, 0, 1, this.pos.x, this.pos.y);
       ctx.rotate((this.shipAngle * Math.PI) / 180);
       ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
       ctx.fillStyle = "#FFFFFF"
       ctx.font = "16pt Audiowide";
-      ctx.fillText(this.user, this.shipX, this.shipY + 60);
+      ctx.fillText(this.user, this.pos.x, this.pos.y + 60);
       ctx.textAlign = "center";
     }
 }

@@ -9,7 +9,6 @@ class ClientArena {
     this.pos = { x: 0, y: 0 }
 
     setTimeout(() => {
-      // this.draw1()
       this.drawWalls(this.ctx)
     }, 200);
   }
