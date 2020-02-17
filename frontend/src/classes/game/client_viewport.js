@@ -8,8 +8,6 @@ class ClientViewPort {
     // get game canvases
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
-    // this.background = document.getElementById('background-canvas');
-    // this.bgCtx = this.background.getContext("2d");
 
     // instantiate game parts
     this.hud = new ClientHud(socket)
@@ -48,7 +46,6 @@ class ClientViewPort {
             down: Input.DOWN
           }
         });
-        console.log(this.room)
       }
     }, 20);
   }
