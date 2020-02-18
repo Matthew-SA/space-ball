@@ -10,11 +10,13 @@ class ClientGame {
     this.room = room;
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
+    this.background = document.getElementById('background-canvas');
+    this.arenaCtx = this.background.getContext("2d");
 
     this.arena = new ClientArena();
     this.ball = new Ball();
     this.self = new Ship(this.ctx, user);
-    this.camera = new ClientCamera(0,0, 1600, 900, 3200, 1800)
+    this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
     this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
     this.shipAngle = 0;
@@ -44,8 +46,8 @@ class ClientGame {
   }
 
   clearEntities(ctx) {
-    this.ball.clear(ctx)
-    this.self.clear(ctx)
+    this.ball.clear(ctx, this.camera.xView, this.camera.yView)
+    this.self.clear(ctx, this.camera.xView, this.camera.yView)
     this.clearOthers(ctx);
   }
 
@@ -56,9 +58,9 @@ class ClientGame {
   }
 
   drawEntities(ctx) {
-    this.arena.newDraw(this.camera.xView, this.camera.yView)
-    this.ball.draw(ctx);
-    this.self.newDraw(ctx, this.camera.xView, this.camera.yView)
+    this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
+    this.ball.draw(ctx, this.camera.xView, this.camera.yView)
+    this.self.draw(ctx, this.camera.xView, this.camera.yView)
     this.drawOthers(ctx);
   }
 

@@ -1,4 +1,4 @@
-import Rectangle from './entities/rectangle'
+import BoundingBox from './entities/bounding_box'
 var AXIS = {
   NONE: 1,
   HORIZONTAL: 2,
@@ -21,11 +21,11 @@ class ClientCamera {
 
     this.followed = null;
 
-    this.viewPortRect = new Rectangle(
+    this.viewPortRect = new BoundingBox(
       this.xView, this.yView, this.wView, this.hView
       );
 
-    this.worldRect = new Rectangle(0, 0, worldWidth, worldHeight);
+    this.worldRect = new BoundingBox(0, 0, worldWidth, worldHeight);
   }
 
   follow(gameObject, xDeadZone, yDeadZone) {
@@ -37,22 +37,22 @@ class ClientCamera {
   update() {
     if (this.followed != null) {
       if (this.axis == AXIS.HORIZONTAL || this.axis == AXIS.BOTH) {
-        if (this.followed.x - this.xView + this.xDeadZone > this.wView) {
-          this.xView = this.followed.x - (this.wView - this.xDeadZone)
-        } else if (this.followed.x - this.xDeadZone < this.xView) {
-          this.xView = this.followed.x - this.xDeadZone;
+        if (this.followed.pos.x - this.xView + this.xDeadZone > this.wView) {
+          this.xView = this.followed.pos.x - (this.wView - this.xDeadZone)
+        } else if (this.followed.pos.x - this.xDeadZone < this.xView) {
+          this.xView = this.followed.pos.x - this.xDeadZone;
         }
       }
     }
     if (this.axis == AXIS.VERTICAL || this.axis == AXIS.BOTH) {
-      if (this.followed.y - this.yView + this.yDeadZone > this.hView) {
-        this.yView = this.followed.y - (this.hView - this.yDeadZone)
-      } else if (this.followed.y - this.yDeadZone < this.yView) {
-        this.yView = this.followed.y - this.yDeadZone;
+      if (this.followed.pos.y - this.yView + this.yDeadZone > this.hView) {
+        this.yView = this.followed.pos.y - (this.hView - this.yDeadZone)
+      } else if (this.followed.pos.y - this.yDeadZone < this.yView) {
+        this.yView = this.followed.pos.y - this.yDeadZone;
       }
     }
 
-    this.viewPortRect.set(this.xView, this.yView);
+    this.viewPortRect.set(this.xView, this.yView, this.wView, this.hView);
 
     if (!this.viewPortRect.within(this.worldRect)) {
       if (this.viewPortRect.left < this.worldRect.left) {

@@ -1,4 +1,4 @@
-class Rectangle {
+class BoundingBox {
   constructor(left, top, width, height) {
     this.left = left || 0;
     this.top = top || 0;
@@ -32,4 +32,4 @@ class Rectangle {
   }
 }
 
-export default Rectangle;
+export default BoundingBox;
