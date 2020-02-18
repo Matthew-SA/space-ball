@@ -12,7 +12,7 @@ class ClientViewPort {
     // instantiate game parts
     this.hud = new ClientHud(socket)
     this.game = new ClientGame(socket, room, user);
-    this.arena = new ClientArena();
+    // this.arena = new ClientArena();
     
     // assign unique user info to game
     this.socket = socket

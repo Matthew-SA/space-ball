@@ -8,6 +8,9 @@ class Ship {
     this.ctx = ctx
     this.user = user === "Guest" ? user : user.username
 
+    this.width = 60;
+    this.height = 60;
+
     this.pos = { x: 0, y: 0 }
     this.posPrev = { x: 0, y: 0 }
 
@@ -27,6 +30,11 @@ class Ship {
     this.posPrev = this.pos
     this.pos = data.self.pos
     this.jetDirection = data.self.jetDirection
+  }
+
+  newDraw(ctx, xView, yView) {
+    ctx.fillStyle = "red";
+    ctx.fillRect((this.pos.x - this.width / 2) - xView, (this.pos.y - this.height / 2) - yView, this.width, this.height);
   }
 
   draw(ctx) {

@@ -3,8 +3,8 @@ class ClientArena {
     this.background = document.getElementById('background-canvas');
     this.ctx = this.background.getContext("2d");
 
-    this.texture = new Image();
-    this.texture.src = 'images/grid.png'
+    this.image = new Image();
+    this.image.src = 'images/grid.png'
 
     this.pos = { x: 0, y: 0 }
 
@@ -21,11 +21,11 @@ class ClientArena {
     )
   }
 
-  draw1() {
+  newDraw(xView, yView) {
     this.ctx.drawImage(
-      this.texture,
-      this.pos.x, // x axis anchor point
-      this.pos.y, // y axis anchor point
+      this.image,
+      xView, // x axis anchor point
+      yView, // y axis anchor point
       1600,
       900,
       0,

@@ -1,5 +1,7 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
+import ClientArena from "./client_arena"
+import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
 
 class ClientGame {
@@ -9,8 +11,11 @@ class ClientGame {
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
 
+    this.arena = new ClientArena();
     this.ball = new Ball();
     this.self = new Ship(this.ctx, user);
+    this.camera = new ClientCamera(0,0, 1600, 900, 3200, 1800)
+    this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
     this.shipAngle = 0;
     this.boosterPosX = 0;
@@ -33,6 +38,7 @@ class ClientGame {
     if (!this.winner) {
       this.clearEntities(this.ctx)
       this.stepEntities(data)
+      this.camera.update();
       this.drawEntities(this.ctx)
     }
   }
@@ -50,8 +56,9 @@ class ClientGame {
   }
 
   drawEntities(ctx) {
+    this.arena.newDraw(this.camera.xView, this.camera.yView)
     this.ball.draw(ctx);
-    this.self.draw(ctx)
+    this.self.newDraw(ctx, this.camera.xView, this.camera.yView)
     this.drawOthers(ctx);
   }
 
