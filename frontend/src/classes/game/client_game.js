@@ -6,7 +6,7 @@ import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
 
 class ClientGame {
-  constructor(socket, room, user) {
+  constructor(socket, room, user, gameoptions) {
     this.socket = socket;
     this.room = room;
     this.canvas = document.getElementById('game-canvas');
@@ -14,10 +14,14 @@ class ClientGame {
     this.background = document.getElementById('background-canvas');
     this.arenaCtx = this.background.getContext("2d");
 
+    this.gameoptions = {
+      ship: gameoptions[0],
+      ball: gameoptions[1]
+    }
     this.background = new ClientBackground();
     this.arena = new ClientArena();
     this.ball = new Ball();
-    this.self = new Ship(this.ctx, user);
+    this.self = new Ship(this.ctx, user, this.gameoptions.ship);
     this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
     this.camera.follow(this.self,800,450)
     this.boosters = new Booster();

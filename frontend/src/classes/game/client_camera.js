@@ -36,7 +36,7 @@ class ClientCamera {
 
   update() {
     if (this.followed != null) {
-      if (this.axis == AXIS.HORIZONTAL || this.axis == AXIS.BOTH) {
+      if (this.axis === AXIS.HORIZONTAL || this.axis === AXIS.BOTH) {
         if (this.followed.pos.x - this.xView + this.xDeadZone > this.wView) {
           this.xView = this.followed.pos.x - (this.wView - this.xDeadZone)
         } else if (this.followed.pos.x - this.xDeadZone < this.xView) {
@@ -44,7 +44,7 @@ class ClientCamera {
         }
       }
     }
-    if (this.axis == AXIS.VERTICAL || this.axis == AXIS.BOTH) {
+    if (this.axis === AXIS.VERTICAL || this.axis === AXIS.BOTH) {
       if (this.followed.pos.y - this.yView + this.yDeadZone > this.hView) {
         this.yView = this.followed.pos.y - (this.hView - this.yDeadZone)
       } else if (this.followed.pos.y - this.yDeadZone < this.yView) {
