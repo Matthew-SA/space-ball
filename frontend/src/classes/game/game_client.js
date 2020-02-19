@@ -15,10 +15,7 @@ class GameClient {
     this.ball = new Ball();
     this.ship = new Ship();
 
-    ////// very temporary solution for distinguishing other players. easily modifiable when needed.
-    this.boosters = new Booster("red");
-    this.enemyBoosters = new Booster("blue"); 
-    //////
+    this.otherBoosters = new Booster("others"); 
 
     this.shipAngle = 0;
     this.boosterPosX = 0;
@@ -184,25 +181,13 @@ class GameClient {
         this.boosterPosY = -280;
       };
 
-      ////// draws boosters with different colors based on even or odds numbered player ids in the array. Very temporary solution, easily modifiable
       if (!!this.boosterPosX || !!this.boosterPosY) {
-        if(i % 2 === 0){
-          this.boosters.draw(
-          this.ctx,
-          ((this.shipAngle + 180) * Math.PI) / 180,
-          this.allPlayerPos[i].pos.x + this.boosterPosX,
-          this.allPlayerPos[i].pos.y + this.boosterPosY,
-          );
-        } else {
-          this.enemyBoosters.draw(
-          this.ctx,
-          ((this.shipAngle + 180) * Math.PI) / 180,
-          this.allPlayerPos[i].pos.x + this.boosterPosX,
-          this.allPlayerPos[i].pos.y + this.boosterPosY,
-          );
-        }
-      ///////
-      
+        this.otherBoosters.draw(
+        this.ctx,
+        ((this.shipAngle + 180) * Math.PI) / 180,
+        this.allPlayerPos[i].pos.x + this.boosterPosX,
+        this.allPlayerPos[i].pos.y + this.boosterPosY,
+        );      
       };
     };
   };
@@ -304,14 +289,6 @@ class GameClient {
       default:
         break;
     }
-
-    // if (wall === "ceiling"){
-    //   this.drawBangedCeiling(ctx);
-    //   setTimeout(() => {
-    //     this.drawCeiling(ctx);
-    //   }, 500);
-    // }
-
   }
 
   updateScore(score) {

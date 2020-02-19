@@ -3,8 +3,8 @@ class Ball {
     this.ballSprite = new Image();
     this.ballSprite.src = 'images/earth_ball2.png'
 
-    this.ballX = 0
-    this.ballY = 0
+    this.ballX = 0;
+    this.ballY = 0;
   }
 
   clear(ctx, xView, yView) {
