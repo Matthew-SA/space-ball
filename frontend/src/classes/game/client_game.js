@@ -17,7 +17,6 @@ class ClientGame {
       ship: gameoptions[0],
       ball: gameoptions[1]
     }
-    this.background = new ClientBackground();
     this.arena = new ClientArena();
     this.ball = new Ball();
     this.self = new Ship(this.ctx, user, this.gameoptions.ship);
