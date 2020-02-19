@@ -5,8 +5,6 @@ class ClientArena {
 
     this.image = new Image();
     this.image.src = 'images/grid.png'
-
-    this.pos = { x: 0, y: 0 }
   }
 
   draw(ctx, xView, yView) {
