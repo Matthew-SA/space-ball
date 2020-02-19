@@ -1,9 +1,25 @@
 import Booster from "./booster";
 
 class Ship {
-  constructor(ctx, user) {
+  constructor(ctx, user, selectedShip) {
+    
     this.shipSprite = new Image();
-    this.shipSprite.src = "images/default_ship.png";
+    switch (selectedShip) {
+      case ("Default"):
+        this.shipSprite.src = "images/default_ship.png";
+        break;
+      case ("Red"):
+        this.shipSprite.src = "images/red_ship.png";
+        break;
+      case ("Green"):
+        this.shipSprite.src = "images/green_ship.png";
+        break;
+      case ("Blue"):
+        this.shipSprite.src = "images/blue_ship.png";
+        break;
+      default:
+        this.shipSprite.src = "images/default_ship.png";
+    }
 
     this.ctx = ctx
     this.user = user === "Guest" ? user : user.username

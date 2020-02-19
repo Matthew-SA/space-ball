@@ -12,13 +12,14 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.socket) window.location.href = "/waitingroom"
-    this.clientViewPort = new ClientViewPort(this.socket, this.room, this.props.user)
-    this.clientViewPort.init()
+    if (!this.socket) window.location.href = "/play";
+    this.clientViewPort = new ClientViewPort(this.socket, this.room, this.props.user, this.props.gameoptions);
+    this.clientViewPort.init();
+    this.props.fetchInventory();
   };
   
   componentWillUnmount() {
-    this.socket.disconnect()
+    this.socket.disconnect();
   }
 
   render() {
