@@ -48,7 +48,7 @@ class ClientGame {
   clearEntities(ctx) {
     this.ball.clear(ctx, this.camera.xView, this.camera.yView)
     this.self.clear(ctx, this.camera.xView, this.camera.yView)
-    this.clearOthers(ctx);
+    this.clearOthers(ctx, this.camera.xView, this.camera.yView);
   }
 
   stepEntities(data) {
@@ -61,12 +61,12 @@ class ClientGame {
     this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
     this.ball.draw(ctx, this.camera.xView, this.camera.yView)
     this.self.draw(ctx, this.camera.xView, this.camera.yView)
-    this.drawOthers(ctx);
+    this.drawOthers(ctx, this.camera.xView, this.camera.yView);
   }
 
-  clearOthers(ctx) {
+  clearOthers(ctx, xView, yView) {
     for (let player of this.others) {
-      ctx.clearRect(player.pos.x - 100, player.pos.y - 80, 200, 200);
+      ctx.clearRect(player.pos.x - 100 - xView, player.pos.y - 80 - yView, 200, 200);
     }
   }
 
@@ -75,7 +75,7 @@ class ClientGame {
     this.others = data.others;
   }
 
-  drawOthers(ctx) {
+  drawOthers(ctx, xView, yView) {
     for (let i = 0; i < this.others.length; i++){
       let jetDirection = this.others[i].jetDirection;
       if(jetDirection.x === 0 && jetDirection.y === 0){
@@ -120,19 +120,19 @@ class ClientGame {
         this.boosters.draw(
           this.ctx,
           ((this.shipAngle + 180) * Math.PI) / 180,
-          this.others[i].pos.x + this.boosterPosX,
-          this.others[i].pos.y + this.boosterPosY
+          this.others[i].pos.x - xView + this.boosterPosX,
+          this.others[i].pos.y - yView + this.boosterPosY
         );
       }
 
-      ctx.setTransform(1, 0, 0, 1, this.others[i].pos.x, this.others[i].pos.y);
+      ctx.setTransform(1, 0, 0, 1, this.others[i].pos.x - xView, this.others[i].pos.y - yView);
       ctx.rotate((this.shipAngle * Math.PI) / 180);
       ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
       ctx.fillStyle = "#FFFFFF"
       ctx.font = "16pt Audiowide";
-      ctx.fillText(this.user, this.others[i].pos.x, this.others[i].pos.y + 60);
+      ctx.fillText(this.user, this.others[i].pos.x - xView, this.others[i].pos.y + 60 - yView);
       ctx.textAlign = "center";
     }
   }
