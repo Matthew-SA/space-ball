@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")); 
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
 
@@ -49,7 +49,7 @@ mongoose
 
 mongoose.set('useFindAndModify', false);
 
-// app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
+app.use('/public', express.static(__dirname + '/public')); // static used for static assests!?
 // app.use('/shared', express.static(__dirname + '/shared'));
 
 
@@ -61,35 +61,41 @@ const io = socketIO(server, {
 });
 app.set('port', PORT);
 // end websocket initialization
-
-
-const serverGame = new ServerGame(io);
-
-// console.log(data.bodies[0])
-// console.log(serverEngine.world.bodies)
-
-// Websocket logic below
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("../frontend/public/index.html"));
 });
 
+// Websocket logic below
+
+const gameList = {}
+
 io.on('connection', (socket) => {
-  socket.removeAllListeners()
-  socket.on('player-join', () => {
-    serverGame.addNewPlayer(socket);
+  console.log('***USER CONNECTED***')
+
+
+  socket.on('enter-room', (roomNum) => {
+    socket.join("room-" + roomNum)
+    // console.log(Object.keys(gameList))
+    // console.log('joined ' + roomNum + '!')
+  })
+
+  socket.on('player-join', (roomNum) => {
+    // console.log('player joined ' + this.room)
+    if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
+    gameList[roomNum].addNewPlayer(socket)
   });
 
   socket.on('player-action', data => {
-    // serverGame.getAllInput(socket.id, data)
-    serverGame.getInput(socket.id, data)
-    serverGame.movePlayer(socket.id, data)
-
+    let roomNum = data.room;
+    // gameList[roomNum].getInput(socket.id, data)
+    gameList[roomNum].movePlayer(socket.id, data)
   });
-  
+
   socket.on('disconnect', () => {
-    serverGame.removePlayer(socket.id,socket)
+    // serverGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
+
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
