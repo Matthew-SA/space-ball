@@ -87,12 +87,12 @@ io.on('connection', (socket) => {
 
   socket.on('player-action', data => {
     let roomNum = data.room;
-    // gameList[roomNum].getInput(socket.id, data)
     gameList[roomNum].movePlayer(socket.id, data)
   });
 
   socket.on('disconnect', () => {
-    // serverGame.removePlayer(socket.id,socket)
+    
+    // ServerGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
