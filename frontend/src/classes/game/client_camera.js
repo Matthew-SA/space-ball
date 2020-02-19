@@ -35,7 +35,7 @@ class ClientCamera {
   }
 
   update() {
-    if (this.followed != null) {
+    if (this.followed !== null) {
       if (this.axis === AXIS.HORIZONTAL || this.axis === AXIS.BOTH) {
         if (this.followed.pos.x - this.xView + this.xDeadZone > this.wView) {
           this.xView = this.followed.pos.x - (this.wView - this.xDeadZone)
