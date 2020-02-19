@@ -1,5 +1,6 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
+import ClientBackground from "./client_background"
 import ClientArena from "./client_arena"
 import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
@@ -13,6 +14,7 @@ class ClientGame {
     this.background = document.getElementById('background-canvas');
     this.arenaCtx = this.background.getContext("2d");
 
+    this.background = new ClientBackground();
     this.arena = new ClientArena();
     this.ball = new Ball();
     this.self = new Ship(this.ctx, user);
@@ -58,6 +60,7 @@ class ClientGame {
   }
 
   drawEntities(ctx) {
+    this.background.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
     this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
     this.ball.draw(ctx, this.camera.xView, this.camera.yView)
     this.self.draw(ctx, this.camera.xView, this.camera.yView)

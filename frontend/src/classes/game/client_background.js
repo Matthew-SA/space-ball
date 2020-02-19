@@ -1,17 +1,17 @@
-class ClientArena {
+class ClientBackground {
   constructor() {
     this.background = document.getElementById('background-canvas');
     this.ctx = this.background.getContext("2d");
 
     this.image = new Image();
-    this.image.src = 'images/grid.png'
+    this.image.src = 'images/grid2.png'
   }
 
   draw(ctx, xView, yView) {
     ctx.drawImage(
       this.image,
-      xView, // x axis anchor point
-      yView, // y axis anchor point
+      xView / 2, // x axis anchor point
+      yView / 2, // y axis anchor point
       1600,
       900,
       0,
@@ -22,4 +22,4 @@ class ClientArena {
   }
 }
 
-export default ClientArena;
+export default ClientBackground;
