@@ -14,11 +14,36 @@ class GameClient {
     this.winner = null;
     this.ball = new Ball();
     this.ship = new Ship();
-    this.boosters = new Booster();
+
+    ////// very temporary solution for distinguishing other players. easily modifiable when needed.
+    this.boosters = new Booster("red");
+    this.enemyBoosters = new Booster("blue"); 
+    //////
+
     this.shipAngle = 0;
     this.boosterPosX = 0;
     this.boosterPosY = 0;
+    
     this.drawWalls(this.bgctx)
+    
+    this.socket.on('ceiling', () => {
+      this.collideWall(this.bgctx, "ceiling")
+    });
+    this.socket.on('floor', () => {
+      this.collideWall(this.bgctx, "floor")
+    });
+    this.socket.on('topRight', () => {
+      this.collideWall(this.bgctx, "topRight")
+    });
+    this.socket.on('bottomRight', () => {
+      this.collideWall(this.bgctx, "bottomRight")
+    });
+    this.socket.on('topLeft', () => {
+      this.collideWall(this.bgctx, "topLeft")
+    });
+    this.socket.on('bottomLeft', () => {
+      this.collideWall(this.bgctx, "bottomLeft")
+    });
     
     this.score = { LEFT: 0, RIGHT: 0 };
     if (user === "Guest") {
@@ -33,10 +58,6 @@ class GameClient {
     this.shipSprite.src = 'images/default_ship.png';
     this.allPlayerPos = [];
     this.allPlayerPosPrev = this.allPlayerPos
-    this.allPlayerInput = [];
-    this.allPlayerInputPrev = this.allPlayerInput
-    this.allBoosterPos = [];
-    this.allBoosterPosPrev = this.allBoosterPos
 
     Input.applyEventHandlers();
     setInterval(() => {
@@ -75,7 +96,7 @@ class GameClient {
 
     this.socket.on('updateScore', data => {
       this.updateScore(data)
-    })
+    });
   }
 
   cycleAll(ctx, data) {
@@ -96,11 +117,12 @@ class GameClient {
   stepEntities(data) {
     this.ball.step(data)
     this.stepAllShips(data);
-    this.stepAllBoosters(data);
+    // this.stepAllBoosters(data);
   }
 
   drawEntities(ctx) {
     this.ball.draw(ctx);
+    this.drawAllBoosters();
     this.drawAllShips(ctx);
     this.drawScore(ctx);
   }
@@ -112,7 +134,7 @@ class GameClient {
   }
 
   clearAllBoosters(ctx) {
-    for (let player of this.allBoosterPos) {
+    for (let player of this.allPlayerPos) {
       this.ctx.clearRect(player.pos.x - 100, player.pos.y - 100, 250, 280);
     }
   }
@@ -122,84 +144,174 @@ class GameClient {
     this.allPlayerPos = data.ships
   }
 
-  stepAllBoosters(data) {
-    this.allBoosterPosPrev = this.allBoosterPos
-    this.allBoosterPos = data.ships
-  }
+  drawAllBoosters(){
+    for(let i = 0; i < this.allPlayerPos.length; i++){
+      let jetDirection = this.allPlayerPos[i].jetDirection;
+      if (jetDirection.x === 0 && jetDirection.y === 0) {
+        this.boosterPosX = 0;
+        this.boosterPosY = 0;
+      } else if (jetDirection.x > 0 && jetDirection.y > 0) {
+        this.shipAngle = 45;
+        this.boosterPosX = 95;
+        this.boosterPosY = -467;
+      } else if (jetDirection.x > 0 && jetDirection.y < 0) {
+        this.shipAngle = 135;
+        this.boosterPosX = 121;
+        this.boosterPosY = -163;
+      } else if (jetDirection.y < 0 && jetDirection.x < 0) {
+        this.shipAngle = 225;
+        this.boosterPosX = -182;
+        this.boosterPosY = -134;
+      } else if (jetDirection.y > 0 && jetDirection.x < 0) {
+        this.shipAngle = 315;
+        this.boosterPosX = -212;
+        this.boosterPosY = -437;
+      } else if (jetDirection.y > 0) {
+        this.shipAngle = 0;
+        this.boosterPosX = -65;
+        this.boosterPosY = -515;
+      } else if (jetDirection.x > 0) {
+        this.shipAngle = 90;
+        this.boosterPosX = 169;
+        this.boosterPosY = -320;
+      } else if (jetDirection.y < 0) {
+        this.shipAngle = 180;
+        this.boosterPosX = -25;
+        this.boosterPosY = -83;
+      } else if (jetDirection.x < 0) {
+        this.shipAngle = 270;
+        this.boosterPosX = -260;
+        this.boosterPosY = -280;
+      };
+
+      ////// draws boosters with different colors based on even or odds numbered player ids in the array. Very temporary solution, easily modifiable
+      if (!!this.boosterPosX || !!this.boosterPosY) {
+        if(i % 2 === 0){
+          this.boosters.draw(
+          this.ctx,
+          ((this.shipAngle + 180) * Math.PI) / 180,
+          this.allPlayerPos[i].pos.x + this.boosterPosX,
+          this.allPlayerPos[i].pos.y + this.boosterPosY,
+          );
+        } else {
+          this.enemyBoosters.draw(
+          this.ctx,
+          ((this.shipAngle + 180) * Math.PI) / 180,
+          this.allPlayerPos[i].pos.x + this.boosterPosX,
+          this.allPlayerPos[i].pos.y + this.boosterPosY,
+          );
+        }
+      ///////
+      
+      };
+    };
+  };
 
   drawAllShips(ctx) {
     for (let i = 0; i < this.allPlayerPos.length; i++){
-        let jetDirection = this.allPlayerPos[i].jetDirection;
-        if(jetDirection.x === 0 && jetDirection.y === 0){
-          this.boosterPosX = false;
-          this.boosterPosY = false;
-        }
-          else if(jetDirection.x > 0 && jetDirection.y > 0){
-          this.shipAngle = 45;
-          this.boosterPosX = 95;
-          this.boosterPosY = -467;
-        } else if(jetDirection.x > 0 && jetDirection.y < 0){
-          this.shipAngle = 135;
-          this.boosterPosX = 121;
-          this.boosterPosY = -163;
-        } else if(jetDirection.y < 0 && jetDirection.x < 0){
-          this.shipAngle = 225;
-          this.boosterPosX = -182;
-          this.boosterPosY = -134;
-        } else if(jetDirection.y > 0 && jetDirection.x < 0){
-          this.shipAngle = 315;
-          this.boosterPosX = -212;
-          this.boosterPosY = -437;
-        } else if(jetDirection.y > 0){
-          this.shipAngle = 0;
-          this.boosterPosX = -65;
-          this.boosterPosY = -515;
-        } else if(jetDirection.x > 0) {
-          this.shipAngle = 90;
-          this.boosterPosX = 169;
-          this.boosterPosY = -320;
-        } else if(jetDirection.y < 0) {
-          this.shipAngle = 180;
-          this.boosterPosX = -25;
-          this.boosterPosY = -83;
-        } else if(jetDirection.x < 0) {
-          this.shipAngle = 270;
-          this.boosterPosX = -260;
-          this.boosterPosY = -280;
-        } 
+      let playerPos = this.allPlayerPos[i].pos;
+      ctx.setTransform(1, 0, 0, 1, playerPos.x, playerPos.y);
+      ctx.rotate((this.shipAngle * Math.PI) / 180);
+      ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-        if(this.boosterPosX || this.boosterPosY){
-          this.boosters.draw(
-            this.ctx,
-            ((this.shipAngle + 180) * Math.PI) / 180,
-            this.allPlayerPos[i].pos.x + this.boosterPosX,
-            this.allPlayerPos[i].pos.y + this.boosterPosY
-          );
-        }
-
-        ctx.setTransform(1, 0, 0, 1, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y);
-        ctx.rotate((this.shipAngle * Math.PI) / 180);
-        ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-        ctx.fillStyle = "#FFFFFF"
-        ctx.font = "16pt Audiowide";
-        ctx.fillText(this.user, this.allPlayerPos[i].pos.x, this.allPlayerPos[i].pos.y + 60);
-        ctx.textAlign = "center";
-      }
-
-    //}
-  }
+      ctx.fillStyle = "#FFFFFF"
+      ctx.font = "16pt Audiowide";
+      ctx.fillText(this.user, playerPos.x, playerPos.y + 60);
+      ctx.textAlign = "center";
+    };
+  };
 
 
   drawWalls(ctx) {
-    ctx.fillStyle = "#fc03a1";
+    this.drawCeiling(ctx);
+    this.drawFloor(ctx);
+    this.drawTopRight(ctx);
+    this.drawBottomRight(ctx);
+    this.drawTopLeft(ctx);
+    this.drawBottomLeft(ctx);
+  }
+
+  drawCeiling(ctx, color = "#fc03a1"){
+    ctx.clearRect(0, 0, 1600, 15);
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, 1600, 15);
+  }
+  drawFloor(ctx, color = "#fc03a1"){
+    ctx.clearRect(0, 885, 1600, 15);
+    ctx.fillStyle = color;
     ctx.fillRect(0, 885, 1600, 15);
-    ctx.fillRect(0, 0, 15, 350);
-    ctx.fillRect(0, 550, 15, 350);
+  }
+  drawTopRight(ctx, color = "#fc03a1"){
+    ctx.clearRect(1585, 0, 15, 350);
+    ctx.fillStyle = color;
     ctx.fillRect(1585, 0, 15, 350);
+  }
+  drawBottomRight(ctx, color = "#fc03a1"){
+    ctx.clearRect(1585, 550, 15, 350);
+    ctx.fillStyle = color;
     ctx.fillRect(1585, 550, 15, 350);
+  }
+  drawTopLeft(ctx, color = "#fc03a1"){
+    ctx.clearRect(0, 0, 15, 350);
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 15, 350);
+  }
+  drawBottomLeft(ctx, color = "#fc03a1"){
+    ctx.clearRect(0, 550, 15, 350);
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 550, 15, 350);
+  }
+
+  collideWall(ctx, wall){
+    switch (wall) {
+      case "ceiling":
+        this.drawCeiling(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawCeiling(ctx);
+        }, 500);
+        break;
+      case "floor":
+        this.drawFloor(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawFloor(ctx);
+        }, 500);
+        break;
+      case "topRight":
+        this.drawTopRight(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawTopRight(ctx);
+        }, 500);
+        break;
+      case "bottomRight":
+        this.drawBottomRight(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawBottomRight(ctx);
+        }, 500);
+        break;
+      case "topLeft":
+        this.drawTopLeft(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawTopLeft(ctx);
+        }, 500);
+        break;
+      case "bottomLeft":
+        this.drawBottomLeft(ctx, "#ffff00");
+        setTimeout(() => {
+          this.drawBottomLeft(ctx);
+        }, 500);
+        break;
+      default:
+        break;
+    }
+
+    // if (wall === "ceiling"){
+    //   this.drawBangedCeiling(ctx);
+    //   setTimeout(() => {
+    //     this.drawCeiling(ctx);
+    //   }, 500);
+    // }
+
   }
 
   updateScore(score) {
