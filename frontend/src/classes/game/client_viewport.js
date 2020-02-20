@@ -1,6 +1,6 @@
 import ClientHud from './client_hud'
 import ClientGame from './client_game'
-import ClientArena from './client_arena';
+// import ClientArena from './client_arena';
 import Input from './Input';
 
 class ClientViewPort {
