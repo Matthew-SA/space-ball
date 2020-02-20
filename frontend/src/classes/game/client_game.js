@@ -1,6 +1,6 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
-import Goals from "./entities/Goals"
+import Goals from "./entities/goals"
 import ClientArena from "./client_arena"
 import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
