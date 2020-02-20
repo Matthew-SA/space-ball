@@ -66,6 +66,10 @@ class ClientHud {
 
     ctx.font = "20pt Audiowide";
     ctx.fillText("press enter to return to lobby", 800, 600);
+
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === 13 && this.winner) window.location.href = "/"
+    })
   }
 }
 
