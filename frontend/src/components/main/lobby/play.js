@@ -17,18 +17,10 @@ class Play extends React.Component {
                 <div className="lobby-container">
                     <center>
                         <div className="lobby-content game-lobby">
-                            <div className="play-container">
+                            <div className="box">
                                 <div className="title link">Create Lobby</div>
                             </div>
-                            {/* <div className="play-container">
-                <div className="title">Join Lobby</div>
-                <br />
-                <input className="input-field" type="text"></input>
-                <center>
-                  <div className="join-button">Join</div>
-                </center>
-              </div> */}
-                            <div className="play-container">
+                            <div className="box">
                                 <div className="title">How To Play:</div>
                                 <div className="instructions">Push the ball towards the oppenent's goal. <br />
                                     Score by getting the ball into the goal. <br />

@@ -1,5 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import NavBarContainer from "../main/navbar/navbar_container";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -12,10 +13,13 @@ class LoginForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
-    this.signupOrLogin = this.signupOrLogin.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
   }
-  // Handle field updates (called in the render method)
+
+  componentDidMount() {
+    this.props.clearErrors();
+  }
+
   update(field) {
     return e =>
       this.setState({
@@ -23,7 +27,6 @@ class LoginForm extends React.Component {
       });
   }
 
-  // Handle form submission
   handleSubmit(e) {
     e.preventDefault();
     let user = {
@@ -31,18 +34,18 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
     this.props.login(user);
-    
+
   }
 
-  signupOrLogin() {
-    Array.from(
-      document.getElementsByClassName("form-container-signup")
-    ).forEach(el => el.classList.remove("hidden"));
-    Array.from(
-      document.getElementsByClassName("form-container-login")
-    ).forEach(el => el.classList.add("hidden"));
-    this.props.clearErrors();
-  }
+  // signupOrLogin() {
+  //   Array.from(
+  //     document.getElementsByClassName("form-container-signup")
+  //   ).forEach(el => el.classList.remove("hidden"));
+  //   Array.from(
+  //     document.getElementsByClassName("form-container-login")
+  //   ).forEach(el => el.classList.add("hidden"));
+  //   this.props.clearErrors();
+  // }
 
   demo(user) {
     const intervalSpeed = 70;
@@ -102,36 +105,39 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="form-container-login">
-        <form onSubmit={this.handleSubmit}>
-          <div className="login-form">
-            <input
-              className="input-field"
-              type="text"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder="Username"
-            />
-            <br />
-            <input
-              className="input-field"
-              type="password"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder="Password"
-            />
-            <br />
-            <input className="submit-button" type="submit" value="LOG IN" />
-            <br />
-            <button className="demo-login-button" onClick={this.handleDemo} type="button">DEMO LOG IN</button>
-            {this.renderErrors()}
-          </div>
-        </form>
-        <div className="alt-text">
-          <div>Create an account?</div>
-          <div className="pointer" onClick={this.signupOrLogin}>
-            Sign Up
-          </div>
+      <div className="mainpage-container">
+        <NavBarContainer />
+        <div className="form-container-login">
+          <form onSubmit={this.handleSubmit}>
+            <div className="login-form">
+              <input
+                className="input-field"
+                type="text"
+                value={this.state.username}
+                onChange={this.update("username")}
+                placeholder="Username"
+              />
+              <br />
+              <input
+                className="input-field"
+                type="password"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder="Password"
+              />
+              <br />
+              <input className="submit-button" type="submit" value="LOG IN" />
+              <br />
+              <button className="demo-login-button" onClick={this.handleDemo} type="button">DEMO LOG IN</button>
+              {this.renderErrors()}
+            </div>
+          </form>
+          <Link to="signup">
+            <div className="alt-text">
+              <div>Create an account?</div>
+              <div className="link">Sign Up</div>
+            </div>
+          </Link>
         </div>
       </div>
     );
