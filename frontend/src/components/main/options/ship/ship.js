@@ -11,7 +11,7 @@ class Ship extends React.Component {
     this.handleSelectChild = this.handleSelectChild.bind(this);
     this.selectShip = this.selectShip.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.toggleSelect();
   }
@@ -45,13 +45,13 @@ class Ship extends React.Component {
       )
     } else if (ships.includes(optionSelection)) {
       return (
-        <div className="select-ship" 
-        onClick={this.selectShip}>SELECT THIS SHIP</div>
+        <div className="select-ship"
+          onClick={this.selectShip}>SELECT THIS SHIP</div>
       )
     } else {
       return (
         <div>
-          <div className="unavailable">ACQUIRE SHIP TO USE</div>
+          <div className="unavailable">SHIP NOT IN INVENTORY</div>
         </div>
       )
     }
@@ -67,11 +67,11 @@ class Ship extends React.Component {
             onClick={this.handleSelectChild}>
             Default
           </div>
-          <div className="select-button" id="Red" 
+          <div className="select-button" id="Red"
             onClick={this.handleSelectChild}>
             Red
           </div>
-          <div className="select-button"  id="Green"
+          <div className="select-button" id="Green"
             onClick={this.handleSelectChild}>
             Green
           </div>

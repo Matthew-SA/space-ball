@@ -1,15 +1,16 @@
 import React from "react";
 import ShipContainer from "./ship/ship_container";
 import BallContainer from "./ball/ball_container";
+import NavBarContainer from "../navbar/navbar_container";
 
-class Toggle extends React.Component {
+class Options extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       selected: "ship",
       optionSelection: "Default"
-    };
+    }
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -64,11 +65,11 @@ class Toggle extends React.Component {
       buy.then(() => {
         this.props.changeCurrency(-500)
       })
-      .then(() => {
-        setTimeout(() => {
-          this.props.fetchInventory();
-        }, 50);
-      })
+        .then(() => {
+          setTimeout(() => {
+            this.props.fetchInventory();
+          }, 50);
+        })
     } else {
       alert("NOT ENOUGH MONEY! Play more, earn more.")
     }
@@ -82,46 +83,46 @@ class Toggle extends React.Component {
       buy.then(() => {
         this.props.changeCurrency(-500)
       })
-      .then(() => {
-        setTimeout(() => {
-          this.props.fetchInventory();
-        }, 50);
-      })
+        .then(() => {
+          setTimeout(() => {
+            this.props.fetchInventory();
+          }, 50);
+        })
     } else {
       alert("NOT ENOUGH MONEY! Play more, earn more.")
     }
   }
 
- sellShip() {
-   this.props.removeShip(this.state.optionSelection)
-   this.props.selectShip("Default")
-   setTimeout(() => {
-     this.props.changeCurrency(500)
-   }, 50);
-   setTimeout(() => {
-     this.props.fetchInventory();
-   }, 100);
- }
+  sellShip() {
+    this.props.removeShip(this.state.optionSelection)
+    this.props.selectShip("Default")
+    setTimeout(() => {
+      this.props.changeCurrency(500)
+    }, 50);
+    setTimeout(() => {
+      this.props.fetchInventory();
+    }, 100);
+  }
 
- sellBall() {
-   this.props.removeBall(this.state.optionSelection)
-   this.props.selectBall("Earth")
-   setTimeout(() => {
-     this.props.changeCurrency(500)
-   }, 50);
-   setTimeout(() => {
-     this.props.fetchInventory();
-   }, 100);
- }
+  sellBall() {
+    this.props.removeBall(this.state.optionSelection)
+    this.props.selectBall("Earth")
+    setTimeout(() => {
+      this.props.changeCurrency(500)
+    }, 50);
+    setTimeout(() => {
+      this.props.fetchInventory();
+    }, 100);
+  }
 
   leftViewPort() {
     const selected = this.state.selected;
     if (selected === "ship") {
-      return <ShipContainer handleSelect = {this.handleSelect}
-        toggleSelect = {this.toggleSelect} />
+      return <ShipContainer handleSelect={this.handleSelect}
+        toggleSelect={this.toggleSelect} />
     } else {
-      return <BallContainer handleSelect = {this.handleSelect}
-        toggleSelect = {this.toggleSelect} />
+      return <BallContainer handleSelect={this.handleSelect}
+        toggleSelect={this.toggleSelect} />
     }
   }
 
@@ -130,16 +131,16 @@ class Toggle extends React.Component {
 
     if (optionSelection === "Default") {
       return (
-        <img src="images/ship-default.png" className="ship" alt="defaultship" />
+        <img src="images/default_ship_full.png" className="ship" alt="defaultship" />
       );
     } else if (optionSelection === "Red") {
-      return <img src="images/ship-red.png" className="ship" alt="redship" />;
+      return <img src="images/red_ship_full.png" className="ship" alt="redship" />;
     } else if (optionSelection === "Green") {
       return (
-        <img src="images/greenship.png" className="ship" alt="greenship" />
+        <img src="images/green_ship_full.png" className="ship" alt="greenship" />
       );
     } else if (optionSelection === "Blue") {
-      return <img src="images/ship-blue.png" className="ship" alt="blueship" />;
+      return <img src="images/blue_ship_full.png" className="ship" alt="blueship" />;
     } else if (optionSelection === "Earth") {
       return <img className="ball" src="images/earth.png" alt="earth" />;
     } else if (optionSelection === "Soccer") {
@@ -163,7 +164,7 @@ class Toggle extends React.Component {
             <div className="default-button">Default</div>
           </div>
         );
-      } else { 
+      } else {
         return (
           <div className="purchase-container">
             <div className="price">$500</div>
@@ -225,30 +226,32 @@ class Toggle extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
     return (
-      <div className="options-container">
-        <div className="customize-panel">
-          <div className="customize-title">Game Options</div>
-          <div className="select-customization">
-            <div className="customize active" id="ship"
-              onClick={this.handleClick}>
-              Ship
+      <div className="mainpage-container">
+        <NavBarContainer />
+        <div className="options-container">
+          <div className="customize-panel">
+            <div className="customize-title">Game Options</div>
+            <div className="select-customization">
+              <div className="customize active" id="ship"
+                onClick={this.handleClick}>
+                Ship
             </div>
-            <div className="customize" id="ball"
-              onClick={this.handleClick}>
-              Ball
+              <div className="customize" id="ball"
+                onClick={this.handleClick}>
+                Ball
             </div>
+            </div>
+            <div>{this.leftViewPort()}</div>
           </div>
-          <div>{this.leftViewPort()}</div>
-        </div>
-        <div className="picture-container">
-          {this.rightViewPort()}
-          {this.purchaseOption()}
+          <div className="picture-container">
+            {this.rightViewPort()}
+            {this.purchaseOption()}
+          </div>
         </div>
       </div>
     );
   }
-}
+};
 
-export default Toggle;
+export default Options;
