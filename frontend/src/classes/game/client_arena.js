@@ -3,8 +3,8 @@ class ClientArena {
     this.background = document.getElementById('background-canvas');
     this.ctx = this.background.getContext("2d");
 
-    this.forground = new Image();
-    this.forground.src = 'images/grid.png'
+    this.foreground = new Image();
+    this.foreground.src = 'images/grid.png'
 
     this.midlayer = new Image();
     this.midlayer.src = 'images/grid2.png'
@@ -40,7 +40,7 @@ class ClientArena {
       )
       
     ctx.drawImage(
-      this.forground,
+      this.foreground,
       xView, // x axis anchor point
       yView, // y axis anchor point
       1600,
