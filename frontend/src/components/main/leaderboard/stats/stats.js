@@ -1,8 +1,8 @@
 import React from "react";
-import LoginFormContainer from "../../session/login_form_container";
-import SignupFormContainer from "../../session/signup_form_container";
+// import LoginFormContainer from "../../../session/login_form_container";
+// import SignupFormContainer from "../../../session/signup_form_container";
 
-class MyStats extends React.Component {
+class Stats extends React.Component {
   constructor(props) {
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
@@ -21,8 +21,8 @@ class MyStats extends React.Component {
   getLinks() {
     const stats = this.props.stats;
     const ratio = stats.wins / (stats.wins + stats.losses);
-    const winpercent = (ratio ? (ratio * 100).toFixed(2) : 0 );
-      
+    const winpercent = (ratio ? (ratio * 100).toFixed(2) : 0);
+
     if (this.props.loggedIn) {
       return (
         <table className="stats-table">
@@ -46,19 +46,10 @@ class MyStats extends React.Component {
       );
     } else {
       return (
-        <div className="mystats-login">
-          <div className="login-prompt">
-            You must be logged in to view your stats
-          </div>
-          <div>
-            <LoginFormContainer />
-          </div>
-          <div>
-            <SignupFormContainer />
-          </div>
-        </div>
-      );
+        <div>You must be logged in to view your stats</div>
+      )
     }
+
   }
 
   render() {
@@ -66,4 +57,4 @@ class MyStats extends React.Component {
   }
 }
 
-export default MyStats;
+export default Stats;
