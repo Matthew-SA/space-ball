@@ -92,7 +92,7 @@ class Ship {
         (this.pos.y - yView) + this.boosterPosY
       );
     }
-    
+
     ctx.setTransform(1, 0, 0, 1, this.pos.x - xView, this.pos.y - yView);
     ctx.rotate((this.shipAngle * Math.PI) / 180);
     ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
