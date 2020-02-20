@@ -1,5 +1,6 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
+import Goals from "./entities/Goals"
 import ClientArena from "./client_arena"
 import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
@@ -18,6 +19,8 @@ class ClientGame {
       ball: gameoptions[1]
     }
     this.arena = new ClientArena();
+    this.goalPosts = new Goals();
+
     this.ball = new Ball();
     this.self = new Ship(this.ctx, user, this.gameoptions.ship);
     this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
@@ -46,6 +49,7 @@ class ClientGame {
   }
 
   clearEntities(ctx) {
+    this.goalPosts.clear(ctx, this.camera.xView, this.camera.yView)
     this.ball.clear(ctx, this.camera.xView, this.camera.yView)
     this.self.clear(ctx, this.camera.xView, this.camera.yView)
     this.clearOthers(ctx, this.camera.xView, this.camera.yView);
@@ -58,12 +62,11 @@ class ClientGame {
   }
 
   drawEntities(ctx) {
-    // this.backlayer.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
-    // this.midlayer.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
     this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
     this.ball.draw(ctx, this.camera.xView, this.camera.yView)
     this.self.draw(ctx, this.camera.xView, this.camera.yView)
     this.drawOthers(ctx, this.camera.xView, this.camera.yView);
+    this.goalPosts.draw(ctx, this.camera.xView, this.camera.yView)
   }
 
   clearOthers(ctx, xView, yView) {
