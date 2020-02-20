@@ -34,10 +34,6 @@ class ClientGame {
 
     this.others = [];
     this.othersPrev = [];
-
-    document.addEventListener('keydown', e => {
-      if (e.keyCode === 13 && this.winner) window.location.href = "/"
-    })
   }
 
   cycleAll(data) {
