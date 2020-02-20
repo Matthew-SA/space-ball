@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { fetchStats } from "../../../../actions/stats_actions";
-import MyStats from "./myStats";
+import Stats from "./stats";
 
 const mapStateToProps = state => {
   return {
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   fetchStats: () => dispatch(fetchStats())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyStats);
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);

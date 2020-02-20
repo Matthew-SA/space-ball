@@ -1,18 +1,19 @@
 import { connect } from "react-redux";
-import Toggle from "./toggle";
-import { 
-  fetchInventory, 
-  addShip, 
-  addBall, 
-  removeShip, 
-  removeBall, 
-  selectShip, 
-  selectBall, 
-  changeCurrency 
+import Options from "./options";
+import {
+  fetchInventory,
+  addShip,
+  addBall,
+  removeShip,
+  removeBall,
+  selectShip,
+  selectBall,
+  changeCurrency
 } from "../../../actions/inventory_actions";
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
+  user: state.session.user,
   inventory: state.inventory
 });
 
@@ -25,6 +26,6 @@ const mapDispatchToProps = dispatch => ({
   selectShip: ship => dispatch(selectShip(ship)),
   selectBall: ball => dispatch(selectBall(ball)),
   changeCurrency: amount => dispatch(changeCurrency(amount))
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toggle);
+export default connect(mapStateToProps, mapDispatchToProps)(Options);
