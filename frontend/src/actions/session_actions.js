@@ -67,7 +67,7 @@ export const logout = () => dispatch => {
   APIUtil.setAuthToken(false);
   dispatch(logoutUser());
   dispatch(fetchInventory());
-  window.location.replace('#/');
+  window.location.reload(false);
 };
 
 export const clearErrors = () => ({
