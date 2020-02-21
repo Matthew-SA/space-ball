@@ -32,7 +32,7 @@ class ClientHud {
 
     setTimeout(() => {
       this.drawCountdown(this.ctx);
-    }, 4000);
+    }, 3000);
   }
 
   drawScore(ctx) {
