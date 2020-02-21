@@ -27,8 +27,12 @@ class ClientHud {
   updateScore(score) {
     this.drawGoal(this.ctx)
     let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
-    setTimeout(() => clearInterval(flashGoal), 1000)
+    setTimeout(() => clearInterval(flashGoal), 2000)
     this.score = score
+
+    setTimeout(() => {
+      this.drawCountdown(this.ctx);
+    }, 4000);
   }
 
   drawScore(ctx) {
@@ -42,12 +46,42 @@ class ClientHud {
     ctx.clearRect(600, 600, 400, 300);
   }
 
+  clearCountDown(ctx) {
+    ctx.clearRect(300, 400, 900, 300);
+  }
+
   drawGoal(ctx) {
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "80px Faster One";
     ctx.textAlign = "center";
     ctx.fillText("GOAL!!", 800, 800);
     setTimeout(() => this.clearGoal(ctx), 100)
+  }
+
+  drawCountdown(ctx){
+    ctx.fillStyle = "#FFFFFF"
+    ctx.font = "80px Faster One";
+    ctx.textAlign = "center";
+    ctx.fillText("3", 800, 480);
+    setTimeout(() => this.clearCountDown(ctx), 750)
+
+    setTimeout(() => {
+      ctx.fillText("2", 800, 480);
+    }, 1000);
+
+    setTimeout(() => this.clearCountDown(ctx), 1750)
+
+    setTimeout(() => {
+      ctx.fillText("1", 800, 480);
+    }, 2000);
+
+    setTimeout(() => this.clearCountDown(ctx), 2750)
+
+    setTimeout(() => {
+      ctx.fillText("SPACE BALL!", 800, 480);
+    }, 3000);
+
+    setTimeout(() => this.clearCountDown(ctx), 3750)
   }
 
   gameover(ctx, data) {
