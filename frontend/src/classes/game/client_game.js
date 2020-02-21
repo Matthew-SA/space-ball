@@ -1,16 +1,30 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
+import Goals from "./entities/goals"
+import ClientArena from "./client_arena"
+import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
 
 class ClientGame {
-  constructor(socket, room, user) {
+  constructor(socket, room, user, gameoptions) {
     this.socket = socket;
     this.room = room;
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
+    this.background = document.getElementById('background-canvas');
+    this.arenaCtx = this.background.getContext("2d");
+
+    this.gameoptions = {
+      ship: gameoptions[0],
+      ball: gameoptions[1]
+    }
+    this.arena = new ClientArena();
+    this.goalPosts = new Goals();
 
     this.ball = new Ball();
-    this.self = new Ship(this.ctx, user);
+    this.self = new Ship(this.ctx, user, this.gameoptions.ship);
+    this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
+    this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
     this.shipAngle = 0;
     this.boosterPosX = 0;
@@ -23,24 +37,22 @@ class ClientGame {
 
     this.others = [];
     this.othersPrev = [];
-
-    document.addEventListener('keydown', e => {
-      if (e.keyCode === 13 && this.winner) window.location.href = "/"
-    })
   }
 
-  cycleAll(ctx, data) {
+  cycleAll(data) {
     if (!this.winner) {
-      this.clearEntities(ctx)
+      this.clearEntities(this.ctx)
       this.stepEntities(data)
-      this.drawEntities(ctx)
+      this.camera.update();
+      this.drawEntities(this.ctx)
     }
   }
 
   clearEntities(ctx) {
-    this.ball.clear(ctx)
-    this.self.clear(ctx)
-    this.clearOthers(ctx);
+    this.goalPosts.clear(ctx, this.camera.xView, this.camera.yView)
+    this.ball.clear(ctx, this.camera.xView, this.camera.yView)
+    this.self.clear(ctx, this.camera.xView, this.camera.yView)
+    this.clearOthers(ctx, this.camera.xView, this.camera.yView);
   }
 
   stepEntities(data) {
@@ -50,14 +62,16 @@ class ClientGame {
   }
 
   drawEntities(ctx) {
-    this.ball.draw(ctx);
-    this.self.draw(ctx)
-    this.drawOthers(ctx);
+    this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
+    this.ball.draw(ctx, this.camera.xView, this.camera.yView)
+    this.self.draw(ctx, this.camera.xView, this.camera.yView)
+    this.drawOthers(ctx, this.camera.xView, this.camera.yView);
+    this.goalPosts.draw(ctx, this.camera.xView, this.camera.yView)
   }
 
-  clearOthers(ctx) {
+  clearOthers(ctx, xView, yView) {
     for (let player of this.others) {
-      ctx.clearRect(player.pos.x - 100, player.pos.y - 80, 200, 200);
+      ctx.clearRect(player.pos.x - 100 - xView, player.pos.y - 80 - yView, 200, 200);
     }
   }
 
@@ -66,7 +80,7 @@ class ClientGame {
     this.others = data.others;
   }
 
-  drawOthers(ctx) {
+  drawOthers(ctx, xView, yView) {
     for (let i = 0; i < this.others.length; i++){
       let jetDirection = this.others[i].jetDirection;
       if(jetDirection.x === 0 && jetDirection.y === 0){
@@ -111,34 +125,22 @@ class ClientGame {
         this.boosters.draw(
           this.ctx,
           ((this.shipAngle + 180) * Math.PI) / 180,
-          this.others[i].pos.x + this.boosterPosX,
-          this.others[i].pos.y + this.boosterPosY,
+          this.others[i].pos.x - xView + this.boosterPosX,
+          this.others[i].pos.y - yView + this.boosterPosY
         );
       }
 
-      ctx.setTransform(1, 0, 0, 1, this.others[i].pos.x, this.others[i].pos.y);
+      ctx.setTransform(1, 0, 0, 1, this.others[i].pos.x - xView, this.others[i].pos.y - yView);
       ctx.rotate((this.shipAngle * Math.PI) / 180);
       ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
       ctx.fillStyle = "#FFFFFF"
       ctx.font = "16pt Audiowide";
-      ctx.fillText(this.user, this.others[i].pos.x, this.others[i].pos.y + 60);
+      ctx.fillText(this.user, this.others[i].pos.x - xView, this.others[i].pos.y + 60 - yView);
       ctx.textAlign = "center";
     }
   }
-  
-  // clearAllBoosters(ctx) {
-  //   for (let player of this.others) {
-  //     this.ctx.clearRect(player.pos.x - 100, player.pos.y - 100, 250, 280);
-  //   }
-  // }
-
-  // stepAllBoosters(data) {
-  //   this.allBoosterPosPrev = this.allBoosterPos
-  //   this.allBoosterPos = data.ships
-  // }
-
 }
 
 export default ClientGame;

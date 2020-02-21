@@ -1,15 +1,33 @@
 import Booster from "./booster";
 
 class Ship {
-  constructor(ctx, user) {
+  constructor(ctx, user, selectedShip) {
+    
     this.shipSprite = new Image();
-    this.shipSprite.src = "images/default_ship.png";
+    switch (selectedShip) {
+      case ("Default"):
+        this.shipSprite.src = "images/default_ship.png";
+        break;
+      case ("Red"):
+        this.shipSprite.src = "images/red_ship.png";
+        break;
+      case ("Green"):
+        this.shipSprite.src = "images/green_ship.png";
+        break;
+      case ("Blue"):
+        this.shipSprite.src = "images/blue_ship.png";
+        break;
+      default:
+        this.shipSprite.src = "images/default_ship.png";
+    }
 
     this.ctx = ctx
     this.user = user === "Guest" ? user : user.username
 
+    // this.width = 60;
+    // this.height = 60;
+
     this.pos = { x: 0, y: 0 }
-    this.posPrev = { x: 0, y: 0 }
 
     this.boosters = new Booster("self");
     this.shipAngle = 0;
@@ -18,18 +36,16 @@ class Ship {
     this.jetDirection = { x: 0, y: 0 }
   }
 
-  clear(ctx) {
-    ctx.clearRect(this.pos.x - 100, this.pos.y - 80, 200, 200);
+  clear(ctx, xView, yView) {
+    ctx.clearRect(this.pos.x - 30 - xView - 60, this.pos.y - 30 - yView - 60, 60 + 120, 60 + 120);
   }
 
-
   step(data) {
-    this.posPrev = this.pos
     this.pos = data.self.pos
     this.jetDirection = data.self.jetDirection
   }
 
-  draw(ctx) {
+  draw(ctx, xView, yView) {
     if (this.jetDirection.x === 0 && this.jetDirection.y === 0) {
       this.boosterPosX = false;
       this.boosterPosY = false;
@@ -72,19 +88,19 @@ class Ship {
       this.boosters.draw(
         this.ctx,
         ((this.shipAngle + 180) * Math.PI) / 180,
-        this.pos.x + this.boosterPosX,
-        this.pos.y + this.boosterPosY,
+        (this.pos.x - xView) + this.boosterPosX,
+        (this.pos.y - yView) + this.boosterPosY
       );
     }
 
-    ctx.setTransform(1, 0, 0, 1, this.pos.x, this.pos.y);
+    ctx.setTransform(1, 0, 0, 1, this.pos.x - xView, this.pos.y - yView);
     ctx.rotate((this.shipAngle * Math.PI) / 180);
     ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "16pt Audiowide";
-    ctx.fillText(this.user, this.pos.x, this.pos.y + 60);
+    ctx.fillText(this.user, this.pos.x - xView, this.pos.y + 60 - yView);
     ctx.textAlign = "center";
   }
 }

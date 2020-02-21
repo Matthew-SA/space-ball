@@ -21,8 +21,8 @@ class Stats extends React.Component {
   getLinks() {
     const stats = this.props.stats;
     const ratio = stats.wins / (stats.wins + stats.losses);
-    const winpercent = (ratio ? (ratio * 100).toFixed(2) : 0 );
-      
+    const winpercent = (ratio ? (ratio * 100).toFixed(2) : 0);
+
     if (this.props.loggedIn) {
       return (
         <table className="stats-table">

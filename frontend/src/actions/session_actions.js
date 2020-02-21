@@ -66,6 +66,7 @@ export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
   APIUtil.setAuthToken(false);
   dispatch(logoutUser());
+  dispatch(fetchInventory());
   window.location.replace('#/');
 };
 

@@ -1,31 +1,27 @@
 class Ball {
   constructor() {
     this.ballSprite = new Image();
-    this.ballSprite.src = 'images/earth_ball.png'
+    this.ballSprite.src = 'images/earth_ball2.png'
 
     this.ballX = 0
     this.ballY = 0
-    this.ballLastX = 0
-    this.ballLastY = 0
   }
 
-  clear(ctx) {
-    ctx.clearRect(this.ballLastX, this.ballLastY, 110, 110);
+  clear(ctx, xView, yView) {
+    ctx.clearRect(this.ballX - xView, this.ballY - yView, 220, 220);
   }
 
 
   step(data) {
-    this.ballLastX = this.ballX
-    this.ballLastY = this.ballY
-    this.ballX = data.ball.x - 50
-    this.ballY = data.ball.y - 50
+    this.ballX = data.ball.x - 100
+    this.ballY = data.ball.y - 100
   }
 
-  draw(ctx) {
+  draw(ctx, xView, yView) {
     ctx.drawImage(
       this.ballSprite,
-      this.ballX,
-      this.ballY,
+      this.ballX - xView,
+      this.ballY - yView,
     )
   }
 }

@@ -11,16 +11,16 @@ class Ship extends React.Component {
     this.handleSelectChild = this.handleSelectChild.bind(this);
     this.selectShip = this.selectShip.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.toggleSelect();
   }
 
   selectShip() {
-    const sel = new Promise((resolve, reject) => {
+    const selected = new Promise((resolve, reject) => {
       resolve(this.props.selectShip(this.state.optionSelection))
     })
-    sel.then(() => {
+    selected.then(() => {
       setTimeout(() => {
         this.props.fetchInventory();
       }, 100);
@@ -38,15 +38,15 @@ class Ship extends React.Component {
     const optionSelection = this.state.optionSelection;
     const gameoptions = this.props.inventory.gameoptions;
     const ships = this.props.inventory.ships;
-
-    if (gameoptions.includes(optionSelection)) {
+    console.log(this.props.inventory)
+    if (gameoptions.ship.includes(optionSelection)) {
       return (
         <div className="ship-selected-message">SELECTED</div>
       )
     } else if (ships.includes(optionSelection)) {
       return (
-        <div className="select-ship" 
-        onClick={this.selectShip}>SELECT THIS SHIP</div>
+        <div className="select-ship"
+          onClick={this.selectShip}>SELECT THIS SHIP</div>
       )
     } else {
       return (
@@ -67,11 +67,11 @@ class Ship extends React.Component {
             onClick={this.handleSelectChild}>
             Default
           </div>
-          <div className="select-button" id="Red" 
+          <div className="select-button" id="Red"
             onClick={this.handleSelectChild}>
             Red
           </div>
-          <div className="select-button"  id="Green"
+          <div className="select-button" id="Green"
             onClick={this.handleSelectChild}>
             Green
           </div>

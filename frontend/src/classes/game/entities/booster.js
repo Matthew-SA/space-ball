@@ -6,7 +6,6 @@ class Booster {
     // } else if (color === "blue"){
     //   this.boosters.src = "images/boosters-blue.png";
     // }
-    console.log(color)
     color === "self"
       ? (this.boosters.src = "images/boosters-red.png")
       : (this.boosters.src = "images/boosters-blue.png");

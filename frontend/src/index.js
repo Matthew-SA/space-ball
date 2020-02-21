@@ -1,6 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./assets/css/reset.css";
+import "./assets/css/game.css";
+import "./assets/css/ui.css";
+import "./assets/css/nav_login.css";
+import "./assets/css/play.css";
+import "./assets/css/options.css";
+import "./assets/css/leaderboard.css";
 import axios from "axios";
 import Root from "./components/root";
 import configureStore from "./store/store";

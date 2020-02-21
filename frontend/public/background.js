@@ -100,7 +100,7 @@ function Line(parent) {
 
   this.dist = Math.random() * (maxDist - minDist) + minDist;
 }
-Line.prototype.step = function() {
+Line.prototype.step = function () {
   var dead = false;
 
   var prevX = this.x,
@@ -141,7 +141,7 @@ Line.prototype.step = function() {
 init();
 anim();
 
-window.addEventListener("resize", function() {
+window.addEventListener("resize", function () {
   w = c.width = window.innerWidth;
   h = c.height = window.innerHeight;
   starter.x = w / 2;

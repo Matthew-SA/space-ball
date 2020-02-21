@@ -3,29 +3,21 @@ class ClientArena {
     this.background = document.getElementById('background-canvas');
     this.ctx = this.background.getContext("2d");
 
-    this.texture = new Image();
-    this.texture.src = 'images/grid.png'
+    this.foreground = new Image();
+    this.foreground.src = 'images/grid.png'
 
-    this.pos = { x: 0, y: 0 }
+    this.midlayer = new Image();
+    this.midlayer.src = 'images/grid2.png'
 
-    setTimeout(() => {
-      this.drawWalls(this.ctx)
-    }, 200);
+    this.background = new Image();
+    this.background.src = 'images/grid3.png'
   }
 
-  draw(ctx) {
+  draw(ctx, xView, yView) {
     ctx.drawImage(
-      this.texture,
-      0, // x axis anchor point
-      0, // y axis anchor point
-    )
-  }
-
-  draw1() {
-    this.ctx.drawImage(
-      this.texture,
-      this.pos.x, // x axis anchor point
-      this.pos.y, // y axis anchor point
+      this.background,
+      xView / 3, // x axis anchor point
+      yView / 3, // y axis anchor point
       1600,
       900,
       0,
@@ -33,16 +25,31 @@ class ClientArena {
       1600,
       900
     )
-  }
 
-  drawWalls(ctx) {
-    ctx.fillStyle = "#fc03a1";
-    ctx.fillRect(0, 0, 1600, 15);
-    ctx.fillRect(0, 885, 1600, 15);
-    ctx.fillRect(0, 0, 15, 350);
-    ctx.fillRect(0, 550, 15, 350);
-    ctx.fillRect(1585, 0, 15, 350);
-    ctx.fillRect(1585, 550, 15, 350);
+    
+    ctx.drawImage(
+      this.midlayer,
+      xView / 2, // x axis anchor point
+      yView / 2, // y axis anchor point
+      1600,
+      900,
+      0,
+      0,
+      1600,
+      900
+      )
+      
+    ctx.drawImage(
+      this.foreground,
+      xView, // x axis anchor point
+      yView, // y axis anchor point
+      1600,
+      900,
+      0,
+      0,
+      1600,
+      900
+    )
   }
 }
 
