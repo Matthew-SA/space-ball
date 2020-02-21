@@ -1,5 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import NavBarContainer from "../main/navbar/navbar_container";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -12,7 +13,10 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.signupOrLogin = this.signupOrLogin.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.clearErrors();
   }
 
   update(field) {
@@ -36,15 +40,15 @@ class SignupForm extends React.Component {
     this.props.createInventory(user);
   }
 
-  signupOrLogin() {
-    Array.from(
-      document.getElementsByClassName("form-container-login")
-    ).forEach(el => el.classList.remove("hidden"));
-    Array.from(
-      document.getElementsByClassName("form-container-signup")
-    ).forEach(el => el.classList.add("hidden"));
-    this.props.clearErrors();
-  }
+  // signupOrLogin() {
+  //   Array.from(
+  //     document.getElementsByClassName("form-container-login")
+  //   ).forEach(el => el.classList.remove("hidden"));
+  //   Array.from(
+  //     document.getElementsByClassName("form-container-signup")
+  //   ).forEach(el => el.classList.add("hidden"));
+  //   this.props.clearErrors();
+  // }
 
   renderErrors() {
     return (
@@ -58,50 +62,54 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="form-container-signup hidden">
-        <form onSubmit={this.handleSubmit}>
-          <div className="signup-form">
-            <input
-              className="input-field"
-              type="text"
-              value={this.state.email}
-              onChange={this.update("email")}
-              placeholder="Email"
-            />
-            <br />
-            <input
-              className="input-field"
-              type="text"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder="Username"
-            />
-            <br />
-            <input
-              className="input-field"
-              type="password"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder="Password"
-            />
-            <br />
-            <input
-              className="input-field"
-              type="password"
-              value={this.state.password2}
-              onChange={this.update("password2")}
-              placeholder="Confirm Password"
-            />
-            <br />
-            <input className="submit-button" type="submit" value="SIGN UP" />
-            {this.renderErrors()}
-          </div>
-        </form>
-        <div className="alt-text">
-          <div>Already have an account?</div>
-          <div className="pointer" onClick={this.signupOrLogin}>
-            Login
-          </div>
+      <div className="mainpage-container">
+        <NavBarContainer />
+        <div className="form-container-signup">
+          <div className="title">Sign Up for a New Account</div>
+          <form onSubmit={this.handleSubmit}>
+            <div className="signup-form">
+              <input
+                className="input-field"
+                type="text"
+                value={this.state.email}
+                onChange={this.update("email")}
+                placeholder="Email"
+              />
+              <br />
+              <input
+                className="input-field"
+                type="text"
+                value={this.state.username}
+                onChange={this.update("username")}
+                placeholder="Username"
+              />
+              <br />
+              <input
+                className="input-field"
+                type="password"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder="Password"
+              />
+              <br />
+              <input
+                className="input-field"
+                type="password"
+                value={this.state.password2}
+                onChange={this.update("password2")}
+                placeholder="Confirm Password"
+              />
+              <br />
+              <input className="submit-button" type="submit" value="SIGN UP" />
+              {this.renderErrors()}
+            </div>
+          </form>
+          <Link to="/login">
+            <div className="alt-text">
+              <div>Already have an account?</div>
+              <div className="link">Login</div>
+            </div>
+          </Link>
         </div>
       </div>
     );

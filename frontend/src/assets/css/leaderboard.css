@@ -1,0 +1,80 @@
+/* Leaderboard & Stats CSS  */
+
+.leaderboard {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 70px;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
+  font-size: 30px;
+  text-align: center;
+  overflow: scroll;
+  opacity: .9;
+}
+
+.leaderboard-menu {
+  font-size: 28px;
+  height: 60px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.leaderboard-table, .stats-table {
+  width: 100%;
+}
+
+.leaderboard-table {
+  height: 450px;
+}
+
+.stats-table {
+  height: 120px;
+}
+
+.table {
+  width: 100%;
+}
+
+.table-title, .stats-title {
+  background-color: black;
+  font-size: 22px;
+}
+
+.table-body {
+  font-size: 22px;
+  line-height: 1.7;
+}
+
+.column-player, .column-rank, .column-stat, .column-wins, .column-losses {
+  width: 20%;
+}
+
+.column-rank {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.column-points, .column-wins, .column-losses, .column-winloss {
+  width: 25%;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.board-select {
+  padding-top: 12px;
+  background-color: #fc03a1;
+  color: #ffe600;
+  cursor: pointer;
+}
+
+.board-select.active {
+  background-color: #ffe600;
+  color: #fc03a1;
+  border-radius: 10px;
+}
+
+.stats-data {
+  padding-top: 20px;
+}

@@ -1,0 +1,76 @@
+/* Game CSS */
+
+.scores {
+  display: flex;
+  justify-content: center;
+
+}
+
+.score {
+  float: left;
+  padding: 20px;
+  height: 65px;
+  width: 200px;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  margin: 20px;
+  color: #fc03a1;
+  font-size: 22px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
+
+/* CANVAS CSS */
+
+header {
+  height: 30px;
+  text-align: center;
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+}
+#game-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 0;
+  background-image: url('../images/space.gif');
+}
+#hud-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 3;
+}
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+}
+#background-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+}

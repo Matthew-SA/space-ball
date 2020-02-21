@@ -16,7 +16,7 @@ class Lobby extends React.Component {
       <div className="homepage-container">
         <div className="lobby-container">
           <div className="lobby-content">
-            <div className="play-container">
+            <div className="box">
               <div className="instructions">
                 <br />
                 You are in lobby #[xxxx] <br />
