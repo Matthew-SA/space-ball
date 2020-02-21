@@ -57,6 +57,7 @@ export const login = user => dispatch =>
     })
     .then(() => dispatch(fetchStats()))
     .then(() => dispatch(fetchInventory()))
+    .then(() => window.location.replace('#/options'))
     .catch(err => {
       dispatch(receiveErrors(err.response.data));
     });
@@ -64,7 +65,8 @@ export const login = user => dispatch =>
 export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
   APIUtil.setAuthToken(false);
-  dispatch(logoutUser())
+  dispatch(logoutUser());
+  window.location.replace('#/');
 };
 
 export const clearErrors = () => ({
