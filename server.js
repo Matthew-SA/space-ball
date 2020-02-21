@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
   socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
     socket.join("room-" + roomNum)
     // console.log(Object.keys(gameList))
-    // console.log('joined ' + roomNum + '!')
+    console.log('joined ' + roomNum + '!')
   })
 
   socket.on('player-join', (roomNum) => { // starts game / joins game
