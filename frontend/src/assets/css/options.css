@@ -1,0 +1,208 @@
+/* Options CSS */
+
+.options-container {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.customize-panel {
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
+  opacity: .9;
+}
+
+.customize-title{
+  font-size: 30px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.currency {
+  font-size: 28px;
+  text-align: center;
+  color: black;
+  padding-top: 30px;
+}
+
+.select-customization{
+  display: flex;
+  background: black;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.customize.active {
+  background: #fc03a1;
+  color: black;
+}
+
+.customize {
+  width: 50%;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+}
+
+.picture-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.purchase-container {
+  padding-top: 40px;
+}
+
+.ship, .ball {
+  height: 250px;
+}
+
+.link {
+  padding-top: 5px;
+  font-size: 14px;
+  color: #ffe600;
+  cursor: pointer;
+}
+
+.ship-options, .ball-options {
+  padding-top: 30px;
+  padding-bottom: 56px;
+  /* border-bottom: 2px solid; */
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ball-options {
+  border-bottom: none;
+}
+
+.select-button {
+  background: black;
+  border-radius: 5px;
+  border: 2px solid #fc03a1;
+  padding: 10px;
+  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  color: #ffe600;
+}
+
+.select-button.active {
+  background: #fc03a1;
+  color: black;
+  border: 2px solid black;
+}
+
+.select-button:hover {
+  transform: scale(1.05);
+}
+
+.ship-selected-message, .ball-selected-message {
+  color: black;
+  text-align: center;
+  font-size: 18px;
+  background: #fc03a1;
+  border-top: 5px solid #fc03a1;
+  padding: 20px;
+  letter-spacing: 5px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.select-ship, .select-ball {
+  background: black;
+  color: #ffe600;
+  text-align: center;
+  font-size: 18px;
+  border-top: 5px solid #fc03a1;
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+
+.select-ship:hover {
+  background: #fc03a1;
+  color: black;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+
+.unavailable {
+  background: black;
+  color: #ffe600;
+  text-align: center;
+  font-size: 18px;
+  border-top: 5px solid #fc03a1;
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: not-allowed;
+}
+
+.sell-button {
+  width: 150px;
+  border: 2px solid;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 9px 0px 7px 0px;
+  transition: ease-in-out .4s;
+  cursor: pointer;
+}
+
+.sell-button:hover {
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  color: #fc03a1;
+}
+
+.default-button {
+  width: 150px;
+  color: #fc03a1;
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  border-radius: 5px;
+  margin: auto;
+  padding: 9px 0px 7px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.buy-button {
+  width: 100px;
+  color: #fc03a1;
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  border-radius: 5px;
+  margin: auto;
+  padding: 9px 0px 7px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: ease-in-out .4s;
+}
+
+.buy-button:hover {
+  background: black;
+  color: #ffe600;
+  border: 2px solid #ffe600;
+}
+
+.no-money {
+  background: black;
+  width: 100%;
+}
+
+.price {
+  font-size: 30px;
+}
