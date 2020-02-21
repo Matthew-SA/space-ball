@@ -19,8 +19,8 @@ const InventorySchema = new Schema({
     default: ["Earth"]
   },
   gameoptions: {
-    type: Array,
-    default: ["Default", "Earth"]
+    type: Object,
+    default: {ship: "Default", ball: "Earth"}
   }
 });
 

@@ -19,8 +19,8 @@ class ClientViewPort {
     this.room = room
     this.user = user
     this.gameoptions = {
-      ship: gameoptions[0],
-      ball: gameoptions[1]
+      ship: gameoptions.ship,
+      ball: gameoptions.ball
     }
     // adds player to game room on backend
     this.socket.emit('player-join', this.room)
