@@ -10,6 +10,14 @@ class NavBar extends React.Component {
   logoutUser(e) {
     e.preventDefault();
     this.props.logout();
+    this.setState({
+      inventory: {
+        currency: 0,
+        ships: ["Default"],
+        balls: ["Earth"],
+        gameoptions: { ship: "Default", ball: "Earth"}
+      }
+    })
   }
 
   loginLinks() {
