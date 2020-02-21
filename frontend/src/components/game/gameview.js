@@ -15,7 +15,6 @@ class GameView extends React.Component {
     if (!this.socket) window.location.href = "/play";
     this.clientViewPort = new ClientViewPort(this.socket, this.room, this.props.user, this.props.gameoptions);
     this.clientViewPort.init();
-    this.props.fetchInventory();
   };
   
   componentWillUnmount() {
