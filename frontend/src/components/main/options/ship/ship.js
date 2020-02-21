@@ -17,10 +17,10 @@ class Ship extends React.Component {
   }
 
   selectShip() {
-    const sel = new Promise((resolve, reject) => {
+    const selected = new Promise((resolve, reject) => {
       resolve(this.props.selectShip(this.state.optionSelection))
     })
-    sel.then(() => {
+    selected.then(() => {
       setTimeout(() => {
         this.props.fetchInventory();
       }, 100);
@@ -38,8 +38,7 @@ class Ship extends React.Component {
     const optionSelection = this.state.optionSelection;
     const gameoptions = this.props.inventory.gameoptions;
     const ships = this.props.inventory.ships;
-
-    if (gameoptions.includes(optionSelection)) {
+    if (gameoptions.ship.includes(optionSelection)) {
       return (
         <div className="ship-selected-message">SELECTED</div>
       )

@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
     currency: 1000,
     ships: ["Default"],
     balls: ["Earth"],
-    selected: ["Default", "Earth"]
+    gameoptions: { ship: "Default", ball: "Earth" }
   });
   inventory.save().then(data => res.json(data));
 });
@@ -99,7 +99,7 @@ router.patch("/selectship", passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Inventory.findOneAndUpdate(
       { username: req.user.username},
-      { $set: {"gameoptions.0": req.body.gameoptions} }
+      { $set: {"gameoptions.ship": req.body.gameoptions} }
     )
     .then(selected => {
       return res.json(selected);
@@ -113,7 +113,7 @@ router.patch("/selectball", passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Inventory.findOneAndUpdate(
       { username: req.user.username},
-      { $set: {"gameoptions.1": req.body.gameoptions} }
+      { $set: {"gameoptions.ball": req.body.gameoptions} }
     )
     .then(selected => {
       return res.json(selected);

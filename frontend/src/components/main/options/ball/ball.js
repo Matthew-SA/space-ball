@@ -39,7 +39,7 @@ class Ball extends React.Component {
     const gameoptions = this.props.inventory.gameoptions;
     const balls = this.props.inventory.balls;
 
-    if (gameoptions.includes(optionSelection)) {
+    if (gameoptions.ball.includes(optionSelection)) {
       return (
         <div className="ball-selected-message">SELECTED</div>
       )

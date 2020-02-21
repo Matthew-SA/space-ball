@@ -72,15 +72,13 @@ const gameList = {}
 io.on('connection', (socket) => {
   console.log('***USER CONNECTED***')
 
-
-  socket.on('enter-room', (roomNum) => {
+  socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
     socket.join("room-" + roomNum)
     // console.log(Object.keys(gameList))
     // console.log('joined ' + roomNum + '!')
   })
 
-  socket.on('player-join', (roomNum) => {
-    // console.log('player joined ' + this.room)
+  socket.on('player-join', (roomNum) => { // starts game / joins game
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket)
   });
@@ -91,7 +89,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    
     // ServerGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })

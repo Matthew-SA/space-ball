@@ -15,8 +15,8 @@ class ClientGame {
     this.arenaCtx = this.background.getContext("2d");
 
     this.gameoptions = {
-      ship: gameoptions[0],
-      ball: gameoptions[1]
+      ship: gameoptions.ship,
+      ball: gameoptions.ball
     }
     this.arena = new ClientArena();
     this.goalPosts = new Goals();

@@ -5,18 +5,13 @@ import React from "react";
 class Stats extends React.Component {
   constructor(props) {
     super(props);
-    this.logoutUser = this.logoutUser.bind(this);
+    // this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
   }
 
   // componentDidMount() {
   //   this.props.fetchStats();
   // }
-
-  logoutUser(e) {
-    e.preventDefault();
-    this.props.logout();
-  }
 
   getLinks() {
     const stats = this.props.stats;
