@@ -13,11 +13,6 @@ class Stats extends React.Component {
   //   this.props.fetchStats();
   // }
 
-  // logoutUser(e) {
-  //   e.preventDefault();
-  //   this.props.logout();
-  // }
-
   getLinks() {
     const stats = this.props.stats;
     const ratio = stats.wins / (stats.wins + stats.losses);

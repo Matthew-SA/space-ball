@@ -38,7 +38,6 @@ class Ship extends React.Component {
     const optionSelection = this.state.optionSelection;
     const gameoptions = this.props.inventory.gameoptions;
     const ships = this.props.inventory.ships;
-    console.log(this.props.inventory)
     if (gameoptions.ship.includes(optionSelection)) {
       return (
         <div className="ship-selected-message">SELECTED</div>
