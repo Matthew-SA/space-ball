@@ -29,10 +29,11 @@ class ClientHud {
     let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
     setTimeout(() => clearInterval(flashGoal), 2000)
     this.score = score
-
-    setTimeout(() => {
-      this.drawCountdown(this.ctx);
-    }, 3000);
+    if(this.score.LEFT < 5 && this.score.RIGHT < 5){
+      setTimeout(() => {
+        this.drawCountdown(this.ctx);
+      }, 3000);
+    }
   }
 
   drawScore(ctx) {

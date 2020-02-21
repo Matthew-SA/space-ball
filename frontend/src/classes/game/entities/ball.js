@@ -9,7 +9,7 @@ class Ball {
   }
 
   clear(ctx, xView, yView) {
-    ctx.clearRect(this.ballX - xView - 1, this.ballY - yView - 1, 220 + 2, 220 + 2);
+    ctx.clearRect(this.ballX - xView - 4, this.ballY - yView - 4, 220 + 8, 220 + 8);
   }
 
 
