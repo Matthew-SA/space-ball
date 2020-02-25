@@ -19,11 +19,8 @@ class Play extends React.Component {
         this.props.fetchInventory();
         this.socket.on('send-gamelist', data => {
             this.setState({servers: data})
-            // this.servers = data
-            // console.log(data)
         })
         this.socket.emit('request-gamelist')
-        this.forceUpdate();
     }
 
     componentWillUnmount() {
