@@ -89,7 +89,7 @@ class Play extends React.Component {
                         }}><div className="buy-button">Room 1</div></Link>
                         <Link to={{
                             pathname: "/room",
-                            room: 1,
+                            room: 2,
                             numPlayers: 1,
                             socket: this.socket,
                             user: this.props.user,

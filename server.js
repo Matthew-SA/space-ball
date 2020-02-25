@@ -53,7 +53,7 @@ app.use('/public', express.static(__dirname + '/public')); // static used for st
 // app.use('/shared', express.static(__dirname + '/shared'));
 
 
-// Websocket Initialization
+// Websocket server Initialization
 const server = http.createServer(app);
 const io = socketIO(server, {
   pingInterval: 3000,
@@ -66,21 +66,19 @@ app.get("/", (req, res) => {
 });
 
 // Websocket logic below
-
-const gameList = {}
+const lobbyList = {};
+const gameList = {};
 
 io.on('connection', (socket) => {
   console.log('***USER CONNECTED***')
 
-
-  socket.on('enter-room', (roomNum) => {
+  socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
     socket.join("room-" + roomNum)
     // console.log(Object.keys(gameList))
-    // console.log('joined ' + roomNum + '!')
+    console.log('joined ' + roomNum + '!')
   })
 
-  socket.on('player-join', (roomNum) => {
-    // console.log('player joined ' + this.room)
+  socket.on('player-join', (roomNum) => { // starts game / joins game
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket)
   });
@@ -91,7 +89,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    
     // ServerGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
