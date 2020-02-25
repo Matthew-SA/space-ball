@@ -41,6 +41,9 @@ class Play extends React.Component {
         ]
         return (
             <div className="mainpage-container">
+                <div className="stars"></div>
+                <div className="twinkling"></div>
+                <div className="clouds"></div>
                 <NavBarContainer />
                     <div className="lobby-content game-lobby">
                         <div className="box">

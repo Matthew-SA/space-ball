@@ -87,7 +87,7 @@ class LoginForm extends React.Component {
 
   handleDemo(e) {
     e.preventDefault();
-    const user = Object.assign({}, { username: 'Demo User', password: 'demodemo' });
+    const user = Object.assign({}, { username: 'DemoUser', password: 'demodemo' });
     this.demo(user);
   }
 
@@ -106,6 +106,9 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="mainpage-container">
+        <div className="stars"></div>
+        <div className="twinkling"></div>
+        <div className="clouds"></div>
         <NavBarContainer />
         <div className="form-container-login">
           <form onSubmit={this.handleSubmit}>

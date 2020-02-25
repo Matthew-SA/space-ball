@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./assets/css/reset.css";
 import "./assets/css/game.css";
 import "./assets/css/ui.css";
-import "./assets/css/nav_login.css";
+import "./assets/css/nav_signup_login.css";
 import "./assets/css/play.css";
 import "./assets/css/options.css";
 import "./assets/css/leaderboard.css";

@@ -4,6 +4,10 @@ import NavBarContainer from './navbar/navbar_container';
 const MainPage = () => {
   return (
     <div className="mainpage-container">
+      <div className="stars"></div>
+      <div className="twinkling"></div>
+      <div className="clouds"></div>
+      <div className="moon"></div>
       <NavBarContainer />
       <div className="lobby-content">
         <img className="logo" src="images/space_ball.png" width="600" alt="logo" />
