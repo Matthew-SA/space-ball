@@ -3,7 +3,7 @@ const express = require("express");
 const db = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const Matter = require("matter-js")
+// const Matter = require("matter-js")
 
 const users = require("./routes/api/users");
 const stats = require("./routes/api/stats");
@@ -60,27 +60,42 @@ const io = socketIO(server, {
   pingTimeout: 3000,
 });
 app.set('port', PORT);
-// end websocket initialization
+// end websocket server initialization
+
+
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("../frontend/public/index.html"));
 });
 
+
+
+
+
 // Websocket logic below
-const lobbyList = {};
+// const roomList = {};
 const gameList = {};
 
 io.on('connection', (socket) => {
+  socket.join('lobby')
   console.log('***USER CONNECTED***')
+
+  socket.on('request-gamelist', () => {
+    io.in('lobby').emit('send-gamelist', Object.keys(gameList))
+  })
+
+  socket.on('leave-lobby', () => {
+    socket.leave("lobby")
+  })
 
   socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
     socket.join("room-" + roomNum)
-    // console.log(Object.keys(gameList))
     console.log('joined ' + roomNum + '!')
   })
 
   socket.on('player-join', (roomNum) => { // starts game / joins game
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket)
+    console.log(Object.keys(gameList))
   });
 
   socket.on('player-action', data => {
@@ -88,11 +103,18 @@ io.on('connection', (socket) => {
     gameList[roomNum].movePlayer(socket.id, data)
   });
 
+  // socket.on('test', data => {
+  //   console.log(data);
+  // })
+
   socket.on('disconnect', () => {
     // ServerGame.removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
 
+setInterval(() => {
+  io.in('lobby').emit('test', 'testing...')
+}, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
