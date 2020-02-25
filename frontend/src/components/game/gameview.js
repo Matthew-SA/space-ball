@@ -1,7 +1,5 @@
 import React from 'react';
-// import GameClient from '../../classes/game/client_game';
 import ClientViewPort from '../../classes/game/client_viewport'
-
 
 
 class GameView extends React.Component {

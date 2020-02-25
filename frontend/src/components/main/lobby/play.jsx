@@ -7,10 +7,24 @@ class Play extends React.Component {
     constructor(props) {
         super(props);
         this.socket = io();
+        this.state = {servers: []}
     }
+
+    // componentWillMount() {
+    //     this.socket.emit('request-gamelist')
+        
+    // }
 
     componentDidMount() {
         this.props.fetchInventory();
+        this.socket.on('send-gamelist', data => {
+            this.setState({servers: data})
+        })
+        this.socket.emit('request-gamelist')
+    }
+
+    componentWillUnmount() {
+        this.socket.emit('leave-lobby')
     }
 
     serverRow(server) {
@@ -18,14 +32,14 @@ class Play extends React.Component {
             <li>
                 <Link to={{
                     pathname: "/room",
-                    room: 1,
+                    room: server,
                     numPlayers: 1,
                     socket: this.socket,
                     user: this.props.user,
                     gameoptions: this.props.gameoptions
                 }}><div className="server-list">
-                    <div className="server-column"># {server.room}</div>
-                    <div className="server-column">{server.numPlayers} Players</div>
+                    <div className="server-column"># { server }</div>
+                    <div className="server-column"> ??? Players</div>
                 </div>
                 </Link>
             </li>
@@ -33,12 +47,8 @@ class Play extends React.Component {
     }
 
     render() {
-        const servers = [
-            {room: 1,
-            numPlayers: 2},
-            {room: 2,
-            numPlayers: 2}
-        ]
+        const servers = this.state.servers
+
         return (
             <div className="mainpage-container">
                 <NavBarContainer />
@@ -51,13 +61,14 @@ class Play extends React.Component {
                             </div>
                             <div>
                                 <ul>
-                                    {servers.map(server => (
-                                        this.serverRow(server)))}
+                                    {
+                                        servers.map(server => (this.serverRow(server)))
+                                    }
                                 </ul>
                             </div>
                         <Link to={{
                             pathname: "/room",
-                            room: 1,
+                            room: this.state.servers.length <= 0 ? 1 : parseInt(this.state.servers[this.state.servers.length - 1]) + 1,
                             numPlayers: 1,
                             socket: this.socket,
                             user: this.props.user,
@@ -76,23 +87,9 @@ class Play extends React.Component {
 
 
                         <div className="buy-button" onClick={this.handleClick}>Go Back</div>
-                        <Link to={{
-                            pathname: "/room",
-                            room: 1,
-                            numPlayers: 1,
-                            socket: this.socket,
-                            user: this.props.user,
-                            gameoptions: this.props.gameoptions
-                        }}><div className="buy-button">Room 1</div></Link>
-                        <Link to={{
-                            pathname: "/room",
-                            room: 1,
-                            numPlayers: 1,
-                            socket: this.socket,
-                            user: this.props.user,
-                            gameoptions: this.props.gameoptions
-                        }}><div className="buy-button">Room 1.5</div></Link>
+                        
                     </div>
+                {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
             </div>
         );
 
