@@ -90,22 +90,7 @@ class Play extends React.Component {
 
 
                         <div className="buy-button" onClick={this.handleClick}>Go Back</div>
-                        <Link to={{
-                            pathname: "/room",
-                            room: 1,
-                            numPlayers: 1,
-                            socket: this.socket,
-                            user: this.props.user,
-                            gameoptions: this.props.gameoptions
-                        }}><div className="buy-button">Room 1</div></Link>
-                        <Link to={{
-                            pathname: "/room",
-                            room: 2,
-                            numPlayers: 1,
-                            socket: this.socket,
-                            user: this.props.user,
-                            gameoptions: this.props.gameoptions
-                    }}><div onClick={() => this.socket.emit('test', 'hello')} className="buy-button">Room 1.5</div></Link>
+                        
                     </div>
                 {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
             </div>
