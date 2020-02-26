@@ -58,6 +58,9 @@ class NavBar extends React.Component {
             </svg>
             {/* <img className="logo" src="images/space_ball.png" width="200" alt="logo" /> */}
           </Link>
+          <Link to="/play">
+            <div className="nav-select" id="play" onClick={this.handleClick}>PLAY</div>
+          </Link>
           <Link to="/about" >
             <div className="nav-select" id="about" onClick={this.handleClick}>ABOUT</div>
           </Link>
@@ -73,6 +76,9 @@ class NavBar extends React.Component {
           <Link to="/leaderboard" >
             <div className="nav-select" id="leaderboard" onClick={this.handleClick}>LEADERBOARD</div>
           </Link>
+          {/* <Link to="/play" >
+            <div className="button play-button">PLAY</div>
+          </Link> */}
         </div>
         {this.loginLinks()}
       </div>

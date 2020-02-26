@@ -13,16 +13,20 @@
 }
 
 .nav-select {
+  padding-top: 5px;
   padding-right: 40px;
   text-align: center;
   font-size: 18px;
   letter-spacing: 1px;
+  /* color: #ffe600; */
   color: #ffe600;
+  text-shadow: 0 0 15px #ffe600;
   font-family: 'Josefin Sans', sans-serif;
 }
 
 .nav-select:hover {
   color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
   cursor: pointer;
 }
 
@@ -118,7 +122,8 @@
 .logout-button, .login-button {
   background-color: transparent ;
   font-weight: 200;
-  color: #fff;
+  color: #ffe600;
+  text-shadow: 0 0 15px rgb(230, 0, 120);
   height: 35px;
   width: 80px;
   font-size: 14px;
@@ -129,8 +134,8 @@
 }
 
 .logout-button:hover, .login-button:hover {
-  background-color: #ffe600;
-  color: #000;
+  background-color: #fc03a1;
+  color: #ffe600;
 }
 
 .pointer {
