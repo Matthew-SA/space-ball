@@ -20,12 +20,12 @@ class ServerIndexItem extends React.Component {
         }}
       >
         <div
-          className="server-list"
+          className="server-columns"
           id={`server-${this.props.room}`}
           key={this.props.i}
         >
-          <div className="server-column"># {this.props.room}</div>
-          <div className="server-column">{this.props.numPlayers} Players</div>
+          <div>#00{this.props.room}</div>
+          <div>{this.props.numPlayers}/6</div>
         </div>
       </Link>
     );
