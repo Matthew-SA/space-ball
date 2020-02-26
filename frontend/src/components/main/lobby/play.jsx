@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import NavBarContainer from '../navbar/navbar_container';
+import ServerIndexItem from './server_index_item';
 
 class Play extends React.Component {
     constructor(props) {
@@ -62,7 +63,21 @@ class Play extends React.Component {
                             <div>
                                 <ul>
                                     {
-                                        servers.map(server => (this.serverRow(server)))
+                                        // servers.map(server => (this.serverRow(server)))
+                                        servers.map((server, i) => (
+                                            <ServerIndexItem
+                                                key={i}
+                                                pathname="/room"
+                                                room={server}
+                                                numPlayers={1}
+                                                socket={this.socket}
+                                                user={this.props.user}
+                                                gameoptions={this.props.gameoptions}
+
+                                                
+        
+                                            />
+                                        ))
                                     }
                                 </ul>
                             </div>
