@@ -30,11 +30,6 @@ class ClientGame {
     this.boosterPosX = 0;
     this.boosterPosY = 0;
     
-
-    // this.socket.on('updateScore', data => {
-    //   this.drawGoalExplosion(this.ctx);
-    // })
-
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png';
@@ -144,19 +139,6 @@ class ClientGame {
       ctx.textAlign = "center";
     }
   }
-
-  // drawGoalExplosion(){
-  //   let particles = [];
-  //   let numParticles = 500;
-  //   for(let i=0; i<numParticles; i++){
-  //     particles.push(particle.create(width / 2, height / 2, (Math.random() * 10) + 1, Math.random() * Math.PI * 2))
-  //   }
-  //   this.updateExplosion();
-  // }
-
-  // updateExplosion(){
-  //   context
-  // }
 }
 
 export default ClientGame;
