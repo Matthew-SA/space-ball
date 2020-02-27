@@ -12,6 +12,16 @@
   transition: ease-in-out .4s;
   cursor: pointer;
 } */
+.play-button {
+  font-size: 1.9em;
+  width: 150px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  font-weight: 300;
+  background: rgba(0, 0, 0, .8);
+  margin: auto;
+  transition: ease-in-out .2s;
+}
 
 .instructions {
   line-height: 1.3;
