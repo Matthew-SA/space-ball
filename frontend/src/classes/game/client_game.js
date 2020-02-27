@@ -30,7 +30,6 @@ class ClientGame {
     this.boosterPosX = 0;
     this.boosterPosY = 0;
     
-
     /// NEW CODE FOR SHIPS - TEMPORARY?
     this.shipSprite = new Image();
     this.shipSprite.src = 'images/default_ship.png';

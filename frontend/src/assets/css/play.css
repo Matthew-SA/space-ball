@@ -45,13 +45,20 @@
   transform:scale(1.05);
 }
 
-.server-list {
+/* .server-list {
   display: grid;
   grid-template-columns: 50% 50%;
-}
+} */
 
-.server-column {
+/* .server-list-joe{
+  min-height: 80px;
+  border: 1px blue solid;
+  width: 80%;
+  margin: 10px 0px;
+} */
+
+/* .server-column {
   min-width: 300px;
   text-align: center;
   border: 1px solid red;
-}
+} */
