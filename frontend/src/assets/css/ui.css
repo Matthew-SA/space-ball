@@ -2,13 +2,59 @@
 
 .box {
   padding-bottom: 20px;
+  padding-top: 20px;
   margin: 20px auto;
   background: black;
-  width: 600px;
+  width: 400px;
+  min-height: 200px;
   border-radius: 10px;
   border: 5px solid #fc03a1;
   opacity: .9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
+
+.server-list-header{
+  font-size: 25px;
+  margin: 0px 0px 10px 0px;
+}
+
+.server-list{
+  min-height: 60px;
+}
+
+.server-columns{
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 100px 2px 100px;
+  line-height: 24px;
+}
+
+.server-columns div{
+  padding: 0px 50px;
+}
+
+.empty-server{
+  margin-top: 15px;
+}
+
+.create-button{
+  position: relative;
+  bottom: 0px;
+  border: 2px solid #fc03a1;
+  border-radius: 4px;
+  width:120px;
+  line-height: 26px;;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: #fc03a1;
+  background-color: yellow;
+}
+
 
 .mainpage-container {
   height: 100vh;
