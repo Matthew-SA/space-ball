@@ -120,22 +120,14 @@
 }
 
 .logout-button, .login-button {
-  background-color: transparent ;
-  font-weight: 200;
-  color: #ffe600;
-  text-shadow: 0 0 15px rgb(230, 0, 120);
-  height: 35px;
-  width: 80px;
   font-size: 14px;
-  border-radius: 10px;
-  border: 2px solid #fc03a1;
-  cursor: pointer;
-  margin-top: -8px;
-}
-
-.logout-button:hover, .login-button:hover {
-  background-color: #fc03a1;
-  color: #ffe600;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: -5px;
+  font-weight: 300;
+  background: rgba(0, 0, 0, .8);
+  transition: ease-in-out .2s;
 }
 
 .pointer {
