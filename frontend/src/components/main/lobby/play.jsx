@@ -112,8 +112,6 @@ class Play extends React.Component {
                 Go Back
               </div>
             </div>
-            {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
-          </div>
         );
 
     }

@@ -120,7 +120,10 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     let roomNum = clients[socket.id]
     delete clients[socket.id]
-    gameList[roomNum].removePlayer(socket.id)
+    if (gameList[roomNum]) {
+      gameList[roomNum].removePlayer(socket.id)
+      if (gameList[roomNum].players.length <= 0) delete gameList[roomNum]
+    }
     console.log(clients)
     // gameList[roomNum].removePlayer(socket.id,socket)
     console.log('user disconnected')
