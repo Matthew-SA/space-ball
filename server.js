@@ -73,29 +73,34 @@ app.get("/", (req, res) => {
 
 // Websocket logic below
 // const roomList = {};
+const clients = {};
 const gameList = {};
 
 io.on('connection', (socket) => {
   socket.join('lobby')
+  clients[socket.id] = 'lobby'
   console.log('***USER CONNECTED***')
 
   socket.on('request-gamelist', () => {
     io.in('lobby').emit('send-gamelist', Object.keys(gameList))
   })
 
-  socket.on('leave-lobby', () => {
-    socket.leave("lobby")
-  })
-
+  
   socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
+    clients[socket.id] = roomNum;
     socket.join("room-" + roomNum)
-    console.log('joined ' + roomNum + '!')
+    console.log(clients)
+  })
+  
+  socket.on('leave-room', (roomNum) => {
+    delete clients[socket.id]
+    socket.leave(roomNum)
+    console.log(clients)
   })
 
   socket.on('player-join', (roomNum) => { // starts game / joins game
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket)
-    console.log(Object.keys(gameList))
   });
 
   socket.on('player-action', data => {
@@ -103,18 +108,27 @@ io.on('connection', (socket) => {
     gameList[roomNum].movePlayer(socket.id, data)
   });
 
+  socket.on('player-leave', roomNum => {
+    gameList[roomNum].removePlayer(socket.id)
+    if (gameList[roomNum].players.length <= 0) delete gameList[roomNum]
+  })
+
   // socket.on('test', data => {
   //   console.log(data);
   // })
 
   socket.on('disconnect', () => {
-    // ServerGame.removePlayer(socket.id,socket)
+    let roomNum = clients[socket.id]
+    delete clients[socket.id]
+    gameList[roomNum].removePlayer(socket.id)
+    console.log(clients)
+    // gameList[roomNum].removePlayer(socket.id,socket)
     console.log('user disconnected')
   })
 })
 
-setInterval(() => {
-  io.in('lobby').emit('test', 'testing...')
-}, 1000);
+// setInterval(() => {
+//   io.in('lobby').emit('test', 'testing...')
+// }, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

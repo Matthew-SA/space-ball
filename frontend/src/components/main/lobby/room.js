@@ -9,9 +9,15 @@ class Room extends React.Component {
     this.room = this.props.location.room;
     this.numPlayers = this.props.location.numPlayers;
   }
+
   componentDidMount() {
     this.socket.emit('enter-room', this.room);
   }
+
+  componentWillUnmount() {
+    this.socket.emit('leave-room', this.room);
+  }
+
   render() {
     if (!this.room) window.location.href = "/play";
     return (

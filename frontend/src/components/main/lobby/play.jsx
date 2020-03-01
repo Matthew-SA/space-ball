@@ -10,11 +10,6 @@ class Play extends React.Component {
         this.state = {servers: []}
     }
 
-    // componentWillMount() {
-    //     this.socket.emit('request-gamelist')
-        
-    // }
-
     componentDidMount() {
         this.props.fetchInventory();
         this.socket.on('send-gamelist', data => {
@@ -84,10 +79,7 @@ class Play extends React.Component {
                                 First to 10 points wins. <br />
                             </div>
                         </div>
-
-
                         <div className="buy-button" onClick={this.handleClick}>Go Back</div>
-                        
                     </div>
                 {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
             </div>
