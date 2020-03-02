@@ -5,6 +5,7 @@ import { Route, withRouter } from "react-router-dom";
 class ServerIndexItem extends React.Component {
   constructor(props){
     super(props)
+    console.log(this.props)
   }
 
   render(){

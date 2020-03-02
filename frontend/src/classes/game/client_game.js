@@ -1,19 +1,22 @@
 import Ball from "./entities/ball";
 import Ship from "./entities/ship";
 import Goals from "./entities/goals"
+import ClientHud from './client_hud'
 import ClientArena from "./client_arena"
 import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
-
+import Input from './Input';
 class ClientGame {
   constructor(socket, room, user, gameoptions) {
     this.socket = socket;
     this.room = room;
+    this.hud = new ClientHud(this.socket);
     this.canvas = document.getElementById('game-canvas');
     this.ctx = this.canvas.getContext("2d");
     this.background = document.getElementById('background-canvas');
     this.arenaCtx = this.background.getContext("2d");
 
+    this.user = user
     this.gameoptions = {
       ship: gameoptions.ship,
       ball: gameoptions.ball
@@ -37,22 +40,47 @@ class ClientGame {
 
     this.others = [];
     this.othersPrev = [];
+    this.socket.emit('join-game', this.room)
+    Input.applyEventHandlers();
+  }
+
+  init() {
+    this.socket.on('gameState', (data) => {
+      this.cycleAll(data)
+    });
+    this.gameLoop();
+  }
+
+  gameLoop() {
+    setInterval(() => {
+      if (!this.cooldown && (Input.LEFT || Input.UP || Input.RIGHT || Input.DOWN)) {
+        this.socket.emit('player-action', {
+          room: this.room,
+          keyboardState: {
+            left: Input.LEFT,
+            right: Input.RIGHT,
+            up: Input.UP,
+            down: Input.DOWN
+          }
+        });
+      }
+    }, 20);
   }
 
   cycleAll(data) {
     if (!this.winner) {
-      this.clearEntities(this.ctx)
+      this.clearEntities(this.ctx, this.camera)
       this.stepEntities(data)
       this.camera.update();
-      this.drawEntities(this.ctx)
+      this.drawEntities(this.ctx, this.camera)
     }
   }
 
-  clearEntities(ctx) {
-    this.goalPosts.clear(ctx, this.camera.xView, this.camera.yView)
-    this.ball.clear(ctx, this.camera.xView, this.camera.yView)
-    this.self.clear(ctx, this.camera.xView, this.camera.yView)
-    this.clearOthers(ctx, this.camera.xView, this.camera.yView);
+  clearEntities(ctx, camera) {
+    this.goalPosts.clear(ctx, camera.xView, camera.yView)
+    this.ball.clear(ctx, camera.xView, camera.yView)
+    this.self.clear(ctx, camera.xView, camera.yView)
+    this.clearOthers(ctx, camera.xView, camera.yView);
   }
 
   stepEntities(data) {
@@ -61,12 +89,12 @@ class ClientGame {
     this.stepOthers(data);
   }
 
-  drawEntities(ctx) {
-    this.arena.draw(this.arenaCtx, this.camera.xView, this.camera.yView)
-    this.ball.draw(ctx, this.camera.xView, this.camera.yView)
-    this.self.draw(ctx, this.camera.xView, this.camera.yView)
-    this.drawOthers(ctx, this.camera.xView, this.camera.yView);
-    this.goalPosts.draw(ctx, this.camera.xView, this.camera.yView)
+  drawEntities(ctx, camera) {
+    this.arena.draw(this.arenaCtx, camera.xView, camera.yView)
+    this.ball.draw(ctx, camera.xView, camera.yView)
+    this.self.draw(ctx, camera.xView, camera.yView)
+    this.drawOthers(ctx, camera.xView, camera.yView);
+    this.goalPosts.draw(ctx, camera.xView, camera.yView)
   }
 
   clearOthers(ctx, xView, yView) {

@@ -69,8 +69,6 @@ app.get("/", (req, res) => {
 
 
 
-
-
 // Websocket logic below
 // const roomList = {};
 const clients = {};
@@ -79,24 +77,23 @@ const gameList = {};
 io.on('connection', (socket) => {
   console.log('*** user connected ***')
 
-  // lobby room logic
+  // lobby room logic /////////////////////////
   socket.on('request-gamelist', () => {
-    io.in('lobby').emit('send-gamelist', Object.keys(gameList))
+    io.in('room-lobby').emit('send-gamelist', Object.keys(gameList))
   })
 
   socket.on('enter-room', roomNum => {
     clients[socket.id] = roomNum;
     socket.join("room-" + roomNum)
-    // console.log(clients)
   })
   
   socket.on('leave-room', roomNum => {
     delete clients[socket.id]
     socket.leave("room-" + roomNum)
-    // console.log(clients)
   })
+  //////////////////////////////////////////////
 
-  // gameplay socket interactions
+  // gameplay socket interactions //////////////
   socket.on('join-game', roomNum => {
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
     gameList[roomNum].addNewPlayer(socket.id)
@@ -112,6 +109,7 @@ io.on('connection', (socket) => {
     game.removePlayer(socket.id)
     if (game.players.length <= 0) delete gameList[roomNum]
   })
+  //////////////////////////////////////////////
 
   // client disconnect logic: delete from client list and remove from game.
   socket.on('disconnect', () => {
@@ -127,10 +125,12 @@ io.on('connection', (socket) => {
   })
 })
 
-setInterval(() => {
-  console.log("clients", clients)
-  // console.log("game", gameList)
+
+// debugger tools
+// setInterval(() => {
+  // console.log("clients", clients)
+  // console.log("game", Object.keys(gameList))
 //   io.in('lobby').emit('test', 'testing...')
-}, 1000);
+// }, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

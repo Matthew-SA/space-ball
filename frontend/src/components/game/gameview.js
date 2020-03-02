@@ -1,6 +1,5 @@
 import React from 'react';
-import ClientViewPort from '../../classes/game/client_viewport'
-
+import ClientGame from '../../classes/game/client_game'
 
 class GameView extends React.Component {
   constructor(props) {
@@ -10,15 +9,17 @@ class GameView extends React.Component {
   }
 
   componentDidMount() {
-    this.socket.emit('enter-room', this.room)
     if (!this.socket) window.location.href = "/play";
-    this.clientViewPort = new ClientViewPort(this.socket, this.room, this.props.user, this.props.gameoptions);
-    this.clientViewPort.init();
+    this.socket.emit('enter-room', this.room)
+    this.clientGame = new ClientGame(this.socket, this.room, this.props.user, this.props.gameoptions);
+    this.clientGame.init();
   };
   
   componentWillUnmount() {
-    this.socket.emit('leave-game', this.room)
-    this.socket.disconnect();
+    if (this.socket) {
+      this.socket.emit('leave-game', this.room)
+      this.socket.disconnect();
+    }
   }
 
   render() {
