@@ -18,6 +18,7 @@ class ClientGame {
       ship: gameoptions.ship,
       ball: gameoptions.ball
     }
+    
     this.arena = new ClientArena();
     this.goalPosts = new Goals();
 

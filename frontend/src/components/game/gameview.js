@@ -17,7 +17,7 @@ class GameView extends React.Component {
   };
   
   componentWillUnmount() {
-    this.socket.emit('player-leave', this.room)
+    this.socket.emit('leave-game', this.room)
     this.socket.disconnect();
   }
 

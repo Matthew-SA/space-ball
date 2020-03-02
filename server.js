@@ -77,61 +77,60 @@ const clients = {};
 const gameList = {};
 
 io.on('connection', (socket) => {
-  socket.join('lobby')
-  clients[socket.id] = 'lobby'
-  console.log('***USER CONNECTED***')
+  console.log('*** user connected ***')
 
+  // lobby room logic
   socket.on('request-gamelist', () => {
     io.in('lobby').emit('send-gamelist', Object.keys(gameList))
   })
 
-  
-  socket.on('enter-room', (roomNum) => { // enters socket room and assigns that room to player
+  socket.on('enter-room', roomNum => {
     clients[socket.id] = roomNum;
     socket.join("room-" + roomNum)
-    console.log(clients)
+    // console.log(clients)
   })
   
-  socket.on('leave-room', (roomNum) => {
+  socket.on('leave-room', roomNum => {
     delete clients[socket.id]
-    socket.leave(roomNum)
-    console.log(clients)
+    socket.leave("room-" + roomNum)
+    // console.log(clients)
   })
 
-  socket.on('player-join', (roomNum) => { // starts game / joins game
+  // gameplay socket interactions
+  socket.on('join-game', roomNum => {
     if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
-    gameList[roomNum].addNewPlayer(socket)
+    gameList[roomNum].addNewPlayer(socket.id)
   });
 
   socket.on('player-action', data => {
-    let roomNum = data.room;
-    gameList[roomNum].movePlayer(socket.id, data)
+    let game = gameList[data.room];
+    game.movePlayer(socket.id, data)
   });
 
-  socket.on('player-leave', roomNum => {
-    gameList[roomNum].removePlayer(socket.id)
-    if (gameList[roomNum].players.length <= 0) delete gameList[roomNum]
+  socket.on('leave-game', roomNum => {
+    let game = gameList[roomNum]
+    game.removePlayer(socket.id)
+    if (game.players.length <= 0) delete gameList[roomNum]
   })
 
-  // socket.on('test', data => {
-  //   console.log(data);
-  // })
-
+  // client disconnect logic: delete from client list and remove from game.
   socket.on('disconnect', () => {
     let roomNum = clients[socket.id]
     delete clients[socket.id]
-    if (gameList[roomNum]) {
-      gameList[roomNum].removePlayer(socket.id)
-      if (gameList[roomNum].players.length <= 0) delete gameList[roomNum]
+
+    let game = gameList[roomNum]
+    if (game) {
+      game.removePlayer(socket.id)
+      if (game.players.length <= 0) delete gameList[roomNum]
     }
-    console.log(clients)
-    // gameList[roomNum].removePlayer(socket.id,socket)
-    console.log('user disconnected')
+    console.log('*** user disconnected ***')
   })
 })
 
-// setInterval(() => {
+setInterval(() => {
+  console.log("clients", clients)
+  // console.log("game", gameList)
 //   io.in('lobby').emit('test', 'testing...')
-// }, 1000);
+}, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

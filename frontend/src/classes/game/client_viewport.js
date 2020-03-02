@@ -23,7 +23,7 @@ class ClientViewPort {
       ball: gameoptions.ball
     }
     // adds player to game room on backend
-    this.socket.emit('player-join', this.room)
+    this.socket.emit('join-game', this.room)
 
     // apply game controls
     Input.applyEventHandlers();
