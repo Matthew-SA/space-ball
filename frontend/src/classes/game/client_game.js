@@ -15,7 +15,6 @@ class ClientGame {
     this.ctx = this.canvas.getContext("2d");
     this.background = document.getElementById('background-canvas');
     this.arenaCtx = this.background.getContext("2d");
-
     this.user = user
     this.gameoptions = {
       ship: gameoptions.ship,
