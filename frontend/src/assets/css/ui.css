@@ -72,3 +72,31 @@
   font-family: sans-serif;
   overflow: scroll;
 }
+
+/* server room */
+.room-welcome-header{
+  font-size: 24px;
+  padding: 10px 0px;
+}
+
+.room-column-headers{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  padding-top: 10px;
+}
+
+.room-column-headers div{
+  font-size: 20px;
+}
+
+.teams{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  min-height: 100px;
+}
+
+.teams div{
+  padding: 4px 0px;
+}

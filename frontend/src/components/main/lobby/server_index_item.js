@@ -6,7 +6,6 @@ import $ from 'jquery';
 class ServerIndexItem extends React.Component {
   constructor(props){
     super(props)
-    console.log(this.props)
   }
 
   eventListeners(){

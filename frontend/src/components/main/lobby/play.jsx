@@ -16,7 +16,6 @@ class Play extends React.Component {
         this.socket.emit('enter-room', 'lobby')
         this.socket.on('send-gamelist', data => {
             this.setState({servers: data})
-            console.log(data)
         })
         this.socket.emit('request-gamelist')
     }
