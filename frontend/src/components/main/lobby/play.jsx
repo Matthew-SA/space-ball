@@ -16,7 +16,6 @@ class Play extends React.Component {
         this.socket.emit('enter-room', 'lobby')
         this.socket.on('send-gamelist', data => {
             this.setState({servers: data})
-            console.log(data)
         })
         this.socket.emit('request-gamelist')
     }
@@ -27,6 +26,8 @@ class Play extends React.Component {
 
     render() {
         const servers = this.state.servers
+        console.log(this.props.gameoptions)
+        console.log(this.props.user)
         return (
           <div className="mainpage-container">
             <NavBarContainer />
