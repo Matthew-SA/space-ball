@@ -111,6 +111,7 @@ class LoginForm extends React.Component {
         <div className="clouds"></div>
         <NavBarContainer />
         <div className="form-container-login">
+          <div className="title">Log In to Your Account</div>
           <form onSubmit={this.handleSubmit}>
             <div className="login-form">
               <input
@@ -131,7 +132,13 @@ class LoginForm extends React.Component {
               <br />
               <input className="submit-button" type="submit" value="LOG IN" />
               <br />
-              <button className="demo-login-button" onClick={this.handleDemo} type="button">DEMO LOG IN</button>
+              <button
+                className="demo-login-button"
+                onClick={this.handleDemo}
+                type="button"
+              >
+                DEMO LOG IN
+              </button>
               {this.renderErrors()}
             </div>
           </form>

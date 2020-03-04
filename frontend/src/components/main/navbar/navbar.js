@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -35,13 +35,13 @@ class NavBar extends React.Component {
       return (
         <div className="loggedin">
           <div className="greeting">Hello {this.props.user.username} !</div>
-          <button className="logout-button" onClick={this.logoutUser}>Log Out</button>
+          <button className="button logout-button" onClick={this.logoutUser}>LOG OUT</button>
         </div>
       );
     } else {
       return (
         <div className="loggedout">
-          <Link to="/login"><button className="login-button" id="login">Log In</button></Link>
+          <Link to="/login"><button className="button login-button" id="login">LOG IN</button></Link>
         </div>
       );
     }
@@ -51,21 +51,17 @@ class NavBar extends React.Component {
     return (
       <div className="navbar">
         <div className="nav">
-          <Link to="/" >
-            <svg className="nav-select home-button active" id="home" 
+          <NavLink to="/" activeClassName="activeLink">
+            <svg className="nav-select home-button" id="home" 
               viewBox="0 0 24 24" onClick={this.handleClick}>
               <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
             </svg>
-            {/* <img className="logo" src="images/space_ball.png" width="200" alt="logo" /> */}
+          </NavLink>
+          <Link to="/play">
+            <div className="nav-select" id="play" onClick={this.handleClick}>PLAY</div>
           </Link>
           <Link to="/about" >
             <div className="nav-select" id="about" onClick={this.handleClick}>ABOUT</div>
-          </Link>
-          {/* <Link to="/play" >
-            <div className="nav-select" id="play" onClick={this.handleClick}>PLAY</div>
-          </Link> */}
-          <Link to="/howtoplay" >
-            <div className="nav-select" id="howtoplay" onClick={this.handleClick}>HOW TO PLAY</div>
           </Link>
           <Link to="/options" >
             <div className="nav-select" id="options" onClick={this.handleClick}>OPTIONS</div>

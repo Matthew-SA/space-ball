@@ -62,7 +62,7 @@ class Room extends React.Component {
         <div className="twinkling"></div>
         <div className="clouds"></div>
         <NavBarContainer />
-        <div className="lobby-content">
+        <div className="content">
           <div className="box">
             <svg style={{ width: "24px", height: "24px" }} viewBox="0 0 24 24">
               <path

@@ -28,8 +28,11 @@ class Play extends React.Component {
         const servers = this.state.servers
         return (
           <div className="mainpage-container">
+            <div className="stars"></div>
+            <div className="twinkling"></div>
+            <div className="clouds"></div>
             <NavBarContainer />
-            <div className="lobby-content game-lobby">
+            <div className="content game-lobby">
               <div className="box">
                 <div className="server-list-header">Room List</div>
 
@@ -53,7 +56,9 @@ class Play extends React.Component {
                       </div>
                     ))
                   ) : (
-                    <div className="empty-server">There are no active rooms - create your own!</div>
+                    <div className="empty-server">
+                      There are no active rooms - create your own!
+                    </div>
                   )}
                 </div>
 
@@ -72,14 +77,14 @@ class Play extends React.Component {
                     gameoptions: this.props.gameoptions
                   }}
                 >
-                  <div className="create-button">Create Room</div>
+                  <div className="button create-button">Create Room</div>
                 </Link>
               </div>
                         </div>
 
                 <div className="buy-button" onClick={this.props.history.goBack}>
                 Go Back
-              </div>
+              </div> */}
             </div>
         );
 
