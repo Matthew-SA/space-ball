@@ -56,7 +56,7 @@ class Play extends React.Component {
             <div className="twinkling"></div>
             <div className="clouds"></div>
             <NavBarContainer />
-            <div className="lobby-content game-lobby">
+            <div className="content game-lobby">
               <div className="box">
                 <div className="server-list-header">Room List</div>
 
@@ -101,7 +101,7 @@ class Play extends React.Component {
                     gameoptions: this.props.gameoptions
                   }}
                 >
-                  <div className="create-button">Create Room</div>
+                  <div className="button create-button">Create Room</div>
                 </Link>
               </div>
               {/* 
@@ -114,9 +114,9 @@ class Play extends React.Component {
                             </div>
                         </div> */}
 
-              <div className="buy-button" onClick={this.handleClick}>
+              {/* <div className="buy-button" onClick={this.handleClick}>
                 Go Back
-              </div>
+              </div> */}
             </div>
             {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
           </div>

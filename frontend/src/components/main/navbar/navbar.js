@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -51,34 +51,24 @@ class NavBar extends React.Component {
     return (
       <div className="navbar">
         <div className="nav">
-          <Link to="/" >
-            <svg className="nav-select home-button active" id="home" 
+          <NavLink to="/" activeClassName="activeLink">
+            <svg className="nav-select home-button" id="home" 
               viewBox="0 0 24 24" onClick={this.handleClick}>
               <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
             </svg>
-            {/* <img className="logo" src="images/space_ball.png" width="200" alt="logo" /> */}
-          </Link>
+          </NavLink>
           <Link to="/play">
             <div className="nav-select" id="play" onClick={this.handleClick}>PLAY</div>
           </Link>
           <Link to="/about" >
             <div className="nav-select" id="about" onClick={this.handleClick}>ABOUT</div>
           </Link>
-          {/* <Link to="/play" >
-            <div className="nav-select" id="play" onClick={this.handleClick}>PLAY</div>
-          </Link> */}
-          {/* <Link to="/howtoplay" >
-            <div className="nav-select" id="howtoplay" onClick={this.handleClick}>HOW TO PLAY</div>
-          </Link> */}
           <Link to="/options" >
             <div className="nav-select" id="options" onClick={this.handleClick}>OPTIONS</div>
           </Link>
           <Link to="/leaderboard" >
             <div className="nav-select" id="leaderboard" onClick={this.handleClick}>LEADERBOARD</div>
           </Link>
-          {/* <Link to="/play" >
-            <div className="button play-button">PLAY</div>
-          </Link> */}
         </div>
         {this.loginLinks()}
       </div>

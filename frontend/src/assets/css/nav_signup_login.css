@@ -18,7 +18,6 @@
   text-align: center;
   font-size: 18px;
   letter-spacing: 1px;
-  /* color: #ffe600; */
   color: #ffe600;
   text-shadow: 0 0 15px #ffe600;
   font-family: 'Josefin Sans', sans-serif;
@@ -30,7 +29,7 @@
   cursor: pointer;
 }
 
-.active {
+.activeLink {
   color: #fc03a1;
   fill: #fc03a1;
 }
@@ -63,10 +62,6 @@
   color: #fc03a1;
   padding-bottom: 20px;
 }
-
-/* .hidden {
-  display: none;
-} */
 
 .input-field {
   font-weight: 200;
@@ -120,14 +115,13 @@
 }
 
 .logout-button, .login-button {
-  font-size: 14px;
-  width: 90px;
+  font-size: 12px;
+  width: 80px;
   height: 30px;
   line-height: 30px;
   margin-top: -5px;
   font-weight: 300;
   background: rgba(0, 0, 0, .8);
-  transition: ease-in-out .2s;
 }
 
 .pointer {
