@@ -1,10 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Route, withRouter } from "react-router-dom";
+import $ from 'jquery';
 
 class ServerIndexItem extends React.Component {
   constructor(props){
     super(props)
+  }
+
+  eventListeners(){
+    let that = this;
+    
+    //this jquery gives hover class to each server index item
+    $(`#server-${this.props.room}`).hover(
+      function() {
+        $(`#server-${that.props.room}`).addClass("room-hover");
+      },
+      function() {
+        $(`#server-${that.props.room}`).removeClass("room-hover");
+      }
+    );
+  };
+
+  componentDidMount(){
+    this.eventListeners();
   }
 
   render(){

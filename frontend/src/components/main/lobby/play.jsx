@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import io from 'socket.io-client';
 import NavBarContainer from '../navbar/navbar_container';
 import ServerIndexItem from './server_index_item';
@@ -11,13 +11,9 @@ class Play extends React.Component {
         this.state = {servers: []}
     }
 
-    // componentWillMount() {
-    //     this.socket.emit('request-gamelist')
-        
-    // }
-
     componentDidMount() {
         this.props.fetchInventory();
+        this.socket.emit('enter-room', 'lobby')
         this.socket.on('send-gamelist', data => {
             this.setState({servers: data})
         })
@@ -25,31 +21,11 @@ class Play extends React.Component {
     }
 
     componentWillUnmount() {
-        this.socket.emit('leave-lobby')
+        this.socket.emit('leave-room', 'lobby')
     }
-
-    // serverRow(server) {
-    //     return (
-    //         <li>
-    //             <Link to={{
-    //                 pathname: "/room",
-    //                 room: server,
-    //                 numPlayers: 1,
-    //                 socket: this.socket,
-    //                 user: this.props.user,
-    //                 gameoptions: this.props.gameoptions
-    //             }}><div className="server-list">
-    //                 <div className="server-column"># { server }</div>
-    //                 <div className="server-column"> ??? Players</div>
-    //             </div>
-    //             </Link>
-    //         </li>
-    //     )
-    // }
 
     render() {
         const servers = this.state.servers
-
         return (
           <div className="mainpage-container">
             <NavBarContainer />
@@ -99,22 +75,12 @@ class Play extends React.Component {
                   <div className="create-button">Create Room</div>
                 </Link>
               </div>
-              {/* 
-                        <div className="box">
-                            <div className="title">How To Play:</div>
-                            <div className="instructions">Push the ball towards the oppenent's goal. <br />
-                                Score by getting the ball into the goal. <br />
-                                Move your ship with WASD. <br />
-                                First to 10 points wins. <br />
-                            </div>
-                        </div> */}
+                        </div>
 
-              <div className="buy-button" onClick={this.handleClick}>
+                <div className="buy-button" onClick={this.props.history.goBack}>
                 Go Back
               </div>
             </div>
-            {/* <button onClick={() => this.socket.emit('test', 'hello')}></button> */}
-          </div>
         );
 
     }

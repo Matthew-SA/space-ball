@@ -33,6 +33,10 @@
   line-height: 24px;
 }
 
+.room-hover{
+  color: yellow;
+}
+
 .server-columns div{
   padding: 0px 50px;
 }
