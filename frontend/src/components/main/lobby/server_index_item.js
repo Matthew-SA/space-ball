@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import $ from "jquery";
 
 class ServerIndexItem extends React.Component {
   // constructor(props){

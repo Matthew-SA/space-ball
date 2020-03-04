@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import NavBarContainer from '../navbar/navbar_container';
 import ServerIndexItem from './server_index_item';
@@ -56,38 +56,28 @@ class Play extends React.Component {
                       </div>
                     ))
                   ) : (
-                    <div className="empty-server">
-                      There are no active rooms - create your own!
-                    </div>
+                  <div className="empty-server">
+                    There are no active rooms - create your own!
+                  </div>
                   )}
                 </div>
 
-                <Link
-                  to={{
-                    pathname: "/room",
-                    room:
-                      this.state.servers.length <= 0
-                        ? 1
-                        : parseInt(
-                            this.state.servers[this.state.servers.length - 1]
-                          ) + 1,
+                <Link to={{ pathname: "/room",
+                    room: this.state.servers.length <= 0 ? 1
+                      : parseInt(
+                        this.state.servers[this.state.servers.length - 1]
+                        ) + 1,
                     numPlayers: 1,
                     socket: this.socket,
                     user: this.props.user,
                     gameoptions: this.props.gameoptions
-                  }}
-                >
+                }}>
                   <div className="button create-button">Create Room</div>
                 </Link>
               </div>
-                        </div>
-
-                <div className="buy-button" onClick={this.props.history.goBack}>
-                Go Back
-              </div> */}
             </div>
+          </div>
         );
-
     }
 
 };
