@@ -4,8 +4,8 @@ import ClientGame from '../../classes/game/client_game'
 class GameView extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = this.props.location.socket
-    this.room = this.props.location.room
+    this.socket = this.props.socket
+    this.room = this.props.room
   }
 
   componentDidMount() {

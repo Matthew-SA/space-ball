@@ -37,6 +37,7 @@ app.use("/api/inventory", inventory);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
+const ServerRoom = require('./lib/server_room')
 const ServerGame = require('./lib/server_game');
 // end websocket dependencies
 
@@ -70,7 +71,6 @@ app.get("/", (req, res) => {
 
 
 // Websocket logic below
-// const roomList = {};
 const clients = {};
 const gameList = {};
 
@@ -94,10 +94,15 @@ io.on('connection', (socket) => {
   //////////////////////////////////////////////
 
   // gameplay socket interactions //////////////
-  socket.on('join-game', roomNum => {
-    if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
-    gameList[roomNum].addNewPlayer(socket.id)
+  socket.on('join-game', data => {
+    if (!gameList[data.room]) gameList[data.room] = new ServerRoom(data.room)
+    gameList[data.room].addPlayer(socket.id, data.username, data.options)
   });
+
+  socket.on('request-game-start', roomNum => {
+    let newGame = new ServerGame(io, roomNum, gameList[roomNum].roster);
+    gameList[roomNum] = newGame;
+  })
 
   socket.on('player-action', data => {
     let game = gameList[data.room];
@@ -107,7 +112,7 @@ io.on('connection', (socket) => {
   socket.on('leave-game', roomNum => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
-    if (game.players.length <= 0) delete gameList[roomNum]
+    if ([...game.roster.keys()].length <= 0) delete gameList[roomNum]
   })
   //////////////////////////////////////////////
 
