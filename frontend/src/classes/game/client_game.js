@@ -39,9 +39,8 @@ class ClientGame {
 
     this.others = [];
     this.othersPrev = [];
-    // this.socket.emit('join-game', this.room)
+
     Input.applyEventHandlers();
-    console.log('loading game!')
   }
 
   init() {

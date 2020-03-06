@@ -102,6 +102,7 @@ io.on('connection', (socket) => {
   socket.on('request-game-start', roomNum => {
     let newGame = new ServerGame(io, roomNum, gameList[roomNum].roster);
     gameList[roomNum] = newGame;
+    io.in('room-' + roomNum).emit('start-game')
   })
 
   socket.on('player-action', data => {
@@ -112,7 +113,7 @@ io.on('connection', (socket) => {
   socket.on('leave-game', roomNum => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
-    if ([...game.roster.keys()].length <= 0) delete gameList[roomNum]
+    if (game.roster.size <= 0) delete gameList[roomNum]
   })
   //////////////////////////////////////////////
 
@@ -124,7 +125,7 @@ io.on('connection', (socket) => {
     let game = gameList[roomNum]
     if (game) {
       game.removePlayer(socket.id)
-      if (game.players.length <= 0) delete gameList[roomNum]
+      if (game.roster.size <= 0) delete gameList[roomNum]
     }
     console.log('*** user disconnected ***')
   })
@@ -132,10 +133,10 @@ io.on('connection', (socket) => {
 
 
 // debugger tools
-// setInterval(() => {
-  // console.log("clients", clients)
-  // console.log("game", Object.keys(gameList))
+setInterval(() => {
+  console.log("clients", clients)
+  console.log("game", Object.keys(gameList))
 //   io.in('lobby').emit('test', 'testing...')
-// }, 1000);
+}, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));
