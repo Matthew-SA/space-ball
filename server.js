@@ -37,7 +37,6 @@ app.use("/api/inventory", inventory);
 // websocket dependencies
 const http = require("http");
 const socketIO = require('socket.io')
-const ServerRoom = require('./lib/server_room')
 const ServerGame = require('./lib/server_game');
 // end websocket dependencies
 
@@ -79,7 +78,7 @@ io.on('connection', (socket) => {
 
   // lobby room logic /////////////////////////
   socket.on('request-gamelist', () => {
-    io.in('room-lobby').emit('send-gamelist', Object.keys(gameList))
+    io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
   })
 
   socket.on('enter-room', roomNum => {
@@ -95,14 +94,16 @@ io.on('connection', (socket) => {
 
   // gameplay socket interactions //////////////
   socket.on('join-game', data => {
-    if (!gameList[data.room]) gameList[data.room] = new ServerRoom(data.room)
+    if (!gameList[data.room]) {
+      gameList[data.room] = new ServerGame(io, data.room)
+      io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+    }
     gameList[data.room].addPlayer(socket.id, data.username, data.options)
+    io.in('room-lobby').emit(`update-${data.room}`, gameList[data.room].roster.size)
   });
 
   socket.on('request-game-start', roomNum => {
-    let newGame = new ServerGame(io, roomNum, gameList[roomNum].roster);
-    gameList[roomNum] = newGame;
-    io.in('room-' + roomNum).emit('start-game')
+    gameList[roomNum].init();
   })
 
   socket.on('player-action', data => {
@@ -113,7 +114,11 @@ io.on('connection', (socket) => {
   socket.on('leave-game', roomNum => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
-    if (game.roster.size <= 0) delete gameList[roomNum]
+    io.in('room-lobby').emit(`update-${roomNum}`, game.roster.size)
+    if (game.roster.size <= 0) {
+      delete gameList[roomNum]
+      io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+    }
   })
   //////////////////////////////////////////////
 
@@ -134,8 +139,8 @@ io.on('connection', (socket) => {
 
 // debugger tools
 setInterval(() => {
-  console.log("clients", clients)
-  console.log("game", Object.keys(gameList))
+  // console.log("clients", clients)
+  // console.log("game", Object.keys(gameList))
 //   io.in('lobby').emit('test', 'testing...')
 }, 1000);
 

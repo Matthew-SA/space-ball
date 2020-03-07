@@ -6,6 +6,12 @@ import $ from 'jquery';
 class ServerIndexItem extends React.Component {
   constructor(props){
     super(props)
+    this.room = this.props.room
+    this.socket = this.props.socket
+
+    this.state = {
+      numPlayers: 1,
+    }
   }
 
   eventListeners(){
@@ -24,6 +30,15 @@ class ServerIndexItem extends React.Component {
 
   componentDidMount(){
     this.eventListeners();
+    this.socket.on('update-' + this.room, data => {
+      this.setState({
+        numPlayers: data
+      })
+    })
+  }
+
+  componentWillUnmount() {
+
   }
 
   render(){
@@ -31,9 +46,9 @@ class ServerIndexItem extends React.Component {
       <Link
         to={{
           pathname: "/room",
-          room: this.props.room,
-          numPlayers: 1,
-          socket: this.props.socket,
+          room: this.room,
+          numPlayers: this.state.numPlayers,
+          socket: this.socket,
           user: this.props.user,
           gameoptions: this.props.gameoptions
         }}
@@ -44,7 +59,7 @@ class ServerIndexItem extends React.Component {
           key={this.props.i}
         >
           <div>#00{this.props.room}</div>
-          <div>{this.props.numPlayers}/6</div>
+          <div>{this.state.numPlayers}/6</div>
         </div>
       </Link>
     );

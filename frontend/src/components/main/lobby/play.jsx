@@ -14,7 +14,7 @@ class Play extends React.Component {
   componentDidMount() {
     this.props.fetchInventory();
     this.socket.emit('enter-room', 'lobby')
-    this.socket.on('send-gamelist', data => {
+    this.socket.on('update-gamelist', data => {
       this.setState({servers: data})
     })
     this.socket.emit('request-gamelist')
@@ -48,7 +48,7 @@ class Play extends React.Component {
                 key={i}
                 pathname="/room"
                 room={server}
-                numPlayers={1}
+                // numPlayers={0}
                 socket={this.socket}
                 user={this.props.user}
                 gameoptions={this.props.gameoptions}
@@ -65,7 +65,7 @@ class Play extends React.Component {
               pathname: "/room",
               room: this.state.servers.length <= 0 ? 1 : parseInt(
                       this.state.servers[this.state.servers.length - 1]) + 1,
-              numPlayers: 1,
+              // numPlayers: 1,
               socket: this.socket,
               user: this.props.user,
               gameoptions: this.props.gameoptions}}>

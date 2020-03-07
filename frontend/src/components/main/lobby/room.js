@@ -28,13 +28,14 @@ class Room extends React.Component {
 
     this.socket.on('start-game', () => {
       this.setState({ live: true })
+      console.log(this.state)
     })
   }
 
   componentWillUnmount() {
     if (this.socket) {
       this.socket.emit('leave-room', this.room);
-      this.socket.emit('leave-game', this.room)
+      this.socket.emit('leave-game', this.room);
       this.socket.disconnect();
     }
   }
