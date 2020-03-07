@@ -81,6 +81,10 @@ io.on('connection', (socket) => {
     io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
   })
 
+  socket.on('request-update', roomNum => {
+    io.in('room-lobby').emit(`update-${roomNum}`, gameList[roomNum].roster.size)
+  })
+
   socket.on('enter-room', roomNum => {
     clients[socket.id] = roomNum;
     socket.join("room-" + roomNum)
@@ -89,6 +93,10 @@ io.on('connection', (socket) => {
   socket.on('leave-room', roomNum => {
     delete clients[socket.id]
     socket.leave("room-" + roomNum)
+  })
+
+  socket.on('request-game-start', roomNum => {
+    gameList[roomNum].init();
   })
   //////////////////////////////////////////////
 
@@ -99,12 +107,7 @@ io.on('connection', (socket) => {
       io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
     }
     gameList[data.room].addPlayer(socket.id, data.username, data.options)
-    io.in('room-lobby').emit(`update-${data.room}`, gameList[data.room].roster.size)
   });
-
-  socket.on('request-game-start', roomNum => {
-    gameList[roomNum].init();
-  })
 
   socket.on('player-action', data => {
     let game = gameList[data.room];
@@ -115,10 +118,7 @@ io.on('connection', (socket) => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
     io.in('room-lobby').emit(`update-${roomNum}`, game.roster.size)
-    if (game.roster.size <= 0) {
-      delete gameList[roomNum]
-      io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
-    }
+    if (game.roster.size <= 0) destroyGame(roomNum)
   })
   //////////////////////////////////////////////
 
@@ -130,17 +130,16 @@ io.on('connection', (socket) => {
     let game = gameList[roomNum]
     if (game) {
       game.removePlayer(socket.id)
-      if (game.roster.size <= 0) {
-        delete gameList[roomNum]
-        io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
-      } else {
-        io.in('room-lobby').emit(`update-${roomNum}`, game.roster.size)
-      }
+      if (game.roster.size <= 0) destroyGame(roomNum)
     }
     console.log('*** user disconnected ***')
   })
 })
 
+const destroyGame = function(roomNum) {
+  delete gameList[roomNum]
+  io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+}
 
 // debugger tools
 setInterval(() => {

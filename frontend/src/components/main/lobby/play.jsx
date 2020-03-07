@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import NavBarContainer from '../navbar/navbar_container';
 import ServerIndexItem from './server_index_item';
@@ -43,9 +43,9 @@ class Play extends React.Component {
               <div>Players</div>
               </div>
               {servers.length > 0 ? (servers.map((server, i) => (
-                <div className="server">
                 <ServerIndexItem
-                key={i}
+                className="server"
+                key={server}
                 pathname="/room"
                 room={server}
                 // numPlayers={0}
@@ -53,7 +53,7 @@ class Play extends React.Component {
                 user={this.props.user}
                 gameoptions={this.props.gameoptions}
                 />
-                </div>))
+                ))
               ) : (
                 <div className="empty-server">
                   There are no active rooms - create your own!

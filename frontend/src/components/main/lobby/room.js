@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import NavBarContainer from "../navbar/navbar_container";
 import GameView from "../../game/gameview_container"
 
