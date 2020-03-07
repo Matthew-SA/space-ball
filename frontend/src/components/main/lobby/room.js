@@ -33,8 +33,8 @@ class Room extends React.Component {
 
   componentWillUnmount() {
     if (this.socket) {
-      this.socket.emit('leave-room', this.room);
       this.socket.emit('leave-game', this.room);
+      this.socket.emit('leave-room', this.room);
       this.socket.disconnect();
     }
   }

@@ -44,7 +44,7 @@ class ServerIndexItem extends React.Component {
   }
 
   render(){
-    if (!this.state.live && this.state.numPlayers < 6) {
+    if (!this.state.live) {
       return ( 
         <Link
           to={{
