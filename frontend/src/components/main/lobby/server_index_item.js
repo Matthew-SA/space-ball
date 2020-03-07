@@ -10,7 +10,7 @@ class ServerIndexItem extends React.Component {
     this.socket = this.props.socket
 
     this.state = {
-      live: false,
+      isLive: false,
       numPlayers: null,
     }
   }
@@ -32,19 +32,26 @@ class ServerIndexItem extends React.Component {
   componentDidMount(){
     this.eventListeners();
     this.socket.emit('request-update', this.room)
-    this.socket.on('update-' + this.room, data => {
+    this.socket.on(`update-${this.room}`, data => {
       this.setState({
         numPlayers: data
+      })
+    })
+    this.socket.on(`start-${this.room}`, data => {
+      console.log(data)
+      this.setState({
+        isLive: data
       })
     })
   }
 
   componentWillUnmount() {
-
+    this.socket.off('update-' + this.room)
+    this.socket.off('start-' + this.room)
   }
 
   render(){
-    if (!this.state.live) {
+    if (!this.state.isLive) {
       return ( 
         <Link
           to={{
@@ -63,7 +70,7 @@ class ServerIndexItem extends React.Component {
       );
     } else {
       return  (
-        <div className="server-columns" id={`server-${this.props.room}`} style="color: red;">
+        <div className="server-columns" id={`server-${this.props.room}`}>
           <div>#00{this.props.room}</div>
           <div>{this.state.numPlayers}/6</div>
         </div>

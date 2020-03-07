@@ -83,6 +83,7 @@ io.on('connection', (socket) => {
 
   socket.on('request-update', roomNum => {
     io.in('room-lobby').emit(`update-${roomNum}`, gameList[roomNum].roster.size)
+    io.in('room-lobby').emit(`start-${roomNum}`, gameList[roomNum].isLive)
   })
 
   socket.on('enter-room', roomNum => {
@@ -117,7 +118,6 @@ io.on('connection', (socket) => {
   socket.on('leave-game', roomNum => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
-    io.in('room-lobby').emit(`update-${roomNum}`, game.roster.size)
     if (game.roster.size <= 0) destroyGame(roomNum)
   })
   //////////////////////////////////////////////
