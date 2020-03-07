@@ -130,7 +130,12 @@ io.on('connection', (socket) => {
     let game = gameList[roomNum]
     if (game) {
       game.removePlayer(socket.id)
-      if (game.roster.size <= 0) delete gameList[roomNum]
+      if (game.roster.size <= 0) {
+        delete gameList[roomNum]
+        io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+      } else {
+        io.in('room-lobby').emit(`update-${roomNum}`, game.roster.size)
+      }
     }
     console.log('*** user disconnected ***')
   })
