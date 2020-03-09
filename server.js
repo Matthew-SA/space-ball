@@ -146,10 +146,10 @@ const destroyGame = function(roomNum) {
 }
 
 // debugger tools
-setInterval(() => {
-  console.log("clients", clients)
+// setInterval(() => {
+  // console.log("clients", clients)
   // console.log("game", Object.keys(gameList))
 //   io.in('lobby').emit('test', 'testing...')
-}, 1000);
+// }, 1000);
 
 server.listen(PORT, () => console.log(`STARTING SERVER ON PORT: ${PORT}`));

@@ -50,8 +50,15 @@ class ServerIndexItem extends React.Component {
   }
 
   render(){
-    if (!this.state.isLive) {
-      return ( 
+    if (this.state.isLive || this.state.numPlayers >= 6) {
+      return  (
+        <div className="server-columns" id={`server-${this.props.room}`}>
+          <div>#00{this.props.room}</div>
+          <div>{this.state.numPlayers}/6</div>
+        </div>
+      )
+    } else {
+      return (
         <Link
           to={{
             pathname: "/room",
@@ -67,13 +74,6 @@ class ServerIndexItem extends React.Component {
           </div>
         </Link>
       );
-    } else {
-      return  (
-        <div className="server-columns" id={`server-${this.props.room}`}>
-          <div>#00{this.props.room}</div>
-          <div>{this.state.numPlayers}/6</div>
-        </div>
-      )
     }
   }
 }
