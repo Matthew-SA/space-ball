@@ -96,6 +96,10 @@ io.on('connection', (socket) => {
     socket.leave("room-" + roomNum)
   })
 
+  socket.on('set-team', data => {
+    gameList[data.roomNum].setTeam(socket.id, data.team)
+  })
+
   socket.on('request-game-start', roomNum => {
     gameList[roomNum].init();
   })

@@ -9,6 +9,7 @@ class Play extends React.Component {
     super(props);
     this.socket = io();
     this.state = {servers: []}
+    this.user = this.props.user === 'Guest' ? 'Guest' : this.props.user.username
   }
 
   componentDidMount() {
@@ -26,8 +27,7 @@ class Play extends React.Component {
 
   render() {
     const servers = this.state.servers
-    // console.log(this.props.gameoptions)
-    // console.log(this.props.user)
+
     return (
       <div className="mainpage-container">
         <NavBarContainer />
@@ -48,7 +48,6 @@ class Play extends React.Component {
                 key={server}
                 pathname="/room"
                 room={server}
-                // numPlayers={0}
                 socket={this.socket}
                 user={this.props.user}
                 gameoptions={this.props.gameoptions}
@@ -65,7 +64,6 @@ class Play extends React.Component {
               pathname: "/room",
               room: this.state.servers.length <= 0 ? 1 : parseInt(
                       this.state.servers[this.state.servers.length - 1]) + 1,
-              // numPlayers: 1,
               socket: this.socket,
               user: this.props.user,
               gameoptions: this.props.gameoptions}}>

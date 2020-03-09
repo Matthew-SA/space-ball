@@ -46,8 +46,8 @@ class ServerIndexItem extends React.Component {
   }
 
   componentWillUnmount() {
-    this.socket.off('update-' + this.room)
-    this.socket.off('start-' + this.room)
+    this.socket.off(`update-${this.room}`)
+    this.socket.off(`start-${this.room}`)
   }
 
   render(){

@@ -5,8 +5,11 @@ import GameView from "../../game/gameview_container"
 class Room extends React.Component {
   constructor(props) {
     super(props)
+    if (!this.props.location.room) window.location.href = "/play";
+
     this.socket = this.props.location.socket;
     this.room = this.props.location.room;
+    this.user = this.props.location.user === 'Guest' ? 'Guest' : this.props.location.user.username
 
     this.state = {
       live: false,
@@ -20,9 +23,18 @@ class Room extends React.Component {
   componentDidMount() {
     this.socket.emit('enter-room', this.room);
     this.socket.emit('join-game', {
-      username: this.props.location.user,
+      username: this.user,
       room: this.room,
       options: this.props.location.gameoptions
+    })
+
+    this.socket.on('update-listing', playerListings => {
+      this.setState({ 
+        neutral: playerListings.neutral,
+        redTeam: playerListings.redTeam,
+        blueTeam: playerListings.blueTeam,
+      })
+      console.log(this.state)
     })
 
     this.socket.on('start-game', () => {
@@ -40,9 +52,6 @@ class Room extends React.Component {
   }
 
   render() {
-    if (!this.room) window.location.href = "/play";
-    console.log(this.state)
-
     if (this.state.live) {
       return <GameView room={this.room} socket={this.socket}/>
     } else {
@@ -63,22 +72,32 @@ class Room extends React.Component {
 
               <div className="teams">
                 <div className="red-team">
-                  {/* {red.map((player, i) => (
-                    <div>{player}</div>
-                  ))} */}
+                  {this.state.redTeam.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
                 </div>
 
                 <div className="no-team">
-                  {/* {red.map((player, i) => (
-                    <div>{player}</div>
-                  ))} */}
+                  {this.state.neutral.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
                 </div>
   
                 <div className="blue-team">
-                  {/* {blue.map((player, i) => (
-                    <div>{player}</div>
-                  ))} */}
+                  {this.state.blueTeam.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
                 </div>
+              </div>
+
+              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })}>
+                RED
+              </div>
+              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: null })}>
+                NONE
+              </div>
+              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })}>
+                BLUE
               </div>
 
               <div className="play" onClick ={() => this.socket.emit('request-game-start', this.room)}>

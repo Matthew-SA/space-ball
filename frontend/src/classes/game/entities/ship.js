@@ -22,7 +22,7 @@ class Ship {
     }
 
     this.ctx = ctx
-    this.user = user === "Guest" ? user : user.username
+    this.user = user === "Guest" ? "Guest" : user.username.user
 
     // this.width = 60;
     // this.height = 60;
