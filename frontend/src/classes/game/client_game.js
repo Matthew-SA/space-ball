@@ -7,7 +7,7 @@ import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
 import Input from './Input';
 class ClientGame {
-  constructor(socket, room, user, gameoptions) {
+  constructor(socket, room, user, team, gameoptions) {
     this.socket = socket;
     this.room = room;
     this.hud = new ClientHud(this.socket);
@@ -25,7 +25,7 @@ class ClientGame {
     this.goalPosts = new Goals();
 
     this.ball = new Ball();
-    this.self = new Ship(this.ctx, user, this.gameoptions.ship);
+    this.self = new Ship(this.ctx, user, team, this.gameoptions.ship);
     this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
     this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
@@ -161,10 +161,10 @@ class ClientGame {
       ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-      ctx.fillStyle = "#FFFFFF"
-      ctx.font = "16pt Audiowide";
-      ctx.fillText(this.user, this.others[i].pos.x - xView, this.others[i].pos.y + 60 - yView);
-      ctx.textAlign = "center";
+      // ctx.fillStyle = "#FFFFFF"
+      // ctx.font = "16pt Audiowide";
+      // ctx.fillText(this.user, this.others[i].pos.x - xView, this.others[i].pos.y + 60 - yView);
+      // ctx.textAlign = "center";
     }
   }
 }

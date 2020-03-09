@@ -11,7 +11,7 @@ class GameView extends React.Component {
   componentDidMount() {
     if (!this.socket) window.location.href = "/play";
     this.socket.emit('enter-room', this.room)
-    this.clientGame = new ClientGame(this.socket, this.room, this.props.user, this.props.gameoptions);
+    this.clientGame = new ClientGame(this.socket, this.room, this.props.user, this.props.team, this.props.gameoptions);
     this.clientGame.init();
   };
   

@@ -10,6 +10,7 @@ class Room extends React.Component {
     this.socket = this.props.location.socket;
     this.room = this.props.location.room;
     this.user = this.props.location.user === 'Guest' ? 'Guest' : this.props.location.user.username
+    this.team = null;
 
     this.state = {
       live: false,
@@ -53,7 +54,7 @@ class Room extends React.Component {
 
   render() {
     if (this.state.live) {
-      return <GameView room={this.room} socket={this.socket}/>
+      return <GameView room={this.room} socket={this.socket} team={this.team}/>
     } else {
       return (
         <div className="mainpage-container">
@@ -90,13 +91,22 @@ class Room extends React.Component {
                 </div>
               </div>
 
-              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })}>
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
+                this.team = 'red';
+                }}>
                 RED
               </div>
-              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: null })}>
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: null })
+                this.team = null;
+                }}>
                 NONE
               </div>
-              <div className="team-button" onClick={() => this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })}>
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
+                this.team = 'blue';
+                }}>
                 BLUE
               </div>
 
