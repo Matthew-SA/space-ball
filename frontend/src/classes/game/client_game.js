@@ -38,16 +38,13 @@ class ClientGame {
     this.shipSprite.src = 'images/default_ship.png';
 
     this.others = [];
-    this.othersPrev = [];
-    this.newOthers = [];
     Input.applyEventHandlers();
   }
 
   init() {
     this.socket.on('initialize-others', data => {
-      // this.newOthers = data.others
-      this.newOthers = data.others.map(options => new Ship(this.ctx, options.user, options.team, options.ship))
-      console.log(this.newOthers)
+      this.clearOthers(this.ctx, this.camera.xView, this.camera.yView);
+      this.others = data.others.map(options => new Ship(this.ctx, options.user, options.team, options.ship))
     })
     this.socket.on('gameState', (data) => {
       this.cycleAll(data)
@@ -107,75 +104,15 @@ class ClientGame {
     }
   }
 
-  // stepOthers(data) {
-  //   this.othersPrev = this.others;
-  //   this.others = data.others;
-  // }
-
   stepOthers(data) {
-    for (let i = 0; i < this.newOthers.length; i++) {
-      this.newOthers[i].step(data[i])
+    for (let i = 0; i < this.others.length; i++) {
+      this.others[i].step(data[i])
     }
   }
 
   drawOthers(ctx, xView, yView) {
     for (let i = 0; i < this.others.length; i++){
-      let jetDirection = this.others[i].jetDirection;
-      if(jetDirection.x === 0 && jetDirection.y === 0){
-        this.boosterPosX = false;
-        this.boosterPosY = false;
-      }
-        else if(jetDirection.x > 0 && jetDirection.y > 0){
-        this.shipAngle = 45;
-        this.boosterPosX = 95;
-        this.boosterPosY = -467;
-      } else if(jetDirection.x > 0 && jetDirection.y < 0){
-        this.shipAngle = 135;
-        this.boosterPosX = 121;
-        this.boosterPosY = -163;
-      } else if(jetDirection.y < 0 && jetDirection.x < 0){
-        this.shipAngle = 225;
-        this.boosterPosX = -182;
-        this.boosterPosY = -134;
-      } else if(jetDirection.y > 0 && jetDirection.x < 0){
-        this.shipAngle = 315;
-        this.boosterPosX = -212;
-        this.boosterPosY = -437;
-      } else if(jetDirection.y > 0){
-        this.shipAngle = 0;
-        this.boosterPosX = -65;
-        this.boosterPosY = -515;
-      } else if(jetDirection.x > 0) {
-        this.shipAngle = 90;
-        this.boosterPosX = 169;
-        this.boosterPosY = -320;
-      } else if(jetDirection.y < 0) {
-        this.shipAngle = 180;
-        this.boosterPosX = -25;
-        this.boosterPosY = -83;
-      } else if(jetDirection.x < 0) {
-        this.shipAngle = 270;
-        this.boosterPosX = -260;
-        this.boosterPosY = -280;
-      } 
-
-      if(this.boosterPosX || this.boosterPosY){
-        this.boosters.draw(
-          this.ctx,
-          ((this.shipAngle + 180) * Math.PI) / 180,
-          this.others[i].pos.x - xView + this.boosterPosX,
-          this.others[i].pos.y - yView + this.boosterPosY
-        );
-      }
-      ctx.setTransform(1, 0, 0, 1, this.others[i].pos.x - xView, this.others[i].pos.y - yView);
-      ctx.rotate((this.shipAngle * Math.PI) / 180);
-      ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-      // ctx.fillStyle = "#FFFFFF"
-      // ctx.font = "16pt Audiowide";
-      // ctx.fillText(this.user, this.others[i].pos.x - xView, this.others[i].pos.y + 60 - yView);
-      // ctx.textAlign = "center";
+      this.others[i].draw(ctx, xView, yView)
     }
   }
 }

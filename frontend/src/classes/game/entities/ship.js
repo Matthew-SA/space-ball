@@ -41,7 +41,6 @@ class Ship {
   }
 
   step(data) {
-    console.log(data)
     this.pos = data.pos
     this.jetDirection = data.jetDirection
   }
