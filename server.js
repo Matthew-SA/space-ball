@@ -147,7 +147,7 @@ const destroyGame = function(roomNum) {
 
 // debugger tools
 setInterval(() => {
-  // console.log("clients", clients)
+  console.log("clients", clients)
   // console.log("game", Object.keys(gameList))
 //   io.in('lobby').emit('test', 'testing...')
 }, 1000);

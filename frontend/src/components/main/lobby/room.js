@@ -5,7 +5,7 @@ import GameView from "../../game/gameview_container"
 class Room extends React.Component {
   constructor(props) {
     super(props)
-    if (!this.props.location.room) window.location.href = "/play";
+    if (!this.props.location.room) window.location.href = "/";
 
     this.socket = this.props.location.socket;
     this.room = this.props.location.room;
