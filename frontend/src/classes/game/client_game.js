@@ -15,7 +15,7 @@ class ClientGame {
     this.ctx = this.canvas.getContext("2d");
     this.background = document.getElementById('background-canvas');
     this.arenaCtx = this.background.getContext("2d");
-    this.user = user
+    this.user = user === "Guest" ? "Guest" : user.username
     this.gameoptions = {
       ship: gameoptions.ship,
       ball: gameoptions.ball
@@ -25,7 +25,7 @@ class ClientGame {
     this.goalPosts = new Goals();
 
     this.ball = new Ball();
-    this.self = new Ship(this.ctx, user, team, this.gameoptions.ship);
+    this.self = new Ship(this.ctx, this.user, team, this.gameoptions.ship);
     this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
     this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
@@ -39,11 +39,16 @@ class ClientGame {
 
     this.others = [];
     this.othersPrev = [];
-
+    this.newOthers = [];
     Input.applyEventHandlers();
   }
 
   init() {
+    this.socket.on('initialize-others', data => {
+      // this.newOthers = data.others
+      this.newOthers = data.others.map(options => new Ship(this.ctx, options.user, options.team, options.ship))
+      console.log(this.newOthers)
+    })
     this.socket.on('gameState', (data) => {
       this.cycleAll(data)
     });
@@ -84,8 +89,8 @@ class ClientGame {
 
   stepEntities(data) {
     this.ball.step(data)
-    this.self.step(data)
-    this.stepOthers(data);
+    this.self.step(data.self)
+    this.stepOthers(data.others);
   }
 
   drawEntities(ctx, camera) {
@@ -102,9 +107,15 @@ class ClientGame {
     }
   }
 
+  // stepOthers(data) {
+  //   this.othersPrev = this.others;
+  //   this.others = data.others;
+  // }
+
   stepOthers(data) {
-    this.othersPrev = this.others;
-    this.others = data.others;
+    for (let i = 0; i < this.newOthers.length; i++) {
+      this.newOthers[i].step(data[i])
+    }
   }
 
   drawOthers(ctx, xView, yView) {

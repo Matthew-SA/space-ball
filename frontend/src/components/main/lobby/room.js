@@ -35,12 +35,10 @@ class Room extends React.Component {
         redTeam: playerListings.redTeam,
         blueTeam: playerListings.blueTeam,
       })
-      console.log(this.state)
     })
 
     this.socket.on('start-game', () => {
       this.setState({ live: true })
-      console.log(this.state)
     })
   }
 

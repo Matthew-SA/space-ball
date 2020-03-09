@@ -38,7 +38,6 @@ class ServerIndexItem extends React.Component {
       })
     })
     this.socket.on(`start-${this.room}`, data => {
-      console.log(data)
       this.setState({
         isLive: data
       })

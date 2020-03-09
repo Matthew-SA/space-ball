@@ -22,7 +22,7 @@ class Ship {
     }
     this.team = team
     this.ctx = ctx
-    this.user = user === "Guest" ? "Guest" : user.username.user
+    this.user = user
 
     // this.width = 60;
     // this.height = 60;
@@ -41,8 +41,9 @@ class Ship {
   }
 
   step(data) {
-    this.pos = data.self.pos
-    this.jetDirection = data.self.jetDirection
+    console.log(data)
+    this.pos = data.pos
+    this.jetDirection = data.jetDirection
   }
 
   draw(ctx, xView, yView) {
