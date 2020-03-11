@@ -4,14 +4,14 @@ import ClientGame from '../../classes/game/client_game'
 class GameView extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = this.props.location.socket
-    this.room = this.props.location.room
+    this.socket = this.props.socket
+    this.room = this.props.room
   }
 
   componentDidMount() {
-    if (!this.socket) window.location.href = "/play";
+    if (!this.socket) window.location.href = "/";
     this.socket.emit('enter-room', this.room)
-    this.clientGame = new ClientGame(this.socket, this.room, this.props.user, this.props.gameoptions);
+    this.clientGame = new ClientGame(this.socket, this.room, this.props.user, this.props.team, this.props.gameoptions);
     this.clientGame.init();
   };
   

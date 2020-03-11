@@ -1,7 +1,7 @@
 import Booster from "./booster";
 
 class Ship {
-  constructor(ctx, user, selectedShip) {
+  constructor(ctx, user, team, selectedShip) {
     
     this.shipSprite = new Image();
     switch (selectedShip) {
@@ -20,9 +20,9 @@ class Ship {
       default:
         this.shipSprite.src = "images/default_ship.png";
     }
-
+    this.team = team
     this.ctx = ctx
-    this.user = user === "Guest" ? user : user.username
+    this.user = user
 
     // this.width = 60;
     // this.height = 60;
@@ -41,8 +41,8 @@ class Ship {
   }
 
   step(data) {
-    this.pos = data.self.pos
-    this.jetDirection = data.self.jetDirection
+    this.pos = data.pos
+    this.jetDirection = data.jetDirection
   }
 
   draw(ctx, xView, yView) {
@@ -98,7 +98,7 @@ class Ship {
     ctx.drawImage(this.shipSprite, -60 / 2, -60 / 2);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    ctx.fillStyle = "#FFFFFF"
+    ctx.fillStyle = this.team === 'red' ? '#FF9400' : '#00DAFF'
     ctx.font = "16pt Audiowide";
     ctx.fillText(this.user, this.pos.x - xView, this.pos.y + 60 - yView);
     ctx.textAlign = "center";

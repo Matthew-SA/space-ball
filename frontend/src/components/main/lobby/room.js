@@ -1,111 +1,121 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import NavBarContainer from "../navbar/navbar_container";
+import GameView from "../../game/gameview_container"
 
 class Room extends React.Component {
   constructor(props) {
     super(props)
+    if (!this.props.location.room) window.location.href = "/";
+
     this.socket = this.props.location.socket;
     this.room = this.props.location.room;
-    this.numPlayers = this.props.location.numPlayers;
-// this.state = {
-//   team: {
-//     red: [],
-//     blue: []
-//   }
-// }
+    this.user = this.props.location.user === 'Guest' ? 'Guest' : this.props.location.user.username
+    this.team = null;
+
     this.state = {
+      live: false,
+      numPlayers: 0,
+      neutral: [],
       redTeam: [],
-      blueTeam: []
+      blueTeam: [],
     }
   }
 
   componentDidMount() {
     this.socket.emit('enter-room', this.room);
+    this.socket.emit('join-game', {
+      username: this.user,
+      room: this.room,
+      options: this.props.location.gameoptions
+    })
 
-    const {redTeam, blueTeam} = this.state;
-    const { username } = this.props.location.user;
+    this.socket.on('update-listing', playerListings => {
+      this.setState({ 
+        neutral: playerListings.neutral,
+        redTeam: playerListings.redTeam,
+        blueTeam: playerListings.blueTeam,
+      })
+    })
 
-    let blueTeamArr = this.state.blueTeam;
-    let redTeamArr = this.state.redTeam;
-
-    if(redTeam.length > blueTeam.length){
-      blueTeamArr.push(username)
-    } else {
-      redTeamArr.push(username)
-    };
-
-    this.setState({
-      redTeam: redTeamArr,
-      blueTeam: blueTeamArr
-    });
+    this.socket.on('start-game', () => {
+      this.setState({ live: true })
+    })
   }
 
   componentWillUnmount() {
-    this.socket.emit('leave-room', this.room);
+    if (this.socket) {
+      this.socket.emit('leave-game', this.room);
+      this.socket.emit('leave-room', this.room);
+      this.socket.disconnect();
+    }
   }
 
   render() {
-    let red = [];
-    let blue = [];
-    for(let i=0; i<3; i++){
-      red.push(this.state.redTeam[i] ? this.state.redTeam[i] : "[empty]")
-    }
-    for(let i=0; i<3; i++){
-      blue.push(this.state.blueTeam[i] ? this.state.blueTeam[i] : "[empty]")
-    }
-
-    if (!this.room) window.location.href = "/play";
-    return (
-      <div className="mainpage-container">
-        <div className="stars"></div>
-        <div className="twinkling"></div>
-        <div className="clouds"></div>
-        <NavBarContainer />
-        <div className="content">
-          <div className="box">
-            <svg style={{ width: "24px", height: "24px" }} viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
-              />
-            </svg>
-            <div className="room-welcome-header">
-              Welcome to Room #00{this.room}
-            </div>
-
-            <div className="room-column-headers">
-              <div>RED</div>
-              <div>BLUE</div>
-            </div>
-
-            <div className="teams">
-              <div className="red-team">
-                {red.map((player, i) => (
-                  <div>{player}</div>
-                ))}
+    if (this.state.live) {
+      return <GameView room={this.room} socket={this.socket} team={this.team}/>
+    } else {
+      return (
+        <div className="mainpage-container">
+          <NavBarContainer />
+          <div className="lobby-content">
+            <div className="box">
+              <div className="room-welcome-header">
+                Welcome to Room #00{this.room}
+              </div>
+  
+              <div className="room-column-headers">
+                <div>RED</div>
+                <div>-------</div>
+                <div>BLUE</div>
               </div>
 
-              <div className="blue-team">
-                {blue.map((player, i) => (
-                  <div>{player}</div>
-                ))}
+              <div className="teams">
+                <div className="red-team">
+                  {this.state.redTeam.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
+                </div>
+
+                <div className="no-team">
+                  {this.state.neutral.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
+                </div>
+  
+                <div className="blue-team">
+                  {this.state.blueTeam.map((player, i) => (
+                    <div key={i}>{player}</div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
+                this.team = 'red';
+                }}>
+                RED
+              </div>
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: null })
+                this.team = null;
+                }}>
+                NONE
+              </div>
+              <div className="team-button" onClick={() => {
+                this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
+                this.team = 'blue';
+                }}>
+                BLUE
+              </div>
+
+              <div className="play" onClick ={() => this.socket.emit('request-game-start', this.room)}>
+                Start Game
               </div>
             </div>
-
-            <Link
-              to={{
-                pathname: "/game",
-                room: this.room,
-                socket: this.socket
-              }}
-            >
-              <div className="play">Start Game</div>
-            </Link>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

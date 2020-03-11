@@ -55,6 +55,27 @@
   transform:scale(1.05);
 } */
 
+.team-button {
+  display: block;
+  height: 40px;
+  width: 120px;
+  margin: auto;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  background-color: #ffe600;
+  color: #fc03a1;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 7px;
+  transition: ease-in-out .4s;
+  cursor: pointer;
+}
+
+.team-button:hover {
+  transform:scale(1.05);
+}
+
 /* .server-list {
   display: grid;
   grid-template-columns: 50% 50%;

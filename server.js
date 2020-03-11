@@ -70,7 +70,6 @@ app.get("/", (req, res) => {
 
 
 // Websocket logic below
-// const roomList = {};
 const clients = {};
 const gameList = {};
 
@@ -79,7 +78,12 @@ io.on('connection', (socket) => {
 
   // lobby room logic /////////////////////////
   socket.on('request-gamelist', () => {
-    io.in('room-lobby').emit('send-gamelist', Object.keys(gameList))
+    io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+  })
+
+  socket.on('request-update', roomNum => {
+    io.in('room-lobby').emit(`update-${roomNum}`, gameList[roomNum].roster.size)
+    io.in('room-lobby').emit(`start-${roomNum}`, gameList[roomNum].isLive)
   })
 
   socket.on('enter-room', roomNum => {
@@ -91,12 +95,23 @@ io.on('connection', (socket) => {
     delete clients[socket.id]
     socket.leave("room-" + roomNum)
   })
+
+  socket.on('set-team', data => {
+    gameList[data.roomNum].setTeam(socket.id, data.team)
+  })
+
+  socket.on('request-game-start', roomNum => {
+    gameList[roomNum].init();
+  })
   //////////////////////////////////////////////
 
   // gameplay socket interactions //////////////
-  socket.on('join-game', roomNum => {
-    if (!gameList[roomNum]) gameList[roomNum] = new ServerGame(io, roomNum)
-    gameList[roomNum].addNewPlayer(socket.id)
+  socket.on('join-game', data => {
+    if (!gameList[data.room]) {
+      gameList[data.room] = new ServerGame(io, data.room)
+      io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+    }
+    gameList[data.room].addPlayer(socket.id, data.username, data.options)
   });
 
   socket.on('player-action', data => {
@@ -107,7 +122,7 @@ io.on('connection', (socket) => {
   socket.on('leave-game', roomNum => {
     let game = gameList[roomNum]
     game.removePlayer(socket.id)
-    if (game.players.length <= 0) delete gameList[roomNum]
+    if (game.roster.size <= 0) destroyGame(roomNum)
   })
   //////////////////////////////////////////////
 
@@ -119,12 +134,16 @@ io.on('connection', (socket) => {
     let game = gameList[roomNum]
     if (game) {
       game.removePlayer(socket.id)
-      if (game.players.length <= 0) delete gameList[roomNum]
+      if (game.roster.size <= 0) destroyGame(roomNum)
     }
     console.log('*** user disconnected ***')
   })
 })
 
+const destroyGame = function(roomNum) {
+  delete gameList[roomNum]
+  io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+}
 
 // debugger tools
 // setInterval(() => {
