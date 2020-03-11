@@ -1,80 +1,74 @@
 /* Leaderboard & Stats CSS  */
 
 .leaderboard {
-  width: 80%;
+  width: 600px;
   margin: 0 auto;
-  margin-top: 70px;
+  margin-top: 60px;
   border-radius: 10px;
   border: 5px solid #fc03a1;
-  background-color: #ffe600;
+  background-color: rgba(0, 0, 0, .3);
   color: #fc03a1;
-  font-size: 30px;
   text-align: center;
   overflow: scroll;
-  opacity: .9;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
+  font-size: 18px;
+  line-height: 1.7;
+  text-shadow: 0 0 15px #fc03a1;
 }
 
 .leaderboard-menu {
-  font-size: 28px;
-  height: 60px;
+  font-size: 24px;
   display: grid;
   grid-template-columns: 50% 50%;
+  border-bottom: 3px solid #fc03a1;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
 }
 
 .leaderboard-table, .stats-table {
   width: 100%;
 }
 
-.leaderboard-table {
-  height: 450px;
-}
-
-.stats-table {
-  height: 120px;
-}
-
-.table {
-  width: 100%;
-}
-
 .table-title, .stats-title {
-  background-color: black;
-  font-size: 22px;
+  color: #ffe600;
+  font-size: 18px;
+  text-shadow: 0 0 15px #ffe600;
 }
 
-.table-body {
-  font-size: 22px;
-  line-height: 1.7;
-}
-
-.column-player, .column-rank, .column-stat, .column-wins, .column-losses {
+.lb-player, .lb-rank, .lb-points, .lb-wins, .lb-losses {
   width: 20%;
 }
 
-.column-rank {
-  padding-top: 15px;
-  padding-bottom: 10px;
+.stats-points, .stats-wins, .stats-losses, .stats-winloss {
+  width: 25%;
 }
 
-.column-points, .column-wins, .column-losses, .column-winloss {
-  width: 25%;
-  padding-top: 15px;
-  padding-bottom: 10px;
+.lb-player, .stats-points {
+  padding-top: 10px;
 }
 
 .board-select {
-  padding-top: 12px;
-  background-color: #fc03a1;
+  padding-top: 5px;
   color: #ffe600;
+  text-shadow: 0 0 15px #ffe600;
   cursor: pointer;
 }
 
 .board-select.active {
-  background-color: #ffe600;
-  color: #fc03a1;
-  border-radius: 10px;
+  text-shadow: 0 0 15px #ffe600;
+  background-color: #fc03a1;
+  color: #ffe600;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
 }
 
 .stats-data {
-  padding-top: 20px;
+  /* padding-top: 5px; */
+  padding-bottom: 5px;
+}
+
+.login-prompt {
+  padding: 20px 0px 20px 0px;
+  font-size: 22px;
 }
