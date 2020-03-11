@@ -17,11 +17,11 @@ class Board extends React.Component {
       <table className="leaderboard-table">
         <thead>
           <tr className="table-title">
-            <td className="column-rank">RANK</td>
-            <td className="column-player">PLAYER</td>
-            <td className="column-stat">POINTS</td>
-            <td className="column-wins">WINS</td>
-            <td className="column-losses">LOSSES</td>
+            <td className="lb-rank">RANK</td>
+            <td className="lb-player">PLAYER</td>
+            <td className="lb-points">POINTS</td>
+            <td className="lb-wins">WINS</td>
+            <td className="lb-losses">LOSSES</td>
           </tr>
         </thead>
         <tbody className="table-body">

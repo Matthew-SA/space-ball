@@ -16,7 +16,7 @@
   padding-bottom: 20px;
   padding-top: 20px;
   margin: 20px auto;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, .3);
   width: 400px;
   min-height: 200px;
   border-radius: 10px;
@@ -48,7 +48,9 @@
 }
 
 .server-list-header{
-  font-size: 25px;
+  font-size: 24px;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
   margin: 0px 0px 10px 0px;
 }
 
@@ -59,8 +61,9 @@
 
 .server-columns{
   display: flex;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
   justify-content: space-between;
-  /* margin: 0px 100px 2px 100px; */
   line-height: 24px;
 }
 
@@ -77,17 +80,8 @@
 }
 
 .create-button{
-  /* position: relative; */
-  /* bottom: 0px; */
-  /* border: 2px solid #fc03a1; */
-  /* border-radius: 4px; */
-  width: 120px;
-  line-height: 28px;;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* margin-top: 20px; */
-  /* color: #fc03a1; */
-  /* background-color: yellow; */
+  padding: 10px 0px 8px 0px;
+  width: 130px;
 }
 
 .logo{

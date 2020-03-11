@@ -61,6 +61,8 @@
   opacity: .9;
   color: #fc03a1;
   padding-bottom: 20px;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
 }
 
 .input-field {
@@ -75,6 +77,8 @@
   background-color: #ffe600;
   color: black;
   transition: ease-in-out .4s;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
 }
 
 .input-field::placeholder {
@@ -96,6 +100,8 @@
   background-color: #fc03a1;
   transition: ease-in-out .4s;
   cursor: pointer;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
 }
 
 .submit-button:hover, .demo-login-button:hover, .join-button:hover {
@@ -119,7 +125,7 @@
   width: 80px;
   height: 30px;
   line-height: 30px;
-  margin-top: -5px;
+  margin-top: -3px;
   font-weight: 300;
   background: rgba(0, 0, 0, .8);
 }
@@ -146,7 +152,7 @@
 }
 
 .greeting {
-  padding-top: 3px;
+  padding-top: 5px;
   padding-right: 20px;
 }
 

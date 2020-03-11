@@ -23,10 +23,10 @@ class Stats extends React.Component {
         <table className="stats-table">
           <thead>
             <tr className="stats-title">
-              <td className="column-points">POINTS</td>
-              <td className="column-wins">WINS</td>
-              <td className="column-losses">LOSSES</td>
-              <td className="column-winloss">WIN %</td>
+              <td className="stats-points">POINTS</td>
+              <td className="stats-wins">WINS</td>
+              <td className="stats-losses">LOSSES</td>
+              <td className="stats-winloss">WIN %</td>
             </tr>
           </thead>
           <tbody className="stats-body">
@@ -41,7 +41,7 @@ class Stats extends React.Component {
       );
     } else {
       return (
-        <div>You must be logged in to view your stats</div>
+        <div className="login-prompt">You must be logged in to view your stats</div>
       )
     }
 
