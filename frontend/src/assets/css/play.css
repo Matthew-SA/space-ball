@@ -1,17 +1,12 @@
 /* Play CSS */
 
-/* .join-button {
-  color: black;
-  height: 50px;
-  font-size: 22px;
-  width: 225px;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: #fc03a1;
-  transition: ease-in-out .4s;
-  cursor: pointer;
-} */
+.server {
+  width: 500px;
+  padding: 40px;
+  margin-top: 80px;
+}
+
+
 .play-button {
   font-size: 1.9em;
   width: 150px;
@@ -35,25 +30,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/* 
-.play {
-  height: 70px;
-  width: 200px;
-  margin: auto;
-  border-radius: 10px;
-  border: 5px solid #fc03a1;
-  background-color: #ffe600;
-  color: #fc03a1;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 15px;
-  transition: ease-in-out .4s;
-  cursor: pointer;
-}
-
-.play:hover {
-  transform:scale(1.05);
-} */
 
 .team-button {
   display: block;
@@ -75,21 +51,3 @@
 .team-button:hover {
   transform:scale(1.05);
 }
-
-/* .server-list {
-  display: grid;
-  grid-template-columns: 50% 50%;
-} */
-
-/* .server-list-joe{
-  min-height: 80px;
-  border: 1px blue solid;
-  width: 80%;
-  margin: 10px 0px;
-} */
-
-/* .server-column {
-  min-width: 300px;
-  text-align: center;
-  border: 1px solid red;
-} */

@@ -67,7 +67,7 @@ class SignupForm extends React.Component {
         <div className="twinkling"></div>
         <div className="clouds"></div>
         <NavBarContainer />
-        <div className="form-container-signup">
+        <div className="box form-container-signup">
           <div className="title">Sign Up for a New Account</div>
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
