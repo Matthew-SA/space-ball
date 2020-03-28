@@ -3,7 +3,10 @@
 .leaderboard {
   width: 600px;
   margin: 0 auto;
-  margin-top: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 5px solid #fc03a1;
   background-color: rgba(0, 0, 0, .3);
   color: #fc03a1;

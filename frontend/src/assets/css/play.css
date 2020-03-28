@@ -3,9 +3,11 @@
 .server {
   width: 500px;
   padding: 40px;
-  margin-top: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-
 
 .play-button {
   font-size: 1.9em;
