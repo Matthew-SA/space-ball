@@ -70,11 +70,11 @@ class Room extends React.Component {
               </div>
               <div>Play cannot begin until all players have chosen a team.</div>
               <div className="room-teams">
-                <div className="room-team">
-                  <div className="team-button" onClick={() => {
-                    this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
-                    this.team = 'red';
-                  }}>
+                <div className="room-team red" onClick={() => {
+                  this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
+                  this.team = 'red';
+                }}>
+                  <div className="team-button">
                     RED
                   </div>
                   {this.state.redTeam.map((player, i) => (
@@ -82,23 +82,23 @@ class Room extends React.Component {
                   ))}
                 </div>
 
-                <div className="room-team">
-                  <div className="team-button" onClick={() => {
-                    this.socket.emit(`set-team`, { roomNum: this.room, team: null })
-                    this.team = null;
-                  }}>
-                    NONE
+                <div className="room-team neutral" onClick={() => {
+                  this.socket.emit(`set-team`, { roomNum: this.room, team: null })
+                  this.team = null;
+                }}>
+                  <div className="team-button">
+                    not ready
                   </div>
                   {this.state.neutral.map((player, i) => (
                     <div className="team-player" key={i}>{player ? player : "-----"}</div>
                   ))}
                 </div>
 
-                <div className="room-team">
-                  <div className="team-button" onClick={() => {
-                    this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
-                    this.team = 'blue';
-                  }}>
+                <div className="room-team blue" onClick={() => {
+                  this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
+                  this.team = 'blue';
+                }}>
+                  <div className="team-button">
                     BLUE
                   </div>
                   {this.state.blueTeam.map((player, i) => (
