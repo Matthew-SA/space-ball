@@ -41,6 +41,7 @@ export const signup = user => dispatch =>
       const decoded = jwt_decode(token);
       dispatch(receiveCurrentUser(decoded));
     })
+    .then(() => window.location.replace('/'))
     .catch(err => {
       dispatch(receiveErrors(err.response.data));
     });
@@ -57,7 +58,7 @@ export const login = user => dispatch =>
     })
     .then(() => dispatch(fetchStats()))
     .then(() => dispatch(fetchInventory()))
-    .then(() => window.location.replace('#/options'))
+    .then(() => window.location.replace('/'))
     .catch(err => {
       dispatch(receiveErrors(err.response.data));
     });

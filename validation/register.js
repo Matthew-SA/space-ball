@@ -18,6 +18,10 @@ module.exports = function validateRegisterInput(data) {
     errors.username = "Username field is required";
   }
 
+  if (data.username.includes(" ")) {
+    errors.username = "No spaces allowed in username";
+  }
+
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email field is required";
   }

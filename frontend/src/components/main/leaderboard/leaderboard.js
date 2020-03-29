@@ -33,8 +33,11 @@ class Leaderboard extends React.Component {
 
     return (
       <div className="mainpage-container">
+        <div className="stars"></div>
+        <div className="twinkling"></div>
+        <div className="clouds"></div>
         <NavBarContainer />
-        <div className="leaderboard">
+        <div className="box leaderboard">
           <div className="leaderboard-menu">
             <div className="board-select active" id="leader" onClick={this.handleClick}>
               Leaderboard

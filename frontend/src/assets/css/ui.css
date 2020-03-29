@@ -1,102 +1,211 @@
 /* UI CSS */
 
-.box {
-  padding-bottom: 20px;
-  padding-top: 20px;
-  margin: 20px auto;
-  background: black;
-  width: 400px;
-  min-height: 200px;
-  border-radius: 10px;
-  border: 5px solid #fc03a1;
-  opacity: .9;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-}
-
-.server-list-header{
-  font-size: 25px;
-  margin: 0px 0px 10px 0px;
-}
-
-.server-list{
-  min-height: 60px;
-}
-
-.server-columns{
-  display: flex;
-  justify-content: space-between;
-  margin: 0px 100px 2px 100px;
-  line-height: 24px;
-}
-
-.room-hover{
-  color: yellow;
-}
-
-.server-columns div{
-  padding: 0px 50px;
-}
-
-.empty-server{
-  margin-top: 15px;
-}
-
-.create-button{
-  position: relative;
-  bottom: 0px;
-  border: 2px solid #fc03a1;
-  border-radius: 4px;
-  width:120px;
-  line-height: 26px;;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  color: #fc03a1;
-  background-color: yellow;
-}
-
-
 .mainpage-container {
   height: 100vh;
   width: 100vw;
   text-align: center;
   position: absolute;
-  background-image: url('../images/space.png');
   color: #ffe600;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   overflow: scroll;
 }
 
-/* server room */
-.room-welcome-header{
+.box {
+  padding-bottom: 10px;
+  margin: 20px auto;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 10px;
+  border: 5px solid #fc03a1;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1; 
+  animation-fill-mode: forwards; 
+}
+
+@keyframes fadeInAnimation { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+
+.button {
+  font-family: 'Josefin Sans', sans-serif;
+  border-radius: 8px;
+  border: 2px solid #fc03a1;
+  color: #ffe600;
+  text-shadow: 0 0 15px #ffe600;
+  box-shadow: 0 0 15px -1px #fc03a1,
+    0 0 12px -1px #fc03a1 inset;
+  transition: ease-in-out .2s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #fc03a1;
+  transform: scale(1.1);
+}
+
+.server-list-header {
   font-size: 24px;
-  padding: 10px 0px;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
+  margin: 0px 0px 10px 0px;
 }
 
-.room-column-headers{
+.server-list {
+  min-height: 60px;
+  padding-bottom: 20px;
+}
+
+.server-columns {
   display: flex;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
   justify-content: space-between;
-  width: 60%;
-  padding-top: 10px;
+  line-height: 24px;
 }
 
-.room-column-headers div{
-  font-size: 20px;
+.room-hover {
+  color: yellow;
 }
 
-.teams{
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  min-height: 100px;
+.server-columns div {
+  padding: 0px 50px;
 }
 
-.teams div{
-  padding: 4px 0px;
+.empty-server {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  padding: 10px 0px 8px 0px;
+  width: 130px;
+}
+
+.logo-top {
+  z-index: -4;
+}
+
+.logo-bottom {
+  margin-top: -330px;
+}
+
+
+/* Background CSS */
+
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-webkit-keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-moz-keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-ms-keyframes move-clouds-back {
+    from {background-position: 0;}
+    to {background-position:10000px 0;}
+}
+
+.stars, .twinkling, .clouds {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.stars {
+  background:#000 url(../images/stars.png) repeat top center;
+  z-index:-3;
+}
+
+.twinkling{
+  background:transparent url(../images/twinkling.png) repeat top center;
+  z-index:-2;
+
+  -moz-animation:move-twink-back 200s linear infinite;
+  -ms-animation:move-twink-back 200s linear infinite;
+  -o-animation:move-twink-back 200s linear infinite;
+  -webkit-animation:move-twink-back 200s linear infinite;
+  animation:move-twink-back 200s linear infinite;
+}
+
+.clouds{
+  background:transparent url(../images/clouds.png) repeat top center;
+  z-index:-1;
+
+  -moz-animation:move-clouds-back 200s linear infinite;
+  -ms-animation:move-clouds-back 200s linear infinite;
+  -o-animation:move-clouds-back 200s linear infinite;
+  -webkit-animation:move-clouds-back 200s linear infinite;
+  animation:move-clouds-back 200s linear infinite;
+}
+
+
+.moon {
+  width: 320px;
+  height: 320px;
+  border-radius: 250px;
+  background: #ebebeb;
+  overflow: hidden;
+  position: absolute;
+  top: 30%;
+  left: 51%;
+  margin-left: -350px;
+  box-shadow:  -40px 0px 200px 10px rgba(112, 139, 162, 0.3), 40px 0px 200px 10px rgba(176, 146, 147, 0.3);
+  animation: rotate 30s infinite linear; 
+  z-index: -2;
+}
+.moon:after {
+  content: " ";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 250px;
+  position: absolute;
+  box-shadow: inset 20px 0px 60px 0 rgba(112, 139, 162, 0.45),inset -20px 0px 60px 0 rgba(176, 146, 147, 0.44);
+  top: 0;
+  left: 51%;
+  margin-left: -163px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) translate(-180px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translate(-180px) rotate(-360deg);
+  }
 }

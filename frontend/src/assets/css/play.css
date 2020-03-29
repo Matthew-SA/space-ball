@@ -1,48 +1,42 @@
 /* Play CSS */
 
-/* .join-button {
-  color: black;
-  height: 50px;
-  font-size: 22px;
-  width: 225px;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: #fc03a1;
-  transition: ease-in-out .4s;
-  cursor: pointer;
-} */
-
-.instructions {
-  line-height: 1.3;
-  padding-top: 5px;
-}
-
-.lobby-content {
-  width: 100%;
+.play-lobby {
+  width: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.play {
-  height: 70px;
-  width: 200px;
-  margin: auto;
-  border-radius: 10px;
-  border: 5px solid #fc03a1;
-  background-color: #ffe600;
-  color: #fc03a1;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 15px;
-  transition: ease-in-out .4s;
-  cursor: pointer;
+.server {
+  padding: 40px;
 }
 
-.play:hover {
-  transform:scale(1.05);
+.play-button {
+  font-size: 1.9em;
+  width: 150px;
+  padding-top: 15px;
+  padding-bottom: 7px;
+  font-weight: 300;
+  background: rgba(0, 0, 0, .8);
+  margin: 20px auto;
+  transition: ease-in-out .2s;
+}
+
+.create-room {
+  font-size: 1.3em;
+  width: 150px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  background: rgba(0, 0, 0, .8);
+}
+
+.content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .team-button {
@@ -66,20 +60,25 @@
   transform:scale(1.05);
 }
 
-/* .server-list {
-  display: grid;
-  grid-template-columns: 50% 50%;
-} */
+.instructions {
+  /* width: 650px; */
+  /* display: grid;
+  grid-template-columns: 70% 30%; */
+  color: #ffe600;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 
-/* .server-list-joe{
-  min-height: 80px;
-  border: 1px blue solid;
-  width: 80%;
-  margin: 10px 0px;
-} */
+.howto {
+  margin: 10px 0 20px 0px;
+  font-size: 16px;
+}
 
-/* .server-column {
-  min-width: 300px;
-  text-align: center;
-  border: 1px solid red;
-} */
+.lobby-content {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* padding: 40px; */
+}

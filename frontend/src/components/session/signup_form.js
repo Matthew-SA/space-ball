@@ -63,8 +63,11 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="mainpage-container">
+        <div className="stars"></div>
+        <div className="twinkling"></div>
+        <div className="clouds"></div>
         <NavBarContainer />
-        <div className="form-container-signup">
+        <div className="box form-container-signup">
           <div className="title">Sign Up for a New Account</div>
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
