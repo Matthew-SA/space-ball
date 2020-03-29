@@ -78,7 +78,7 @@ class Room extends React.Component {
                     RED
                   </div>
                   {this.state.redTeam.map((player, i) => (
-                    <div className="team-player" key={i}>{player ? player : "-----"}</div>
+                    <div className="team-player" key={i}>{player}</div>
                   ))}
                 </div>
 
@@ -90,7 +90,7 @@ class Room extends React.Component {
                     not ready
                   </div>
                   {this.state.neutral.map((player, i) => (
-                    <div className="team-player" key={i}>{player ? player : "-----"}</div>
+                    <div className="team-player" key={i}>{player}</div>
                   ))}
                 </div>
 
