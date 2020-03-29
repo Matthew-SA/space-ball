@@ -66,8 +66,9 @@ class Room extends React.Component {
                 Welcome to Room #00{this.room}
               </div>
               <div className="howto">
-                Team Selection:<br /><br />Play cannot begin until all players have chosen a team.
+                Team Selection:
               </div>
+              <div>Play cannot begin until all players have chosen a team.</div>
               <div className="room-teams">
                 <div className="room-team">
                   <div className="team-button" onClick={() => {
