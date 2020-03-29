@@ -82,3 +82,52 @@
   transform: translate(-50%, -50%);
   /* padding: 40px; */
 }
+
+.server-list {
+  min-height: 60px;
+  padding-bottom: 20px;
+}
+
+.room-column-headers {
+  display: flex;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
+  justify-content: space-between;
+  line-height: 24px;
+  width: 500px;
+}
+
+.room-teams {
+  display: flex;
+  padding: 30px;
+  justify-content: space-between;
+  line-height: 24px;
+  width: 500px;
+  min-height: 300px;
+}
+
+.team-player{
+  padding: 10px 50px;
+  flex-basis: 100%;
+  color: #fc03a1;
+  text-shadow: 0 0 15px #fc03a1;
+}
+.room-team div {
+  /* padding: 0px 50px; */
+  flex-basis: 100%;
+  /* color: #fc03a1; */
+  /* text-shadow: 0 0 15px #fc03a1; */
+}
+
+.room-team {
+  flex-basis: 100%;
+}
+
+.room-hover {
+  color: yellow;
+}
+
+.room-column-headers div {
+  padding: 0px 50px;
+  flex-basis: 100%;
+}
