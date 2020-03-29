@@ -41,6 +41,11 @@
   width: 20%;
 }
 
+.stats-content {
+  width: 100%;
+  /* padding-top: 0px; */
+}
+
 .stats-points, .stats-wins, .stats-losses, .stats-winloss {
   width: 25%;
 }
