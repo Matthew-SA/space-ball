@@ -5,6 +5,7 @@ import "./assets/css/game.css";
 import "./assets/css/ui.css";
 import "./assets/css/nav_signup_login.css";
 import "./assets/css/play.css";
+import "./assets/css/about.css";
 import "./assets/css/options.css";
 import "./assets/css/leaderboard.css";
 import axios from "axios";

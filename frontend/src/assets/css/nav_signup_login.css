@@ -93,8 +93,6 @@
   border-radius: 10px;
   background-color: #fc03a1;
   transition: ease-in-out .4s;
-  /* box-shadow: 0 0 15px -1px #fc03a1,
-    0 0 12px -1px #fc03a1 inset; */
 }
 
 .submit-button:hover, .demo-login-button:hover, .join-button:hover {

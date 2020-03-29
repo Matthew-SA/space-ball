@@ -21,8 +21,8 @@ class NavBar extends React.Component {
 
     e.target.classList.add("active");
 
-    const arr = Array.from(document.getElementsByClassName("nav-select"))
-    console.log(arr)
+    // const arr = Array.from(document.getElementsByClassName("nav-select"))
+    // console.log(arr)
   }
 
   logoutUser(e) {

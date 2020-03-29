@@ -34,7 +34,7 @@ class Play extends React.Component {
         <div className="twinkling"></div>
         <div className="clouds"></div>
         <NavBarContainer />
-        <div className="lobby-content game-lobby">
+        <div className="play-lobby">
           <div className="box server">
             <div className="server-list-header">
               Room List
@@ -70,11 +70,19 @@ class Play extends React.Component {
               socket: this.socket,
               user: this.props.user,
               gameoptions: this.props.gameoptions}}>
-              <div className="create-button">
+              <div className="button create-room">
                 Create Room
               </div>
             </Link>
-
+          </div>
+          <div className="instructions">
+            <div className="howto">
+              Navigate your ship through space with 'WASD'
+              {/* Crush your opponents with your mastery. */}
+          </div>
+            <div className="wasd">
+              <img src="images/wasd.png" width="130" alt="wasd"></img>
+            </div>
           </div>
         </div>
       </div>

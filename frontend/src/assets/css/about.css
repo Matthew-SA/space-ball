@@ -1,0 +1,37 @@
+.welcome {
+  font-size: 40px;
+  color: #fc03a1;
+}
+
+.about {
+  width: 680px;
+  padding: 20px 0px 15px 0px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.team-title {
+  margin: 20px 0px 20px 0px;
+  font-size: 24px;
+  color: #fc03a1;
+}
+
+.team-description {
+  width: 70%;
+  margin: 40px auto;
+  line-height: 1.2;
+}
+
+.team {
+  width: 650px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.profile{
+  width: 80px;
+  border-radius: 100px;
+  padding-bottom: 10px;
+}

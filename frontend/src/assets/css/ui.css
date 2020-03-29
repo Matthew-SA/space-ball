@@ -52,19 +52,19 @@
   transform: scale(1.1);
 }
 
-.server-list-header{
+.server-list-header {
   font-size: 24px;
   color: #fc03a1;
   text-shadow: 0 0 15px #fc03a1;
   margin: 0px 0px 10px 0px;
 }
 
-.server-list{
+.server-list {
   min-height: 60px;
   padding-bottom: 20px;
 }
 
-.server-columns{
+.server-columns {
   display: flex;
   color: #fc03a1;
   text-shadow: 0 0 15px #fc03a1;
@@ -72,28 +72,29 @@
   line-height: 24px;
 }
 
-.room-hover{
+.room-hover {
   color: yellow;
 }
 
-.server-columns div{
+.server-columns div {
   padding: 0px 50px;
 }
 
-.empty-server{
-  margin-top: 15px;
+.empty-server {
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
-.create-button{
+.create-button {
   padding: 10px 0px 8px 0px;
   width: 130px;
 }
 
-.logo-top{
+.logo-top {
   z-index: -4;
 }
 
-.logo-bottom{
+.logo-bottom {
   margin-top: -330px;
 }
 
