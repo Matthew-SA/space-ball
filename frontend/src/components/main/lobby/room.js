@@ -30,7 +30,7 @@ class Room extends React.Component {
     })
 
     this.socket.on('update-listing', playerListings => {
-      this.setState({ 
+      this.setState({
         neutral: playerListings.neutral,
         redTeam: playerListings.redTeam,
         blueTeam: playerListings.blueTeam,
@@ -52,7 +52,7 @@ class Room extends React.Component {
 
   render() {
     if (this.state.live) {
-      return <GameView room={this.room} socket={this.socket} team={this.team}/>
+      return <GameView room={this.room} socket={this.socket} team={this.team} />
     } else {
       return (
         <div className="mainpage-container">
@@ -61,57 +61,53 @@ class Room extends React.Component {
           <div className="clouds"></div>
           <NavBarContainer />
           <div className="lobby-content">
-            <div className="box">
-              <div className="room-welcome-header">
+            <div className="box server">
+              <div className="server-list-header">
                 Welcome to Room #00{this.room}
               </div>
-  
-              <div className="room-column-headers">
-                <div>RED</div>
-                <div>-------</div>
-                <div>BLUE</div>
+              <div className="howto">
+                Team Selection:
               </div>
-
-              <div className="teams">
-                <div className="red-team">
+              <div>Play cannot begin until all players have chosen a team.</div>
+              <div className="room-teams">
+                <div className="room-team">
+                  <div className="team-button" onClick={() => {
+                    this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
+                    this.team = 'red';
+                  }}>
+                    RED
+                  </div>
                   {this.state.redTeam.map((player, i) => (
-                    <div key={i}>{player}</div>
+                    <div className="team-player" key={i}>{player ? player : "-----"}</div>
                   ))}
                 </div>
 
-                <div className="no-team">
+                <div className="room-team">
+                  <div className="team-button" onClick={() => {
+                    this.socket.emit(`set-team`, { roomNum: this.room, team: null })
+                    this.team = null;
+                  }}>
+                    NONE
+                  </div>
                   {this.state.neutral.map((player, i) => (
-                    <div key={i}>{player}</div>
+                    <div className="team-player" key={i}>{player ? player : "-----"}</div>
                   ))}
                 </div>
-  
-                <div className="blue-team">
+
+                <div className="room-team">
+                  <div className="team-button" onClick={() => {
+                    this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
+                    this.team = 'blue';
+                  }}>
+                    BLUE
+                  </div>
                   {this.state.blueTeam.map((player, i) => (
-                    <div key={i}>{player}</div>
+                    <div className="team-player" key={i}>{player}</div>
                   ))}
                 </div>
               </div>
 
-              <div className="team-button" onClick={() => {
-                this.socket.emit(`set-team`, { roomNum: this.room, team: 'red' })
-                this.team = 'red';
-                }}>
-                RED
-              </div>
-              <div className="team-button" onClick={() => {
-                this.socket.emit(`set-team`, { roomNum: this.room, team: null })
-                this.team = null;
-                }}>
-                NONE
-              </div>
-              <div className="team-button" onClick={() => {
-                this.socket.emit(`set-team`, { roomNum: this.room, team: 'blue' })
-                this.team = 'blue';
-                }}>
-                BLUE
-              </div>
-
-              <div className="play" onClick ={() => this.socket.emit('request-game-start', this.room)}>
+              <div className="button create-room" onClick={() => this.socket.emit('request-game-start', this.room)}>
                 Start Game
               </div>
             </div>
