@@ -16,9 +16,9 @@ const About = () => {
           goal. Players use their ship to guide balls across the map, while also
           working to disrupt their opponents' efforts.
         </div>
-        <div className="team-description">This evolving passion 
-        project utilizes the following technologies: <br /> 
-        MERN stack, Canvas, Matter.js, Socket.io</div>
+        <div className="team-description">
+          This evolving passion project utilizes the following technologies: <br /> 
+          MERN stack, Canvas, Matter.js, Socket.io</div>
         <div className="team">
           <a href="https://www.linkedin.com/in/matthew-andresen-ab8a5b191/" target="_blank">
             <div className="name">
