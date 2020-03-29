@@ -35,3 +35,11 @@
   border-radius: 100px;
   padding-bottom: 10px;
 }
+
+.name {
+  color: #ffe600;
+}
+
+.name:hover {
+  color: #fc03a1;
+}
