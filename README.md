@@ -134,3 +134,8 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
     ```javascript
     this.self = new Ship(this.ctx, this.user, team, this.gameoptions.ship);
     ```
+## Future Direction
+* Chat implementation for lobbies.
+* Chat implementation for in game.
+* Spectating option.
+* Ability to rejoin game in progress.
