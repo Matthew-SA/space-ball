@@ -30,7 +30,7 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 <br/> 
 
 * Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.
-<img width="957" alt="Screen Shot 2020-03-30 at 9 23 53 PM" src="https://user-images.githubusercontent.com/47997709/77986959-5b122780-72cd-11ea-8d55-bfe071baf71d.png">
+<img width="936" alt="Screen Shot 2020-03-30 at 9 36 22 PM" src="https://user-images.githubusercontent.com/47997709/77987384-89443700-72ce-11ea-86da-796ac33cd34e.png">
 <img width="1047" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
 <br/> 
 
