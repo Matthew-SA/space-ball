@@ -42,8 +42,8 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
   
 #### Server
   * web sockets listen for and send specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game.
-  ```
-    socket.on('join-game', data => {
+  ``` javascript
+  socket.on('join-game', data => {
     if (!gameList[data.room]) {
       gameList[data.room] = new ServerGame(io, data.room)
       io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
