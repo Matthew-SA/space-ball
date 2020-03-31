@@ -1,11 +1,12 @@
 # Space-Ball
-<img width="738" alt="Screen Shot 2020-03-30 at 6 41 37 PM" src="https://user-images.githubusercontent.com/47997709/77978340-b4bb2780-72b6-11ea-90a3-6df82a68ec11.png">
+![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
 
 ## Table of Contents
 1. Introduction
 2. Technologies
 3. Features
 4. Future Direction
+5. Architecture
 
 ## Introduction
 
@@ -30,7 +31,7 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 * Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.<img width="936" alt="Screen Shot 2020-03-30 at 9 36 22 PM" src="https://user-images.githubusercontent.com/47997709/77987384-89443700-72ce-11ea-86da-796ac33cd34e.png"><img width="1047" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
 <br/> 
 
-* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second. ![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
+* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second.
 <br/> 
 
 ## Architecture
@@ -38,9 +39,10 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 ### Backend
 #### Database
   * Stuff about the database here
-#### Server Game
-  * Stuff about players and lobbies?
   
+#### Server
+  * web sockets listen for 
+#### Server Game
   * A Matter.js Engine is created for each Game instance
   * The Engine contains the World in which bodies exist and interact
   * Matter Bodies are instantiated for the arena boundaries, goals, and ball, and placed into the world. Collision filters determine which objects can collide with other objects.
