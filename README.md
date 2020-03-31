@@ -24,17 +24,13 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 * User Accounts - Allow players to customize their ship, add their scores to the game leaderboard, and display their nameplate to other players in game. <img width="1405" alt="Screen Shot 2020-03-30 at 9 24 38 PM" src="https://user-images.githubusercontent.com/47997709/77987039-93196a80-72cd-11ea-8db8-32d2820fc78e.png">
 <br/> 
 
-* Leaderboard - Player statistics are saved in the database.  The top players are prominently displayed on a public leaderboard!
-<img width="1043" alt="Screen Shot 2020-03-30 at 9 24 53 PM" src="https://user-images.githubusercontent.com/47997709/77987071-a62c3a80-72cd-11ea-8cf6-6c5e66b7157a.png">
+* Leaderboard - Player statistics are saved in the database.  The top players are prominently displayed on a public leaderboard!<img width="1043" alt="Screen Shot 2020-03-30 at 9 24 53 PM" src="https://user-images.githubusercontent.com/47997709/77987071-a62c3a80-72cd-11ea-8cf6-6c5e66b7157a.png">
 <br/> 
 
-* Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.
-<img width="936" alt="Screen Shot 2020-03-30 at 9 36 22 PM" src="https://user-images.githubusercontent.com/47997709/77987384-89443700-72ce-11ea-86da-796ac33cd34e.png">
-<img width="1047" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
+* Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.<img width="936" alt="Screen Shot 2020-03-30 at 9 36 22 PM" src="https://user-images.githubusercontent.com/47997709/77987384-89443700-72ce-11ea-86da-796ac33cd34e.png"><img width="1047" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
 <br/> 
 
-* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second.
-![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
+* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second. ![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
 <br/> 
 
 ## Architecture
