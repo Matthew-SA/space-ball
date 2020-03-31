@@ -41,7 +41,27 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
   * Stuff about the database here
   
 #### Server
-  * web sockets listen for 
+  * web sockets listen for and send specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game.
+  ```
+    socket.on('join-game', data => {
+    if (!gameList[data.room]) {
+      gameList[data.room] = new ServerGame(io, data.room)
+      io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+    }
+    gameList[data.room].addPlayer(socket.id, data.username, data.options)
+  });
+
+  socket.on('player-action', data => {
+    let game = gameList[data.room];
+    game.movePlayer(socket.id, data)
+  });
+
+  socket.on('leave-game', roomNum => {
+    let game = gameList[roomNum]
+    game.removePlayer(socket.id)
+    if (game.roster.size <= 0) destroyGame(roomNum)
+  })
+  ```
 #### Server Game
   * A Matter.js Engine is created for each Game instance
   * The Engine contains the World in which bodies exist and interact
