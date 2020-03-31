@@ -1,6 +1,6 @@
 # Space-Ball
 [Space-Ball live link!](https://space-ball.herokuapp.com/#/)</br>
-![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
+![b0WuTtD](https://user-images.githubusercontent.com/47997709/78061865-b4686e00-7342-11ea-9f98-909f7f1fbf55.gif)
 
 ## Table of Contents
 1. [Introduction](#introduction)
