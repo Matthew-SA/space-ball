@@ -21,8 +21,7 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 
 
 ## Features
-* User Accounts - Allow players to customize their ship, add their scores to the game leaderboard, and display their nameplate to other players in game.
-<img width="1405" alt="Screen Shot 2020-03-30 at 9 24 38 PM" src="https://user-images.githubusercontent.com/47997709/77987039-93196a80-72cd-11ea-8db8-32d2820fc78e.png">
+* User Accounts - Allow players to customize their ship, add their scores to the game leaderboard, and display their nameplate to other players in game. <img width="1405" alt="Screen Shot 2020-03-30 at 9 24 38 PM" src="https://user-images.githubusercontent.com/47997709/77987039-93196a80-72cd-11ea-8db8-32d2820fc78e.png">
 <br/> 
 
 * Leaderboard - Player statistics are saved in the database.  The top players are prominently displayed on a public leaderboard!
