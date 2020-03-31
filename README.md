@@ -21,6 +21,7 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 
 
 ## Features
+![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
 * User Accounts - Allow players to customize their ship, add their scores to the game leaderboard, and display their nameplate to other players in game.
 
 * Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.
