@@ -1,30 +1,40 @@
 # Space-Ball
 <img width="738" alt="Screen Shot 2020-03-30 at 6 41 37 PM" src="https://user-images.githubusercontent.com/47997709/77978340-b4bb2780-72b6-11ea-90a3-6df82a68ec11.png">
-## Overview
 
-spaceJam is a multiplayer rocket league inspired game, where the goal is to collect balls in your team's goal.  Players use their ship to guide balls across the map, while also working to disrupt their opponents efforts.
+## Table of Contents
+1. Introduction
+2. Technologies
+3. Features
+4. Future Direction
 
-## Functionality
+## Introduction
 
-* Players use 'WASD' keys to control their ship.
-* Goal is to push balls toward the team's goal.
-
-## Wireframe
-
-App will initially consist of a signup / login screen.
-
-Upon signup player will be led to a options screen where they can customize the color of their ship, and options to host / join a game.
-
-Hosting / joining a game will lead the player to a lobby where they can see player count and option to leave / start the game.
-
-Upon game start, the game canvas will render and players will be able to compete until the game winning score is reached.
+Space Ball is an online multiplayer game heavily inspired by Rocket League.  Players compete against each other in teams of up to 3, attempting to knock a ball through their opponent's goal.  Playing with other players is made easy through an intuitive real time lobby system.
 
 ## Technologies
+**MongoDB**
 
-* MERN stack (MongoDB, Express, React/Redux, Node)
-* Canvas - used to render game components.
-* Matter.js - physics library that controls object movement
-* Socket.io - websocket library to enable multiplayer
+**Express**
+
+**Node.js**
+
+**React / Redux**
+React / Redux is employed to keep track of a user's profile information, ship customization, and socket ID.
+
+**Matter-js**
+Space Ball takes advantage of the matter-js engine to assist in handling game logic on the backend.  Game objects are displayed to users on the frontend through a custom renderer.
+
+**Socket.io**
+Space Ball real time gameplay is made possible through the use of socket.io web sockets.  In addition to handling the transmission of game data, web sockets are also employed in the lobby system in order to provide real time updates.
+
+
+## Features
+* User Accounts - Allow players to customize their ship, add their scores to the game leaderboard, and display their nameplate to other players in game.
+
+* Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.
+
+* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second.
+
 
 ## Architecture
 
