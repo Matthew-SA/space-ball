@@ -1,12 +1,12 @@
 # Space-Ball
 ![3s93THt](https://user-images.githubusercontent.com/47997709/77986404-d2df5280-72cb-11ea-861e-8427482c2b7f.gif)
-
+[Space-Ball live link!](https://space-ball.herokuapp.com/#/)
 ## Table of Contents
-1. Introduction
-2. Technologies
-3. Features
-4. Future Direction
-5. Architecture
+1. [Introduction](#introduction)
+2. [Technologies](#technologies)
+3. [Features](#features)
+4. [Architecture](#architecture)
+5. [Future Direction](#future-direction)
 
 ## Introduction
 
