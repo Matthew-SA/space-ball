@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Space Ball is an online multiplayer game heavily inspired by Rocket League.  Players compete against each other in teams of up to 3, attempting to knock a ball through their opponent's goal.  Playing with other players is made easy through an intuitive real time lobby system.
+Space Ball is an online multiplayer game inspired by Rocket League.  Players compete against each other in teams of up to 3, attempting to knock a ball through their opponent's goal.  Playing with other players is made easy through an intuitive real time lobby system.
 
 ## Technologies
 
