@@ -12,20 +12,12 @@
 Space Ball is an online multiplayer game heavily inspired by Rocket League.  Players compete against each other in teams of up to 3, attempting to knock a ball through their opponent's goal.  Playing with other players is made easy through an intuitive real time lobby system.
 
 ## Technologies
-**MongoDB**
 
-**Express**
+**Backend** <br/> 
+Space Ball uses MongoDB, Express, Node.js as the foundation to its backend.  User accounts and preferences are stored in the MongoDB noSQL database.  All game logic is handled on the backend through Matter.js and transmitted through socket.io web sockets.
 
-**Node.js**
-
-**React / Redux**
-React / Redux is employed to keep track of a user's profile information, ship customization, and socket ID.
-
-**Matter-js**
-Space Ball takes advantage of the matter-js engine to assist in handling game logic on the backend.  Game objects are displayed to users on the frontend through a custom renderer.
-
-**Socket.io**
-Space Ball real time gameplay is made possible through the use of socket.io web sockets.  In addition to handling the transmission of game data, web sockets are also employed in the lobby system in order to provide real time updates.
+**Frontend** <br/> 
+Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displayed through a custom renderer in Canvas.  Client game data and lobby page information are recieved through socket.io web sockets.
 
 
 ## Features
