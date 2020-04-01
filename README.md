@@ -1,39 +1,69 @@
 # Space-Ball
+[Space-Ball live link!](https://space-ball.herokuapp.com/#/)</br>
+![b0WuTtD](https://user-images.githubusercontent.com/47997709/78061865-b4686e00-7342-11ea-9f98-909f7f1fbf55.gif)
 
-## Overview
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Technologies](#technologies)
+3. [Features](#features)
+4. [Architecture](#architecture)
+5. [Future Direction](#future-direction)
 
-spaceJam is a multiplayer rocket league inspired game, where the goal is to collect balls in your team's goal.  Players use their ship to guide balls across the map, while also working to disrupt their opponents efforts.
+## Introduction
 
-## Functionality
-
-* Players use 'WASD' keys to control their ship.
-* Goal is to push balls toward the team's goal.
-
-## Wireframe
-
-App will initially consist of a signup / login screen.
-
-Upon signup player will be led to a options screen where they can customize the color of their ship, and options to host / join a game.
-
-Hosting / joining a game will lead the player to a lobby where they can see player count and option to leave / start the game.
-
-Upon game start, the game canvas will render and players will be able to compete until the game winning score is reached.
+Space Ball is an online multiplayer game inspired by Rocket League.  Players compete against each other in teams of up to 3, attempting to knock a ball through their opponent's goal.  Playing with other players is made easy through an intuitive real time lobby system.
 
 ## Technologies
 
-* MERN stack (MongoDB, Express, React/Redux, Node)
-* Canvas - used to render game components.
-* Matter.js - physics library that controls object movement
-* Socket.io - websocket library to enable multiplayer
+**Backend** <br/> 
+Space Ball uses MongoDB, Express, Node.js as the foundation to its backend.  User accounts and preferences are stored in the MongoDB noSQL database.  All game logic is handled on the backend through Matter.js and transmitted through socket.io web sockets.
+
+**Frontend** <br/> 
+Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displayed through a custom renderer in Canvas.  Client game data and lobby page information are recieved through socket.io web sockets.
+
+
+## Features
+* User Accounts - Allow players to customize their ship, select a new ball, add their scores to the game leaderboard, and display their nameplate to other players in game. <img width="1405" alt="Screen Shot 2020-03-30 at 9 24 38 PM" src="https://user-images.githubusercontent.com/47997709/77987039-93196a80-72cd-11ea-8db8-32d2820fc78e.png">
+<br/> 
+
+* Leaderboard - Player statistics are saved in the database.  The top players are prominently displayed on a public leaderboard!<img width="1043" alt="Screen Shot 2020-03-30 at 9 24 53 PM" src="https://user-images.githubusercontent.com/47997709/77987071-a62c3a80-72cd-11ea-8cf6-6c5e66b7157a.png">
+<br/> 
+
+* Lobby System - Makes joining or creating a new game easy.  Upon entering the lobby, players will be able to view all currently active games while also having the option of creating their own.  Entering a room will display all users in that room and allow for team-selection.<img width="936" alt="Screen Shot 2020-03-30 at 9 36 22 PM" src="https://user-images.githubusercontent.com/47997709/77987384-89443700-72ce-11ea-86da-796ac33cd34e.png"><img width="1047" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
+<br/> 
+
+* Real time gameplay - Up to 6 players per game receive game state updates 60 times per second.
+<br/> 
 
 ## Architecture
 
 ### Backend
 #### Database
   * Stuff about the database here
-#### Server Game
-  * Stuff about players and lobbies?
   
+#### Server
+  * web sockets listen for and send specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game. 
+    ``` javascript
+    socket.on('join-game', data => {
+      if (!gameList[data.room]) {
+        gameList[data.room] = new ServerGame(io, data.room)
+        io.in('room-lobby').emit('update-gamelist', Object.keys(gameList))
+      }
+      gameList[data.room].addPlayer(socket.id, data.username, data.options)
+    });
+
+    socket.on('player-action', data => {
+      let game = gameList[data.room];
+      game.movePlayer(socket.id, data)
+    });
+
+    socket.on('leave-game', roomNum => {
+      let game = gameList[roomNum]
+      game.removePlayer(socket.id)
+      if (game.roster.size <= 0) destroyGame(roomNum)
+     })
+    ```
+#### Server Game
   * A Matter.js Engine is created for each Game instance
   * The Engine contains the World in which bodies exist and interact
   * Matter Bodies are instantiated for the arena boundaries, goals, and ball, and placed into the world. Collision filters determine which objects can collide with other objects.
@@ -104,3 +134,9 @@ Upon game start, the game canvas will render and players will be able to compete
     ```javascript
     this.self = new Ship(this.ctx, this.user, team, this.gameoptions.ship);
     ```
+## Future Direction
+* Power-ups and usable ship abilities.
+* Chat implementation for lobbies.
+* Chat implementation for in game.
+* Spectating option.
+* Ability to rejoin game in progress.
