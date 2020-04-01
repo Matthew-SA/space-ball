@@ -165,14 +165,25 @@ class Options extends React.Component {
           </div>
         );
       } else {
-        return (
-          <div className="purchase-container">
-            <div className="price">$500</div>
-            <div className="buy-button" id="login" onClick={this.props.showLogin}>
-              BUY
+        if (this.props.inventory.currency - 500 >= 0) {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="buy-button" id="buy" onClick={this.buyBall}>
+                BUY
+              </div>
             </div>
-          </div>
-        )
+          )
+          } else {
+          return (
+            <div className="purchase-container">
+              <div className="price">$500</div>
+              <div className="nofunds">
+                Insufficient Funds
+              </div>
+            </div>
+          )
+        }
       }
     } else {
       if (optionSelection === "Default" || optionSelection === "Earth") {

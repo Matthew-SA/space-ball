@@ -48,7 +48,7 @@
 .customize {
   width: 50%;
   text-align: center;
-  padding: 5px 0px 5px 0px;
+  padding: 10px 0px 5px 0px;
   cursor: pointer;
 }
 
@@ -88,7 +88,7 @@
   background: black;
   border-radius: 5px;
   border: 2px solid #fc03a1;
-  padding: 10px;
+  padding: 13px 0px 10px 0px;
   width: 20%;
   text-align: center;
   cursor: pointer;
