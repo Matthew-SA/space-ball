@@ -61,23 +61,23 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 
   * HTTP requests are made via Axios, which transforms JSON data and supports JavaScript promises
 
-  ``` javascript
-  export const addShip = ship => dispatch => {
-  axios
-    .patch("/api/inventory/addship", { ship: ship })
-    .then(res =>
-      dispatch({
-        type: ADD_SHIP,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: RECEIVE_ERRORS,
-        payload: err
-      })
-    );
-  };
+    ``` javascript
+    export const addShip = ship => dispatch => {
+    axios
+      .patch("/api/inventory/addship", { ship: ship })
+      .then(res =>
+        dispatch({
+          type: ADD_SHIP,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: RECEIVE_ERRORS,
+          payload: err
+        })
+      );
+    };
   ```
   
 #### Server
