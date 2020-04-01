@@ -78,7 +78,7 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
         })
       );
     };
-  ```
+    ```
   
 #### Server
   * Web sockets listen for and sends specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game. 
