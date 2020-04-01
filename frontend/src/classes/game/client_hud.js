@@ -18,6 +18,14 @@ class ClientHud {
     })
 
     this.drawScore(this.ctx)
+
+    this.countdown = new Audio();
+    this.countdown.src = "/sounds/SE_RC_321.wav"
+    this.go = new Audio();
+    this.go.src = "/sounds/SE_RC_GO.wav"
+    this.goalExplosion = new Audio();
+    this.goalExplosion.src = "/sounds/goal_explosion.wav"
+
   }
 
   clearScore(ctx) {
@@ -26,6 +34,9 @@ class ClientHud {
 
   updateScore(score) {
     this.drawGoal(this.ctx)
+    this.goalExplosion.pause();
+    this.goalExplosion.load();
+    this.goalExplosion.play();
     let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
     setTimeout(() => clearInterval(flashGoal), 2000)
     this.score = score
@@ -64,21 +75,32 @@ class ClientHud {
     ctx.font = "80px Faster One";
     ctx.textAlign = "center";
     ctx.fillText("3", 800, 480);
+    this.goalExplosion.pause();
+    this.countdown.load();
+    this.countdown.play();
     setTimeout(() => this.clearCountDown(ctx), 750)
 
     setTimeout(() => {
+      this.countdown.pause();
+      this.countdown.load();
+      this.countdown.play();
       ctx.fillText("2", 800, 480);
     }, 1000);
 
     setTimeout(() => this.clearCountDown(ctx), 1750)
 
     setTimeout(() => {
+      this.countdown.pause();
+      this.countdown.load();
+      this.countdown.play();
       ctx.fillText("1", 800, 480);
     }, 2000);
 
     setTimeout(() => this.clearCountDown(ctx), 2750)
 
     setTimeout(() => {
+      this.countdown.pause();
+      this.go.play();
       ctx.fillText("SPACE BALL!", 800, 480);
     }, 3000);
 
