@@ -132,6 +132,13 @@
   color: #000000;
 }
 
+.login-title {
+  text-align: center;
+  font-size: 20px;
+  padding-bottom: 20px;
+  color: #ffe600;
+}
+
 .home-button {
   height: 30px;
   margin-top: -7px;

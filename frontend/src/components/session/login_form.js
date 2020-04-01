@@ -111,7 +111,7 @@ class LoginForm extends React.Component {
         <div className="clouds"></div>
         <NavBarContainer />
         <div className="box form-container-login">
-          <div className="title">Log In to Your Account</div>
+          <div className="login-title">Log In to Your Account</div>
           <form onSubmit={this.handleSubmit}>
             <div className="login-form">
               <input
