@@ -138,13 +138,18 @@
 
 .unavailable {
   background: black;
-  color: #ffe600;
+  color: rgb(255, 230, 0);
   text-align: center;
   font-size: 18px;
-  border-top: 5px solid #fc03a1;
+  border-top: 5px solid rgb(252, 3, 161);
   padding: 20px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  cursor: not-allowed;
+}
+
+.nofunds {
+  opacity: .6;
   cursor: not-allowed;
 }
 

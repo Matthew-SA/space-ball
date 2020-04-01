@@ -18,7 +18,7 @@ const About = () => {
         </div>
         <div className="team-description">
           This evolving passion project utilizes the following technologies: <br /> 
-          MERN stack | Canvas | Matter.js | Socket.io</div>
+          MongDB | Express.js | React.js | Node.js | HTML5 Canvas | Matter.js | Socket.io</div>
         <div className="team">
           <a href="https://www.linkedin.com/in/matthew-andresen-ab8a5b191/" target="_blank" rel="noopener noreferrer">
             <div className="name">

@@ -178,7 +178,7 @@ class Options extends React.Component {
           return (
             <div className="purchase-container">
               <div className="price">$500</div>
-              <div className="nofunds">
+              <div className="default-button nofunds">
                 Insufficient Funds
               </div>
             </div>
