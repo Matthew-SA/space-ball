@@ -77,11 +77,12 @@ class Play extends React.Component {
           </div>
           <div className="instructions">
             <div className="howto">
-              Navigate your ship through space with 'WASD'
+              Navigate your ship through space with 'WASD' or Arrow Keys
               {/* Crush your opponents with your mastery. */}
           </div>
-            <div className="wasd">
+            <div className="move">
               <img src="images/wasd.png" width="130" alt="wasd"></img>
+              <img src="images/arrows.png" width="130" alt="arrows"></img>
             </div>
           </div>
         </div>

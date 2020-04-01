@@ -11,7 +11,7 @@
   background-color: rgba(0, 0, 0, .3);
   color: #fc03a1;
   text-align: center;
-  overflow: scroll;
+  /* overflow: scroll; */
   font-size: 18px;
   line-height: 1.7;
   text-shadow: 0 0 15px #fc03a1;
@@ -39,6 +39,11 @@
 
 .lb-player, .lb-rank, .lb-points, .lb-wins, .lb-losses {
   width: 20%;
+}
+
+.stats-content {
+  width: 100%;
+  /* padding-top: 0px; */
 }
 
 .stats-points, .stats-wins, .stats-losses, .stats-winloss {

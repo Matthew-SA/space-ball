@@ -39,6 +39,11 @@
   transform: translate(-50%, -50%);
 }
 
+.move {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .team-button {
   display: block;
   height: 40px;

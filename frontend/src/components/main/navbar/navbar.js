@@ -12,17 +12,11 @@ class NavBar extends React.Component {
   }
 
   handleClick(e) {
-    // this.setState({
-    //   active: e.target.id
-    // });
     Array.from(document.getElementsByClassName("nav-select")).forEach(el =>
       el.classList.remove("active")
     );
 
     e.target.classList.add("active");
-
-    // const arr = Array.from(document.getElementsByClassName("nav-select"))
-    // console.log(arr)
   }
 
   logoutUser(e) {
@@ -51,9 +45,9 @@ class NavBar extends React.Component {
     return (
       <div className="navbar">
         <div className="nav">
-          <NavLink to="/" activeClassName="activeLink">
+          <NavLink to="/">
             <svg className="nav-select home-button" id="home" 
-              viewBox="0 0 24 24" onClick={this.handleClick}>
+              viewBox="0 0 24 24">
               <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
             </svg>
           </NavLink>

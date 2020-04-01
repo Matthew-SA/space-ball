@@ -16,7 +16,7 @@ Space Ball is an online multiplayer game inspired by Rocket League.  Players com
 ## Technologies
 
 **Backend** <br/> 
-Space Ball uses MongoDB, Express, Node.js as the foundation to its backend.  User accounts and preferences are stored in the MongoDB noSQL database.  All game logic is handled on the backend through Matter.js and transmitted through socket.io web sockets.
+Space Ball uses MongoDB, Express.js, Node.js as the foundation to its backend.  User accounts and preferences are stored in the MongoDB database.  All game logic is handled on the backend through Matter.js and transmitted through socket.io web sockets.
 
 **Frontend** <br/> 
 Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displayed through a custom renderer in Canvas.  Client game data and lobby page information are recieved through socket.io web sockets.
@@ -39,10 +39,50 @@ Space Ball's frontend pages are rendered with React/Redux.  Gameplay is displaye
 
 ### Backend
 #### Database
-  * Stuff about the database here
+  * CRUD functions for user accounts, currency, options, leaderboards/stats, and ball/ship purchases
+  are authenticated using JSON web tokens and Passport.js. Validated requests communicate with MongoDB via 
+  Mongo Shell methods.
+
+    ``` javascript
+    router.patch("/selectship", passport.authenticate("jwt", { session: false }),
+      (req, res) => {
+        Inventory.findOneAndUpdate(
+          { username: req.user.username},
+          { $set: {"gameoptions.ship": req.body.gameoptions} }
+        )
+        .then(selected => {
+          return res.json(selected);
+        })
+        .catch(err => {
+          return res.status(404).json(err);
+        });
+      });
+    ```
+
+  * HTTP requests are made via Axios, which transforms JSON data and supports JavaScript promises
+
+    ``` javascript
+    export const addShip = ship => dispatch => {
+    axios
+      .patch("/api/inventory/addship", { ship: ship })
+      .then(res =>
+        dispatch({
+          type: ADD_SHIP,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: RECEIVE_ERRORS,
+          payload: err
+        })
+      );
+    };
+  ```
   
 #### Server
-  * web sockets listen for and send specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game. 
+  * Web sockets listen for and sends specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game. 
+
     ``` javascript
     socket.on('join-game', data => {
       if (!gameList[data.room]) {

@@ -29,7 +29,7 @@
   cursor: pointer;
 }
 
-.activeLink {
+.active {
   color: #fc03a1;
   fill: #fc03a1;
 }
