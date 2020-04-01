@@ -33,15 +33,19 @@ Input.onKeyDown = function (event) {
     case 13:
       Input.ENTER = true;
       break;
+    case 37:
     case 65:
       Input.LEFT = true;
       break;
+    case 38:
     case 87:
       Input.UP = true;
       break;
+    case 39:
     case 68:
       Input.RIGHT = true;
       break;
+    case 40:
     case 83:
       Input.DOWN = true;
       break;
