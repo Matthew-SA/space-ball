@@ -20,12 +20,13 @@ class ClientHud {
     this.drawScore(this.ctx)
 
     this.countdown = new Audio();
-    this.countdown.src = "/sounds/SE_RC_321.wav"
+    this.countdown.src = "/sounds/SE_RC_321.mp3";
+    this.countdown.volume = 0.5;
     this.go = new Audio();
-    this.go.src = "/sounds/SE_RC_GO.wav"
+    this.go.src = "/sounds/SE_RC_GO.mp3";
+    this.go.volume = 0.5;
     this.goalExplosion = new Audio();
-    this.goalExplosion.src = "/sounds/goal_explosion.wav"
-
+    this.goalExplosion.src = "/sounds/goal_explosion.mp3";
   }
 
   clearScore(ctx) {
