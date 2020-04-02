@@ -46,9 +46,13 @@ class ClientGame {
       this.clearOthers(this.ctx, this.camera.xView, this.camera.yView);
       this.others = data.others.map(options => new Ship(this.ctx, options.user, options.team, options.ship))
     })
-    this.socket.on('gameState', (data) => {
+    this.socket.on('gameState', data => {
       this.cycleAll(data)
     });
+    this.socket.on('collision', data => {
+      this.makeCollisionSound(data);
+    });
+    this.initializeSounds();
     this.gameLoop();
   }
 
@@ -113,6 +117,59 @@ class ClientGame {
   drawOthers(ctx, xView, yView) {
     for (let i = 0; i < this.others.length; i++){
       this.others[i].draw(ctx, xView, yView)
+    }
+  }
+
+  pauseAllSounds() {
+    const sounds = document.getElementsByTagName('audio');
+    for (let i = 0; i < sounds.length; i++) sounds[i].pause();
+  }
+
+  initializeSounds() {
+    this.ballBounces = [];
+
+    this.bonk1 = new Audio();
+    this.bonk1.src = '/sounds/bonk_1.mp3';
+    this.ballBounces.push(this.bonk1);
+    this.bonk2 = new Audio();
+    this.bonk2.src = '/sounds/bonk_2.mp3';
+    this.ballBounces.push(this.bonk2);
+    this.bonk3 = new Audio();
+    this.bonk3.src = '/sounds/bonk_3.mp3';
+    this.ballBounces.push(this.bonk3);
+    this.bonk1 = new Audio();
+    this.bonk1.src = '/sounds/bonk_1.mp3';
+    this.ballBounces.push(this.bonk1);
+
+    this.shipBounce = new Audio();
+    this.shipBounce.src = '/sounds/ship_bounce.mp3';
+  }
+
+  getRandomBallSound() {
+    return this.ballBounces[Math.floor((Math.random() * this.ballBounces.length))];
+  }
+
+  makeCollisionSound(data) {
+    this.pauseAllSounds();
+    const ballSound = this.getRandomBallSound();
+
+    switch (data.type) {
+      case 'ship-ball':
+        ballSound.load();
+        ballSound.play();
+        break;
+      case 'ship-ship':
+        this.shipBounce.load();
+        this.shipBounce.play();
+        break;
+      case 'ship-wall':
+        this.shipBounce.load();
+        this.shipBounce.play();
+        break;
+      case 'ball-wall':
+        ballSound.load();
+        ballSound.play();
+        break;
     }
   }
 }
