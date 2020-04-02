@@ -12,12 +12,8 @@
 
 .customize-panel {
   width: 90%;
-  margin: 20px auto;
-  border-radius: 10px;
-  border: 5px solid #fc03a1;
-  background-color: #ffe600;
   color: #fc03a1;
-  opacity: .9;
+  padding-bottom: 0px;
 }
 
 .customize-title{
@@ -26,16 +22,22 @@
   padding-top: 20px;
 }
 
+.shop-container {
+  width: 100%;
+  
+}
+
 .currency {
   font-size: 28px;
   text-align: center;
-  color: black;
-  padding-top: 30px;
+  color: #ffe600;
+  padding-top: 40px;
 }
 
 .select-customization{
+  width: 100%;
   display: flex;
-  background: black;
+  background: #ffe600;
   font-size: 22px;
   margin-top: 20px;
 }
@@ -111,7 +113,7 @@
   font-size: 18px;
   background: #fc03a1;
   border-top: 5px solid #fc03a1;
-  padding: 20px;
+  padding: 15px;
   letter-spacing: 5px;
   font-weight: 700;
   cursor: default;
@@ -123,7 +125,7 @@
   text-align: center;
   font-size: 18px;
   border-top: 5px solid #fc03a1;
-  padding: 20px;
+  padding: 15px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   cursor: pointer;
@@ -138,11 +140,11 @@
 
 .unavailable {
   background: black;
-  color: rgb(255, 230, 0);
+  color: #ffe600;
   text-align: center;
   font-size: 18px;
-  border-top: 5px solid rgb(252, 3, 161);
-  padding: 20px;
+  border-top: 5px solid #fc03a1;
+  padding: 15px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   cursor: not-allowed;
@@ -171,18 +173,6 @@
   color: #fc03a1;
 }
 
-.default-button {
-  width: 150px;
-  color: #fc03a1;
-  background: #ffe600;
-  border: 2px solid #fc03a1;
-  border-radius: 5px;
-  margin: auto;
-  padding: 9px 0px 7px 0px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .buy-button {
   width: 100px;
   color: #fc03a1;
@@ -203,10 +193,10 @@
   border: 2px solid #ffe600;
 }
 
-.no-money {
+/* .no-money {
   background: black;
   width: 100%;
-}
+} */
 
 .price {
   font-size: 30px;
