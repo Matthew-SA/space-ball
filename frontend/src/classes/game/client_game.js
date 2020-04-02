@@ -137,9 +137,9 @@ class ClientGame {
     this.bonk3 = new Audio();
     this.bonk3.src = '/sounds/bonk_3.mp3';
     this.ballBounces.push(this.bonk3);
-    this.bonk1 = new Audio();
-    this.bonk1.src = '/sounds/bonk_1.mp3';
-    this.ballBounces.push(this.bonk1);
+    this.bonk4 = new Audio();
+    this.bonk4.src = '/sounds/bonk_4.mp3';
+    this.ballBounces.push(this.bonk4);
 
     this.shipBounce = new Audio();
     this.shipBounce.src = '/sounds/ship_bounce.mp3';
