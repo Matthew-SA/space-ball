@@ -170,6 +170,8 @@ class ClientGame {
         ballSound.load();
         ballSound.play();
         break;
+      default:
+        break;
     }
   }
 }

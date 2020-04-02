@@ -3,8 +3,17 @@ class ClientHud {
     this.hud = document.getElementById('hud-canvas');
     this.ctx = this.hud.getContext("2d");
 
+    this.countdown = new Audio();
+    this.countdown.src = "/sounds/SE_RC_321.mp3";
+    this.countdown.volume = 0.5;
+    this.go = new Audio();
+    this.go.src = "/sounds/SE_RC_GO.mp3";
+    this.go.volume = 0.5;
+    this.goalExplosion = new Audio();
+    this.goalExplosion.src = "/sounds/goal_explosion.mp3";
+
     this.socket = socket;
-    this.score = { LEFT: 0, RIGHT: 0 };
+    this.score = { RED: 0, BLUE: 0 };
 
 
     this.socket.on('updateScore', data => {
@@ -17,16 +26,8 @@ class ClientHud {
       this.gameover(this.ctx, data)
     })
 
-    this.drawScore(this.ctx)
-
-    this.countdown = new Audio();
-    this.countdown.src = "/sounds/SE_RC_321.mp3";
-    this.countdown.volume = 0.5;
-    this.go = new Audio();
-    this.go.src = "/sounds/SE_RC_GO.mp3";
-    this.go.volume = 0.5;
-    this.goalExplosion = new Audio();
-    this.goalExplosion.src = "/sounds/goal_explosion.mp3";
+    this.drawScore(this.ctx);
+    this.drawCountdown(this.ctx);
   }
 
   clearScore(ctx) {
@@ -41,7 +42,7 @@ class ClientHud {
     let flashGoal = setInterval(() => this.drawGoal(this.ctx), 200)
     setTimeout(() => clearInterval(flashGoal), 2000)
     this.score = score
-    if(this.score.LEFT < 5 && this.score.RIGHT < 5){
+    if(this.score.RED < 5 && this.score.BLUE < 5){
       setTimeout(() => {
         this.drawCountdown(this.ctx);
       }, 3000);
@@ -52,7 +53,7 @@ class ClientHud {
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "40pt Audiowide";
     ctx.textAlign = "center";
-    ctx.fillText(this.score.LEFT + "   |   " + this.score.RIGHT, 800, 90);
+    ctx.fillText(this.score.RED + "   |   " + this.score.BLUE, 800, 90);
   }
 
   clearGoal(ctx) {
@@ -120,7 +121,7 @@ class ClientHud {
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "40pt Audiowide";
     ctx.textAlign = "center";
-    ctx.fillText(this.winner + " wins!", 800, 500);
+    ctx.fillText(this.winner + " TEAM WINS!", 800, 500);
 
     ctx.font = "20pt Audiowide";
     ctx.fillText("press enter to return to lobby", 800, 600);
