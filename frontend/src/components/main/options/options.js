@@ -244,7 +244,7 @@ class Options extends React.Component {
         <div className="clouds"></div>
         <NavBarContainer />
         <div className="options-container">
-          <div className="customize-panel">
+          <div className="box customize-panel">
             <div className="customize-title">Game Options</div>
             <div className="select-customization">
               <div className="customize active" id="ship"
@@ -256,7 +256,7 @@ class Options extends React.Component {
                 Ball
             </div>
             </div>
-            <div>{this.leftViewPort()}</div>
+            <div className="shop-container">{this.leftViewPort()}</div>
           </div>
           <div className="picture-container">
             {this.rightViewPort()}
