@@ -219,6 +219,39 @@
   margin-left: -163px;
 }
 
+/* .cratercon {
+  content: " ";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 250px;
+}
+
+.craters {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(40,500,#e1e3e5,#e1e3e5);
+}
+
+.craters:after {
+  content: " ";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(20,500, #e1e3e5, #e1e3e5);
+}
+
+.craters:before {
+  content: " ";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(20,500, #e1e3e5, #e1e3e5);
+} */
+
 @keyframes rotate {
   from {
     transform: rotate(0deg) translate(-180px) rotate(0deg);
