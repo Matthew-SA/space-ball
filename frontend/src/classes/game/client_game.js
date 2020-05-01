@@ -26,7 +26,7 @@ class ClientGame {
 
     this.ball = new Ball();
     this.self = new Ship(this.ctx, this.user, team, this.gameoptions.ship);
-    this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800)
+    this.camera = new ClientCamera(0,0, 1600, 900, 3800, 1800);
     this.camera.follow(this.self,800,450)
     this.boosters = new Booster();
     this.shipAngle = 0;
