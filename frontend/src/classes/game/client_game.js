@@ -6,6 +6,7 @@ import ClientArena from "./client_arena"
 import ClientCamera from "./client_camera"
 import Booster from "./entities/booster";
 import Input from './Input';
+
 class ClientGame {
   constructor(socket, room, user, team, gameoptions) {
     this.socket = socket;
@@ -49,9 +50,9 @@ class ClientGame {
     this.socket.on('gameState', data => {
       this.cycleAll(data);
     });
-    this.socket.on('collision', data => {
-      this.makeCollisionSound(data);
-    });
+    // this.socket.on('collision', data => {
+    //   this.makeCollisionSound(data);
+    // });
     this.initializeSounds();
     this.gameLoop();
   }
