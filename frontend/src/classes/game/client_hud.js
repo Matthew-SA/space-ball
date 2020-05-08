@@ -17,13 +17,13 @@ class ClientHud {
 
 
     this.socket.on('updateScore', data => {
-      this.clearScore(this.ctx)
-      this.updateScore(data)
-      this.drawScore(this.ctx)
+      this.clearScore(this.ctx);
+      this.updateScore(data);
+      this.drawScore(this.ctx);
     })
 
     this.socket.on('gameover', data => {
-      this.gameover(this.ctx, data)
+      this.gameover(this.ctx, data);
     })
 
     this.drawScore(this.ctx);
@@ -112,7 +112,7 @@ class ClientHud {
   gameover(ctx, data) {
     this.winner = data;
     ctx.clearRect(0, 0, 1600, 900);
-    this.drawScore(ctx)
+    this.drawScore(ctx);
     ctx.fillStyle = "#FFFFFF"
     ctx.font = "80px Faster One";
     ctx.textAlign = "center";
@@ -127,7 +127,7 @@ class ClientHud {
     ctx.fillText("press enter to return to lobby", 800, 600);
 
     document.addEventListener('keydown', e => {
-      if (e.keyCode === 13 && this.winner) window.location.href = "/"
+      if (e.keyCode === 13 && this.winner) window.location.href = "/";
     })
   }
 }

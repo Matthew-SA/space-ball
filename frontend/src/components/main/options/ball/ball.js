@@ -59,7 +59,7 @@ class Ball extends React.Component {
 
   render() {
     return (
-      <div className="shop-container">
+      <div>
         <div className="currency">My Funds: ${this.props.inventory.currency}</div>
         <div className="title">Choose a Ball Type</div>
         <div className="ball-options">

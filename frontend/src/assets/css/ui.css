@@ -9,7 +9,6 @@
   margin: 0;
   padding: 0;
   font-family: 'Josefin Sans', sans-serif;
-  /* overflow: scroll; */
 }
 
 .box {
@@ -34,6 +33,25 @@
     0% {opacity: 0;} 
     100% {opacity: 1;} 
 } 
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 20px;
+  color: #ffe600;
+}
+
+.default-button {
+  width: 150px;
+  color: #fc03a1;
+  background: #ffe600;
+  border: 2px solid #fc03a1;
+  border-radius: 5px;
+  margin: auto;
+  padding: 9px 0px 7px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 .button {
   font-family: 'Josefin Sans', sans-serif;
@@ -200,6 +218,39 @@
   left: 51%;
   margin-left: -163px;
 }
+
+/* .cratercon {
+  content: " ";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 250px;
+}
+
+.craters {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(40,500,#e1e3e5,#e1e3e5);
+}
+
+.craters:after {
+  content: " ";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(20,500, #e1e3e5, #e1e3e5);
+}
+
+.craters:before {
+  content: " ";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  box-shadow: multiple-box-shadow(20,500, #e1e3e5, #e1e3e5);
+} */
 
 @keyframes rotate {
   from {
