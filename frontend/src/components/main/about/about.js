@@ -20,7 +20,7 @@ const About = () => {
           This evolving passion project utilizes the following technologies: <br /> 
           MongDB | Express.js | React.js | Node.js | HTML5 Canvas | Matter.js | Socket.io</div>
         <div className="team">
-          <a href="https://www.linkedin.com/in/matthew-andresen-ab8a5b191/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/matthew-andresen/" target="_blank" rel="noopener noreferrer">
             <div className="name">
               <img className="profile" src="images/matt.jpeg" alt="matt"></img>
               <br />Matthew Andreson
