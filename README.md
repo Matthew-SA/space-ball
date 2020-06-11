@@ -80,7 +80,7 @@ Mongo Shell methods.
 * Real time gameplay - Up to 6 players per game receive game state updates 60 times per second.
 <br/> 
 
-* Web sockets listen for and sends specific information to specific clients.  Clients in the lobby will only receive game listings.  Clients in games will only receive information related to their game. 
+* Web sockets listen for and sends specific information to specific clients.  Clients in the lobby will only receive game listings.  Game rooms will only receive information related to their current game.  Cleints will only receive information specific to their point of view.
 <img width="1000" alt="Screen Shot 2020-03-30 at 9 24 08 PM" src="https://user-images.githubusercontent.com/47997709/77987003-7b41e680-72cd-11ea-8e27-c4d42db9d0aa.png">
 
   ``` javascript
