@@ -1,5 +1,5 @@
 # Space Ball
-[Space Ball live link!](https://space-ball.herokuapp.com/#/)<br/><br/> 
+[Space Ball live link!](https://space-ball.onrender.com/)<br/><br/> 
 ![b0WuTtD](https://user-images.githubusercontent.com/47997709/78061865-b4686e00-7342-11ea-9f98-909f7f1fbf55.gif)
 
 ## Table of Contents
